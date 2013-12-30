@@ -1,7 +1,7 @@
 # WE
 #### A CMS for Social Networks written in Node.js.
 
-In progress, please check the [development](https://github.com/we-cms/we/tree/development) branch.
+Unstable version.
 
 
 ## Authors
