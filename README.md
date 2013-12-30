@@ -1,4 +1,4 @@
-# WE
+# WE [![Build Status](https://travis-ci.org/we-cms/we.png?branch=master)](https://travis-ci.org/we-cms/we)
 #### A CMS for Social Networks written in Node.js.
 
 Unstable version.
