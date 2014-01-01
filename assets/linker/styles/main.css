@@ -1,0 +1,14 @@
+/*!
+ * We CMS v0.0.0 (https://github.com/we-cms/we)
+ * Copyright 2013-2014 WE CMS
+ * Licensed under MIT (https://github.com/we-cms/we/blob/master/LICENSE)
+ *
+ * Note: use this file only to import a theme of we-components
+ */
+
+
+/* Default Theme */
+@import url("/bower_components/we-components/dist/stylesheets/themes/default.theme.min.css");
+
+/* Social Theme */
+/*@import url("/bower_components/we-components/dist/stylesheets/themes/social.theme.min.css");*/
