@@ -1,0 +1,22 @@
+{
+  "name": "We CMS",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests",
+    "assets/bower_components"
+  ],
+  "dependencies": {
+    "we-components": "~0.0.12"
+  },
+  "license": "MIT",
+  "authors": [
+    "Alberto Souza <alberto.souza.99@gmail.com>",
+    "Daniel Torres <daniel@updigital.me>"
+  ],
+  "private": true
+}
