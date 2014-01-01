@@ -18,8 +18,12 @@
 
       You can link any CSS, LESS, or image files in your `assets` directory
       as you would normally: using <link/> tags.
-      
+    
     -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/main.css">
+    <!--STYLES END-->
 
     <!--
 
@@ -36,10 +40,13 @@
   </head>
 
   <body>
+    <main role="main" class="default-theme">
+      <!-- navbar -->
+      <%- include ../partials/navbar.ejs %>
+      <!-- /navbar -->
 
-    <!-- Include the view file for the current controller/route -->
-    <%- body %>
-
+      <%- body %>
+    </main>
 
     <!--
 
