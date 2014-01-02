@@ -1,6 +1,5 @@
 {
   "name": "we",
-  "private": true,
   "version": "0.0.3",
   "description": "A CMS for Social Networks written in Node.js.",
   "dependencies": {
