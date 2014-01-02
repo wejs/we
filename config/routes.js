@@ -34,6 +34,154 @@ module.exports.routes = {
   // (This would also work if you had a file at: `/views/home.ejs`)
   '/': {
     view: 'home/index'
+  },
+
+  'get /signup': {
+    controller: 'users',
+    action: 'signup'
+    //view: 'users/signup'
+  },
+
+  'post /signup': {
+    controller: 'users',
+    action: 'create'
+    //view: 'users/signup'
+  },
+
+  'get /dashboard': {
+       controller: 'main',
+       action: 'dashboard'
+  },
+
+  'get /links' : {
+       controller: 'links',
+       action: 'index'
+  },
+
+  'get /templates/:id?.ejs' : {
+       controller: 'template',
+       action: 'ejs'
+  },
+  /*
+  'get /templates/:id?.html' : {
+       controller: 'template',
+       action: 'find'
+  },
+
+  'get /templates/:action/:id?.html' : {
+       controller: 'template',
+       action: 'find'
+  },
+  */
+  // Standard RESTful routing
+
+  // If no id is given, an array of all users will be returned
+  'get /users/:uid/messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'index'
+  },
+  'post /users/:uid/messenger': {
+      controller    : 'messenger',
+      action        : 'create'
+  },
+  'put /users/:uid/messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'update'
+  },
+  'delete /users/:uid/messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'destroy'
+  },
+
+  'get /users/current': {
+    controller    : 'users',
+    action        : 'current'
+  },
+
+  // User Auth
+  'post /users/login': {
+    controller    : 'users',
+    action        : 'login'
+  },
+
+  'get /users/logout': {
+    controller    : 'users',
+    action        : 'logout'
+  },
+
+  'post /users/logout': {
+    controller    : 'users',
+    action        : 'logout'
+  },
+
+  // form to get one time login email
+  'get /user/forgot_password': {
+    controller    : 'users',
+    action        : 'forgotPasswordForm'
+  },
+
+  // get logged in user avatar
+  'get /user/avatar/:id': {
+    controller    : 'users',
+    action        : 'getAvatar'
+  },
+
+  'post /user/avatar': {
+    controller    : 'users',
+    action        : 'changeAvatar'
+  },
+
+  'get /images/': {
+    controller    : 'images',
+    action        : 'find'
+  },
+
+  //  -- MESSENGER
+
+  'get /messenger/start': {
+      controller    : 'messenger',
+      action        : 'start'
+  },
+
+  // -- ACTIVITIES
+  'post /activity': {
+    controller    : 'activity',
+    action        : 'create'
+  },
+
+
+  // -- FILES
+
+  'get /files': {
+      controller    : 'files',
+      action        : 'index'
+  },
+
+  'post /files': {
+      controller    : 'files',
+      action        : 'create'
+  },
+
+  // -- ADMIN
+  'get /admin/roles': {
+      controller    : 'roles',
+      action        : 'index'
+  },
+
+  'post /admin/roles': {
+      controller    : 'roles',
+      action        : 'create'
+  },
+  
+  'put /admin/roles/:id': {
+      controller    : 'roles',
+      action        : 'update'
+  },
+
+
+  'delete /admin/roles/:id': {
+      controller    : 'roles',
+      action        : 'delete'
   }
 
   /*
