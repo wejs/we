@@ -134,9 +134,20 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
 
+  grunt.loadTasks('node_modules/grunt-bower-requirejs/tasks');
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    bower: {
+      target: {
+        rjsConfig: 'assets/angularjs/main.js',
+        options: {
+          exclude: ['blueimp-canvas-to-blob']
+        }
+      }
+    },
 
     copy: {
       dev: {
@@ -416,6 +427,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'compileAssets',
     'linkAssets',
+    'bower',    
     'watch'
   ]);
 

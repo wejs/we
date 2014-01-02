@@ -1,0 +1,8 @@
+<div masonry="{ transitionDuration: 0 }" id="dynamic-grid-container" class="row activities ">
+  <div class="sharebox-area masonry-brick  content-block">
+    <div data-ng-include="'/angularjs/activity/views/sharebox.html'"></div>
+  </div>
+  <div data-ng-repeat="activity in activities" class="masonry-brick content-block activity">
+    <div data-ng-include="'/angularjs/activity/views/activity-teaser.html'"></div>
+  </div>
+</div>

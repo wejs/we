@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h1 class="user-name">{{user.name}}</h1>
+</div>
+<div class="modal-body">
+  <div class="user-full">
+  <div class="user-area-data row">
+    <div class="user-area-data-left col-md-4" >
+      <span data-avatar-size="medium" avatar="user.id"></span>
+    </div>
+    <div class="user-area-data-rigth col-md-6">
+      <div class="user-bio">
+        Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.
+
+        Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque neque et turpis posuere pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, non scelerisque augue. Aenean justo massa.
+
+      </div>
+    </div>   
+  </div>
+
+  <div class="user-area-seccond-row row">
+    <div class="user-area-sidebar col-md-3">
+      adicionar os blocos aqui ...
+    </div>
+    <div class="user-area-activities col-md-7">
+    <h3>Time line</h3>
+    .... adicionar as atividades do usuário atual aqui ...
+    </div>
+  </div>
+    
+    <div class="content">
+      <div class="user-bio-text">{{user.bio}}</div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+    <div class="footer ng-scope">
+        <div class="actions">
+            <span class="social pull-left">
+              <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
+                    <span class="glyphicon glyphicon-plus"></span> Add in contacts
+              </button>
+              <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
+                    <span class="glyphicon glyphicon-plus"></span> Follow
+              </button>              
+            </span>
+
+            <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
+              <span class="glyphicon glyphicon-edit"></span> Edit
+            </button>
+            <button class="btn btn-xs btn-danger" data-ng-click="delete($index,$event)">
+              <span class="glyphicon glyphicon-remove"></span> Delete
+            </button>
+        </div>
+    </div>
+</div>

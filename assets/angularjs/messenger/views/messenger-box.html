@@ -1,0 +1,33 @@
+<div data-ng-show="contact.messengerBox.show" class="messenger-column">
+  <div class="messenger-chat-area">
+    <div class="contact-chat">
+      <div data-ng-click="messengerBoxToggle(contact.id)" class="header">
+        <span class="contact-name">{{contact.name}}</span>
+
+      </div>
+      <div class="actions">
+        <button data-ng-click="messengerBoxClose(contact.id)" type="button" class="remove btn btn-danger btn-xs pull-right">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      <div scrollBottom id="messengerBox-{{contact.id}}" data-ng-show="contact.messengerBox.opened" class="messages">
+        <div data-ng-repeat="message in contact.messages" class="contact">
+          <span data-ng-show="message.fromId == user.id" avatar="user.id"></span>
+          <span data-ng-show="message.fromId != user.id" avatar="contact.id"></span>
+          <span class="message">{{message.content}}</span>
+        </div>
+      </div>
+      <div data-ng-show="contact.messengerBox.opened" class="footer">
+        <form data-ng-submit="send(contact.newMessage, contact.id, $event)" action="/messenger/send" method="post">
+          <div class="input-group">
+            <input data-ng-model="contact.newMessage" type="text" name="newMessage" value="">
+            <input data-ng-model="contact.id" type="hidden" name="toId" value="{{contact.id}}">
+            <span class="input-group-btn">
+              <button class="btn btn-xs btn-default" type="button">Send</button>
+            </span>
+          </div><!-- /input-group -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

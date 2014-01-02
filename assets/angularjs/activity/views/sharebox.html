@@ -1,0 +1,26 @@
+<form action="/activity" method="POST" data-ng-submit="submit($event,activity)" class="sharebox ng-scope ng-pristine ng-valid">
+
+  <div class="form-group">
+      <label for="Post_content">What is happening?</label>
+      <textarea name="content" class="form-control post-content ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="activity.content"></textarea>
+  </div>
+
+  <div class="attach-options">
+    <span><a class="btn btn-xs btn-default"><i class="icon-picture"></i> Images</a></span>
+    <span><a class="btn btn-xs btn-default"><i class="icon-bookmark"></i> Link</a></span>
+  </div>
+
+  <div data-ng-show="sharebox.open" class="footer" style="display: block;">
+
+    <div class="form-group">
+      <input name="toIds" class="form-control" type="text" value="">
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> Share
+      </button>
+      <button type="button" data-ng-click="closeSharebox()" class="btn btn-default cancel">Cancel</button>
+    </div>
+  </div>
+</form>

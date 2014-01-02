@@ -1,0 +1,42 @@
+<div class="col-lg-6">
+  <h2 class="form-signin-heading">Create a account</h2>
+  <form data-ng-controller="CreateAccountCtrl" data-ng-submit="submit($event)" name="createAccountForm" class="create-account-form" method="post">
+    <span class="error alert alert-dismissable" data-ng-show="createAccountForm.input.$error.required">Required!</span><br>
+
+    <li ng-repeat="errors in error">
+        <div data-ng-show="error != ''" class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <span class="data">{{error}}</span>
+        </div>
+    </li>
+
+    <div class="form-group">
+      <div class="input-group input-group-lg">
+        <label for="name">Name</label>
+        <input data-ng-model="user.name" id="name" type="text" class="form-control" placeholder="Name" autofocus="" name="name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group input-group-lg">
+        <label for="email">Email</label>
+        <input data-ng-model="user.email" id="email" type="email" class="form-control" placeholder="Email address" name="email" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group input-group-lg">
+        <label for="password">Password</label>
+        <input data-ng-model="user.password" id="password" type="password" class="form-control" placeholder="Password" name="password" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group input-group-lg">
+        <label for="confirm-password">Confirm password</label>
+        <input data-ng-model="user.confirmPassword" id="confirm-password" type="password" class="form-control" placeholder="Confirm password" name="confirmPassword" required>
+      </div>
+    </div>
+      <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in">
+  </form>
+</div>
+<div class="col-lg-6">
+
+</div>
