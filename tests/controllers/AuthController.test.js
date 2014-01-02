@@ -58,7 +58,7 @@ describe('AuthController', function() {
 
       });
 
-      it('/users/login shold return 401 with wrong password message',function (done) {
+      it('/users/login should return 401 with wrong password message',function (done) {
         var user  = UserStub();
         var authParams = {
           email: user.email,
@@ -87,6 +87,146 @@ describe('AuthController', function() {
         });
 
       });
+
+      it('/signup when confirmPassword is diferent than password return 400 with error message',function (done) {
+        var user  = UserStub();
+
+        user.confirmPassword = 'a diferent password';
+  
+        request(sails.express.app)
+        .post('/signup')
+        .set('Accept', 'application/json')
+
+        //.set('X-CSRF-Token', testCsrfToken)
+        .send( user )
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end(function (err, res) {         
+          if(err) return done(err);
+          // TODO add suport for server messages
+          should.not.exist(res.body.email);
+          should.not.exist(res.body.responseMessage.success);
+          should.exist(res.body.responseMessage.errors);
+          res.body.responseMessage.errors.should.include('<strong>New password</strong> and <strong>Confirm new password</strong> are different');
+
+          done();
+        });
+
+      });
+
+      it('/signup when dont have password return 400 with error message',function (done) {
+        var user  = UserStub();
+
+        delete(user.password);
+  
+        request(sails.express.app)
+        .post('/signup')
+        .set('Accept', 'application/json')
+
+        //.set('X-CSRF-Token', testCsrfToken)
+        .send( user )
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end(function (err, res) {         
+          if(err) return done(err);
+          // TODO add suport for server messages
+          should.not.exist(res.body.email);
+          should.not.exist(res.body.responseMessage.success);
+          should.exist(res.body.responseMessage.errors);
+          res.body.responseMessage.errors.should.include('Field <strong>password</strong> is required');
+          res.body.responseMessage.errors.should.include('Field <strong>Confirm new password</strong> is required');
+
+          done();
+        });
+
+      });
+
+      it('/signup when email has a wrong format 400 with error message',function (done) {
+        var user  = UserStub();
+
+        user.email = 'a wrong email';
+        user.confirmPassword = user.password;
+  
+        request(sails.express.app)
+        .post('/signup')
+        .set('Accept', 'application/json')
+
+        //.set('X-CSRF-Token', testCsrfToken)
+        .send( user )
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end(function (err, res) {         
+          if(err) return done(err);
+
+          // TODO add suport for server messages
+          should.not.exist(res.body.email);
+          should.not.exist(res.body.responseMessage.success);
+          should.exist(res.body.responseMessage.errors);
+          res.body.responseMessage.errors.should.include('Validation error: "a wrong email" is not of type "email"');
+
+          done();
+        });
+
+      });
+
+      it('/signup should return 400 if email is already registered with error message',function (done) {
+        
+        var user = UserStub();
+        user.confirmPassword = user.password;
+        var salvedUser = sails.util.clone(user);
+
+        Users.create(salvedUser, function(err, userCreated){
+          if(err) return done(err);
+
+          request(sails.express.app)
+          .post('/signup')
+          .set('Accept', 'application/json')
+
+          //.set('X-CSRF-Token', testCsrfToken)
+          .send( user )
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {         
+            if(err) return done(err);
+
+            // TODO add suport for server messages
+            should.not.exist(res.body.user);
+            should.not.exist(res.body.responseMessage.success);
+            should.exist(res.body.responseMessage.errors);
+            // TODO handle tests with translations
+
+            done();
+          });
+        });
+      });
+
+     it('/signup should create a user with correct data, return 201, new user object and success message',function (done) {
+        var user  = UserStub();
+
+        user.confirmPassword = user.password;
+  
+        request(sails.express.app)
+        .post('/signup')
+        .set('Accept', 'application/json')
+
+        //.set('X-CSRF-Token', testCsrfToken)
+        .send( user )
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(function (err, res) {         
+          if(err) return done(err);
+
+          // TODO add suport for server messages
+          should.exist(res.body.user.id);
+          should.not.exist(res.body.responseMessage.errors);
+          should.exist(res.body.responseMessage.success);
+          res.body.user.should.have.property('email', user.email);
+          res.body.responseMessage.success.should.include('User successfully registered');
+
+          done();
+        });
+
+      });      
 
       it('/users/logout should logout a user and return 200');
 

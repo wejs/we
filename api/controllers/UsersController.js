@@ -66,7 +66,7 @@ module.exports = {
                           res.send(usr);
                         });
 
-                      })(req, res, next)
+                      })(req, res, next);
 
                   } else {
                       res.send(400, { error: res.i18n("Wrong Password") });
@@ -97,27 +97,68 @@ module.exports = {
 
     if( errors.length >0 ){
       // error on data or confirm password
-      res.send({
-        errors: errors
+      res.send('400',{
+        responseMessage: {
+          errors: errors
+        }
       });
     } else {
 
       Users.findOneByEmail(user.email).done(function(err, usr){
         if (err) {
-            res.send(500, { error: res.i18n("DB Error") });
+            return res.send(500, { error: res.i18n("DB Error") });
         } else if ( usr ) {
-            res.send(400, {error: res.i18n("Email already Taken")});
+            return res.send(400, {
+              responseMessage: {
+                errors: [
+                  res.i18n("Email already Taken")
+                ]
+              }
+            });
         } else {
             Users.create(user).done(function(error, newUser) {
               if (error) {
-                console.error(error);
-                res.send(500, {error: res.i18n("DB Error") });
+
+                if(error.ValidationError){
+
+                  // wrong email format
+                  if(error.ValidationError.email){
+
+                    var errors = [];
+                    var errorsLength = error.ValidationError.email.length;
+                    errorsLength--;
+
+                    error.ValidationError.email.forEach( function(err, index){
+                      errors.push(err.message);
+
+                      if( errorsLength === index){
+                        return res.send(400,{
+                          responseMessage: {
+                            errors: errors
+                          }
+                        });
+                      }
+                    });
+
+                  }
+
+                }else {
+                  return res.send(500, {error: res.i18n("DB Error") });
+                }
+
+               
+                
               } else {
                 req.logIn(newUser, function(err){
                   if(err) return next(err);
 
-                  res.send({
-                    user: newUser
+                  res.send('201',{
+                    user: newUser,
+                    responseMessage: {
+                      success: [
+                        'User successfully registered'
+                      ]
+                    }
                   });
                 });
 
@@ -291,4 +332,4 @@ var validSignup = function(user, confirmPassword){
   }
 
   return errors;
-}
+};
