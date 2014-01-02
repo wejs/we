@@ -2,7 +2,7 @@
   "name": "we",
   "private": true,
   "version": "0.0.3",
-  "description": "a Sails application",
+  "description": "A CMS for Social Networks written in Node.js.",
   "dependencies": {
     "sails": "0.9.8",
     "grunt": "0.4.1",
