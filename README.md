@@ -1,7 +1,8 @@
 # WE [![Build Status](https://travis-ci.org/we-cms/we.png?branch=master)](https://travis-ci.org/we-cms/we)
 #### A CMS for Social Networks written in Node.js.
 
-Unstable version.
+In progress, please check the [releases](https://github.com/we-cms/we/releases).
+Have a question or found a fix? Please submit a [issue](https://github.com/we-cms/we/issues).
 
 
 ## Authors
