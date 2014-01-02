@@ -24,6 +24,9 @@
         </label>
         <input data-ng-model="user.email" id="email" type="email" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required ng-valid-email" placeholder="Your email" name="email" required="">
       </div>
+      <div class="message" data-ng-repeat="message in user.email.messages">
+        <div class="message.type">{{message.message}}</div>
+      </div>
     </div>
     <!-- /input: email -->
     
@@ -51,7 +54,12 @@
       <i class="glyphicon glyphicon-chevron-right"> </i>
     </button>
     <!-- /button -->
+
+    <div class="message" data-ng-repeat="message in messages">
+      <div class="message.type">{{message.message}}</div>
+    </div>
   </form>
+
 
   <div class="agree-terms">
     By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.

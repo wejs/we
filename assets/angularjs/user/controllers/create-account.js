@@ -14,6 +14,7 @@
 
         $scope.user = {};
         $scope.errors = {};
+        $scope.messages = ['oi mundo'];
 
         $scope.submit = function(event) {
           event.preventDefault();
@@ -28,20 +29,22 @@
                 'confirmPassword': $scope.user.confirmPassword
               }
             }).success(function(data, status, headers, cfg) {
-              if(status = 200){
+              if(status == 201){
                 // good, redirect
-                $window.location.href = '/dashboard';
+                $window.location.href = '/';
               } else {
                 console.log(data);
-                $scope.errors.push(data.error);
-                // error
+                console.log(status);
               }
-              console.log(data);
-              console.log(status);
 
             }).error(function(data, status, headers, cfg) {
-              console.log(data);
-              console.log(status);
+              if(status == 400){
+                $scope.messages = data.responseMessage.errors;
+              } else {
+                console.log(data);
+                console.log(status);
+              }
+                              
             });
         };
       }

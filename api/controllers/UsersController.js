@@ -93,7 +93,7 @@ module.exports = {
     var confirmPassword = req.param("confirmPassword");
     var errors;
 
-    errors = validSignup(user, confirmPassword);
+    errors = validSignup(user, confirmPassword, res);
 
     if( errors.length >0 ){
       // error on data or confirm password
@@ -111,7 +111,11 @@ module.exports = {
             return res.send(400, {
               responseMessage: {
                 errors: [
-                  res.i18n("Email already Taken")
+                  { 
+                    field: 'email',
+                    type: 'validation',
+                    message: res.i18n("Email already Taken")
+                  }
                 ]
               }
             });
@@ -129,7 +133,11 @@ module.exports = {
                     errorsLength--;
 
                     error.ValidationError.email.forEach( function(err, index){
-                      errors.push(err.message);
+                      
+                      err.field = 'email';
+                      err['type'] = 'validation';
+                      err.message = res.i18n(err.message);
+                      errors.push(err);
 
                       if( errorsLength === index){
                         return res.send(400,{
@@ -312,23 +320,39 @@ module.exports = {
   }
 };
 
-var validSignup = function(user, confirmPassword){
+var validSignup = function(user, confirmPassword, res){
   var errors = [];
 
   if(!user.email){
-    errors.push("Field <strong>email</strong> is required");
+    errors.push({
+      type: 'validation',
+      field: 'email',
+      message: res.i18n("Field <strong>email</strong> is required")
+    });
   }
 
   if(!user.password){
-    errors.push("Field <strong>password</strong> is required");
+    errors.push({
+      type: 'validation',
+      field: 'password',
+      message: res.i18n("Field <strong>password</strong> is required")
+    });
   }
 
   if(!confirmPassword){
-    errors.push("Field <strong>Confirm new password</strong> is required");
+    errors.push({
+      type: 'validation',
+      field: 'confirmPassword',
+      message: res.i18n("Field <strong>Confirm new password</strong> is required")
+    });
   }
 
   if(confirmPassword != user.password){
-    errors.push("<strong>New password</strong> and <strong>Confirm new password</strong> are different");
+    errors.push({
+      type: 'validation',
+      field: 'password',      
+      message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
+    });
   }
 
   return errors;
