@@ -1,8 +1,7 @@
 {
   "name": "we",
-  "private": true,
-  "version": "0.0.2",
-  "description": "a Sails application",
+  "version": "0.0.4",
+  "description": "A CMS for Social Networks written in Node.js.",
   "dependencies": {
     "sails": "0.9.8",
     "grunt": "0.4.1",
