@@ -1,7 +1,7 @@
 {
   "name": "we",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.3",
   "description": "a Sails application",
   "dependencies": {
     "sails": "0.9.8",
@@ -18,11 +18,16 @@
     "sails-mongo": "0.9.6"
   },
   "devDependencies": {
-    "should": "2.1.1"
+    "should": "2.1.1",
+    "sinon": "~1.7.3",
+    "supertest": ">= 0",
+    "mocha": ">= 0",
+    "sails-memory": "~0.9.1"   
   },
   "scripts": {
     "start": "node app.js",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+    "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors" 
   },
   "main": "app.js",
   "repository": "",
