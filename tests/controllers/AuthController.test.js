@@ -107,7 +107,10 @@ describe('AuthController', function() {
           should.not.exist(res.body.email);
           should.not.exist(res.body.responseMessage.success);
           should.exist(res.body.responseMessage.errors);
-          res.body.responseMessage.errors.should.include('<strong>New password</strong> and <strong>Confirm new password</strong> are different');
+
+          should.exist(res.body.responseMessage.errors[0].message);
+          res.body.responseMessage.errors[0]['type'].should.be.equal('validation');
+          res.body.responseMessage.errors[0].field.should.be.equal('password');
 
           done();
         });
@@ -133,9 +136,12 @@ describe('AuthController', function() {
           should.not.exist(res.body.email);
           should.not.exist(res.body.responseMessage.success);
           should.exist(res.body.responseMessage.errors);
-          res.body.responseMessage.errors.should.include('Field <strong>password</strong> is required');
-          res.body.responseMessage.errors.should.include('Field <strong>Confirm new password</strong> is required');
+          should.exist(res.body.responseMessage.errors[0].message);
+          res.body.responseMessage.errors[0]['type'].should.be.equal('validation');
+          res.body.responseMessage.errors[0].field.should.be.equal('password');
 
+          res.body.responseMessage.errors[1]['type'].should.be.equal('validation');
+          res.body.responseMessage.errors[1].field.should.be.equal('confirmPassword');
           done();
         });
 
@@ -161,8 +167,12 @@ describe('AuthController', function() {
           // TODO add suport for server messages
           should.not.exist(res.body.email);
           should.not.exist(res.body.responseMessage.success);
-          should.exist(res.body.responseMessage.errors);
-          res.body.responseMessage.errors.should.include('Validation error: "a wrong email" is not of type "email"');
+
+          should.exist(res.body.responseMessage.errors[0].message);
+          res.body.responseMessage.errors[0]['type'].should.be.equal('validation');
+          res.body.responseMessage.errors[0].field.should.be.equal('email');
+   
+          // TODO handle tests with translations          
 
           done();
         });
@@ -192,7 +202,10 @@ describe('AuthController', function() {
             // TODO add suport for server messages
             should.not.exist(res.body.user);
             should.not.exist(res.body.responseMessage.success);
-            should.exist(res.body.responseMessage.errors);
+
+            res.body.responseMessage.errors[0]['field'].should.be.equal('email');
+            res.body.responseMessage.errors[0]['type'].should.be.equal('validation');
+            should.exist(res.body.responseMessage.errors[0].message);
             // TODO handle tests with translations
 
             done();
