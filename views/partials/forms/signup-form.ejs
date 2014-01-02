@@ -1,0 +1,62 @@
+<!-- form-signup -->
+<aside class="form-signup">
+  <h2 class="form-signin-heading">
+    Create account
+    <br><small class="subtitle">It’s free and always will be.</small>
+  </h2>
+
+  <form class="user-signup-form" method="POST">    
+    <!-- input: username -->
+    <div class="form-group">
+      <div class="input-group">
+        <label for="name" class="input-group-addon">
+          <i class="fa fa-user fa-lg"></i>
+        </label>
+      <input data-ng-model="user.name" id="name" type="text" class="form-control input-lg" placeholder="Pick a username" autofocus="" name="name" required>
+      </div>
+    </div>
+    <!-- /input: username -->
+    
+    <!-- input: email -->
+    <div class="form-group">
+      <div class="input-group">
+        <label for="email" class="input-group-addon">
+          <i class="fa fa-envelope fa-lg"></i>
+        </label>
+        <input data-ng-model="user.email" id="email" type="email" class="form-control input-lg" placeholder="Your email" name="email" required>
+      </div>
+    </div>
+    <!-- /input: email -->
+    
+    <!-- input: password -->
+    <div class="form-group">
+      <div class="input-group">
+        <label for="password" class="input-group-addon">
+          <i class="fa fa-key fa-lg"> </i>
+        </label>
+        <input data-ng-model="user.password" id="password" type="password" class="form-control input-lg" placeholder="Password" name="password" required>
+
+        <!-- input: confirm-password -->
+        <label for="confirm-password" class="input-group-btn">
+          <i class="glyphicon glyphicon-user"> </i>
+        </label>
+        <input data-ng-model="user.confirmPassword" id="confirm-password" type="password" class="form-control input-lg" placeholder="Confirm password" name="confirmPassword" required >
+        <!-- /input: confirm-password -->
+      </div>
+    </div>
+    <!-- /input: password -->
+    
+    <!-- button -->
+    <button class="btn btn-lg btn-success btn-block" type="submit">
+      Sign up
+      <i class="glyphicon glyphicon-chevron-right"> </i>
+    </button>
+    <!-- /button -->
+  </form>
+
+  <div class="agree-terms">
+    By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
+  </div>
+
+</aside>
+<!-- form-signup -->
