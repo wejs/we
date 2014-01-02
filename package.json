@@ -14,6 +14,7 @@
     "bcrypt": "~0.7.7",
     "nodemailer": "0.6.0",
     "passport": "0.1.17",
+    "passport-local": "0.1.6",
     "sails-mongo": "0.9.6"
   },
   "scripts": {
