@@ -17,6 +17,9 @@
     "passport-local": "0.1.6",
     "sails-mongo": "0.9.6"
   },
+  "devDependencies": {
+    "should": "2.1.1"
+  },
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js"
