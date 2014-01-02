@@ -11,7 +11,7 @@
     "assets/bower_components"
   ],
   "dependencies": {
-    "we-components": "~0.0.12"
+    "we-components": "~0.0.13"
   },
   "license": "MIT",
   "authors": [
