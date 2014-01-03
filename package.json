@@ -14,7 +14,8 @@
     "nodemailer": "0.6.0",
     "passport": "0.1.17",
     "passport-local": "0.1.6",
-    "sails-mongo": "0.9.6"
+    "sails-mongo": "0.9.6",
+    "email-templates": "~0.1.1"
   },
   "devDependencies": {
     "should": "2.1.1",
@@ -22,12 +23,12 @@
     "supertest": ">= 0",
     "mocha": ">= 0",
     "sails-memory": "~0.9.1",
-    "grunt-bower-requirejs": "~0.8.1" 
+    "grunt-bower-requirejs": "~0.8.1"
   },
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors" 
+    "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors"
   },
   "main": "app.js",
   "repository": "",
