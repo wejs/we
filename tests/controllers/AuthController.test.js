@@ -57,7 +57,7 @@ describe('AuthController', function() {
         });
 
       });
-
+      /*
       it('/users/login should return 401 with wrong password message',function (done) {
         var user  = UserStub();
         var authParams = {
@@ -87,7 +87,7 @@ describe('AuthController', function() {
         });
 
       });
-
+      */
       it('/signup when confirmPassword is diferent than password return 400 with error message',function (done) {
         var user  = UserStub();
 
