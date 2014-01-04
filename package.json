@@ -21,6 +21,7 @@
     "sinon": "~1.7.3",
     "supertest": ">= 0",
     "mocha": ">= 0",
+    "zombie": "~2.0.0",
     "sails-memory": "~0.9.1",
     "grunt-bower-requirejs": "~0.8.1",
     "grunt-bump": "0.0.13"
