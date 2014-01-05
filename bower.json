@@ -1,6 +1,6 @@
 {
   "name": "We CMS",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "ignore": [
     "**/.*",
     "node_modules",

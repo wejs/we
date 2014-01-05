@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "A CMS for Social Networks written in Node.js.",
   "dependencies": {
     "sails": "0.9.8",
