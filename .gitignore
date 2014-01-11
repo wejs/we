@@ -48,3 +48,4 @@ nbproject
 # local config
 ########################
 config/local.js
+config/email.js
