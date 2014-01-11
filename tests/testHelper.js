@@ -28,6 +28,7 @@ global.gettestConfig= function(done) {
       }
     },
     port: 1330,
+    environment: 'test',
     // @TODO needs suport to csrf token
     csrf: false
   };
