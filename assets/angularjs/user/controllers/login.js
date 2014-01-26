@@ -20,7 +20,7 @@
         var errorHandler, init, loginHandler, logoutHandler;
 
         init = function() {
-          $scope.templates = [ { name: 'login-form.html', url: 'templates/login-form.ejs'} ]
+          $scope.templates = [ { name: 'login-form.html', url: 'templates/login-form.ejs'} ];
           $scope.template = $scope.templates[0];
 
           return $scope.user = {};

@@ -7,7 +7,9 @@
     './services/userResources',
     './controllers/login',
     './controllers/userController',
-    './controllers/create-account'
+    './controllers/create-account',
+    './directives/userMenuDirective',
+    './directives/loginFormDirective',
   ];
 
   define( moduleFiles, function() {} );

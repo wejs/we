@@ -235,12 +235,17 @@
         function($rootScope, $route, $http, $window){
 
         $rootScope.user = {};
+        $rootScope.user.authorized = false;
         $rootScope.user.loading = true;
 
         $http({method: 'GET', url: '/users/current'}).
           success(function(data, status, headers, config) {
-            $rootScope.user = data.user;
-            $rootScope.user.loading = false;
+            if(data.user.id){
+              $rootScope.user = data.user;
+              $rootScope.user.loading = false;
+              $rootScope.user.authorized = true;
+            }
+
           }).
           error(function(data, status, headers, config) {
             // called asynchronously if an error occurs

@@ -15,7 +15,8 @@
     return angular.module("application.user")
       .factory('SessionService',[
         '$resource',
-        function($resource){
+        '$rootScope',
+        function($resource, $rootScope){
 
         var service = $resource('/users/:param',{},{
           'login': {
@@ -46,9 +47,9 @@
         function getCurrentUser(callback) {
           service.getCurrent(
             function(res, status){
-              if(res.user){
-                user = res.user;
-                user.authorized = true;
+              if(res.user.id){
+                $rootScope.user = res.user;
+                $rootScope.user.authorized = true;
 
                 if(callback)
                   callback(user);
@@ -65,21 +66,20 @@
         }
 
         function authorized(){
-          console.log(user);
-          return user.authorized === true;
+          return $rootScope.user.authorized === true;
         }
 
         function unauthorized(){
-          return user.authorized === false;
+          return $rootScope.user.authorized === false;
         }
 
         function login(newUser,resultHandler,errorHandler) {
           service.login(
             newUser,
             function(res, status){
-              user = (res.user || {});
+              $rootScope.user = (res.user || {});
               //_user.authorized = res.authorized;
-              user.authorized = true;
+              $rootScope.user.authorized = true;
               if(angular.isFunction(resultHandler)) {
                 resultHandler(res);
               }
