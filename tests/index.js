@@ -47,6 +47,14 @@ fs.readdirSync( __dirname + "/controllers").forEach(function(file) {
   
 });
 
+// Load views tests
+// ----------------------------
+fs.readdirSync(__dirname + "/views").forEach(function(file) {
+  if(file.indexOf('.test.js') > -1) {
+    require("./views/" + file);
+  }
+});
+
 
 /**
  * After ALL the tests, lower sails

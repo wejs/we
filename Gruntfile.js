@@ -133,6 +133,8 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-cssmin/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
+  // Modules that Sails not using by default
+  grunt.loadNpmTasks('grunt-bump');
 
   grunt.loadTasks('node_modules/grunt-bower-requirejs/tasks');
 
@@ -419,6 +421,26 @@ module.exports = function (grunt) {
 
         // When assets are changed:
         tasks: ['compileAssets', 'linkAssets']
+      }
+    },
+
+    /************************************
+     * grunt-bump
+     * Bump package version, create tag, commit, push...
+     ************************************/
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json'],
+        updateConfigs: [],
+        commit: true,
+        commitMessage: 'v%VERSION%',
+        commitFiles: ['package.json', 'bower.json'], // '-a' for all files
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: 'v%VERSION%',
+        push: true,
+        pushTo: 'master',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
       }
     }
   });

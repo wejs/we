@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.4",
+  "version": "0.0.35",
   "description": "A CMS for Social Networks written in Node.js.",
   "dependencies": {
     "sails": "0.9.8",
@@ -22,8 +22,10 @@
     "sinon": "~1.7.3",
     "supertest": ">= 0",
     "mocha": ">= 0",
+    "zombie": "~2.0.0",
     "sails-memory": "~0.9.1",
-    "grunt-bower-requirejs": "~0.8.1"
+    "grunt-bower-requirejs": "~0.8.1",
+    "grunt-bump": "0.0.13"
   },
   "scripts": {
     "start": "node app.js",
