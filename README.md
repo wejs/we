@@ -1,4 +1,4 @@
-# WE [![Build Status](https://travis-ci.org/we-cms/we.png?branch=master)](https://travis-ci.org/we-cms/we)
+# WE [![Build Status](https://travis-ci.org/wejs/we.png?branch=master)](https://travis-ci.org/wejs/we)
 #### A system for create Social Networks  written with [Sails.js](http://sailsjs.org).
 
 Status - in development, not working for production
