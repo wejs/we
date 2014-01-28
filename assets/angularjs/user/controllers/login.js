@@ -27,11 +27,12 @@
         };
         loginHandler = function(res) {
           if (SessionService.authorized(res)) {
+            console.log($user);
             $scope.message = "Authorized!";
-            $rootScope.user = SessionService.getUser();
-            $scope.user = SessionService.getUser();
-            //return $location.path("/users");
-            $window.location.reload();
+
+            $rootScope.user = res;
+            $rootScope.user.authorized = true;
+
           } else {
             return $scope.message = "Invalid username or password!";
           }
@@ -47,7 +48,9 @@
           // clear loggedin user vars
           $scope.user = user;
           $rootScope.user = user;
+
           console.log('no logoutHandler', res);
+
           // redirect to serverside logout
           return $location.path("/users/logout");
 

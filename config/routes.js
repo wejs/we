@@ -115,9 +115,19 @@ module.exports.routes = {
   },
 
   // form to get one time login email
-  'get /user/forgot_password': {
+  'get /user/forgot-password': {
     controller    : 'users',
     action        : 'forgotPasswordForm'
+  },
+
+  'get /user/:id/activate/:token': {
+    controller: 'users',
+    action: 'activate'
+  },
+
+  'post /user/:id/password/send-token': {
+    controller: 'users',
+    action: 'SendPasswordResetToken'
   },
 
   // get logged in user avatar

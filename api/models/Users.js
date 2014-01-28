@@ -85,14 +85,14 @@ module.exports = {
     },
 
     changePassword: function(user, oldPassword, newPassword, next){
-        user.updateAttribute( 'password', newPassword , function (err) {
-            console.log('travo');
-            if (!err) {
-                next();
-            } else {
-                next(err);
-            }
-        });
+      user.updateAttribute( 'password', newPassword , function (err) {
+        console.log('travo');
+        if (!err) {
+            next();
+        } else {
+            next(err);
+        }
+      });
     },
   },
 

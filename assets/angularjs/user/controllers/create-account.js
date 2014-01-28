@@ -14,7 +14,7 @@
 
         $scope.user = {};
         $scope.errors = {};
-        $scope.messages = ['oi mundo'];
+        $scope.messages = ['oi mundo','test'];
 
         $scope.submit = function(event) {
           event.preventDefault();
@@ -31,7 +31,14 @@
             }).success(function(data, status, headers, cfg) {
               if(status == 201){
                 // good, redirect
-                $window.location.href = '/';
+                if(typeof data.user !== 'undefined'){
+                  // logged without activation email
+                  $window.location.href = '/';
+                }else {
+                  alert(data.responseMessage.success[0]);
+                  $scope.messages = data.responseMessage.success;
+                }
+
               } else {
                 console.log(data);
                 console.log(status);
@@ -41,10 +48,12 @@
               if(status == 400){
                 $scope.messages = data.responseMessage.errors;
               } else {
+                $scope.messages = data.responseMessage.errors;
+
                 console.log(data);
                 console.log(status);
               }
-                              
+
             });
         };
       }

@@ -53,7 +53,7 @@ exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
 
   AuthToken.create( {user_id: user.id} ).done(function(error, token) {
     if(error) return cb(error);
-    
+
     var options = {};
 
     options.email = user.email;
@@ -78,6 +78,11 @@ exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
 
 };
 
+/**
+ * Get server transport configs
+ * See: nodemailer.createTransport
+ * @param  string serviceName email server config name
+ */
 exports.getServerTransport = function(serviceName) {
   var emailServerTransport;
   var emailServerConfig;
@@ -110,7 +115,7 @@ exports.getServerTransport = function(serviceName) {
     }
 
     // TODO add local email config to default
-    
+
   }
 
   return emailServerTransport;
@@ -127,6 +132,8 @@ exports.sendEmail = function(options, templateName, templateVariables, cb) {
     // Prepare nodemailer transport object
     var transport = EmailService.getServerTransport();
 
+    if(!transport) return cb();
+
     // Send a single email
     template(templateName, templateVariables, function(err, html, text) {
       if (err) return cb(err, null);
@@ -135,8 +142,8 @@ exports.sendEmail = function(options, templateName, templateVariables, cb) {
         // dont send emails in test enviroment
         console.info('To:\n',options.email);
         console.info('Text:\n',html);
-        cb();        
-      } else { 
+        cb();
+      } else {
 
         transport.sendMail({
           from: sails.config.appName +' <' + sails.config.email.site_email + '>',
@@ -147,7 +154,7 @@ exports.sendEmail = function(options, templateName, templateVariables, cb) {
           text: text
         }, function(err, responseStatus) {
           if (err) return cb(err, null);
-          
+
           sails.log.info('EmailService',responseStatus.message);
 
           cb(null,responseStatus);

@@ -1,3 +1,4 @@
+
 var should = require('should');
 var request = require('supertest');
 var sinon   = require('sinon');
@@ -7,7 +8,7 @@ function UserStub () {
     return {
       username: uuid.v1(),
       name: "Alberto",
-      email: uuid.v1() + "@albertosouza.net",
+      email: 'alberto.souza.99@gmail.com',
       password: uuid.v1()
     };
 }
@@ -57,7 +58,7 @@ describe('AuthController', function() {
         });
 
       });
-
+      /*
       it('/users/login should return 401 with wrong password message',function (done) {
         var user  = UserStub();
         var authParams = {
@@ -87,7 +88,7 @@ describe('AuthController', function() {
         });
 
       });
-
+      */
       it('/signup when confirmPassword is diferent than password return 400 with error message',function (done) {
         var user  = UserStub();
 
@@ -213,9 +214,8 @@ describe('AuthController', function() {
         });
       });
 
-     it('/signup should create a user with correct data, return 201, new user object and success message',function (done) {
+     it('/signup should create a user with correct data, return 201',function (done) {
         var user  = UserStub();
-
         user.confirmPassword = user.password;
   
         request(sails.express.app)
@@ -230,11 +230,10 @@ describe('AuthController', function() {
           if(err) return done(err);
 
           // TODO add suport for server messages
-          should.exist(res.body.user.id);
-          should.not.exist(res.body.responseMessage.errors);
+          should.exist(res.body.responseMessage);
           should.exist(res.body.responseMessage.success);
-          res.body.user.should.have.property('email', user.email);
-          res.body.responseMessage.success.should.include('User successfully registered');
+
+          should.not.exist(res.body.responseMessage.errors);
 
           done();
         });
@@ -245,6 +244,12 @@ describe('AuthController', function() {
 
       it('/users/logout should logout a user, return 200 and redirect to index');
 
+      it('/user/:id/password/send-token send a email with password change token');
+
+    });
+
+    describe('PUT', function() {
+      it('/user/:id/activate/:token activate a account with a valid token');
     });
   }); // end requests
 });

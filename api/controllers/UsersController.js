@@ -14,7 +14,7 @@ module.exports = {
     //console.log('sending email');
     //console.log(sails.config.siteEmail);
     //EmailService.sendInviteEmail({email: 'alberto.souza.99@gmail.com', name: 'Alberto Souza'});
-
+    //EmailService.sendRegisterValidationEmail({email: 'alberto.souza.99@gmail.com', name: 'Alberto Souza'});
     Users.find({})
     .limit(10)
     .sort('name ASC')
@@ -32,7 +32,7 @@ module.exports = {
                 users: users
               });
            },
-     
+
            'application/json': function(){
              res.send(users);
            }
@@ -83,12 +83,46 @@ module.exports = {
     res.redirect('/');
   },
 
+  /**
+   * Activate a user account with activation code
+   */
+  activate: function(req, res){
+    console.log('Check token');
+    console.log('activate Account');
+
+    res.format({
+       'text/html': function(){
+         res.view( 'home/index.ejs');
+       },
+
+       'application/json': function(){
+          console.log('send result here ....');
+          res.send({});
+       }
+    });
+  },
+
+  SendPasswordResetToken: function(req, res, next){
+    console.log('TODO GetloginResetToken');
+    return next();
+  },
+
   // Signup function
   create: function (req, res, next) {
+    var requireAccountActivation = false;
     var user = {};
     user.name = req.param("name");
     user.email = req.param("email");
     user.password = req.param("password");
+
+    if( !sails.util.isUndefined(sails.config.site) )
+      if( !sails.util.isUndefined( sails.config.site.requireAccountActivation ) ){
+        requireAccountActivation = sails.config.site.requireAccountActivation;
+      }
+
+    // if dont need a account activation email then create a active user
+    if(!requireAccountActivation)
+      user.active = true;
 
     var confirmPassword = req.param("confirmPassword");
     var errors;
@@ -108,10 +142,10 @@ module.exports = {
         if (err) {
             return res.send(500, { error: res.i18n("DB Error") });
         } else if ( usr ) {
-            return res.send(400, {
+            return res.send(404, {
               responseMessage: {
                 errors: [
-                  { 
+                  {
                     field: 'email',
                     type: 'validation',
                     message: res.i18n("Email already Taken")
@@ -133,7 +167,7 @@ module.exports = {
                     errorsLength--;
 
                     error.ValidationError.email.forEach( function(err, index){
-                      
+
                       err.field = 'email';
                       err['type'] = 'validation';
                       err.message = res.i18n(err.message);
@@ -154,22 +188,48 @@ module.exports = {
                   return res.send(500, {error: res.i18n("DB Error") });
                 }
 
-               
-                
+
+
               } else {
-                req.logIn(newUser, function(err){
-                  if(err) return next(err);
 
-                  res.send('201',{
-                    user: newUser,
-                    responseMessage: {
-                      success: [
-                        'User successfully registered'
-                      ]
-                    }
+                if(requireAccountActivation){
+                  var options = {};
+
+                  EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err, responseStatus){
+                    if(err) return next(err);
+
+                    res.send('201',{
+                      responseMessage: {
+                        success: [
+                          {
+                            message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
+                          }
+                        ]
+                      }
+                    });
+
                   });
-                });
+                } else {
+                  // TODO add suporte do configure user registration activation
+                  // like with email confirmation or auto login
+                  req.logIn(newUser, function(err){
+                    if(err) return next(err);
 
+                    res.send('201',{
+                      user: newUser,
+                      responseMessage: {
+                        success: [
+                          {
+                            message: res.i18n('User successfully registered')
+                          }
+                        ]
+                      }
+                    });
+
+                  });
+
+
+                }
               }
           });
         }
@@ -350,7 +410,7 @@ var validSignup = function(user, confirmPassword, res){
   if(confirmPassword != user.password){
     errors.push({
       type: 'validation',
-      field: 'password',      
+      field: 'password',
       message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
     });
   }
