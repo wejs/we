@@ -108,6 +108,7 @@ exports.getServerTransport = function(serviceName) {
       }else{
         // error, service not found
         sails.log.error('Email service not found in config check if sails.config.email.services[serviceName exists');
+
       }
 
     } else {
@@ -132,19 +133,24 @@ exports.sendEmail = function(options, templateName, templateVariables, cb) {
     // Prepare nodemailer transport object
     var transport = EmailService.getServerTransport();
 
-    if(!transport) return cb();
-
     // Send a single email
     template(templateName, templateVariables, function(err, html, text) {
       if (err) return cb(err, null);
 
-      if( sails.config.environment == 'test' ){
+      // if are in test enviroment or transport not fount show email on console
+      if( sails.config.environment == 'test' || !transport ){
         // dont send emails in test enviroment
+        console.info('---- EmailService.sendEmail() ----');
+        console.info('---- Displaying the email that would be sent ----');
         console.info('To:\n',options.email);
         console.info('Text:\n',html);
-        cb();
+        console.info('----------------------------- END --------------------------');
+
+        return cb();
+
       } else {
 
+        // Send the email
         transport.sendMail({
           from: sails.config.appName +' <' + sails.config.email.site_email + '>',
           to: options.email,
@@ -157,7 +163,7 @@ exports.sendEmail = function(options, templateName, templateVariables, cb) {
 
           sails.log.info('EmailService',responseStatus.message);
 
-          cb(null,responseStatus);
+          return cb(null,responseStatus);
         });
 
       }
