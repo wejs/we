@@ -168,6 +168,8 @@ module.exports = {
                           if(err) return next(err);
 
                           res.send(usr);
+                          // TODO add suport to oauth tokens
+                          //res.redirect('/');
                         });
 
                       })(req, res, next);
@@ -191,23 +193,94 @@ module.exports = {
     user = {};
     user.id = req.param('id');
 
-    AuthToken = req.param('token');
+    token = req.param('token');
 
     console.log('user.id:', user.id);
-    console.log('AuthToken:',AuthToken);
+    console.log('AuthToken:',token);
 
-    res.format({
-     'text/html': function(){
-       //res.view( 'home/index.ejs');
-        console.log('send result here ....');
-        res.send({});//
-     },
+    var responseForbiden = function (){
+		  return res.send(403, {
+        responseMessage: {
+          errors: [
+            {
+              type: 'authentication',
+              message: res.i18n("Forbiden")
+            }
+          ]
+        }
+      });
+    };
 
-     'application/json': function(){
-        console.log('send result here ....');
-        res.send({});
-     }
-    });
+    var validAuthTokenRespose = function (err, result, authToken){
+      if (err) {
+        return res.send(500, { error: res.i18n("Error") });
+      }
+
+      // token is invalid
+      if(!result){
+        return responseForbiden();
+      }
+
+      console.log(result);
+
+	    // token is valid then get user form db
+	    Users.findOneById(user.id).done(function(err, usr) {
+	      if (err) {
+	        return res.send(500, { error: res.i18n("DB Error") });
+	      }
+
+	      // user found
+	      if ( usr ) {
+
+					// activate user and login
+					usr.active = true;
+					usr.save(function(err){
+			      if (err) {
+			        return res.send(500, { error: res.i18n("DB Error") });
+			      }
+
+					  // destroy auth token after use
+					  authToken.destroy(function(err) {
+				      if (err) {
+				        return res.send(500, { error: res.i18n("DB Error") });
+				      }
+
+              req.logIn(usr, function(err){
+                if(err) return next(err);
+
+						    return res.format({
+						     'text/html': function(){
+						        // TODO add a activation message
+						        //res.view( 'home/index.ejs');
+						        //res.redirect('/user/:id/activation-success');
+						        res.redirect('/');
+						     },
+
+						     'application/json': function(){
+						        console.log('send result here ....');
+						        res.send(200, usr);
+						     }
+						    });
+              });
+
+					  });
+
+					});
+
+	      } else {
+	        // user not found
+	        return responseForbiden();
+	      }
+
+	    });
+
+
+    };
+
+		validAuthToken(user.id, token, validAuthTokenRespose);
+
+
+
   },
 
   SendPasswordResetToken: function(req, res, next){
@@ -254,4 +327,43 @@ var validSignup = function(user, confirmPassword, res){
   }
 
   return errors;
+};
+
+/**
+ * Check if a auth token is valid
+ * TODO move thius function to AuthToken model
+ */
+var validAuthToken = function (userId, token, cb) {
+
+  // then get user token form db
+  AuthToken.findOneByToken(token).done(function(err, authToken) {
+    if (err) {
+      return cb(res.i18n("DB Error"), null);
+    }
+
+    console.log(authToken);
+    // auth token found then check if is valid
+    if(authToken){
+
+			// user id how wons the auth token is invalid then return false
+			if(authToken.user_id != userId){
+				return cb(null, false,{
+					result: 'invalid',
+					message: 'Token does not belong to this user'
+				});
+			}
+
+			// TODO check token expiration time
+			//
+			//
+
+			// authToken is valid
+			return cb(null, true, authToken);
+
+	  } else {
+	    // auth token not fount
+			return responseForbiden();
+	  }
+
+  });
 };

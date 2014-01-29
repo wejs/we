@@ -246,6 +246,8 @@ describe('AuthController', function() {
 
       it('/user/:id/password/send-token send a email with password change token');
 
+      it('/user/:id/activate/:token activate and login user with activation token');
+
     });
 
     describe('PUT', function() {
