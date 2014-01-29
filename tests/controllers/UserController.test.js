@@ -40,13 +40,13 @@ describe('UsersController', function() {
 
           res.body.should.be.an.Array;
           res.body.should.have.lengthOf( 0 );
-        
+
           done();
         });
       });
 
       it('/users should return 200 and users array', function (done) {
-        
+
         var user;
         // get 3 diferent users for salve in database
         var users = [
@@ -57,7 +57,7 @@ describe('UsersController', function() {
 
         Users.createEach(users, function(err, newUsers) {
           if(err) return done(err);
-          
+
           request(sails.express.app)
           .get('/users')
           .set('Accept', 'application/json')
@@ -72,7 +72,7 @@ describe('UsersController', function() {
             done();
           });
 
-            
+
         });
       });
 
@@ -98,13 +98,15 @@ describe('UsersController', function() {
 
         });
 
-      });      
+      });
 
       it('/users/current should return 200 and logged in user object');
 
     });
     describe('POST', function() {
 
+      /*
+      // TODO add a create function for create user method need in admin users page
       it('/users should return 201 and new user object', function (done) {
         var user = UserStub();
         var jsonResponse;
@@ -120,13 +122,14 @@ describe('UsersController', function() {
         .expect('Content-Type', /json/)
         .expect(201)
         .end(function (err, res) {
-          
+
           if(err) return done(err);
           assert.equal(err, null);
           // TODO remove the duplicated signup url
           done();
         });
       });
+      */
 
     });
     describe('PUT', function() {

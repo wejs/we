@@ -30,22 +30,10 @@ module.exports.routes = {
 
   // By default, your root route (aka home page) points to a view
   // located at `views/home/index.ejs`
-  // 
+  //
   // (This would also work if you had a file at: `/views/home.ejs`)
   '/': {
     view: 'home/index'
-  },
-
-  'get /signup': {
-    controller: 'users',
-    action: 'signup'
-    //view: 'users/signup'
-  },
-
-  'post /signup': {
-    controller: 'users',
-    action: 'create'
-    //view: 'users/signup'
   },
 
   'get /dashboard': {
@@ -99,18 +87,26 @@ module.exports.routes = {
   },
 
   // User Auth
+  // TODO move to AuthController
+
+  'get /signup': {
+    controller: 'auth',
+    action: 'signupPage'
+  },
+
+  'post /signup': {
+    controller: 'auth',
+    action: 'signup'
+    //view: 'users/signup'
+  },
+
   'post /users/login': {
-    controller    : 'users',
+    controller    : 'auth',
     action        : 'login'
   },
 
-  'get /users/logout': {
-    controller    : 'users',
-    action        : 'logout'
-  },
-
-  'post /users/logout': {
-    controller    : 'users',
+  '/users/logout': {
+    controller    : 'auth',
     action        : 'logout'
   },
 
@@ -121,12 +117,12 @@ module.exports.routes = {
   },
 
   'get /user/:id/activate/:token': {
-    controller: 'users',
+    controller: 'auth',
     action: 'activate'
   },
 
   'post /user/:id/password/send-token': {
-    controller: 'users',
+    controller: 'auth',
     action: 'SendPasswordResetToken'
   },
 
@@ -182,7 +178,7 @@ module.exports.routes = {
       controller    : 'roles',
       action        : 'create'
   },
-  
+
   'put /admin/roles/:id': {
       controller    : 'roles',
       action        : 'update'
@@ -226,7 +222,7 @@ module.exports.routes = {
   // If you want to set up a route only for one in particular
   // (GET, POST, PUT, DELETE, etc.), just specify the verb before the path.
   // For example, if you have a `UserController` with a `signup` action,
-  // and somewhere else, you're serving a signup form looks like: 
+  // and somewhere else, you're serving a signup form looks like:
   //
   //		<form action="/signup">
   //			<input name="username" type="text"/>
@@ -255,7 +251,7 @@ module.exports.routes = {
 
 
 
-/** 
+/**
  * (3) Action blueprints
  * These routes can be disabled by setting (in `config/controllers.js`):
  * `module.exports.controllers.blueprints.actions = false`
@@ -321,4 +317,4 @@ module.exports.routes = {
  * Finally, if nothing else matched, the default 404 handler is triggered.
  * See `config/404.js` to adjust your app's 404 logic.
  */
- 
+
