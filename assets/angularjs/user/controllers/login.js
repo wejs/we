@@ -27,9 +27,10 @@
         };
         loginHandler = function(res) {
           if (SessionService.authorized(res)) {
-            console.log($user);
-            $scope.message = "Authorized!";
 
+            // TODO set a better message handler
+            $scope.message = "Authorized!";
+            // Login the user in application
             $rootScope.user = res;
             $rootScope.user.authorized = true;
 
