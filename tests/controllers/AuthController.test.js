@@ -45,10 +45,10 @@ describe('AuthController', function() {
           .send( authParams )
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err, res) {       
+          .end(function (err, res) {
             if(err) return done(err);
             // TODO add suport for server messages
-            // 
+            //
             res.body.email.should.equal(user.email);
             res.body.should.be.instanceof(Object);
 
@@ -77,7 +77,7 @@ describe('AuthController', function() {
           .send( authParams )
           .expect('Content-Type', /json/)
           .expect(401)
-          .end(function (err, res) {         
+          .end(function (err, res) {
             if(err) return done(err);
             // TODO add suport for server messages
             should.not.exist(res.body.email);
@@ -93,7 +93,7 @@ describe('AuthController', function() {
         var user  = UserStub();
 
         user.confirmPassword = 'a diferent password';
-  
+
         request(sails.express.app)
         .post('/signup')
         .set('Accept', 'application/json')
@@ -102,7 +102,7 @@ describe('AuthController', function() {
         .send( user )
         .expect('Content-Type', /json/)
         .expect(400)
-        .end(function (err, res) {         
+        .end(function (err, res) {
           if(err) return done(err);
           // TODO add suport for server messages
           should.not.exist(res.body.email);
@@ -122,7 +122,7 @@ describe('AuthController', function() {
         var user  = UserStub();
 
         delete(user.password);
-  
+
         request(sails.express.app)
         .post('/signup')
         .set('Accept', 'application/json')
@@ -131,7 +131,7 @@ describe('AuthController', function() {
         .send( user )
         .expect('Content-Type', /json/)
         .expect(400)
-        .end(function (err, res) {         
+        .end(function (err, res) {
           if(err) return done(err);
           // TODO add suport for server messages
           should.not.exist(res.body.email);
@@ -148,12 +148,12 @@ describe('AuthController', function() {
 
       });
 
-      it('/signup when email has a wrong format 400 with error message',function (done) {
+      it('/signup when email has a wrong format 403 with error message',function (done) {
         var user  = UserStub();
 
         user.email = 'a wrong email';
         user.confirmPassword = user.password;
-  
+
         request(sails.express.app)
         .post('/signup')
         .set('Accept', 'application/json')
@@ -161,8 +161,8 @@ describe('AuthController', function() {
         //.set('X-CSRF-Token', testCsrfToken)
         .send( user )
         .expect('Content-Type', /json/)
-        .expect(400)
-        .end(function (err, res) {         
+        .expect(403)
+        .end(function (err, res) {
           if(err) return done(err);
 
           // TODO add suport for server messages
@@ -172,16 +172,16 @@ describe('AuthController', function() {
           should.exist(res.body.responseMessage.errors[0].message);
           res.body.responseMessage.errors[0]['type'].should.be.equal('validation');
           res.body.responseMessage.errors[0].field.should.be.equal('email');
-   
-          // TODO handle tests with translations          
+
+          // TODO handle tests with translations
 
           done();
         });
 
       });
 
-      it('/signup should return 400 if email is already registered with error message',function (done) {
-        
+      it('/signup should return 403 if email is already registered with error message',function (done) {
+
         var user = UserStub();
         user.confirmPassword = user.password;
         var salvedUser = sails.util.clone(user);
@@ -196,8 +196,8 @@ describe('AuthController', function() {
           //.set('X-CSRF-Token', testCsrfToken)
           .send( user )
           .expect('Content-Type', /json/)
-          .expect(400)
-          .end(function (err, res) {         
+          .expect(403)
+          .end(function (err, res) {
             if(err) return done(err);
 
             // TODO add suport for server messages
@@ -217,7 +217,7 @@ describe('AuthController', function() {
      it('/signup should create a user with correct data, return 201',function (done) {
         var user  = UserStub();
         user.confirmPassword = user.password;
-  
+
         request(sails.express.app)
         .post('/signup')
         .set('Accept', 'application/json')
@@ -226,7 +226,7 @@ describe('AuthController', function() {
         .send( user )
         .expect('Content-Type', /json/)
         .expect(201)
-        .end(function (err, res) {         
+        .end(function (err, res) {
           if(err) return done(err);
 
           // TODO add suport for server messages
@@ -238,7 +238,7 @@ describe('AuthController', function() {
           done();
         });
 
-      });      
+      });
 
       it('/users/logout should logout a user and return 200');
 

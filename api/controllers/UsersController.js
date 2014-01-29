@@ -142,7 +142,7 @@ module.exports = {
         if (err) {
             return res.send(500, { error: res.i18n("DB Error") });
         } else if ( usr ) {
-            return res.send(404, {
+            return res.send(403, {
               responseMessage: {
                 errors: [
                   {
@@ -174,7 +174,7 @@ module.exports = {
                       errors.push(err);
 
                       if( errorsLength === index){
-                        return res.send(400,{
+                        return res.send(403,{
                           responseMessage: {
                             errors: errors
                           }
