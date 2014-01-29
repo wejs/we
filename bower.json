@@ -20,7 +20,7 @@
     "blueimp-file-upload": "~9.5.2",
     "blueimp-canvas-to-blob": "~2.1.0",
     "jquery": "~2.0.3",
-    "angular-ui-router": "~0.2.7",
+    "angular-ui-router": "0.2.7",
     "bootstrap": "~3.0.3",
     "ng-table": "~0.3.1"
   },
