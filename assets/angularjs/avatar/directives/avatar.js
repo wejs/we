@@ -12,10 +12,10 @@
       '$compile',
       function($compile) {
         return{
-          restrict:"A",
+          restrict:"EA",
           link:function (scope, elm, attrs) {
 
-            scope.$watch(attrs.avatar, function (uid) {
+            scope.$watch(attrs.avatar, function (avatarId) {
               var tag;
               var avatarLink = '';
               var size_class;
@@ -32,8 +32,8 @@
                   size_class = ' width="50px" height="50px" class="img-rounded avatar-small" ';
               }
 
-              if ((uid !== null) && (uid !== undefined) && (uid !== '')) {
-                tag = '<img '+size_class+' data-ng-src="/user/avatar/' + uid +'">';
+              if ((avatarId !== null) && (avatarId !== undefined) && (avatarId !== '')) {
+                tag = '<img '+size_class+' data-ng-src="/images/' + avatarId +'">';
               } else {
                 tag = '<img '+size_class+' data-ng-src="/imgs/avatars/user-avatar.png">';
               }

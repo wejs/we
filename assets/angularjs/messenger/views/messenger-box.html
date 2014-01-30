@@ -12,8 +12,8 @@
       </div>
       <div scrollBottom id="messengerBox-{{contact.id}}" data-ng-show="contact.messengerBox.opened" class="messages">
         <div data-ng-repeat="message in contact.messages" class="contact">
-          <span data-ng-show="message.fromId == user.id" avatar="user.id"></span>
-          <span data-ng-show="message.fromId != user.id" avatar="contact.id"></span>
+          <avatar data-ng-show="message.fromId == user.id" avatar="user.avatarId"></avatar>
+          <avatar data-ng-show="message.fromId != user.id" avatar="contact.avatarId"></avatar>
           <span class="message">{{message.content}}</span>
         </div>
       </div>

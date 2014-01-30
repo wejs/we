@@ -11,7 +11,7 @@
         <ul class="nav nav-list friendlist contact-list">
           <li class="contact" data-ng-repeat="contact in contacts | filter:searchFriend"  >
             <a data-ng-click="startTalk(contact.id)" >
-              <span avatar="contact.id"></span>
+              <avatar avatar="contact.avatarId"></avatar>
               {{contact.name}}
             </a>
           </li>

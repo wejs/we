@@ -8,7 +8,7 @@
 
         $scope.openModal = function () {
           var modalInstance = $modal.open({
-            templateUrl: '/app/avatar/views/change-avatar-form.html',
+            templateUrl: '/angularjs/avatar/views/change-avatar-form.html',
             controller: 'AvatarController',
             resolve: {
               items: function () {
