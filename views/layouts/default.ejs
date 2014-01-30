@@ -19,16 +19,33 @@
     <!--STYLES END-->
 
     <!--SCRIPTS-->
-    
+
     <!--SCRIPTS END-->
 
     <script data-main="/angularjs/main" src="/js/libs/require.js"></script>
 
+    <style>
+      [ng\:cloak] main,
+      [ng-cloak] main,
+      [data-ng-cloak] main,
+      [x-ng-cloak] main,
+      .ng-cloak main,
+      .x-ng-cloak main,
+      [ng\:cloak] footer,
+      [ng-cloak] footer,
+      [data-ng-cloak] footer,
+      [x-ng-cloak] footer,
+      .ng-cloak footer,
+      .x-ng-cloak footer{
+        display: none !important;
+      }
+
+    </style>
 
   </head>
 
-  <body>
-    <main role="main" class="social-theme">
+  <body ng-cloak>
+    <main role="main" class="social-theme main" >
       <!-- navbar -->
       <%- include ../partials/navbar.ejs %>
       <!-- /navbar -->
@@ -46,5 +63,8 @@
     <%- include ../partials/footer.ejs %>
     <!-- /footer -->
 
+    <div class="site-loading">
+      loading ...
+    </div>
     </body>
 </html>
