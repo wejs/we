@@ -11,7 +11,7 @@
         var getTemplate = function() {
           var templateLoader;
           // TODO move this template url to angular submodule config
-          var baseUrl = '/app/messenger/views/';
+          var baseUrl = '/angularjs/messenger/views/';
           var template = 'contact-list.html';
 
           var templateUrl = baseUrl + template;
@@ -19,7 +19,7 @@
 
           return templateLoader;
 
-        }
+        };
 
         var linker = function(scope, element, attrs) {
 
@@ -33,7 +33,7 @@
         };
 
         return {
-          restrict:"A",
+          restrict:"EA",
           link: linker
         };
       }

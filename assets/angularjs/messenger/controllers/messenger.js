@@ -23,7 +23,7 @@
        function($rootScope, $scope,$socket, $location, SessionService, MessengerService) {
         var init;
         var startMessenger;
-        var moduleUrl = '/app/messenger';
+        var moduleUrl = '/angularjs/messenger';
 
         $scope.contacts = {};
         $scope.contactsOpen = [];
