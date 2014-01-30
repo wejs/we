@@ -234,6 +234,10 @@
         '$window',
         function($rootScope, $route, $http, $window){
 
+        $rootScope.theme = {};
+        $rootScope.theme.url = '/bower_components/we-theme-bootstrap';
+        $rootScope.theme.templateUrl = '/bower_components/we-theme-bootstrap/templates';
+
         $rootScope.user = {};
         $rootScope.user.authorized = false;
         $rootScope.user.loading = true;
