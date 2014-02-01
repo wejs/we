@@ -14,7 +14,8 @@ module.exports = {
   */
 
   index: function (req, res) {
-    res.view();
+    res.view("home/index.ejs");
+    //res.view('home/index-logged-in.ejs');
   },
 
   signup: function (req, res) {

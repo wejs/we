@@ -76,12 +76,26 @@
         .state('index', {
           url: "/",
           views: {
+            "highlighted": {
+              templateUrl: "/angularjs/site/views/highlighted.html",
+              controller: function($scope, $rootScope){
+                $scope.aboutShow = false;
+                $rootScope.$watch('user.authorized', function () {
+                  if($rootScope.user.authorized){
+                    $scope.aboutShow = false;
+                  }else{
+                    $scope.aboutShow = true;
+                  }
+                });
+              }
+            },
             "": {
               templateUrl: "/angularjs/site/views/home.html"
             },
             "signup-form@index": {
               templateUrl: "/angularjs/user/views/signup-form.html"
-            }
+            },
+
           }
         })
 
@@ -241,7 +255,7 @@
         $rootScope.user = {};
         $rootScope.user.authorized = false;
         $rootScope.user.loading = true;
-
+        /*
         $http({method: 'GET', url: '/users/current'}).
           success(function(data, status, headers, config) {
             if(data.user.id){
@@ -255,7 +269,7 @@
             // called asynchronously if an error occurs
             // or server returns response with an error status.
           });
-
+        */
         // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
         $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
           // This will set the custom property that we have defined while configuring the routes.

@@ -16,6 +16,7 @@
 
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/main.css">
+    <link rel="stylesheet" href="/linker/styles/styles/less/styles.css">
     <!--STYLES END-->
 
     <!--SCRIPTS-->
@@ -49,16 +50,26 @@
       <!-- navbar -->
       <%- include ../partials/navbar.ejs %>
       <!-- /navbar -->
-
-      <!-- /angular js main area -->
-      <div data-ui-view>
-        <%- body %>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- /angular js main area -->
+          <div data-ui-view="highlighted"></div>
+        </div>
       </div>
 
-      <!-- /angular js dinamic sidebar -->
-      <div data-ui-view="sidebar"></div>
+      <div class="row">
+        <div class="col-md-8">
+          <div data-ui-view>
+            <%- body %>
+          </div>
+
+          <!-- /angular js dinamic sidebar -->
+          <div data-ui-view="sidebar"></div>
+        </div>
+      </div>
 
       <div data-we-messenger></div>
+
     </main>
 
     <!-- footer -->

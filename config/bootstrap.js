@@ -9,7 +9,6 @@
  */
 
 module.exports.bootstrap = function (cb) {
-
   sails.io.on('connection', function(socket) {
 
     var userId = socket.handshake.session.passport.user;
