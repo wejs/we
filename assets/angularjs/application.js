@@ -22,7 +22,7 @@
     'jquery.fileupload-angular',
     'angular-route',
     './messenger/index',
-    './user/index',
+    'user',
     './site/index',
     './avatar/index',
     './activity/index',
@@ -98,62 +98,6 @@
 
           }
         })
-
-        // ---- USERS
-        .state('forgot_password', {
-          url: "/user/forgot_password",
-          templateUrl: '/angularjs/user/views/forgotPasswordForm.html'
-          //controller: 'LoginCtrl'
-        })
-        .state('logout', {
-          url: "/users/logout",
-          controller: function($scope,$window){
-            return $window.location.href = "/users/logout";
-          }
-        })
-        .state('signup', {
-          url: "/signup",
-          templateUrl: '/angularjs/user/views/signup.html',
-          controller: 'LoginCtrl',
-        })
-
-        .state('users', {
-          url: "/users",
-          controller: 'UserController',
-          views: {
-            "": {
-              templateUrl: "/angularjs/user/views/index.html",
-              controller: 'UserController'
-            }
-          },
-          resolve: {
-            usersData: function(userResolver){
-              console.log('resolvendo');
-              return userResolver();
-            }
-          }
-        })
-        .state('users.user', {
-          url: "/:id",
-          onEnter: function($stateParams, $state, $modal, $resource, userShowResolver) {
-            $modal.open({
-              templateUrl: "/angularjs/user/views/user.html",
-              controller: 'UserItemController',
-              resolve: {
-                user: function(userShowResolver){
-                  return userShowResolver($stateParams);
-                }
-              }
-            }).result.then(function(result) {
-              console.info('no user then',result);
-              return $state.transitionTo("users");
-            }, function () {
-              console.info('Modal dismissed at: ' + new Date());
-              return $state.transitionTo("users");
-            });
-          }
-        })
-
 
         // --- ACTIVITY
         .state('ActivityController', {

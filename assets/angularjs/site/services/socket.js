@@ -2,7 +2,7 @@
   define([
     'angular',
     'modules',
-    'user/services/userResources',
+    'user',
     'io',
     'sails.io'
   ], function (

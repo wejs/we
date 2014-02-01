@@ -2,7 +2,7 @@
 
   define([
     'angular',
-    'user/services/session',
+    'user',
     'messenger/services/messenger',
     '$socket'
   ], function (

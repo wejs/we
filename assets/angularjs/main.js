@@ -5,6 +5,7 @@ require.config({
     'sails.io': '/js/sails.io',
     app: '/js/app',
     modules: 'modules',
+    user: 'user/user',
     '$socket': 'site/services/socket',
     'we-components': '../bower_components/we-components/dist/*',
     angular: '../bower_components/angular/angular',
