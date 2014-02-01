@@ -1,4 +1,4 @@
-# WE [![Build Status](https://travis-ci.org/wejs/we.png?branch=master)](https://travis-ci.org/wejs/we)
+# WE [![Build Status](https://travis-ci.org/wejs/we.png?branch=master)](https://travis-ci.org/wejs/we) [![Dependency Status](https://david-dm.org/wejs/we.png?theme=shields.io)](https://david-dm.org/wejs/we) [![devDependency Status](https://david-dm.org/wejs/we/dev-status.png?theme=shields.io)](https://david-dm.org/wejs/we#info=devDependencies)
 #### A system for create Social Networks  written with [Sails.js](http://sailsjs.org).
 
 Status - in development, not working for production
