@@ -13,8 +13,8 @@ exports.getMenu = function(menuMame,req) {
       url: '/dashboard'
     },
     {
-      title: 'Activity',
-      url: '/activity'
+      title: 'Post',
+      url: '/post'
     },
     {
       title: 'Users',

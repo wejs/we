@@ -23,11 +23,11 @@
     'angular-route',
     'user/user',
     'messenger/messenger',
-    'activity/activity',
+    'post/post',
     './messenger/index',
     './site/index',
     './avatar/index',
-    './activity/index',
+    './post/index',
     './file/index'
   ];
 
@@ -51,7 +51,6 @@
       'ngResource',
       'ngRoute',
       'ngTable',
-      'application.activity',
       'application.filters',
       'application.services',
       'application.directives',
@@ -59,7 +58,7 @@
       'application.controllers',
       'application.user',
       'messenger',
-      'activity',
+      'post',
       'ui.router',
       'ui.bootstrap',
       //,'wu.masonry'

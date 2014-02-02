@@ -1,8 +1,8 @@
 /**
- * Activity
+ * Post
  *
  * @module      :: Model
- * @description :: Activity model
+ * @description :: Post model
  *
  */
 

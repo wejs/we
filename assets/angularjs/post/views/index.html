@@ -1,0 +1,8 @@
+<div masonry="{ transitionDuration: 0 }" id="dynamic-grid-container" class="row posts ">
+  <div class="sharebox-area masonry-brick  content-block">
+    <div data-ng-include="'/angularjs/post/views/sharebox.html'"></div>
+  </div>
+  <div data-ng-repeat="post in posts" class="masonry-brick content-block post">
+    <div data-ng-include="'/angularjs/post/views/post-teaser.html'"></div>
+  </div>
+</div>

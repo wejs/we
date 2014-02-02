@@ -1,24 +1,24 @@
-<div class="activity-teaser teaser">
+<div class="post-teaser teaser">
   <div class="header">
 
-    <a href="/users/{{activity.creator_id}}">
-      <avatar avatar="activity.creator_id" class="creator-avatar"></avatar>
+    <a href="/users/{{post.creator_id}}">
+      <avatar avatar="post.creator_id" class="creator-avatar"></avatar>
     </a>
-    <a href="/activity/{{activity.id}}">
+    <a href="/post/{{post.id}}">
 
-  {{activity.id}}
+  {{post.id}}
     </a>
     <div class="creator">
 
     </div>
 
-  {{activity.id}}
-  {{activity.creator_id}}
+  {{post.id}}
+  {{post.creator_id}}
 
   </div>
 
   <div class="content">
-    <div class="activity-text">{{activity.text}}</div>
+    <div class="post-text">{{post.text}}</div>
   </div>
 
   <div class="footer ng-scope">

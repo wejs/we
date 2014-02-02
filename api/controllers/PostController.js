@@ -1,5 +1,5 @@
 /**
- * ActivityController
+ * PostController
  *
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
@@ -9,10 +9,10 @@ module.exports = {
 
   index: function (req,res) {
 
-    Activity.find({})
+    Post.find({})
       .limit(10)
       .sort('updatedAt DESC')
-      .done(function(err, activities) {
+      .done(function(err, posts) {
       // Error handling
       if (err) {
         return console.log(err);
@@ -23,12 +23,12 @@ module.exports = {
            'text/html': function(){
              res.view( 'home/index.ejs',
               {
-                activities: activities
+                posts: posts
               });
            },
-     
+
            'application/json': function(){
-             res.send(activities);
+             res.send(posts);
            }
         });
       }
@@ -38,20 +38,20 @@ module.exports = {
   },
 
   create : function (req, res, next){
-    console.log('create activity');
-    var activity = {};
-    activity.text = req.param("text");
-    activity.creator_id = req.user.id;
+    console.log('create post');
+    var post = {};
+    post.text = req.param("text");
+    post.creator_id = req.user.id;
 
-    Activity.create(activity).done(function(error, newActivity) {
+    Post.create(post).done(function(error, newPost) {
       if (error) {
         console.log(error);
         res.send(500, {error: res.i18n("DB Error") });
       } else {
-        console.log('newActivity',newActivity);
+        console.log('newPost',newPost);
 
         res.send({
-          'activity': newActivity
+          'post': newPost
         });
 
       }

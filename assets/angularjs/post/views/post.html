@@ -2,27 +2,27 @@
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
   <div class="header">
 
-    <a href="/users/{{activity.creator_id}}">
-      <span avatar="activity.creator_id" class="creator-avatar"></span>
+    <a href="/users/{{post.creator_id}}">
+      <span avatar="post.creator_id" class="creator-avatar"></span>
     </a>
 
-  {{activity.id}}
+  {{post.id}}
     </a>
     <div class="creator">
 
     </div>
 
-  {{activity.id}}
-  {{activity.creator_id}}
+  {{post.id}}
+  {{post.creator_id}}
 
   </div>
 
 </div>
 <div class="modal-body">
-  <div class="activity-full">
+  <div class="post-full">
 
     <div class="content">
-      <div class="activity-text">{{activity.text}}</div>
+      <div class="post-text">{{post.text}}</div>
     </div>
 
 
@@ -59,7 +59,7 @@
 
             <div class="form-group">
                 <label for="Post_content">Add a comment</label>
-                <textarea name="comment" class="form-control comment ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="activity.content"></textarea>
+                <textarea name="comment" class="form-control comment ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="post.content"></textarea>
             </div>
             <button type="button" class="btn btn-primary">Submit</button>
             <input name="creator_id" type="hidden" value="{{user.id}}">

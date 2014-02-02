@@ -152,8 +152,8 @@ module.exports.routes = {
   },
 
   // -- ACTIVITIES
-  'post /activity': {
-    controller    : 'activity',
+  'post /post': {
+    controller    : 'post',
     action        : 'create'
   },
 
