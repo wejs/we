@@ -21,8 +21,10 @@
     //'wuMasonry',
     'jquery.fileupload-angular',
     'angular-route',
+    'user/user',
+    'messenger/messenger',
+    'activity/activity',
     './messenger/index',
-    'user',
     './site/index',
     './avatar/index',
     './activity/index',
@@ -56,6 +58,8 @@
       'application.constants',
       'application.controllers',
       'application.user',
+      'messenger',
+      'activity',
       'ui.router',
       'ui.bootstrap',
       //,'wu.masonry'
@@ -96,59 +100,6 @@
               templateUrl: "/angularjs/user/views/signup-form.html"
             },
 
-          }
-        })
-
-        // --- ACTIVITY
-        .state('ActivityController', {
-          url: "/activity",
-          templateUrl: "/angularjs/activity/views/index.html",
-          controller: 'ActivityController',
-          resolve: {
-            activitiesData: function(activityResolver){
-              console.log('resolvendo');
-              return activityResolver();
-            }
-          }
-        })
-        .state('ActivityController.activity', {
-          url: "/:id",
-          onEnter: function($stateParams, $state, $modal, $resource, activityShowResolver) {
-            $modal.open({
-              templateUrl: "/angularjs/activity/views/activity.html",
-              controller: 'ActivityItemController',
-              resolve: {
-                activity: function(activityShowResolver){
-                  return activityShowResolver($stateParams);
-                }
-              }
-            }).result.then(function(result) {
-              console.info('no activity then',result);
-              return $state.transitionTo("ActivityController");
-            }, function () {
-              console.info('Modal dismissed at: ' + new Date());
-              return $state.transitionTo("ActivityController");
-            });
-          }
-        })
-        .state('ActivityController.activity.edit', {
-          url: "/edit",
-          onEnter: function($stateParams, $state, $modal, $resource, activityShowResolver) {
-            $modal.open({
-              templateUrl: "/angularjs/activity/views/activity.html",
-              controller: 'ActivityItemController',
-              resolve: {
-                activity: function(activityShowResolver){
-                  return activityShowResolver($stateParams);
-                }
-              }
-            }).result.then(function(result) {
-              console.info('no activity edit then',result);
-              return $state.transitionTo("ActivityController");
-            }, function () {
-              console.info('Modal edited dismissed at: ' + new Date());
-              return $state.transitionTo("ActivityController");
-            });
           }
         })
 

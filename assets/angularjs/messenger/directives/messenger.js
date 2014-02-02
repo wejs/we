@@ -1,7 +1,7 @@
 
 (function() {
 
-  define(['angular'], function (angular) {
+  define(['angular', 'messenger/messenger'], function (angular) {
 
     return angular.module('application.directives')
       .directive('weMessenger', [

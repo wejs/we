@@ -3,8 +3,6 @@
 
   var moduleFiles = [
     'modules',
-    './controllers/messenger',
-    './services/messenger',
     './directives/messenger'
   ];
 

@@ -1,9 +1,9 @@
 
 (function() {
 
-  define(['angular', 'user'], function (angular) {
+  define(['angular', 'user/user'], function (angular) {
 
-    return angular.module('application.user')
+    return angular.module('application.directives')
       .directive('loginForm', [
       '$compile','$http', '$templateCache', '$rootScope',
       function($compile, $http, $templateCache, $rootScope) {

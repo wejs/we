@@ -1,7 +1,9 @@
 define([
   'angular',
   '$socket',
-  'angular-resource'
+  'angular-resource',
+  './directives/userMenuDirective',
+  './directives/loginFormDirective'
 ], function (
   angular,
   $socket,
