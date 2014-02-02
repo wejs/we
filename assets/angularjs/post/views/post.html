@@ -1,5 +1,4 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<div class="post full">
   <div class="header">
 
     <a href="/users/{{post.creator_id}}">
@@ -16,54 +15,52 @@
   {{post.creator_id}}
 
   </div>
+  <div class="content">
+    <div class="post-full">
 
-</div>
-<div class="modal-body">
-  <div class="post-full">
+      <div class="content">
+        <div class="post-text">{{post.text}}</div>
+      </div>
 
-    <div class="content">
-      <div class="post-text">{{post.text}}</div>
+
     </div>
-
-
   </div>
-</div>
-<div class="modal-footer">
-    <div class="footer ng-scope">
-        <div class="actions">
-            <span class="social pull-left">
-                <button type="button" class="btn btn-xs btn-default" data-ng-click="up($event)">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </button>
-                <button type="button" class="btn btn-xs btn-default" data-ng-click="down($event)">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button>
-            </span>
 
-            <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
-              <span class="glyphicon glyphicon-share-alt"></span> Share
-            </button>
-            <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
-              <span class="glyphicon glyphicon-edit"></span> Edit
-            </button>
-            <button class="btn btn-xs btn-danger" data-ng-click="delete($index,$event)">
-              <span class="glyphicon glyphicon-remove"></span> Delete
-            </button>
-        </div>
-        <div class="comments">
+  <div class="footer ng-scope">
+      <div class="actions">
+          <span class="social pull-left">
+              <button type="button" class="btn btn-xs btn-default" data-ng-click="up($event)">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>
+              <button type="button" class="btn btn-xs btn-default" data-ng-click="down($event)">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+              </button>
+          </span>
 
-        </div>
-        <div class="comment-add">
-          <img class="avatar-small pull-left" src="/imgs/avatars/user-avatar.png">
-          <form action="/comment" method="POST" class="comment ng-valid">
+          <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
+            <span class="glyphicon glyphicon-share-alt"></span> Share
+          </button>
+          <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
+            <span class="glyphicon glyphicon-edit"></span> Edit
+          </button>
+          <button class="btn btn-xs btn-danger" data-ng-click="delete($index,$event)">
+            <span class="glyphicon glyphicon-remove"></span> Delete
+          </button>
+      </div>
+      <div class="comments">
 
-            <div class="form-group">
-                <label for="Post_content">Add a comment</label>
-                <textarea name="comment" class="form-control comment ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="post.content"></textarea>
-            </div>
-            <button type="button" class="btn btn-primary">Submit</button>
-            <input name="creator_id" type="hidden" value="{{user.id}}">
-          </form>
-        </div>
-    </div>
+      </div>
+      <div class="comment-add">
+        <img class="avatar-small pull-left" src="/imgs/avatars/user-avatar.png">
+        <form action="/comment" method="POST" class="comment ng-valid">
+
+          <div class="form-group">
+              <label for="Post_content">Add a comment</label>
+              <textarea name="comment" class="form-control comment ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="post.content"></textarea>
+          </div>
+          <button type="button" class="btn btn-primary">Submit</button>
+          <input name="creator_id" type="hidden" value="{{user.id}}">
+        </form>
+      </div>
+  </div>
 </div>

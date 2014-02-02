@@ -4,6 +4,7 @@
   var moduleFiles = [
     'modules',
     './directives/shareboxDirective',
+    './directives/postTeaserDirective',
   ];
 
   define( moduleFiles, function() {} );

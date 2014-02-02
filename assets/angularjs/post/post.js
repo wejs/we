@@ -26,27 +26,16 @@ define([
           }
         }
       })
-      .state('posts.post', {
-        url: "/:id",
-        onEnter: function($stateParams, $state, $modal, $resource, postShowResolver) {
-          $modal.open({
+      .state('post', {
+        url: "/post/:id",
+        views: {
+          "": {
             templateUrl: "/angularjs/post/views/post.html",
-            controller: 'PostItemController',
-            resolve: {
-              post: function(postShowResolver){
-                return postShowResolver($stateParams);
-              }
-            }
-          }).result.then(function(result) {
-            console.info('no post then',result);
-            return $state.transitionTo("posts");
-          }, function () {
-            console.info('Modal dismissed at: ' + new Date());
-            return $state.transitionTo("posts");
-          });
+            controller: 'PostItemController'
+          }
         }
       })
-      .state('posts.post.edit', {
+      .state('post.edit', {
         url: "/edit",
         onEnter: function($stateParams, $state, $modal, $resource, postShowResolver) {
           $modal.open({
@@ -130,24 +119,35 @@ define([
   // --- CONTROLERS ---
   angular.module("post")
   .controller("PostItemController", [
-    "$rootScope","$scope", 'PostResource', 'post', '$modalInstance',
-    function($rootScope, $scope, PostResource, post, $modalInstance) {
+    "$rootScope","$scope", 'PostResource', '$stateParams',
+    function($rootScope, $scope, PostResource, $stateParams) {
       var show;
 
-      if(!$rootScope.posts)
-        $rootScope.posts = {};
+      if(!$rootScope.posts) $rootScope.posts = {};
 
-      if($rootScope.posts[post.id]){
-        $scope.post = $rootScope.posts[post.id];
-      } else {
-        $rootScope.posts[post.id] = post;
-        $scope.post = post;
+      if(!$scope.post){
+        $scope.post = {};
+
+        // get post from post cache
+        if($rootScope.posts[$stateParams.id]){
+          $scope.post = $rootScope.posts[$stateParams.id];
+        } else {
+          // if dont are in cache get from server
+          PostResource.get({
+            id: $stateParams.id
+          }, function(post, getResponseHeaders){
+
+            $rootScope.posts[post.id] = post;
+            $scope.post = post;
+
+          }, function(error) {
+            console.error('error on post show', error);
+          });
+        }
       }
 
-      $scope.$watch('$rootScope.posts[$scope.post]', function() {
+      $rootScope.$watch('posts.'+ $scope.post.id , function() {
         $scope.post = $rootScope.posts[$scope.post.id];
-        // do something here
-        console.info('$rootScope.posts[post.id]',$rootScope.posts[$scope.post.id]);
       }, true);
 
       $scope.up = function() {
@@ -220,13 +220,16 @@ define([
       var init;
       var show;
 
-      if(!$rootScope.posts)
-        $rootScope.posts = {};
+      if(!$rootScope.posts) $rootScope.posts = {};
 
       init = function (){
         console.log(postData);
         $scope.posts = postData;
-        $rootScope.posts = postData;
+
+        postData.forEach( function(post){
+          $rootScope.posts[post.id] = post;
+        });
+
       };
 
 

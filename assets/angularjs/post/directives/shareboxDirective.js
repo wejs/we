@@ -17,7 +17,6 @@
         return {
           restrict:"EA",
           templateUrl: templateUrl,
-          link: linker,
           controller: function($scope, $element, $attrs, $rootScope, PostResource) {
             console.log($rootScope.user);
 

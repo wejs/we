@@ -21,10 +21,15 @@ module.exports = {
       } else {
         res.format({
            'text/html': function(){
+
+              // TODO add suport to html requests
+              res.view("home/index.ejs");
+              /*
              res.view( 'home/index.ejs',
               {
                 posts: posts
               });
+              */
            },
 
            'application/json': function(){

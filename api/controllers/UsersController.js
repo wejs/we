@@ -11,10 +11,7 @@ var fs = require('fs');
 module.exports = {
 
   index: function (req, res) {
-    //console.log('sending email');
-    //console.log(sails.config.siteEmail);
-    //EmailService.sendInviteEmail({email: 'alberto.souza.99@gmail.com', name: 'Alberto Souza'});
-    //EmailService.sendRegisterValidationEmail({email: 'alberto.souza.99@gmail.com', name: 'Alberto Souza'});
+
     Users.find({})
     .limit(10)
     .sort('name ASC')
@@ -28,9 +25,13 @@ module.exports = {
       } else {
         res.format({
            'text/html': function(){
+            // TODO add suport to html requests
+              res.view("home/index.ejs");
+            /*
              res.view({
                 users: users
               });
+            */
            },
 
            'application/json': function(){
