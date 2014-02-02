@@ -64,14 +64,14 @@ exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
         name: user.name
       },
       site: {
-        name: 'WE-CMS',
+        name: 'WE',
         slogan: 'MIMI one slogan here'
       },
       confirmUrl: siteBaseUrl + '/user/'+ user.id +'/activate/' + token.token
     };
 
     var templateName = 'AccontActivationEmail';
-    options.subject = 'WE-CMS -> Register validation email :)';
+    options.subject = 'WE -> Register validation email :)';
 
     EmailService.sendEmail(options ,templateName ,templateVariables, cb);
   });
