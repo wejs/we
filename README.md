@@ -3,8 +3,8 @@
 
 Status - in development, not working for production
 
-Have a question or found a fix? Please read a [Contribute guide](https://github.com/we-cms/we/blob/master/CONTRIBUTING.md) and open a [issue](https://github.com/we-cms/we/issues) and/or submit a pull request. <br>
-For documentation, see [here](https://github.com/we-cms/we/blob/master/DOCUMENTATION.md).
+Have a question or found a fix? Please read a [Contribute guide](https://github.com/wejs/we/blob/master/CONTRIBUTING.md) and open a [issue](https://github.com/wejs/we/issues) and/or submit a pull request. <br>
+For documentation, see [here](https://github.com/wejs/we/blob/master/DOCUMENTATION.md).
 
 This project started in https://github.com/albertosouza/we after some testes with node.js frameworks
 
