@@ -225,11 +225,14 @@ define([
 
       init = function (){
         console.log(postData);
-        $scope.sharebox = {};
-        $scope.sharebox.open = false;
         $scope.posts = postData;
         $rootScope.posts = postData;
       };
+
+
+
+
+
       return init();
     }
   ]);
