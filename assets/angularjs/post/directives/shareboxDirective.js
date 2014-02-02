@@ -17,8 +17,11 @@
         return {
           restrict:"EA",
           templateUrl: templateUrl,
+          transclude: true,
+          scope: {
+            posts : '='
+          },
           controller: function($scope, $element, $attrs, $rootScope, PostResource) {
-            console.log($rootScope.user);
 
             $scope.sharebox = {};
             $scope.sharebox.open = false;
@@ -44,11 +47,18 @@
                 'text': post.content
               });
 
-              Post.$save(function(data, headers) {
+              Post.$save( function(data, headers) {
 
-                console.log('Post.$save', data);
                 if(data.post){
-                  $rootScope.posts.unshift(data.post);
+                  // convert simple post object in post resource object
+                  var postR = new PostResource(data.post);
+
+                  // update root posts cache
+                  $rootScope.posts[data.post.id] = postR;
+
+                  // update parent posts list
+                  jQuery('#posts').scope().posts.unshift(postR);
+
                 }
 
                 $scope.closeSharebox();

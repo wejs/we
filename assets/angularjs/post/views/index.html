@@ -1,8 +1,8 @@
-<div masonry="{ transitionDuration: 0 }" id="dynamic-grid-container" class="posts ">
+<div id="posts" class="posts ">
   <div class="sharebox-area masonry-brick  content-block">
     <we-sharebox></we-sharebox>
   </div>
   <div data-ng-repeat="post in posts" class="masonry-brick content-block post">
-    <we-post-teaser data-post="post"></we-post-teaser>
+    <we-post-teaser id="post-{{post.id}}" data-post="post"></we-post-teaser>
   </div>
 </div>

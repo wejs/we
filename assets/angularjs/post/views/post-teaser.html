@@ -18,7 +18,20 @@
   </div>
 
   <div class="content">
-    <div class="post-text">{{post.text}}</div>
+    <div data-ng-hide="post.editing" class="post-text" >{{post.text}}</div>
+
+    <form data-ng-show="post.editing" id="form-post-{{post.id}}" class="edit-post">
+      <textarea class="post-text"ng-model="post.text"></textarea>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-ng-click="update()">
+          <span class="glyphicon glyphicon-ok"> Save </span>
+        </button>
+        <button type="button" class="btn btn-default" data-ng-click="cancelEdit()">
+          <span class="glyphicon glyphicon-remove"> Cancel </span>
+        </button>
+      </div>
+    </form>
+
   </div>
 
   <div class="footer ng-scope">
@@ -38,7 +51,7 @@
           <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
             <span class="glyphicon glyphicon-edit"></span> Edit
           </button>
-          <button class="btn btn-xs btn-danger" data-ng-click="delete($event, $post)">
+          <button class="btn btn-xs btn-danger" data-ng-click="delete($event)">
             <span class="glyphicon glyphicon-remove"></span> Delete
           </button>
       </div>

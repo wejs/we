@@ -20,7 +20,8 @@ module.exports.policies = {
   'messenger': 'MessengerPolicy',
   'main': 'MainPolicy',
   'activity': 'PostPolicy',
-  'roles': 'RolesPolicy'
+  'roles': 'RolesPolicy',
+  'users': 'UsersPolicy'
 
   /*
 	// Here's an example of adding some policies to a controller

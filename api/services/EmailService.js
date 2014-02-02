@@ -12,13 +12,13 @@ exports.sendInviteEmail = function(options) {
 
   var opts = {"type":"messages","call":"send","message":
     {
-      "subject": "We CSMS ;)",
+      "subject": "WE ;)",
       "from_email": "services@we-cms.org",
-      "from_name": "We CMS",
+      "from_name": "WE",
       "to":[
           {"email": options.email, "name": options.name}
       ],
-      "text": "Dear "+options.name+",\nYou're in the Beta! Click <insert link> to verify your account"
+      "text": "Dear "+options.name+",\nYou're in the Alfa! Click <insert link> to verify your account"
     }
   };
 

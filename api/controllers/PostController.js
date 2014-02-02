@@ -50,10 +50,8 @@ module.exports = {
 
     Post.create(post).done(function(error, newPost) {
       if (error) {
-        console.log(error);
         res.send(500, {error: res.i18n("DB Error") });
       } else {
-        console.log('newPost',newPost);
 
         res.send({
           'post': newPost

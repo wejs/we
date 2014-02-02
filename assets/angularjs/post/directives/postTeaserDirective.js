@@ -22,8 +22,10 @@
         return {
           restrict:"EA",
           templateUrl: templateUrl,
+          transclude: true,
           scope: {
-            post: "="
+            post: "=",
+            posts: "="
           },
           controller: 'PostItemController'
         };

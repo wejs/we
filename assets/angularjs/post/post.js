@@ -66,7 +66,9 @@ define([
       var PostResource;
       PostResource = $resource('/post/:id', {
         id: '@id'
-      }, {});
+      }, {
+        'update': { method:'PUT' }
+      });
       return PostResource;
     }
   ]);
@@ -162,24 +164,59 @@ define([
         return console.log('share');
       };
 
-      $scope.edit = function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        console.log($scope);
-        return console.log('edit');
+      // show edit form
+      $scope.edit = function() {
+        // save one back
+        $scope.post_old = angular.copy($scope.post);
+
+        $scope.post.editing = true;
       };
 
-      $scope["delete"] = function(index, event) {
+      $scope.cancelEdit = function() {
+        console.log($scope.post_old);
+        $scope.post = angular.copy($scope.post_old);
+
+        $scope.post.editing = false;
+      };
+
+      // Update post on server
+      $scope.update = function() {
+        delete($scope.post.editing);
+
+        $scope.post.$update( function(data, headers) {
+          console.log('headers',headers);
+          if(data.post){
+            // update root posts cache
+            $rootScope.posts[data.post.id] = $scope.post;
+
+            // update parent posts list
+            //jQuery('#posts').scope().posts.unshift($scope.post);
+          }
+
+          $scope.post.editing = false;
+        }, function(err, headers) {
+          // error here
+          // TODO
+          console.error('error: ',err);
+        });
+      };
+
+      // delete the scope post
+      $scope["delete"] = function(event) {
         event.preventDefault();
         event.stopPropagation();
-        console.log('delete');
-        console.log(new PostResource({
-          'post': $scope.posts[index]
-        }));
+
+        var post_id = $scope.post.id;
+
         if (confirm('Permanently delete this post?')) {
-          console.log($scope.posts[index]);
-          $scope.posts[index].$delete();
-          return $scope.posts.splice(index, 1);
+          $scope.post.$delete(function() {
+            // search post in posts list and remove it
+            jQuery('#posts').scope().posts.forEach( function(item, key){
+              if(item.id == post_id){
+               jQuery('#posts').scope().posts.splice(key, 1);
+              }
+            });
+          });
         }
       };
 
@@ -223,7 +260,6 @@ define([
       if(!$rootScope.posts) $rootScope.posts = {};
 
       init = function (){
-        console.log(postData);
         $scope.posts = postData;
 
         postData.forEach( function(post){
@@ -232,9 +268,15 @@ define([
 
       };
 
+      // get new items from server
+      $scope.getNews = function(){
 
+      };
 
+      // get olds items from server
+      $scope.getOlds= function(){
 
+      };
 
       return init();
     }
