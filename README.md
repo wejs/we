@@ -46,4 +46,4 @@ If want see a live WE example access: http://wejs.org/
 
 ## Copyright and license
 
-Copyright 2013 Alberto Souza <alberto.souza.99@gmail.com>, under [the MIT license](LICENSE).
+Copyright 2013-2014 Alberto Souza <alberto.souza.99@gmail.com>, under [the MIT license](LICENSE).
