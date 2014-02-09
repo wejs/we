@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "should": "2.1.1",
-    "sinon": "~1.7.3",
+    "sinon": "~1.8.1",
     "supertest": ">= 0",
     "mocha": ">= 0",
     "zombie": "~2.0.0",
