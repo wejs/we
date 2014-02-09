@@ -1,7 +1,7 @@
 {
-  "name": "we",
+  "name": "WE",
   "version": "0.0.35",
-  "description": "A CMS for Social Networks written in Node.js.",
+  "description": "A system for make real time social networks written with Sails.js",
   "dependencies": {
     "sails": "0.9.8",
     "grunt": "0.4.1",
@@ -33,7 +33,7 @@
     "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors"
   },
   "main": "app.js",
-  "repository": "",
-  "author": "",
-  "license": ""
+  "repository": "git@github.com:wejs/we.git",
+  "author": "Alberto Souza",
+  "license": "MIT"
 }
