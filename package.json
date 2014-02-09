@@ -18,7 +18,7 @@
     "email-templates": "~0.1.1"
   },
   "devDependencies": {
-    "should": "2.1.1",
+    "should": "3.1.2",
     "sinon": "~1.8.1",
     "supertest": ">= 0",
     "mocha": ">= 0",
