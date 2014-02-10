@@ -1,4 +1,5 @@
 // Load module files
+// For use with require.js
 (function() {
 
   var moduleFiles = [

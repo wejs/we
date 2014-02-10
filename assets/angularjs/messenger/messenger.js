@@ -1,13 +1,29 @@
-define([
-  'angular',
-  '$socket',
-  'angular-resource',
-  'user/user',
-], function (
-  angular,
-  $socket,
-  ngResource
-) {
+/*
+ * WE messenger
+ *
+ * Copyright 2014, Alberto Souza
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+(function (factory) {
+  'use strict';
+  if (typeof define === 'function' && define.amd) {
+    // Register as an anonymous AMD module:
+    define([
+      'jquery',
+      'angular',
+      '$socket',
+      'angular-resource',
+      'user/user',
+    ], factory);
+  } else {
+    factory();
+  }
+}(function () {
+  'use strict';
+
   // --- MODULE ---
   angular.module('messenger', [
     'ngResource','ngRoute', 'ui.router', 'ui.bootstrap'
@@ -258,4 +274,4 @@ define([
     // );
   }]);
 
-});
+}));
