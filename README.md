@@ -10,6 +10,32 @@ This project started in https://github.com/albertosouza/we after some testes wit
 
 If want see a live WE example access: http://wejs.org/
 
+### Installation
+
+Before install and start:
+* MongoDB http://www.mongodb.org/
+* Node.js http://nodejs.org/
+* npm https://npmjs.org/
+
+Then in terminal tip:
+
+```sh
+$ git clone git@github.com:wejs/we.git we
+$ cd we
+$ npm install && bower install
+```
+### How to configure
+
+TODO
+
+### How to Test
+
+Inside project folder tip:
+```sh
+$ npm test
+```
+
+
 ## FEATURES
 
 * User account - In work
