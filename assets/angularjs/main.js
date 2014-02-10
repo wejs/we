@@ -36,7 +36,8 @@ require.config({
     bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
     jquery: '../bower_components/jquery/jquery',
     'ng-table': '../bower_components/ng-table/ng-table',
-    'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls'
+    'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+    'we-messenger': '../bower_components/we-messenger/messenger'
   },
   shim: {
     'angular-resource': {
