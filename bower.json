@@ -11,6 +11,7 @@
     "assets/bower_components"
   ],
   "dependencies": {
+    "we-messenger": "*",
     "we-components": "~0.0.13",
     "angular-cookies": "~1.2.6",
     "angular-resource": "~1.2.6",
