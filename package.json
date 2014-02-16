@@ -4,7 +4,7 @@
   "description": "A system for make real time social networks written with Sails.js",
   "dependencies": {
     "sails": "0.9.8",
-    "grunt": "0.4.1",
+    "grunt": "0.4.2",
     "sails-disk": "~0.9.0",
     "ejs": "0.8.5",
     "optimist": "0.3.4",
