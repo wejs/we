@@ -15,7 +15,8 @@
     "passport": "0.1.17",
     "passport-local": "0.1.6",
     "sails-mongo": "0.9.6",
-    "email-templates": "~0.1.1"
+    "email-templates": "~0.1.1",
+    "sails-we-theme-default": "0.0.1"
   },
   "devDependencies": {
     "should": "3.1.2",
