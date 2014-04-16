@@ -21,6 +21,7 @@
     //'wuMasonry',
     'jquery.fileupload-angular',
     'angular-route',
+    'angular-moment',
     'user/user',
     'we-messenger',
     'post/post',
@@ -61,7 +62,8 @@
       'ui.router',
       'ui.bootstrap',
       //,'wu.masonry'
-      'blueimp.fileupload'
+      'blueimp.fileupload',
+      'angularMoment'
     ]).
     config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
       function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
@@ -140,6 +142,8 @@
         '$http',
         '$window',
         function($rootScope, $route, $http, $window){
+
+        $window.moment.lang('en');
 
         $rootScope.theme = {};
         $rootScope.theme.url = '/bower_components/we-theme-bootstrap';

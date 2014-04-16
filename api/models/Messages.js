@@ -13,10 +13,15 @@ module.exports = {
       type: 'string',
       required: true
     },
+
+    // send to users and|or room
     toId: {
-      type: 'array',
-      required: true,
+      type: 'array'
     },
+    roomId: {
+      type: 'array'
+    },
+
     content: {
       type: 'string',
       required: true

@@ -45,7 +45,7 @@ module.exports = function(sails) {
     // TODO move this config to sails v0.10 new hooks and events
     sails.config.paths.views = templates_path;
     sails.config.paths.layout = templates_path + '/' + theme_enabled.configs.views.path;
-    sails.express.app.set('views', templates_path);
+    sails.hooks.http.app.set('views', templates_path);
 
   }
 

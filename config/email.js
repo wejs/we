@@ -30,12 +30,12 @@ module.exports.email = {
     },
     gmail: {
       service: "Gmail",
-      type: 'SMTP',      
+      type: 'SMTP',
       auth: {
         user: "email@gmail.com",
         pass: "password"
       }
-    }      
+    }
   }
 };
 */

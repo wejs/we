@@ -33,9 +33,9 @@ module.exports.routes = {
   //
   // (This would also work if you had a file at: `/views/home.ejs`)
   '/': {
-    //controller: 'main',
-    //action: 'index'
-    view: 'home/index'
+    controller: 'main',
+    action: 'index'
+    //view: 'home/index'
   },
 
   'get /dashboard': {
@@ -44,8 +44,8 @@ module.exports.routes = {
   },
 
   'get /links' : {
-       controller: 'links',
-       action: 'index'
+    controller: 'links',
+    action: 'index'
   },
 
   'get /templates/:id?.ejs' : {
@@ -66,22 +66,6 @@ module.exports.routes = {
   // Standard RESTful routing
 
   // If no id is given, an array of all users will be returned
-  'get /users/:uid/messenger/:id?': {
-      controller    : 'messenger',
-      action        : 'index'
-  },
-  'post /users/:uid/messenger': {
-      controller    : 'messenger',
-      action        : 'create'
-  },
-  'put /users/:uid/messenger/:id?': {
-      controller    : 'messenger',
-      action        : 'update'
-  },
-  'delete /users/:uid/messenger/:id?': {
-      controller    : 'messenger',
-      action        : 'destroy'
-  },
 
   'get /users/current': {
     controller    : 'users',
@@ -150,6 +134,85 @@ module.exports.routes = {
       controller    : 'messenger',
       action        : 'start'
   },
+
+  'get /messenger/contact-list': {
+      controller    : 'messenger',
+      action        : 'getContactList'
+  },
+
+  'get /messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'index'
+  },
+  'post /messenger': {
+      controller    : 'messenger',
+      action        : 'create'
+  },
+  'put /messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'update'
+  },
+  'delete /messenger/:id?': {
+      controller    : 'messenger',
+      action        : 'destroy'
+  },
+
+  // Return a list of messages between authenticated user and :uid user
+  'get /messenger/messages/with-user/:uid?': {
+      controller    : 'messenger',
+      action        : 'messagesWithUser'
+  },
+
+  // Return messages without toIds and roomIds
+  'get /messenger/messages/public': {
+      controller    : 'messenger',
+      action        : 'getPublicMessages'
+  },
+
+  // Send a message to show writing status
+  'post /messenger/user/writing': {
+      controller    : 'messenger',
+      action        : 'emitIamWriting'
+  },
+
+  // -- ROOMS
+
+  'get /rooms/:id?': {
+      controller    : 'rooms',
+      action        : 'index'
+  },
+  'post /rooms': {
+      controller    : 'rooms',
+      action        : 'create'
+  },
+  'put /rooms/:id?': {
+      controller    : 'rooms',
+      action        : 'update'
+  },
+  'delete /rooms/:id?': {
+      controller    : 'rooms',
+      action        : 'destroy'
+  },
+
+  // get users in one room
+  'get /rooms/users/': {
+      controller    : 'rooms',
+      action        : 'usersGet'
+  },
+
+  // add user in room
+  'post /rooms/users/:id?': {
+      controller    : 'rooms',
+      action        : 'userAdd'
+  },
+
+  // remove user from room
+  'delete /rooms/users/:id?': {
+      controller    : 'rooms',
+      action        : 'userRemove'
+  },
+
+
 
   // -- ACTIVITIES
   'post /post': {
@@ -226,11 +289,11 @@ module.exports.routes = {
   // For example, if you have a `UserController` with a `signup` action,
   // and somewhere else, you're serving a signup form looks like:
   //
-  //		<form action="/signup">
-  //			<input name="username" type="text"/>
-  //			<input name="password" type="password"/>
-  //			<input type="submit"/>
-  //		</form>
+  //    <form action="/signup">
+  //      <input name="username" type="text"/>
+  //      <input name="password" type="password"/>
+  //      <input type="submit"/>
+  //    </form>
 
   // You would want to define the following route to handle your form:
   'post /signup': 'UserController.signup'
@@ -269,17 +332,17 @@ module.exports.routes = {
  * (4) Shortcut CRUD blueprints
  *
  * These routes can be disabled by setting (in config/controllers.js)
- *			`module.exports.controllers.blueprints.shortcuts = false`
+ *      `module.exports.controllers.blueprints.shortcuts = false`
  *
  * If you have a model, `Foo`, and a controller, `FooController`,
  * you can access CRUD operations for that model at:
- *		/foo/find/:id?	->	search lampshades using specified criteria or with id=:id
+ *    /foo/find/:id?  ->  search lampshades using specified criteria or with id=:id
  *
- *		/foo/create		->	create a lampshade using specified values
+ *    /foo/create   ->  create a lampshade using specified values
  *
- *		/foo/update/:id	->	update the lampshade with id=:id
+ *    /foo/update/:id ->  update the lampshade with id=:id
  *
- *		/foo/destroy/:id	->	delete lampshade with id=:id
+ *    /foo/destroy/:id  ->  delete lampshade with id=:id
  *
  */
 
@@ -287,18 +350,18 @@ module.exports.routes = {
  * (5) REST blueprints
  *
  * These routes can be disabled by setting (in config/controllers.js)
- *		`module.exports.controllers.blueprints.rest = false`
+ *    `module.exports.controllers.blueprints.rest = false`
  *
  * If you have a model, `Foo`, and a controller, `FooController`,
  * you can access CRUD operations for that model at:
  *
- *		get /foo/:id?	->	search lampshades using specified criteria or with id=:id
+ *    get /foo/:id? ->  search lampshades using specified criteria or with id=:id
  *
- *		post /foo		-> create a lampshade using specified values
+ *    post /foo   -> create a lampshade using specified values
  *
- *		put /foo/:id	->	update the lampshade with id=:id
+ *    put /foo/:id  ->  update the lampshade with id=:id
  *
- *		delete /foo/:id	->	delete lampshade with id=:id
+ *    delete /foo/:id ->  delete lampshade with id=:id
  *
  */
 

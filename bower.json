@@ -23,15 +23,14 @@
     "jquery": "~2.0.3",
     "angular-ui-router": "0.2.7",
     "bootstrap": "~3.0.3",
-    "ng-table": "~0.3.1"
+    "ng-table": "~0.3.1",
+    "angular-moment": "~0.6.2",
+    "tupi": "~0.0.44"
   },
   "license": "MIT",
   "authors": [
     "Alberto Souza <alberto.souza.99@gmail.com>",
     "Daniel Torres <daniel@updigital.me>"
   ],
-  "private": true,
-  "resolutions": {
-    "angular": "~1.2.6"
-  }
+  "private": true
 }

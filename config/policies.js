@@ -18,7 +18,7 @@ module.exports.policies = {
   // (`true` allows public access)
   '*':[true],
   'messenger': 'MessengerPolicy',
-  'main': 'MainPolicy',
+  //'main': 'MainPolicy',
   'activity': 'PostPolicy',
   'roles': 'RolesPolicy',
   'users': 'UsersPolicy'

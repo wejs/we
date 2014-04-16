@@ -10,41 +10,65 @@
     return angular.module('application.directives')
       .directive('avatar', [
       '$compile',
-      function($compile) {
+      'UserService',
+      function($compile, UserService) {
         return{
-          restrict:"EA",
-          link:function (scope, elm, attrs) {
+          restrict:"E",
+          template: '<a href="{{avatarLink}}"> <img width="{{avatarWidth}}" height="{{avatarHeight}}" class="{{avatarClass}}" src="/imgs/avatars/user-avatar.png" data-ng-src="{{avatarImageUrl}}"/> </a>',
+          scope: {
+            userId: '=userId',
+          },
+          link: function (scope, elm, attrs) {
+            var user = {};
 
-            scope.$watch(attrs.avatar, function (avatarId) {
-              var tag;
-              var avatarLink = '';
-              var size_class;
+            if(scope.userId){
+              getUserAvatarId(scope.userId);
+            }
 
-              if(attrs['avatarLink']){
-                avatarLink = attrs['avatarLink'];
-              }
+            function getUserAvatarId(uid){
+
+              user = UserService.getUser(scope.userId);
+              user.$promise.then(function(){
+                // if user has avatar
+                if(user.avatarId){
+                  scope.avatarId = user.avatarId;
+                }
+                scope.avatarLink = '/users/' + user.id;
+              });
+
+            }
+
+            function setVars(scope, newId){
 
               switch(attrs['avatarSize']) {
                 case 'medium':
-                  size_class = ' width="200px" height="200px" class="img-rounded avatar-medium" ';
+                  scope.avatarWidth = '200px';
+                  scope.avatarHeight = '200px';
+                  scope.avatarClass = 'img-rounded avatar-medium';
                   break;
                 default:
-                  size_class = ' width="50px" height="50px" class="img-rounded avatar-small" ';
+                  scope.avatarWidth = '50px';
+                  scope.avatarHeight = '50px';
+                  scope.avatarClass = 'img-rounded avatar-small';
               }
 
-              if ((avatarId !== null) && (avatarId !== undefined) && (avatarId !== '')) {
-                tag = '<img '+size_class+' data-ng-src="/images/' + avatarId +'">';
-              } else {
-                tag = '<img '+size_class+' data-ng-src="/imgs/avatars/user-avatar.png">';
+              if ((scope.avatarId !== null) && (scope.avatarId !== undefined) && (scope.avatarId !== '')) {
+                scope.avatarImageUrl = '/images/' + scope.avatarId;
               }
+            }
 
-              if(avatarLink){
-                tag = '<a href="'+avatarLink+'">'+ tag +'</a>';
+            scope.$watch('avatarId', function (newId, oldId) {
+              setVars(scope, newId);
+            });
+
+
+            scope.$watch('userId', function (newId, oldId) {
+              if(newId){
+                getUserAvatarId(newId);
               }
-
-              elm.html( $compile(tag)(scope) );
             });
           }
+
         };
       }
     ]);

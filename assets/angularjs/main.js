@@ -34,10 +34,12 @@ require.config({
     'load-image-exif-map': '../bower_components/blueimp-load-image/js/load-image-exif-map',
     'blueimp-tmpl': '../bower_components/blueimp-tmpl/js/tmpl',
     bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
-    jquery: '../bower_components/jquery/jquery',
+    jquery: '../bower_components/jquery/dist/jquery',
     'ng-table': '../bower_components/ng-table/ng-table',
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'we-messenger': '../bower_components/we-messenger/messenger'
+    'we-messenger': '../bower_components/we-messenger/messenger',
+    moment: '../bower_components/moment/moment',
+    'angular-moment': '../bower_components/angular-moment/angular-moment'
   },
   shim: {
     'angular-resource': {
@@ -54,6 +56,12 @@ require.config({
       deps: [
         'angular',
         'bootstrap'
+      ]
+    },
+    'angular-moment': {
+      deps: [
+        'angular',
+        'moment'
       ]
     },
     angular: {
