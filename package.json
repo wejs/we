@@ -1,7 +1,7 @@
 {
   "name": "WE",
   "private": true,
-  "version": "0.0.46",
+  "version": "0.1.0",
   "description": "A system for make real time social networks written with Sails.js",
   "keywords": [],
   "dependencies": {
