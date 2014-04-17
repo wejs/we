@@ -1,11 +1,11 @@
 /**
  * sails.io.js
  *
- * This file allows you to send and receive socket.io messages to & from Sails 
+ * This file allows you to send and receive socket.io messages to & from Sails
  * by simulating a REST client interface on top of socket.io.
  *
  * It models its API after the $.ajax pattern from jQuery you might be familiar with.
- * 
+ *
  * So if you're switching from using AJAX to sockets, instead of:
  *    `$.post( url, [data], [cb] )`
  *
@@ -19,7 +19,7 @@
 (function (io) {
 
 
-  // We'll be adding methods to `io.SocketNamespace.prototype`, the prototype for the 
+  // We'll be adding methods to `io.SocketNamespace.prototype`, the prototype for the
   // Socket instance returned when the browser connects with `io.connect()`
   var Socket = io.SocketNamespace;
 
@@ -121,6 +121,10 @@
       data = {};
     }
 
+    // set csrf token on all requests
+    // TODO change token html to config
+    data['_csrf'] = $('meta[name=csrf-token]').attr('content');
+
     // Build to request
     var json = io.JSON.stringify({
       url: url,
@@ -153,7 +157,7 @@
 
     });
   }
-  
+
 
 
 

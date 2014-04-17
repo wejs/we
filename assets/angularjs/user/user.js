@@ -171,7 +171,8 @@ define([
     '$resource',
     '$rootScope',
     'UserService',
-    function($resource, $rootScope, UserService){
+    'AUTH_EVENTS',
+    function($resource, $rootScope, UserService, AUTH_EVENTS){
 
     var service = $resource('/users/:param',{},{
       'login': {
@@ -201,7 +202,7 @@ define([
           if(res.user.id){
             $rootScope.user = res.user;
             $rootScope.user.authorized = true;
-
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             if(callback)
               callback(user);
           }

@@ -54,19 +54,14 @@ module.exports = {
       where: {
         or: [
           { fromId: uid,
-            toId: {
-              contains: req.user.id
-            }
-
+            toId: req.user.id
           },
           {
             fromId: req.user.id,
-            toId: {
-              contains: uid
-            }
+            toId: uid
           }
         ]
-      },
+      }
     })
     .limit(15)
     .sort('createdAt DESC')

@@ -29,7 +29,6 @@ module.exports.sockets = {
         Users.findOneById(userId).done(function(err, user){
           user.messengerStatus = 'online';
           sails.onlineusers[userId] = user.toJSON();
-          console.log('oi mundo');
         });
       }
 
@@ -63,7 +62,7 @@ module.exports.sockets = {
         }
       });
 
-      console.log('sned Disconect!!! ');
+      console.log('User disconected uid: ',userId);
       // remove user from users online
       delete sails.onlineusers[userId];
     }
