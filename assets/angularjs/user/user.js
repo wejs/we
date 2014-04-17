@@ -14,7 +14,17 @@ define([
   // --- MODULE ---
   angular.module('application.user', [
     'ngResource','ngRoute', 'ui.router', 'ui.bootstrap'
-  ]).
+  ])
+
+  // -- CONSTANTS
+  .constant('AUTH_EVENTS', {
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
+  }).
   config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
     function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
@@ -325,11 +335,12 @@ define([
   angular.module("application.user")
   .controller("LoginCtrl", [
     "$rootScope",
+    "AUTH_EVENTS",
     "$scope",
     "$location",
     "SessionService",
     "$window",
-    function($rootScope, $scope, $location, SessionService, $window) {
+    function($rootScope, AUTH_EVENTS,$scope, $location, SessionService, $window) {
       var errorHandler, init, loginHandler, logoutHandler;
 
       init = function() {
@@ -347,7 +358,9 @@ define([
           $rootScope.user = res;
           $rootScope.user.authorized = true;
 
+          $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         } else {
+          $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
           return $scope.message = "Invalid username or password!";
         }
       };
