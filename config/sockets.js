@@ -17,18 +17,19 @@ module.exports.sockets = {
   onConnect: function(session, socket) {
     var userId;
 
-    if(socket.handshake.session.passport)
-      userId = socket.handshake.session.passport.user;
+    if(session.passport)
+      userId = session.passport.user;
+
+    if(typeof sails.onlineusers === 'undefined' )
+      sails.onlineusers = {};
 
     if(userId){
-      if(typeof sails.onlineusers === 'undefined' )
-        sails.onlineusers = {};
-
       // save user data in online users cache
       if(typeof sails.onlineusers[userId] === 'undefined' ){
         Users.findOneById(userId).done(function(err, user){
           user.messengerStatus = 'online';
           sails.onlineusers[userId] = user.toJSON();
+          console.log('oi mundo');
         });
       }
 
