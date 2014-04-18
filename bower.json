@@ -25,7 +25,7 @@
     "bootstrap": "~3.0.3",
     "ng-table": "~0.3.1",
     "angular-moment": "~0.6.2",
-    "tupi": "~0.0.44"
+    "tupi": "~0.0.45"
   },
   "license": "MIT",
   "authors": [

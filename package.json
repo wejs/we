@@ -34,14 +34,15 @@
     "sails-we-theme-default": "0.0.2"
   },
   "devDependencies": {
+    "grunt-angular-templates": "^0.5.4",
+    "grunt-bower-requirejs": "~0.8.1",
+    "grunt-bump": "0.0.13",
+    "mocha": ">= 0",
+    "sails-memory": "~0.9.1",
     "should": "3.1.2",
     "sinon": "~1.8.1",
     "supertest": ">= 0",
-    "mocha": ">= 0",
-    "zombie": "~2.0.0",
-    "sails-memory": "~0.9.1",
-    "grunt-bower-requirejs": "~0.8.1",
-    "grunt-bump": "0.0.13"
+    "zombie": "~2.0.0"
   },
   "scripts": {
     "start": "node app.js",
