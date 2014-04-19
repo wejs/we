@@ -11,7 +11,7 @@ module.exports = {
     Rooms.find({})
     .limit(10)
     .sort('createdAt ASC')
-    .done(function(err, rooms) {
+    .exec(function(err, rooms) {
 
       // Error handling
       if (err) return res.serverError(err);
@@ -40,7 +40,7 @@ module.exports = {
     //room.text = req.param("text");
     room.creator_id = req.user.id;
 
-    Rooms.create(room).done(function(error, newRoom) {
+    Rooms.create(room).exec(function(error, newRoom) {
       if (error) {
         return res.send(500, {error: res.i18n("DB Error") });
       }

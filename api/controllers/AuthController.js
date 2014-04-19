@@ -45,7 +45,7 @@ module.exports = {
       });
     } else {
 
-      Users.findOneByEmail(user.email).done(function(err, usr){
+      Users.findOneByEmail(user.email).exec(function(err, usr){
         if (err) {
             return res.send(500, { error: res.i18n("DB Error") });
         } else if ( usr ) {
@@ -61,7 +61,7 @@ module.exports = {
               }
             });
         } else {
-            Users.create(user).done(function(error, newUser) {
+            Users.create(user).exec(function(error, newUser) {
               if (error) {
 
                 if(error.ValidationError){
@@ -153,7 +153,7 @@ module.exports = {
       var email = req.param("email");
       var password = req.param("password");
 
-      Users.findOneByEmail(email).done(function(err, usr) {
+      Users.findOneByEmail(email).exec(function(err, usr) {
           if (err) {
               res.send(500, { error: res.i18n("DB Error") });
           } else {
@@ -224,7 +224,7 @@ module.exports = {
       console.log(result);
 
 	    // token is valid then get user form db
-	    Users.findOneById(user.id).done(function(err, usr) {
+	    Users.findOneById(user.id).exec(function(err, usr) {
 	      if (err) {
 	        return res.send(500, { error: res.i18n("DB Error") });
 	      }
@@ -336,7 +336,7 @@ var validSignup = function(user, confirmPassword, res){
 var validAuthToken = function (userId, token, cb) {
 
   // then get user token form db
-  AuthToken.findOneByToken(token).done(function(err, authToken) {
+  AuthToken.findOneByToken(token).exec(function(err, authToken) {
     if (err) {
       return cb(res.i18n("DB Error"), null);
     }

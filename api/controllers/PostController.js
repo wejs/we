@@ -12,7 +12,7 @@ module.exports = {
     Post.find({})
       .limit(10)
       .sort('updatedAt DESC')
-      .done(function(err, posts) {
+      .exec(function(err, posts) {
       // Error handling
       if (err) {
         return console.log(err);
@@ -48,7 +48,7 @@ module.exports = {
     post.text = req.param("text");
     post.creator_id = req.user.id;
 
-    Post.create(post).done(function(error, newPost) {
+    Post.create(post).exec(function(error, newPost) {
       if (error) {
         res.send(500, {error: res.i18n("DB Error") });
       } else {

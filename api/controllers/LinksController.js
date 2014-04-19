@@ -11,7 +11,7 @@ module.exports = {
     Links.find({})
     .limit(10)
     .sort('name ASC')
-    .done(function(err, links) {
+    .exec(function(err, links) {
 
       // Error handling
       if (err) {

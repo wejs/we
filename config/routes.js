@@ -72,6 +72,13 @@ module.exports.routes = {
     action        : 'current'
   },
 
+  // USERS
+
+  'get /users': {
+    controller: 'users',
+    action: 'index'
+  },
+
   // User Auth
   // TODO move to AuthController
 

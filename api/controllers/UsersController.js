@@ -15,7 +15,7 @@ module.exports = {
     Users.find({})
     .limit(10)
     .sort('name ASC')
-    .done(function(err, users) {
+    .exec(function(err, users) {
 
       // Error handling
       if (err) {
@@ -60,7 +60,7 @@ module.exports = {
       // TODO change to join after waterline join suport is ready to use
       // if has a avatar get it after send
       if(req.user.avatarId  && !req.user.avatar){
-        Images.findOneById(req.user.avatarId).done(function(err, image) {
+        Images.findOneById(req.user.avatarId).exec(function(err, image) {
           req.user.avatar = image;
           respond();
         });
@@ -82,12 +82,12 @@ module.exports = {
     var id = req.param('id');
 
     if(id){
-      Users.findOneById(id).done(function(err, user){
+      Users.findOneById(id).exec(function(err, user){
         if(err){
           sails.error(err);
           return res.send(500,{'error':err});
         }else if(user && user.avatarId){
-          Images.findOneById(user.avatarId).done(function(err, image) {
+          Images.findOneById(user.avatarId).exec(function(err, image) {
             if (err) {
                 console.log('Error on get image from BD: ',err );
                 res.send(404);
@@ -149,7 +149,7 @@ module.exports = {
       //uploadedFile.mime = req.files.files.headers['content-type'];
       uploadedFile.user_id = req.user.id;
 
-      Images.create(uploadedFile).done(function(error, salvedFile) {
+      Images.create(uploadedFile).exec(function(error, salvedFile) {
         if (error) {
           // TODO delete file if ocurs errror here
           console.log(error);

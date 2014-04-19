@@ -45,7 +45,7 @@ module.exports = {
             //'mime': file.mime
           };
 
-          Files.create(newFile).done(function(error, salvedFile) {
+          Files.create(newFile).exec(function(error, salvedFile) {
               if (error) {
                 console.log(error);
                // res.send(500, {error: res.i18n("DB Error") });

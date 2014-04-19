@@ -18,7 +18,7 @@ module.exports = {
     Messages.find({})
     .limit(10)
     .sort('createdAt ASC')
-    .done(function(err, messages) {
+    .exec(function(err, messages) {
 
       // Error handling
       if (err) {
@@ -65,7 +65,7 @@ module.exports = {
     })
     .limit(15)
     .sort('createdAt DESC')
-    .done(function(err, messages) {
+    .exec(function(err, messages) {
 
       // Error handling
       if (err) {
@@ -95,7 +95,7 @@ module.exports = {
     })
     .limit(10)
     .sort('createdAt DESC')
-    .done(function(err, messages) {
+    .exec(function(err, messages) {
       // Error handling
       if (err) {
         return console.log(err);
@@ -116,7 +116,7 @@ module.exports = {
     message.fromId = req.param("fromId");
     message.toId = req.param("toId");
 
-    Messages.create(message).done(function (error, newMessage){
+    Messages.create(message).exec(function (error, newMessage){
       if (error) {
         console.log(error);
         res.send(500, {error: res.i18n("DB Error") });

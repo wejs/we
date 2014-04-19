@@ -20,7 +20,7 @@ passport.use(new LocalStrategy({
       // username, or the password is not correct, set the user to `false` to
       // indicate failure and set a flash message. Otherwise, return the
       // authenticated `user`.
-      Users.findOneByEmail(email).done(function(err, user) {
+      Users.findOneByEmail(email).exec(function(err, user) {
         if (err) {
           return done(err);
         }
@@ -46,7 +46,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  Users.findOneById(id).done(function(err, user) {
+  Users.findOneById(id).exec(function(err, user) {
     // error - user is'not on database ...
     if(!user) return done(null, false);
     // load user

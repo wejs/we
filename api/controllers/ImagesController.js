@@ -21,7 +21,7 @@ module.exports = {
     var fileId = req.param('id');
 
     if(fileId){
-      Images.findOneById(fileId).done(function(err, image) {
+      Images.findOneById(fileId).exec(function(err, image) {
         if (err) {
             console.log('Error on get image from BD: ',err );
             res.send(404);
@@ -78,7 +78,7 @@ module.exports = {
             //'mime': file.mime
           };
 
-          Files.create(newFile).done(function(error, salvedFile) {
+          Files.create(newFile).exec(function(error, salvedFile) {
               if (error) {
                 console.log(error);
                // res.send(500, {error: res.i18n("DB Error") });
