@@ -19,6 +19,7 @@ module.exports = {
     var requireAccountActivation = false;
     var user = {};
     user.name = req.param("name");
+    user.username = req.param("name");
     user.email = req.param("email");
     user.password = req.param("password");
 

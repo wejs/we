@@ -25,6 +25,7 @@
     'user/user',
     'we-messenger',
     'post/post',
+    'news/news',
     './site/index',
     './avatar/index',
     './file/index'
@@ -58,6 +59,7 @@
       'application.user',
       'we-messenger',
       'post',
+      'news',
       'ui.router',
       'ui.bootstrap',
       //,'wu.masonry'

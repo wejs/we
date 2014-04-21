@@ -19,8 +19,8 @@ module.exports = {
       type: 'url'
     },
 
-    creator_id: {
-      type: 'string'
+    creator: {
+      model: 'Users'
     },
 
     sharedWith: {
@@ -30,6 +30,25 @@ module.exports = {
     text: {
       type: 'string'
     }
+  },
+
+  //-- Lifecycle Callbacks
+
+  // After register one activity
+  afterCreate: function(post, next) {
+    Activity.create({
+      title: 'New post',
+      actor: post.creator,
+      verb: 'post',
+      target_id: post.id
+    }).exec(function(error, post) {
+      // if has one error in activity creation, log it
+      if (error) {
+        sails.log.error('PostController:create: error on create Activity: ',error);
+      }
+
+      next();
+    });
   }
 
 };

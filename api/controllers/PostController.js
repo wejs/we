@@ -43,10 +43,10 @@ module.exports = {
   },
 
   create : function (req, res, next){
-    console.log('create post');
+
     var post = {};
     post.text = req.param("text");
-    post.creator_id = req.user.id;
+    post.creator = req.user.id;
 
     Post.create(post).exec(function(error, newPost) {
       if (error) {

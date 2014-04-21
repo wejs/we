@@ -16,7 +16,7 @@ module.exports = {
   attributes: {
 
     username: {
-      type: 'STRING'
+      type: 'string'
     },
 
     email: {
@@ -26,17 +26,17 @@ module.exports = {
     },
 
     password: {
-      type: 'STRING'
+      type: 'string'
     },
 
-    name: {
-      type: 'STRING'
+    displayName: {
+      type: 'string'
     },
 
-    birthDate: 'DATE',
+    birthDate: 'date',
 
-    avatarId: {
-      type: 'STRING'
+    image: {
+      type: 'string'
     },
 
     active: {
@@ -57,8 +57,14 @@ module.exports = {
     // Override toJSON instance method
     // to remove password value
     toJSON: function() {
+
+      // remove password
       var obj = this.toObject();
       delete obj.password;
+
+      // set default objectType
+      obj.objectType = "person";
+
       return obj;
     },
 
@@ -72,7 +78,7 @@ module.exports = {
             // hash the password along with our new salt
             bcrypt.hash(password, salt, function(err, crypted) {
                 if(err) return next(err);
-                
+
                 _this.cryptedPassword = crypted;
                 done();
             });
