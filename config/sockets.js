@@ -26,7 +26,7 @@ module.exports.sockets = {
     if(userId){
       // save user data in online users cache
       if(typeof sails.onlineusers[userId] === 'undefined' ){
-        Users.findOneById(userId).done(function(err, user){
+        Users.findOneById(userId).exec(function(err, user){
           user.messengerStatus = 'online';
           sails.onlineusers[userId] = user.toJSON();
         });
