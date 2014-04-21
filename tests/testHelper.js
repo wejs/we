@@ -19,13 +19,13 @@ global.gettestConfig= function(done) {
     log: {
       level: 'error'
     },
-
-    adapters: {
-      'default': 'memory',
-
+    connections: {
       memory: {
-        module: 'sails-memory'
+        adapter   : 'sails-memory'
       }
+    },
+    models: {
+      connection: 'memory'
     },
     port: 1330,
     environment: 'test',
