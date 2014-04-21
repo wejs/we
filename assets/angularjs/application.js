@@ -180,11 +180,11 @@
           }
         });
     }]);
-/*
-    app.init = function () {
-      angular.bootstrap(document, ['application']);
-    };
-*/
+
+    require(['domReady!'], function (document) {
+        angular.bootstrap(document, ['application']);
+    });
+
     return app;
   });
 }());
