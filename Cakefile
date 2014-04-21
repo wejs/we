@@ -9,7 +9,7 @@ REPORTER = "spec"
 task "test", "run all tests", (options)->
   grep
 
-  grep = ('--grep ' + options.grep)  if options.grep
+  grep = (' --grep ' + options.grep + ' ')  if options.grep
 
   exec "NODE_ENV=test
     ./node_modules/.bin/mocha
