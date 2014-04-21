@@ -1,7 +1,10 @@
 define([
   'angular',
   '$socket',
-  'angular-resource'
+  'angular-resource',
+  'modules',
+  './directives/shareboxDirective',
+  './directives/postTeaserDirective'
 ], function (
   angular,
   $socket,
@@ -15,6 +18,7 @@ define([
 
       $stateProvider
       // --- POST
+      /*
       .state('posts', {
         url: "/post",
         templateUrl: "/angularjs/post/views/index.html",
@@ -26,6 +30,7 @@ define([
           }
         }
       })
+      */
       .state('post', {
         url: "/post/:id",
         views: {
@@ -252,19 +257,30 @@ define([
 
   angular.module("post")
   .controller("PostController", [
-    "$rootScope","$scope", "SessionService", "PostResource", "postData",  "$route", "$routeParams",
-    function($rootScope, $scope, SessionService, PostResource, postData,  $route, $routeParams) {
+    "$rootScope","$scope", "SessionService", "PostResource",  "$route", "$routeParams",
+    function($rootScope, $scope, SessionService, PostResource,  $route, $routeParams) {
       var init;
       var show;
 
       if(!$rootScope.posts) $rootScope.posts = {};
 
       init = function (){
+        /*
         $scope.posts = postData;
 
         postData.forEach( function(post){
           $rootScope.posts[post.id] = post;
         });
+        */
+        postData = PostResource.query(function() {
+          $scope.posts = postData;
+          postData.forEach( function(post){
+            $rootScope.posts[post.id] = post;
+          });
+        }, function(error) {
+          console.error('PostController: Error in get posts', error);
+        });
+
 
       };
 

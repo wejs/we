@@ -27,7 +27,6 @@
     'post/post',
     './site/index',
     './avatar/index',
-    './post/index',
     './file/index'
   ];
 
@@ -99,6 +98,9 @@
             "signup-form@index": {
               templateUrl: "/angularjs/user/views/signup-form.html"
             },
+            "sidebar": {
+              templateUrl: "/angularjs/site/views/sidebar.html"
+            }
 
           }
         })

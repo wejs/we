@@ -105,7 +105,5 @@ require.config({
     }
   },
   baseUrl: '/angularjs',
-  deps: [
-    './starter'
-  ]
+  deps: ['application']
 });

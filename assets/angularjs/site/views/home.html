@@ -1,6 +1,11 @@
 <section role="section" id="home-main" class="home-main">
-  <div class="container">
+  <div class="sharebox-area masonry-brick  content-block">
+    <we-sharebox></we-sharebox>
+  </div>
 
-  oi mundo
+  <div id="posts" data-ng-controller="PostController" class="news">
+    <div data-ng-repeat="post in posts" class="masonry-brick content-block post">
+      <we-post-teaser id="post-{{post.id}}" data-post="post"></we-post-teaser>
+    </div>
   </div>
 </section>

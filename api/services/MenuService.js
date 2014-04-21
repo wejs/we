@@ -13,10 +13,6 @@ exports.getMenu = function(menuMame,req) {
       url: '/dashboard'
     },
     {
-      title: 'Post',
-      url: '/post'
-    },
-    {
       title: 'Users',
       url: '/users'
     }
