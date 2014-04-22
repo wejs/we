@@ -6,6 +6,6 @@ module.exports = function (grunt) {
 		'cssmin',
 		'sails-linker:prodJs',
 		'sails-linker:prodStyles',
-		'sails-linker:devTpl'
+		//'sails-linker:devTpl'
 	]);
 };
