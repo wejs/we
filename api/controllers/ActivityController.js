@@ -12,7 +12,6 @@ module.exports = {
     Activity.find({})
     .limit(5)
     .sort('updatedAt DESC')
-    .populate('actor')
     .exec(function(err, activities) {
 
       if (err) {
@@ -28,14 +27,27 @@ module.exports = {
 
       var activitiesLength = activities.length-1;
       activities.forEach(function(activity, i){
+        if(activity.actor){
+          Users.findOneById(activity.actor)
+          .exec(function(err, dbActor) {
+            if(err){
+              sails.log.error('ActivityController:index: error on get actors: ',err);
+            }
+            activities[i].actor = dbActor.toJSON();
 
-        if(i >= activitiesLength){
-          res.send({
-            items : activities
+            // send request in last array item
+            if(i >= activitiesLength){
+              sendResponse(activities);
+            }
           });
         }
-
       });
+
+      function sendResponse(activities){
+        res.send({
+          items : activities
+        });
+      }
 
     });
 

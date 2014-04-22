@@ -18,7 +18,7 @@ module.exports = {
     },
 
     actor: {
-      model: 'Users'
+      type: 'string'
     },
 
     // activity object type exemple: post, user, comment ...

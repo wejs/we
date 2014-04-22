@@ -41,7 +41,7 @@ module.exports = {
       actor: post.creator,
       verb: 'post',
       target_id: post.id
-    }).exec(function(error, post) {
+    }).then(function(error, activity) {
       // if has one error in activity creation, log it
       if (error) {
         sails.log.error('PostController:create: error on create Activity: ',error);
