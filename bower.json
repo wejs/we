@@ -17,14 +17,13 @@
     "angular-route": "~1.2.6",
     "angular-bootstrap": "~0.9.0",
     "angular": "~1.2.6",
-    "blueimp-file-upload": "~9.5.2",
-    "blueimp-canvas-to-blob": "~2.1.0",
     "jquery": "~2.0.3",
     "angular-ui-router": "0.2.7",
     "bootstrap": "~3.0.3",
     "ng-table": "~0.3.1",
     "angular-moment": "~0.6.2",
-    "tupi": "~0.0.45"
+    "tupi": "~0.0.45",
+    "ng-file-upload": "~1.3.2"
   },
   "license": "MIT",
   "authors": [

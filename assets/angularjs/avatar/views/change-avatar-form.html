@@ -4,21 +4,26 @@
     <h4 class="modal-title">Change avatar</h4>
   </div>
   <div class="modal-body">
-    <!-- This button will trigger a file selection dialog -->
-    <span id="uploadAvatar"  class="btn btn-success fileinput-button" data-ng-class="{disabled: disabled}">
-        <span>Add files...</span>
-        <input type="file" name="files[]" data-ng-disabled="disabled">
-    </span>
-
-    <div id="progress">
-      <div class="bar" style="width: 0%;"></div>
+    <div class="row file-uploader">
+      <div class="col-md-8">
+        <input type="file" ng-file-select="onFileSelect($files)" >
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary" type="buttom" data-ng-click="submit($event)">Upload and save</button>
+      </div>
     </div>
-    <button type="button" class="btn btn-primary" data-ng-click="submit($event)">Upload</button>
-    <!-- The blueimp Gallery widget -->
 
+    <div class="file-upload-progress">
+      <progressbar max="max" value="dynamic" type="{{type}}" class="progress-striped {{progressActive}}">
+        <span data-ng-show="progressActive" style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span>
+      </progressbar>
+    </div>
+
+    <div>
+      <avatar user-id="user.id" class="creator-avatar"></avatar>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button"  data-ng-click="modalClose()" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
   </div>
 </form>

@@ -18,8 +18,8 @@
     'ng-table',
     'angular-ui-router',
     'angular-bootstrap',
+    'ng-file-upload',
     //'wuMasonry',
-    'jquery.fileupload-angular',
     'angular-route',
     'angular-moment',
     'user/user',
@@ -42,15 +42,14 @@
     ngCookies,
     ngTable,
     uiRouter,
-    uiBootstrap,
-    //,wuMasonry
-    jqueryFileuploadAngular
+    uiBootstrap
   ) {
 
     var app = angular.module('application', [
       'ngResource',
       'ngRoute',
       'ngTable',
+      'angularFileUpload',
       'application.filters',
       'application.services',
       'application.directives',
@@ -62,8 +61,6 @@
       'news',
       'ui.router',
       'ui.bootstrap',
-      //,'wu.masonry'
-      'blueimp.fileupload',
       'angularMoment'
     ]).
     config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
@@ -83,14 +80,22 @@
           views: {
             "highlighted": {
               templateUrl: "/angularjs/site/views/highlighted.html",
-              controller: function($scope, $rootScope){
-                $scope.aboutShow = false;
-                $rootScope.$watch('user.authorized', function () {
-                  if($rootScope.user.authorized){
-                    $scope.aboutShow = false;
-                  }else{
-                    $scope.aboutShow = true;
-                  }
+              controller: function($scope, $rootScope, AUTH_EVENTS, SessionService){
+
+                var user = SessionService.getUser();
+                if($scope.user.authorized){
+                  $scope.aboutShow = false;
+                } else {
+                  $scope.aboutShow = true;
+                }
+
+                // Login Event
+                $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
+                   $scope.aboutShow = false;
+                });
+                // Login Event
+                $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
+                   $scope.aboutShow = true;
                 });
               }
             },

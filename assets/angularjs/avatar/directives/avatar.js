@@ -11,27 +11,29 @@
       .directive('avatar', [
       '$compile',
       'UserService',
-      function($compile, UserService) {
+      '$rootScope',
+      function($compile, UserService, $rootScope) {
         return{
           restrict:"E",
           template: '<a href="{{avatarLink}}"> <img width="{{avatarWidth}}" height="{{avatarHeight}}" class="{{avatarClass}}" src="/imgs/avatars/user-avatar.png" data-ng-src="{{avatarImageUrl}}"/> </a>',
-          scope: {
-            userId: '=userId',
-          },
           link: function (scope, elm, attrs) {
             var user = {};
 
-            if(scope.userId){
-              getUserAvatarId(scope.userId);
+            // forst try get user avatar from scope
+            if(scope.avatarId){
+              scope.avatarLink = '/users/' + user.id;
+              setVars(scope, scope.avatarId);
+            }else if(attrs.userId){
+              getUserAvatarId(attrs.userId);
             }
 
             function getUserAvatarId(uid){
-
-              user = UserService.getUser(scope.userId);
+              user = UserService.getUser(uid);
               user.$promise.then(function(){
                 // if user has avatar
                 if(user.avatarId){
                   scope.avatarId = user.avatarId;
+                  setVars(scope, scope.avatarId);
                 }
                 scope.avatarLink = '/users/' + user.id;
               });
@@ -51,21 +53,17 @@
                   scope.avatarHeight = '50px';
                   scope.avatarClass = 'img-rounded avatar-small';
               }
-
-              if ((scope.avatarId !== null) && (scope.avatarId !== undefined) && (scope.avatarId !== '')) {
-                scope.avatarImageUrl = '/images/' + scope.avatarId;
-              }
+              scope.avatarImageUrl = '/images/' + newId;
             }
 
-            scope.$watch('avatarId', function (newId, oldId) {
-              setVars(scope, newId);
+            $rootScope.$on('user-avatar-change', function (event, userId, newAvatarId) {
+              if(attrs.userId && (userId == attrs.userId) ){
+                setVars(scope, newAvatarId);
+              }
             });
 
-
-            scope.$watch('userId', function (newId, oldId) {
-              if(newId){
-                getUserAvatarId(newId);
-              }
+            attrs.$observe('userId', function (newId) {
+              if(newId) getUserAvatarId(newId);
             });
           }
 

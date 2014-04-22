@@ -2,7 +2,9 @@
   <div class="news-itens itens">
 
     <div id="activity-{{activity.id}}" data-ng-repeat="activity in activities" class="new-item activity">
-      <img src="/imgs/avatars/user-avatar.png">{{activity.title}} from {{activity.actor.username}}
+
+      <avatar user-id="{{activity.actor.id}}" class="creator-avatar"></avatar>
+      {{activity.title}} from {{activity.actor.username}}
     </div>
 
   </div>

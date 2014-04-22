@@ -120,7 +120,7 @@ module.exports = {
 
   changeAvatar: function (req, res, next) {
     // TODO validate req.files.files
-    var  avatarFile = req.files.files[0];
+    var  avatarFile = req.files.file;
 
     Images.upload(avatarFile, function(err){
       if(err){

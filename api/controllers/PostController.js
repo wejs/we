@@ -12,6 +12,7 @@ module.exports = {
     Post.find({})
       .limit(10)
       .sort('updatedAt DESC')
+      .populate('creator')
       .exec(function(err, posts) {
       // Error handling
       if (err) {
