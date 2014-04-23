@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+        For demonstration purposes, the `title` is dynamically set here based on
+        your `sails.config.appName` to show that you can inject data into layouts
+        exactly the same way as with your other view templates.
+    -->
+    <title><%- title %></title>
+
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <meta name="csrf-token" content="<%= _csrf %>" />
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+
+    <script data-main="/angularjs/main" src="/js/libs/require.js"></script>
+
+    <style>
+      [ng\:cloak] main,
+      [ng-cloak] main,
+      [data-ng-cloak] main,
+      [x-ng-cloak] main,
+      .ng-cloak main,
+      .x-ng-cloak main,
+      [ng\:cloak] footer,
+      [ng-cloak] footer,
+      [data-ng-cloak] footer,
+      [x-ng-cloak] footer,
+      .ng-cloak footer,
+      .x-ng-cloak footer{
+        display: none !important;
+      }
+
+    </style>
+
+  </head>
+
+  <body ng-cloak>
+    <main role="main" class="social-theme main container" >
+      <!-- navbar -->
+      <%- include ../partials/navbar.ejs %>
+      <!-- /navbar -->
+      <div class="row">
+        <div class="col-md-12">
+          <!-- /angular js main area -->
+          <div data-ui-view="highlighted"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- /angular js dinamic sidebar -->
+        <div class="sidebar-area col-md-3">
+          <div data-ui-view="sidebar"></div>
+
+          <we-news></we-news>
+        </div>
+
+        <div class="col-md-9">
+          <div data-ui-view>
+            <%- body %>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <div data-we-messenger></div>
+
+
+    <!-- footer -->
+    <%- include ../partials/footer.ejs %>
+    <!-- /footer -->
+
+    <div class="site-loading text-center">
+      loading ...
+    </div>
+
+    </body>
+</html>

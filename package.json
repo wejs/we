@@ -30,7 +30,6 @@
     "sails": "~0.10.0-rc4",
     "sails-disk": "~0.10.0",
     "sails-mongo": "^0.10.0-rc3",
-    "sails-we-theme-default": "~0.0.3",
     "grunt-we-ng-tpl": "~0.0.1"
   },
   "devDependencies": {

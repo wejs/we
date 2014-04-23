@@ -1,0 +1,27 @@
+<!-- form-login -->
+<div class="form-login" data-ng-controller="LoginCtrl">
+  <form class="form-inline" role="form" name="loginForm" method="post" data-ng-submit="login($event)">
+    <div class="form-group left">
+      <label class="sr-only">Email address</label>
+      <input type="email" class="form-control input-sm" placeholder="Enter email" id="email" name="email" data-ng-model="user.email" required >
+
+      <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me" id="remember" name="remember" data-ng-model="user.remember"> Remember me
+      </label>
+    </div>
+
+    </div>
+    <div class="form-group right">
+      <label class="sr-only">Password</label>
+      <input type="password" class="form-control input-sm" placeholder="Password"  id="password" name="password" data-ng-model="user.password">
+
+      <div class="lost-password">
+        <a class="link" href="#">Forgot password?</a>
+      </div>
+    </div>
+
+    <button id="loginButton" class="btn btn-primary" type="submit" class="btn btn-sm btn-success">Sign in</button>
+  </form>
+</div>
+<!-- /form-login -->
