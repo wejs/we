@@ -35,7 +35,7 @@ define([
         url: "/post/:id",
         views: {
           "": {
-            templateUrl: "/angularjs/post/views/post.html",
+            templateUrl: wejs.getTemplateUrl("post/views/post.html"),
             controller: 'PostItemController'
           }
         }
@@ -44,7 +44,7 @@ define([
         url: "/edit",
         onEnter: function($stateParams, $state, $modal, $resource, postShowResolver) {
           $modal.open({
-            templateUrl: "/angularjs/post/views/post.html",
+            templateUrl: wejs.getTemplateUrl("post/views/post.html"),
             controller: 'PostItemController',
             resolve: {
               post: function(postShowResolver){

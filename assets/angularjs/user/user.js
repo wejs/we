@@ -5,6 +5,7 @@ define([
   'angular-resource',
   './directives/userMenuDirective',
   './directives/loginFormDirective'
+
 ], function (
   angular,
   $socket,
@@ -32,8 +33,7 @@ define([
       // ---- USERS
       .state('forgot_password', {
         url: "/user/forgot_password",
-        templateUrl: '/angularjs/user/views/forgotPasswordForm.html'
-        //controller: 'LoginCtrl'
+        templateUrl: wejs.getTemplateUrl('user/views/forgotPasswordForm.html')
       })
       .state('logout', {
         url: "/users/logout",
@@ -43,7 +43,7 @@ define([
       })
       .state('signup', {
         url: "/signup",
-        templateUrl: '/angularjs/user/views/signup.html',
+        templateUrl:  wejs.getTemplateUrl('user/views/signup.html'),
         controller: 'LoginCtrl',
       })
 
@@ -51,7 +51,7 @@ define([
         url: "/users",
         views: {
           "": {
-            templateUrl: "/angularjs/user/views/index.html",
+            templateUrl:  wejs.getTemplateUrl("user/views/index.html"),
             controller: 'UserController'
           }
         },
@@ -66,7 +66,7 @@ define([
         url: "/users/:id",
         views: {
           "": {
-            templateUrl: "/angularjs/user/views/user.html",
+            templateUrl:  wejs.getTemplateUrl("user/views/user.html"),
             controller: 'UserItemController'
           }
         },

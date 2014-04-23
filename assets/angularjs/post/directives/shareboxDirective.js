@@ -5,18 +5,12 @@
 
     return angular.module('application.directives')
       .directive('weSharebox', [
-      '$compile','$http', '$templateCache', '$rootScope',
-      function($compile, $http, $templateCache, $rootScope) {
-
-        // TODO move this template url to angular submodule config
-        var baseUrl = '/angularjs/post/views/';
-        var template = 'sharebox.html';
-
-        var templateUrl = baseUrl + template;
+      '$compile','$http', '$rootScope',
+      function($compile, $http, $rootScope) {
 
         return {
           restrict:"EA",
-          templateUrl: templateUrl,
+          templateUrl: wejs.getTemplateUrl('post/views/sharebox.html'),
           transclude: true,
           scope: {
             posts : '='

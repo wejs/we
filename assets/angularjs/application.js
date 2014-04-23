@@ -79,7 +79,7 @@
           url: "/",
           views: {
             "highlighted": {
-              templateUrl: "/angularjs/site/views/highlighted.html",
+              templateUrl:  wejs.getTemplateUrl("site/views/highlighted.html"),
               controller: function($scope, $rootScope, AUTH_EVENTS, SessionService){
 
                 var user = SessionService.getUser();
@@ -100,13 +100,13 @@
               }
             },
             "": {
-              templateUrl: "/angularjs/site/views/home.html"
+              templateUrl:  wejs.getTemplateUrl("site/views/home.html")
             },
             "signup-form@index": {
-              templateUrl: "/angularjs/user/views/signup-form.html"
+              templateUrl:  wejs.getTemplateUrl("user/views/signup-form.html")
             },
             "sidebar": {
-              templateUrl: "/angularjs/site/views/sidebar.html"
+              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
 
           }
@@ -117,10 +117,10 @@
           url: "/admin",
           views: {
             "": {
-              templateUrl: "/angularjs/admin/views/roles.html"
+              templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
             },
             "sidebar": {
-              templateUrl: "/angularjs/site/views/sidebar.html"
+              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
           },
 
@@ -129,10 +129,10 @@
           url: "/roles",
           views: {
             "": {
-              templateUrl: "/angularjs/admin/views/roles.html"
+              templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
             },
             "sidebar": {
-              templateUrl: "/angularjs/site/views/sidebar.html"
+              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
           },
           controller: function(){
@@ -141,8 +141,7 @@
         })
         .state('404', {
           url: "/404",
-          templateUrl: '/angularjs/site/views/error404.html'
-          // redirectTo: '/login'
+          templateUrl:  wejs.getTemplateUrl('site/views/error404.html')
         });
 
       }]).run([
@@ -152,11 +151,7 @@
         '$window',
         function($rootScope, $route, $http, $window){
 
-        $window.moment.lang('en');
-
-        $rootScope.theme = {};
-        $rootScope.theme.url = '/bower_components/we-theme-bootstrap';
-        $rootScope.theme.templateUrl = '/bower_components/we-theme-bootstrap/templates';
+        $window.moment.lang(wejs.config.locale);
 
         $rootScope.user = {};
         $rootScope.user.authorized = false;

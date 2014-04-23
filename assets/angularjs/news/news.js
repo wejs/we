@@ -97,18 +97,10 @@ define([
   .directive('weNews', [
     '$compile','$http',
     function($compile, $http) {
-      var baseUrl = '/angularjs/news/views/';
-      var template = 'news-block.html';
-      var templateUrl = baseUrl + template;
-
-      var linker = function(scope, element, attrs) {
-
-      };
 
       return {
-        templateUrl: templateUrl,
+        templateUrl: wejs.getTemplateUrl('news/views/news-block.html'),
         restrict:"EA",
-        link: linker,
         controller: 'NewsController'
       };
     }

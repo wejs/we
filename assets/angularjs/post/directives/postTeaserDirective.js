@@ -10,18 +10,12 @@
 
     return angular.module('application.directives')
       .directive('wePostTeaser', [
-      '$compile','$http', '$templateCache', '$rootScope' ,
-      function($compile, $http, $templateCache, $rootScope) {
-
-        // TODO move this template url to angular submodule config
-        var baseUrl = '/angularjs/post/views/';
-        var template = 'post-teaser.html';
-
-        var templateUrl = baseUrl + template;
+      '$compile','$http', '$rootScope' ,
+      function($compile, $http, $rootScope) {
 
         return {
           restrict:"EA",
-          templateUrl: templateUrl,
+          templateUrl: wejs.getTemplateUrl('post/views/post-teaser.html'),
           transclude: true,
           scope: {
             post: "=",

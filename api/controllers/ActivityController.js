@@ -27,6 +27,7 @@ module.exports = {
 
       var activitiesLength = activities.length-1;
       activities.forEach(function(activity, i){
+
         if(activity.actor){
           Users.findOneById(activity.actor)
           .exec(function(err, dbActor) {
@@ -34,6 +35,13 @@ module.exports = {
               sails.log.error('ActivityController:index: error on get actors: ',err);
             }
             activities[i].actor = dbActor.toJSON();
+
+            activities[i].title = res.i18n(
+              '%s created the %s %s',
+              dbActor.name,
+              activities[i].verb,
+              activities[i].title
+            );
 
             // send request in last array item
             if(i >= activitiesLength){

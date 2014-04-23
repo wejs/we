@@ -5,8 +5,8 @@
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')
       .directive('userMenu', [
-      '$compile', '$rootScope', '$http', '$templateCache',
-      function($compile, $rootScope, $http, $templateCache) {
+      '$compile', '$rootScope', '$http',
+      function($compile, $rootScope, $http) {
         var linker = function(scope, element, attrs) {
           $rootScope.$watch('user.authorized', function () {
             if( $rootScope.user && $rootScope.user.authorized){
@@ -19,7 +19,7 @@
         return {
           restrict:"EA",
           link: linker,
-          templateUrl: '/angularjs/user/views/user-menu.html'
+          templateUrl: wejs.getTemplateUrl('user/views/user-menu.html')
         };
       }
     ]);

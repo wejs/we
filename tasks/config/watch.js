@@ -25,6 +25,14 @@ module.exports = function(grunt) {
 
 			// When assets are changed:
 			tasks: ['syncAssets' , 'linkAssets']
+		},
+		ngtemplates: {
+
+			// Assets to watch:
+			files: ['assets/angularjs/**/views/*'],
+
+			// When assets are changed:
+			tasks: ['template_runner']
 		}
 	});
 

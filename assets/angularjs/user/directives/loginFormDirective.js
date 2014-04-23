@@ -5,11 +5,8 @@
 
     return angular.module('application.directives')
       .directive('loginForm', [
-      '$compile','$http', '$templateCache', '$rootScope',
-      function($compile, $http, $templateCache, $rootScope) {
-        var baseUrl = '/angularjs/user/views/';
-        var template = 'login-form.html';
-        var templateUrl = baseUrl + template;
+      '$compile','$http', '$rootScope',
+      function($compile, $http, $rootScope) {
 
         var linker = function(scope, element, attrs) {
           $rootScope.$watch('user.authorized', function () {
@@ -22,7 +19,7 @@
         };
 
         return {
-          templateUrl: templateUrl,
+          templateUrl: wejs.getTemplateUrl('user/views/login-form.html'),
           restrict:"EA",
           link: linker
         };
