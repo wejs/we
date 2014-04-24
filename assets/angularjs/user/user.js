@@ -4,7 +4,8 @@ define([
   '$socket',
   'angular-resource',
   './directives/userMenuDirective',
-  './directives/loginFormDirective'
+  './directives/loginFormDirective',
+  './directives/signupFormDirective'
 
 ], function (
   angular,
@@ -172,7 +173,8 @@ define([
     '$rootScope',
     'UserService',
     'AUTH_EVENTS',
-    function($resource, $rootScope, UserService, AUTH_EVENTS){
+    '$state',
+    function($resource, $rootScope, UserService, AUTH_EVENTS, $state){
 
     var service = $resource('/users/:param',{},{
       'login': {
@@ -341,7 +343,8 @@ define([
     "$location",
     "SessionService",
     "$window",
-    function($rootScope, AUTH_EVENTS,$scope, $location, SessionService, $window) {
+    "$state",
+    function($rootScope, AUTH_EVENTS,$scope, $location, SessionService, $window, $state) {
       var errorHandler, init, loginHandler, logoutHandler;
 
       init = function() {
@@ -358,6 +361,7 @@ define([
           // Login the user in application
           $rootScope.user = res;
           $rootScope.user.authorized = true;
+          $state.go('dashboard');
 
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         } else {

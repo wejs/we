@@ -77,38 +77,33 @@
         $stateProvider
         .state('index', {
           url: "/",
+          authenticate: false,
           views: {
             "highlighted": {
               templateUrl:  wejs.getTemplateUrl("site/views/highlighted.html"),
-              controller: function($scope, $rootScope, AUTH_EVENTS, SessionService){
+              controller: function($scope, $rootScope, AUTH_EVENTS, SessionService, $state){
 
                 var user = SessionService.getUser();
-                if($scope.user.authorized){
-                  $scope.aboutShow = false;
-                } else {
-                  $scope.aboutShow = true;
+                if(user.authorized){
+                  $state.go('dashboard');
                 }
-
-                // Login Event
-                $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
-                   $scope.aboutShow = false;
-                });
-                // Login Event
-                $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
-                   $scope.aboutShow = true;
-                });
               }
-            },
+            }
+
+          }
+        })
+
+        $stateProvider
+        .state('dashboard', {
+          url: "/dashboard",
+          authenticate: true,
+          views: {
             "": {
               templateUrl:  wejs.getTemplateUrl("site/views/home.html")
-            },
-            "signup-form@index": {
-              templateUrl:  wejs.getTemplateUrl("user/views/signup-form.html")
             },
             "sidebar": {
               templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
-
           }
         })
 
@@ -156,21 +151,7 @@
         $rootScope.user = {};
         $rootScope.user.authorized = false;
         $rootScope.user.loading = true;
-        /*
-        $http({method: 'GET', url: '/users/current'}).
-          success(function(data, status, headers, config) {
-            if(data.user.id){
-              $rootScope.user = data.user;
-              $rootScope.user.loading = false;
-              $rootScope.user.authorized = true;
-            }
 
-          }).
-          error(function(data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-          });
-        */
         // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
         $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
           // This will set the custom property that we have defined while configuring the routes.
@@ -183,6 +164,18 @@
             $rootScope.action = $route.current.action;
           }
         });
+
+        // state chage envent
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams, $state){
+          /*
+          if (toState.authenticate && !SessionService.authorized() && ){
+            // User isn’t authenticated
+            $state.transitionTo("/");
+            event.preventDefault();
+          }
+          */
+        });
+
     }]);
 
     require(['domReady!'], function (document) {
