@@ -22,7 +22,8 @@ require.config({
     tupi: '../bower_components/tupi/dist/js/tupi.min',
     'ng-file-upload-shim': '../bower_components/ng-file-upload/angular-file-upload-shim',
     'ng-file-upload': '../bower_components/ng-file-upload/angular-file-upload',
-    'wejs.config': 'wejs.config'
+    'wejs.config': 'wejs.config',
+    'angular-formly': '../bower_components/angular-formly/dist/formly.min'
   },
   shim: {
     'angular-resource': {
@@ -50,10 +51,16 @@ require.config({
     angular: {
       exports: 'angular',
       deps: [
-        'ng-file-upload-shim', 'wejs.config'
+        'ng-file-upload-shim',
+        'wejs.config'
       ]
     },
     'angular-ui-router': {
+      deps: [
+        'angular'
+      ]
+    },
+    'angular-formly': {
       deps: [
         'angular'
       ]

@@ -241,6 +241,11 @@ module.exports.routes = {
   },
 
   // -- ADMIN
+  'get /admin/widgets': {
+    controller    : 'main',
+    action        : 'index'
+  },
+
   'get /admin/roles': {
       controller    : 'roles',
       action        : 'index'

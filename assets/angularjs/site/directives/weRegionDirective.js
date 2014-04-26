@@ -17,7 +17,7 @@
 
           $scope.region = wejs.config.regions[attrs.name];
 
-          $scope.region.forEach(function(widget,i){
+          $scope.region.widgets.forEach(function(widget,i){
 
           // compile and generate the widget
           var widgetTag = '<' +widget.type+ ' li="region['+i+'].scopeData"></'+widget.type+'>';
@@ -33,10 +33,6 @@
           }
 
           var compiledWidget = $compile( widgetTag, 'x' )( newScope );
-
-
-
-
 
           $element.append( compiledWidget );
 

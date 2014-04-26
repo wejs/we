@@ -19,6 +19,7 @@
     'angular-ui-router',
     'angular-bootstrap',
     'ng-file-upload',
+    'angular-formly',
     //'wuMasonry',
     'angular-route',
     'angular-moment',
@@ -28,7 +29,8 @@
     'news/news',
     './site/index',
     './avatar/index',
-    './file/index'
+    './file/index',
+    'admin/admin'
   ];
 
   define( dependencies, function(
@@ -61,7 +63,9 @@
       'news',
       'ui.router',
       'ui.bootstrap',
-      'angularMoment'
+      'angularMoment',
+      'admin',
+      'formly'
     ]).
     config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
       function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
@@ -85,8 +89,6 @@
 
           }
         })
-
-        $stateProvider
         .state('dashboard', {
           url: "/dashboard",
           authenticate: true,
@@ -94,28 +96,6 @@
             "": {
               templateUrl:  wejs.getTemplateUrl("site/views/home.html")
             }
-          }
-        })
-
-        // -- ADMIN
-        .state('admin', {
-          url: "/admin",
-          views: {
-            "": {
-              templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
-            }
-          },
-
-        })
-        .state('admin.roles', {
-          url: "/roles",
-          views: {
-            "": {
-              templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
-            }
-          },
-          controller: function(){
-            console.log('no admin.roles');
           }
         })
         .state('404', {
