@@ -16,12 +16,12 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access)
-  '*':[true],
-  'messenger': 'MessengerPolicy',
+  '*':['AllRoutesPolicy'],
+  'messenger': ['AllRoutesPolicy','MessengerPolicy'],
   //'main': 'MainPolicy',
-  'activity': 'PostPolicy',
-  'roles': 'RolesPolicy',
-  'users': 'UsersPolicy'
+  'activity': ['AllRoutesPolicy','PostPolicy'],
+  'roles': ['AllRoutesPolicy','RolesPolicy'],
+  'users': ['AllRoutesPolicy','UsersPolicy']
 
   /*
 	// Here's an example of adding some policies to a controller
