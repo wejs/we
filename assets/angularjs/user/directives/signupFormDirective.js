@@ -8,14 +8,9 @@
       '$compile','$http', '$rootScope',
       function($compile, $http, $rootScope) {
 
-        var linker = function(scope, element, attrs) {
-          console.log('oi mundo');
-        };
-
         return {
           templateUrl: wejs.getTemplateUrl('user/views/signup-form.html'),
-          restrict:"EA",
-          link: linker
+          restrict:"EA"
         };
       }
     ]);

@@ -25,33 +25,53 @@ module.exports = {
         });
       }
 
-      var activitiesLength = activities.length-1;
-      activities.forEach(function(activity, i){
+      async.forEachSeries(activities, activityIterator, sendResponse);
 
-        if(activity.actor){
-          Users.findOneById(activity.actor)
-          .exec(function(err, dbActor) {
-            if(err){
-              sails.log.error('ActivityController:index: error on get actors: ',err);
-            }
-            activities[i].actor = dbActor.toJSON();
+      function activityIterator(activity, callback ){
+        Users.findOneById(activity.actor)
+        .exec(function(err, dbActor) {
+          if(err){
+            sails.log.error('ActivityController:index: error on get actors: ',err);
+            callback(err);
+          }
+          activity.actor = dbActor.toJSON();
 
-            activities[i].title = res.i18n(
-              '%s created the %s %s',
-              dbActor.name,
-              activities[i].verb,
-              activities[i].title
-            );
+          // is are a post activity get the target post
+          if( activity.verb == 'post'){
+            Post.findOneById(activity.target_id).exec(function(err, post){
+              if(err){
+                sails.log.error('ActiviryController:index: erros on get post from activity: ',activity, err)
+                return callback(err);
+              }
 
-            // send request in last array item
-            if(i >= activitiesLength){
-              sendResponse(activities);
-            }
-          });
-        }
-      });
+              // if dont post is not found return a empty object
+              if(!post){
+                activity.target = {};
+                return callback();
+              }
 
-      function sendResponse(activities){
+              activity.title = res.i18n(
+                '%s created the %s %s',
+                dbActor.name,
+                activity.verb,
+                '<a href="/post/'+post.id+'">'+post.text
+              );
+
+              activity.target = post;
+              // set some Activity streams values
+              activity.target.displayName = post.text;
+
+              callback();
+
+            });
+          }else{
+            callback();
+          }
+        });
+
+      }
+
+      function sendResponse(){
         res.send({
           items : activities
         });

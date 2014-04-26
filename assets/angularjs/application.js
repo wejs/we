@@ -80,14 +80,7 @@
           authenticate: false,
           views: {
             "highlighted": {
-              templateUrl:  wejs.getTemplateUrl("site/views/highlighted.html"),
-              controller: function($scope, $rootScope, AUTH_EVENTS, SessionService, $state){
-
-                var user = SessionService.getUser();
-                if(user.authorized){
-                  $state.go('dashboard');
-                }
-              }
+              templateUrl:  wejs.getTemplateUrl("site/views/highlighted.html")
             }
 
           }
@@ -100,9 +93,6 @@
           views: {
             "": {
               templateUrl:  wejs.getTemplateUrl("site/views/home.html")
-            },
-            "sidebar": {
-              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
           }
         })
@@ -113,9 +103,6 @@
           views: {
             "": {
               templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
-            },
-            "sidebar": {
-              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
           },
 
@@ -125,9 +112,6 @@
           views: {
             "": {
               templateUrl:  wejs.getTemplateUrl("admin/views/roles.html")
-            },
-            "sidebar": {
-              templateUrl:  wejs.getTemplateUrl("site/views/sidebar.html")
             }
           },
           controller: function(){
@@ -140,11 +124,13 @@
         });
 
       }]).run([
-        '$rootScope',
-        '$route',
-        '$http',
-        '$window',
-        function($rootScope, $route, $http, $window){
+      '$rootScope',
+      '$route',
+      '$http',
+      '$window',
+      '$state',
+      'SessionService',
+      function($rootScope, $route, $http, $window, $state, SessionService){
 
         $window.moment.lang(wejs.config.locale);
 
@@ -166,14 +152,22 @@
         });
 
         // state chage envent
-        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams, $state){
-          /*
-          if (toState.authenticate && !SessionService.authorized() && ){
-            // User isn’t authenticated
-            $state.transitionTo("/");
-            event.preventDefault();
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+          if(toState.name == 'index'){
+            console.log(SessionService.authorized());
+            console.log($rootScope.user);
+            if(SessionService.authorized()){
+              if(fromState.name != 'dashboard'){
+                $state.transitionTo('dashboard');
+              }
+              return event.preventDefault();
+            }else{
+
+            }
           }
-          */
+
+
+
         });
 
     }]);

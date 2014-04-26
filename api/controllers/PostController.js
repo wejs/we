@@ -20,23 +20,7 @@ module.exports = {
         // TODO
       // Found multiple users!
       } else {
-        res.format({
-           'text/html': function(){
-
-              // TODO add suport to html requests
-              res.view("home/index.ejs");
-              /*
-             res.view( 'home/index.ejs',
-              {
-                posts: posts
-              });
-              */
-           },
-
-           'application/json': function(){
-             res.send(posts);
-           }
-        });
+        res.send(posts);
       }
     });
 

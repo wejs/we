@@ -174,7 +174,8 @@ define([
     'UserService',
     'AUTH_EVENTS',
     '$state',
-    function($resource, $rootScope, UserService, AUTH_EVENTS, $state){
+    '$location',
+    function($resource, $rootScope, UserService, AUTH_EVENTS, $state, $location){
 
     var service = $resource('/users/:param',{},{
       'login': {
@@ -205,12 +206,19 @@ define([
             $rootScope.user = res.user;
             $rootScope.user.authorized = true;
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            if(callback)
+
+            // if are in / redirect to dashboard page
+            if($location.path() == '/' || $state.current.name == 'index'){
+              $state.transitionTo('dashboard');
+            }
+
+            if(callback){
               callback(user);
+            }
           }
         },
         function(err){
-          console.log('sessionService.getCurrent error: ', err);
+          console.error('sessionService.getCurrent error: ', err);
           //if(angular.isFunction(errorHandler)){
           //  errorHandler(err);
           //}

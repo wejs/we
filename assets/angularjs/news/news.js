@@ -2,7 +2,8 @@ define([
   'angular',
   '$socket',
   'angular-resource',
-  'modules'
+  'modules',
+  './directives/activityDirective'
 ], function (
   angular,
   $socket,
