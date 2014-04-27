@@ -98,6 +98,7 @@ require.config({
     }
   },
   baseUrl: '/angularjs',
+  urlArgs: 'v=0.0.51',
   deps: [
     'wejs.config',
     'application'
