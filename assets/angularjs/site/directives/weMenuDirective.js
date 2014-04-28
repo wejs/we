@@ -6,7 +6,7 @@
 
 (function() {
 
-  define(['angular'], function ( angular ) {
+  define('site/directives/weMenuDirective',['angular'], function ( angular ) {
 
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')

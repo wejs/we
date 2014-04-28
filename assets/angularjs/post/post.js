@@ -1,17 +1,18 @@
-define([
+define('post/post', [
   'angular',
   '$socket',
   'angular-resource',
   'modules',
   './directives/shareboxDirective',
-  './directives/postTeaserDirective'
+  './directives/postTeaserDirective',
+  'comment/comment'
 ], function (
   angular,
   $socket,
   ngResource
 ) {
   angular.module('post', [
-    'ngResource','ngRoute', 'ui.router', 'ui.bootstrap'
+    'ngResource','ngRoute', 'ui.router', 'ui.bootstrap', 'comment'
   ]).
   config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
     function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {

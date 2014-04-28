@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular'], function (angular ) {
+  define('avatar/controllers/avatarModal',['angular'], function (angular ) {
 
     return angular.module("application.controllers").controller("AvatarModalController", [
       "$rootScope","$scope", "$modal",

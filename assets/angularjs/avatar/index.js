@@ -9,6 +9,6 @@
     './controllers/avatar'
   ];
 
-  define( moduleFiles, function() {} );
+  define('avatar/index', moduleFiles, function() {} );
 
 }());

@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular', 'modules'], function (angular) {
+  define('file/controllers/fileManager',['angular', 'modules'], function (angular) {
 
     "use strict";
 

@@ -1,7 +1,7 @@
 
 (function() {
 
-  define(['angular', 'post/post'], function (angular) {
+  define('post/directives/shareboxDirective',['angular', 'post/post'], function (angular) {
 
     return angular.module('application.directives')
       .directive('weSharebox', [

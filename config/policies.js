@@ -21,7 +21,9 @@ module.exports.policies = {
   //'main': 'MainPolicy',
   'activity': ['AllRoutesPolicy','PostPolicy'],
   'roles': ['AllRoutesPolicy','RolesPolicy'],
-  'users': ['AllRoutesPolicy','UsersPolicy']
+  'users': ['AllRoutesPolicy','UsersPolicy'],
+  'auth': [true]
+
 
   /*
 	// Here's an example of adding some policies to a controller

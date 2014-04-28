@@ -1,4 +1,4 @@
-define([
+define('news/news',[
   'angular',
   '$socket',
   'angular-resource',

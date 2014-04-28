@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular', 'news/news'], function ( angular ) {
+  define('news/directives/activityDirective',['angular', 'news/news'], function ( angular ) {
 
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')

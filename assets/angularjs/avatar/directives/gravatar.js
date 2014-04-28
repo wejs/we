@@ -1,12 +1,15 @@
+/**
+ * Gravatar directive
+ * A simple directive to display a gravatar image given an email
+ */
+
 (function() {
 
-  define([
+  define('avatar/directives/gravatar',[
     'angular'
   ], function (
     angular
   ) {
-
-    // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')
       .directive('gravatar', [
       'md5',

@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular', 'user/user'], function ( angular ) {
+  define('user/directives/userMenuDirective',['angular', 'user/user'], function ( angular ) {
 
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')

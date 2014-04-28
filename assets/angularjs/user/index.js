@@ -7,6 +7,6 @@
     './directives/loginFormDirective',
   ];
 
-  define( moduleFiles, function() {} );
+  define('user/index', moduleFiles, function() {} );
 
 }());

@@ -24,6 +24,17 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
+		prod: {
+			files: [{
+				expand: true,
+				cwd: './assets',
+				src: [
+					'**/*.!(coffee|less)',
+					'!angularjs/**'
+				],
+				dest: '.tmp/public'
+			}]
+		},
 		build: {
 			files: [{
 				expand: true,

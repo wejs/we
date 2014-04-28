@@ -4,9 +4,6 @@
 * creating namespaces and moduled for controllers, filters, services, and directives.
 */
 
-(function() {
-  "use strict";
-
   var dependencies = [
     'jquery',
     'app',
@@ -33,7 +30,7 @@
     'admin/admin'
   ];
 
-  define( dependencies, function(
+  define('application', dependencies, function(
     jQuery,
     App,
     angular,
@@ -158,4 +155,3 @@
 
     return app;
   });
-}());

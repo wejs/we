@@ -1,5 +1,5 @@
 
-define([
+define('user/user',[
   'angular',
   '$socket',
   'angular-resource',

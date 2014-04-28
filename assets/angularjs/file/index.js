@@ -7,6 +7,6 @@
     './controllers/fileManager'
   ];
 
-  define( moduleFiles, function() {} );
+  define('file/index', moduleFiles, function() {} );
 
 }());

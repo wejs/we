@@ -1,4 +1,4 @@
-define(['angular'], function (angular) {
+define('modules',['angular'], function (angular) {
 
   var Application = Application || {};
 

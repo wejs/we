@@ -7,6 +7,6 @@
     './directives/weMenuDirective'
   ];
 
-  define( moduleFiles, function() {} );
+  define('site/index', moduleFiles, function() {} );
 
 }());

@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular', 'modules'], function (angular, Application) {
+  define('site/controllers/navbar',['angular', 'modules'], function (angular, Application) {
     angular.module("application.controllers")
     .controller("navbarContoller", [
       "$rootScope",

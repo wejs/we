@@ -1,5 +1,5 @@
 
-define(function () {
+define('wejs.config',function () {
 
   var wejs = {};
   wejs.config = {
@@ -100,5 +100,5 @@ define(function () {
 
   window['wejs'] = wejs;
 
-  return wejs;
+  //return wejs;
 });

@@ -1,5 +1,5 @@
 (function() {
-  define([
+  define('$socket',[
     'angular',
     'modules',
     'user/user',

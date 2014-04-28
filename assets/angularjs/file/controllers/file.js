@@ -1,6 +1,6 @@
 (function() {
 
-  define(['angular', 'modules'], function (angular, Application) {
+  define('file/controllers/file',['angular', 'modules'], function (angular, Application) {
 
     // @TODO
     console.info('TODO file.js fileupload suport');

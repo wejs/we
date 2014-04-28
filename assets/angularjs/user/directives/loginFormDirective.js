@@ -1,7 +1,7 @@
 
 (function() {
 
-  define(['angular', 'user/user'], function (angular) {
+  define('user/directives/loginFormDirective',['angular', 'user/user'], function (angular) {
 
     return angular.module('application.directives')
       .directive('loginForm', [

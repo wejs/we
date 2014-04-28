@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 		'compileAssets',
 		'concat',
 		'uglify',
-		'cssmin',
+		//'cssmin',
 		'linkAssetsBuildProd',
 		'clean:build',
 		'copy:build'

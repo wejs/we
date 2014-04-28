@@ -1,5 +1,4 @@
-
-define([
+define('admin/admin',[
   'angular',
   '$socket',
   'angular-resource'

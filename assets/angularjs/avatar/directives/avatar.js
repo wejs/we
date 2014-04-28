@@ -1,12 +1,14 @@
+/**
+ * Avatar directive
+ */
+
 (function() {
 
-  define([
+  define('avatar/directives/avatar',[
     'angular'
   ], function (
     angular
   ) {
-
-    // A simple directive to display a avatar image with user id
     return angular.module('application.directives')
       .directive('avatar', [
       '$compile',
@@ -39,9 +41,6 @@
           }
 
           function setVars(scope, newId){
-
-            console.log('avatarid:', newId)
-            console.log('avatarid:', scope)
 
             switch(attrs['avatarSize']) {
               case 'medium':

@@ -1,5 +1,5 @@
 (function() {
-  define(['angular'], function (angular) {
+  define('avatar/controllers/avatar',['angular'], function (angular) {
 
     return angular.module("application.controllers").controller("AvatarController", [
       "$rootScope","$scope", '$upload', '$window', "$location", "SessionService", "$modal", "$modalInstance",

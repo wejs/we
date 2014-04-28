@@ -18,13 +18,11 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
+				fileTmpl: '<script data-main="/angularjs/main" src="/js/libs/require.js" data-dump="%s"></script>',
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.ejs': require('../pipeline').jsFilesToInject
+				'views/**/*.ejs': ['.tmp/public/angularjs/main.js']
 			}
 		},
 
@@ -32,14 +30,12 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
+				fileTmpl: '<script data-main="/antularjs/main" src="/js/libs/require.js" data-dump="%s" ></script>',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.ejs': require('../pipeline').jsFilesToInject
+				'views/**/*.ejs': ['.tmp/public/angularjs/main.js']
 			}
 		},
 
@@ -47,13 +43,12 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
+				fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+				,
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.ejs': ['.tmp/public/min/production.js']
+				'views/**/*.ejs': ['.tmp/public/main.prod.js']
 			}
 		},
 
@@ -61,14 +56,13 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
+				fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+				,
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.ejs': ['.tmp/public/min/production.js']
+				'views/**/*.ejs': ['.tmp/public/main.prod.js']
 			}
 		},
 
