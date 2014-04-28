@@ -1,0 +1,13 @@
+<div class="comment">
+  <div class="comment-header">
+    <span class="comment-user">
+      <a class="comment-username" ng-if="comment.profileUrl" ng-href="{{comment.profileUrl}}" title="{{comment.name}}">{{comment.name}}</a>
+      <img class="comment-avatar" ng-if="comment.avatarUrl" ng-src="{{comment.avatarUrl}}" alt="{{comment.name}}" />
+      <span class="comment-username" ng-if="!comment.profileUrl">{{comment.name}}</span>
+      <span class="comment-date" ng-if="comment.date">{{comment.date}}</span>
+  </div>
+  <div class="comment-body">
+    <div ng-bind="comment.text"></div>
+    <div comments-transclude comment-data="comment.children"></div>
+  </div>
+</div>
