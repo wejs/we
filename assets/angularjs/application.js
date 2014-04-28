@@ -27,7 +27,8 @@
     './site/index',
     './avatar/index',
     './file/index',
-    'admin/admin'
+    'admin/admin',
+    'auth/auth'
   ];
 
   define('application', dependencies, function(
@@ -62,7 +63,8 @@
       'ui.bootstrap',
       'angularMoment',
       'admin',
-      'formly'
+      'formly',
+      'auth'
     ]).
     config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
       function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {

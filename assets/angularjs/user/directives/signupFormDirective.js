@@ -1,18 +1,22 @@
+/**
+ * Signup Form directive
+ */
+define('user/directives/signupFormDirective',[
+    'angular',
+    'user/user'
+  ], function (
+    angular,
+    userModule
+  ) {
 
-(function() {
+  userModule.directive('signupForm', [
+    '$compile',
+    function($compile) {
 
-  define('user/directives/signupFormDirective',['angular', 'user/user'], function (angular) {
-
-    return angular.module('application.directives')
-      .directive('signupForm', [
-      '$compile','$http', '$rootScope',
-      function($compile, $http, $rootScope) {
-
-        return {
-          templateUrl: wejs.getTemplateUrl('user/views/signup-form.html'),
-          restrict:"EA"
-        };
-      }
-    ]);
-  });
-}());
+      return {
+        templateUrl: wejs.getTemplateUrl('user/views/signup-form.html'),
+        restrict:"EA"
+      };
+    }
+  ]);
+});
