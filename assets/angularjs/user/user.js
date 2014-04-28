@@ -16,16 +16,6 @@ define('user/user',[
     'ngResource','ngRoute', 'ui.router', 'ui.bootstrap'
   ]);
 
-  // -- CONSTANTS
-  module.constant('AUTH_EVENTS', {
-    loginSuccess: 'auth-login-success',
-    loginFailed: 'auth-login-failed',
-    logoutSuccess: 'auth-logout-success',
-    sessionTimeout: 'auth-session-timeout',
-    notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
-  });
-
   module.config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
     function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
@@ -85,8 +75,6 @@ define('user/user',[
 // load module components like directives or controllers
 requirejs([
   'user/directives/userMenuDirective',
-  'user/directives/loginFormDirective',
-  'user/directives/signupFormDirective',
   //'user/factories/UserService',
   'user/factories/userResolver',
   'user/factories/userShowResolver',

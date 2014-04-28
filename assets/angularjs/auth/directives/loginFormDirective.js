@@ -1,16 +1,16 @@
 /**
  * Login form Directive
  */
-define('user/directives/loginFormDirective',[
+define('auth/directives/loginFormDirective',[
     'angular',
-    'user/user',
+    'auth/auth',
     'auth/factories/SessionService'
   ], function (
     angular,
-    userModule
+    authModule
   ) {
 
-  return userModule.directive('loginForm', [
+  return authModule.directive('loginForm', [
     '$compile','$http', '$rootScope', 'SessionService',
     function($compile, $http, $rootScope, SessionService) {
 
@@ -26,7 +26,7 @@ define('user/directives/loginFormDirective',[
       };
 
       return {
-        templateUrl: wejs.getTemplateUrl('user/views/login-form.html'),
+        templateUrl: wejs.getTemplateUrl('auth/views/login-form.html'),
         restrict:"EA",
         link: linker
       };
