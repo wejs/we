@@ -9,32 +9,13 @@ define('comment/comment', [
     'ngResource','ngRoute', 'ui.router'
   ]);
 
-  // --- RESOURCES ---
-  angular.module("comment")
-  .factory("CommentResource", [
-    "$resource",
-    function ($resource) {
-    // We need to add an update method
-    return $resource(
-       "/comment/:id", {
-          id: "@id"
-        }, {
-          update: {
-            method: 'PUT'
-          }
-        }
-    );
-  }]);
-
-  // --- CONTROLLERS ---
-
-  // define this module load module components like directives
-  requirejs([
-    'comment/directives/commentDirective',
-    'comment/directives/commentsDirective'
-  ]);
-
   return module;
 
 });
 
+// define this module load module components like directives
+requirejs([
+  'comment/directives/commentDirective',
+  'comment/directives/commentsDirective',
+  'comment/directives/commentFormDirective'
+]);

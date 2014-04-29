@@ -240,6 +240,17 @@ module.exports.routes = {
       action        : 'create'
   },
 
+  // -- COMMENT
+  'get /:model_url/:model_id/comments': {
+    controller    : 'comment',
+    action        : 'index'
+  },
+
+  'post /comment': {
+    controller    : 'comment',
+    action        : 'create'
+  },
+
   // -- ADMIN
   'get /admin/widgets': {
     controller    : 'main',

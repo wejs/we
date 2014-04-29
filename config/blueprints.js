@@ -40,7 +40,7 @@ module.exports.blueprints = {
   /**
    * Controller/Action Blueprints
    * (`sails.config.blueprints.actions`)
-   * 
+   *
    * Action blueprints speed up the backend development workflow by eliminating the need
    * to manually bind routes. When enabled, GET, POST, PUT, and DELETE routes will be
    * generated for every one of a controller's actions.
@@ -53,7 +53,7 @@ module.exports.blueprints = {
    *
    * `EmailController.index`
    * :::::::::::::::::::::::::::::::::::::::::::::::::::::::
-   * `GET     /email/:id?`        `GET    /email/index/:id?`           
+   * `GET     /email/:id?`        `GET    /email/index/:id?`
    * `POST    /email/:id?`        `POST   /email/index/:id?`
    * `PUT     /email/:id?`        `PUT    /email/index/:id?`
    * `DELETE  /email/:id?`        `DELETE /email/index/:id?`
@@ -65,7 +65,7 @@ module.exports.blueprints = {
    * `PUT     /email/send/:id?`
    * `DELETE  /email/send/:id?`
    *
-   * 
+   *
    * `actions` are enabled by default, and can be OK for production-- however,
    * if you'd like to continue to use controller/action autorouting in a production deployment,
    * you must take great care not to inadvertently expose unsafe/unintentional controller logic
@@ -74,13 +74,13 @@ module.exports.blueprints = {
   actions: true,
 
 
-  
+
   /**
    * RESTful Blueprints
    * (`sails.config.blueprints.rest`)
    *
    * REST blueprints are the automatically generated routes Sails uses to expose
-   * a conventional REST API on top of a controller's `find`, `create`, `update`, and `destroy` 
+   * a conventional REST API on top of a controller's `find`, `create`, `update`, and `destroy`
    * actions.
    *
    * For example, a BoatController with `rest` enabled generates the following routes:
@@ -105,17 +105,17 @@ module.exports.blueprints = {
    *
    * `shortcuts` are enabled by default, but SHOULD BE DISABLED IN PRODUCTION!!!!!
    */
-  shortcuts: true,
+  shortcuts: false,
 
 
 
   /**
    * `prefix`
    *
-   * An optional mount path for all blueprint routes on a controller, including `rest`, 
+   * An optional mount path for all blueprint routes on a controller, including `rest`,
    * `actions`, and `shortcuts`.  This allows you to take advantage of blueprint routing,
    * even if you need to namespace your API methods.
-   * 
+   *
    * * (NOTE: This only applies to blueprint autoroutes, not manual routes from `sails.config.routes`)
    *
    * For example, `prefix: '/api/v2'` would make the following REST blueprint routes
@@ -138,7 +138,7 @@ module.exports.blueprints = {
    * `pluralize`
    *
    * Whether to pluralize controller names in blueprint routes.
-   * 
+   *
    * (NOTE: This only applies to blueprint autoroutes, not manual routes from `sails.config.routes`)
    *
    * For example, REST blueprints for `FooController` with `pluralize` enabled:

@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-
+  schema: true,
   attributes: {
 
     active:{
@@ -29,6 +29,19 @@ module.exports = {
 
     text: {
       type: 'string'
+    },
+    // Override toJSON instance method
+    toJSON: function() {
+
+      var obj = this.toObject();
+
+      // set default objectType
+      obj.objectType = "post";
+
+      // set url for this content
+      obj.url = "/post/" + obj.id;
+
+      return obj;
     }
   },
 

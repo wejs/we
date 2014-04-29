@@ -1,13 +1,19 @@
 <div class="comment">
-  <div class="comment-header">
-    <span class="comment-user">
-      <a class="comment-username" ng-if="comment.profileUrl" ng-href="{{comment.profileUrl}}" title="{{comment.name}}">{{comment.name}}</a>
-      <img class="comment-avatar" ng-if="comment.avatarUrl" ng-src="{{comment.avatarUrl}}" alt="{{comment.name}}" />
-      <span class="comment-username" ng-if="!comment.profileUrl">{{comment.name}}</span>
-      <span class="comment-date" ng-if="comment.date">{{comment.date}}</span>
+
+  <div class="user-avatar-area comment-left">
+    <avatar user-id="{{comment.creator_id}}" class="creator-avatar"></avatar>
   </div>
-  <div class="comment-body">
-    <div ng-bind="comment.text"></div>
-    <div comments-transclude comment-data="comment.children"></div>
+
+  <div class="comment-right">
+    <div class="comment-header">
+        <span class="comment-username" ng-if="!comment.profileUrl">{{comment.creator.name}}</span>
+        <span am-time-ago="comment.createdAt" class="createdAt comment-date">{{comment.createdAt}}</span>
+    </div>
+
+    <div class="comment-body">
+      <div ng-bind="comment.text"></div>
+      <div comments-transclude comment-data="comment.children"></div>
+    </div>
+
   </div>
 </div>

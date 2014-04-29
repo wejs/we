@@ -3,7 +3,8 @@ define('news/news',[
   '$socket',
   'angular-resource',
   'modules',
-  './directives/activityDirective'
+  './directives/activityDirective',
+  'auth/factories/SessionService'
 ], function (
   angular,
   $socket,
@@ -63,16 +64,50 @@ define('news/news',[
   // --- CONTROLERS ---
   angular.module("news")
   .controller("NewsController", [
-    "$scope", '$stateParams', 'ActivityResource', '$socket',
-    function($scope, $stateParams, ActivityResource, $socket) {
+    "$scope",
+    '$stateParams',
+    'ActivityResource',
+    '$socket',
+    'SessionService',
+    function(
+      $scope,
+      $stateParams,
+      ActivityResource,
+      $socket,
+      SessionService
+    ) {
 
       $scope.activities = [];
 
       ActivityResource.query(function(data) {
-        $scope.activities = data;
+        data.forEach(function(item, i){
+          item = formatTitle(item);
+          $scope.activities.push(item);
+        });
+
       }, function(error) {
         console.error('NewsController: Error in get activities', error);
       });
+
+      var formatTitle = function(activity){
+        console.log(activity);
+        if(activity.verb == 'post'){
+
+          var username = activity.actor.name;
+          var displayName = '<a href="'+activity.target.url+'">'+ activity.target.displayName + '</a>';
+
+          activity.title = username+' created the post '+displayName;
+
+        }else if(activity.verb == 'comment'){
+
+          var username = activity.actor.name;
+          var displayName = '<a href="'+activity.target.url+'">'+ activity.target.displayName + '</a>';
+
+          activity.title =  username+' comentou '+displayName+' no conteúdo '+ activity.target.model.text;
+        }
+
+        return activity;
+      }
 
       /**
        * Receive a messenger message
@@ -82,13 +117,14 @@ define('news/news',[
         console.info('new activity',data);
 
         if(data.item){
-          $scope.activities.push(data.item);
-          $scope.$apply();
+          var user = SessionService.getUser();
+          if(user.id && user.id != data.item.actor_id ){
+            data.item = formatTitle(data.item);
+            $scope.activities.unshift(data.item);
+            $scope.$apply();
+          }
         }
-
-
       });
-
 
     }
   ]);

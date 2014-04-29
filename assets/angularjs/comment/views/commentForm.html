@@ -1,0 +1,20 @@
+<div id="form-comment-{{model_id}}" class="comment-form">
+  <div class="user-avatar-area comment-left">
+    <avatar user-id="{{user.id}}" class="creator-avatar"></avatar>
+  </div>
+
+  <div class="comment-right">
+   <div class="comment-body">
+
+      <textarea data-ng-focus="startWriting()" data-ng-model="comment.text" placeholder="Write a comment ..." type="text"></textarea>
+
+      <div class="actions" data-ng-show="showFormActions">
+        <div class="btn-group btn-group-xs">
+          <button type="button" data-ng-click="submit(event)" class="btn btn-primary">Send</button>
+          <button type="button" data-ng-click="cancel(event)" class="btn btn-default">Cancel</button>
+        </div>
+      </div>
+
+   </div>
+  </div>
+</div>
