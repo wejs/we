@@ -5,8 +5,8 @@
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')
       .directive('weRegion', [
-      '$compile', '$http',
-      function($compile, $http) {
+      '$compile', '$http','$rootScope', 'AUTH_EVENTS',
+      function($compile, $http, $rootScope, AUTH_EVENTS) {
 
 
         var linker = function ($scope, $element, attrs){
@@ -17,26 +17,37 @@
 
           $scope.region = wejs.config.regions[attrs.name];
 
-          $scope.region.widgets.forEach(function(widget,i){
 
-          // compile and generate the widget
-          var widgetTag = '<' +widget.type+ ' li="region['+i+'].scopeData"></'+widget.type+'>';
+          // Login Event
+          $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
 
-          var newScope = $scope.$new();
+            $scope.region.widgets.forEach(function(widget,i){
 
-          // if has scope vars in widget config ...
-          if(widget.scopeData){
-            // set variables inside new element
-            widget.scopeData.forEach(function(data){
-              newScope[data.name] = data.value;
+              // compile and generate the widget
+              var widgetTag = '<' +widget.type+ '></'+widget.type+'>';
+
+              var newScope = $scope.$new();
+
+              // if has scope vars in widget config ...
+              if(widget.scopeData){
+                // set variables inside new element
+                widget.scopeData.forEach(function(data){
+                  newScope[data.name] = data.value;
+                });
+              }
+
+              var compiledWidget = $compile( widgetTag, 'x' )( newScope );
+
+              $element.append( compiledWidget );
+
             });
-          }
-
-          var compiledWidget = $compile( widgetTag, 'x' )( newScope );
-
-          $element.append( compiledWidget );
-
           });
+
+          // logout Event
+          $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
+            $element.text('');
+          });
+
         }
 
         return {

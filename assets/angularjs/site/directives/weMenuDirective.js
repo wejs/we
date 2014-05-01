@@ -6,45 +6,42 @@
 
 (function() {
 
-  define('site/directives/weMenuDirective',['angular'], function ( angular ) {
+  define('site/directives/weMenuDirective',[
+    'angular',
+    'auth/factories/SessionService'
+    ], function ( angular ) {
 
     // A simple directive to display a gravatar image given an email
     return angular.module('application.directives')
       .directive('weMenu', [
-      '$compile','$location',
-      function($compile, $location) {
+      '$compile','$location','SessionService','$rootScope', 'AUTH_EVENTS',
+      function($compile, $location, SessionService, $rootScope, AUTH_EVENTS) {
         var linker = function($scope, $element, $attrs) {
 
           var menu = $element.find('ul.menu');
+          $scope.authorized = SessionService.authorized();
 
-          $scope.links;
+          // Login Event
+          $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
+            $scope.authorized = true;
+          });
+
+          // logout Event
+          $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
+            $scope.authorized = false;
+          });
 
           $scope.links.forEach(function(item){
              var link = '<li><a href="'+item.url+'" title="'+item.title+'"">'+ item.content +'</li></a>';
              menu.append(link);
-          });
-
-          // TODO add suport to active links class
-          /*
-          $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-
-            // Remove active from all links
-            $element.find('a').removeClass('active');
-
-            var currentLink = $element.find('a[href$="'+ $location.path() +'"]');
-            if( currentLink.addClass) {
-              currentLink.addClass('active');
-            }
-
-          });
-          */
+            });
 
         };
         return {
           restrict:"E",
           link: linker,
           scope: false,
-          template: '<div class="well sidebar-nav"><ul class="menu nav"><li>{{title}}</li></ul></div>'
+          template: '<div class="well sidebar-nav" data-ng-show="authorized"><ul class="menu nav"><li>{{title}}</li></ul></div>'
 
         };
       }
