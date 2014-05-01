@@ -36,7 +36,7 @@
               $scope.progressActive = 'active';
 
               $scope.upload = $upload.upload({
-                url: 'user/avatar', //upload.php script, node.js route, or servlet url
+                url: '/user/avatar', //upload.php script, node.js route, or servlet url
                 method: 'POST',
                 // headers: {'header-key': 'header-value'},
                 // withCredentials: true,
