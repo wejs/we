@@ -16,20 +16,33 @@ define('user/factories/UserService',[
     "UserResource",
     function( UserResource ){
       // users object to store users data
-      var users = {};
-
+      var users = {}
       this.users = users;
 
-      this.getUser = function(id){
+      /**
+       * Get on user from server or from this service users
+       * @param  {string}   id       User id to find
+       * @param  {Function} callback function callback for return result
+       * @return {[type]}            null
+       */
+      this.getUser = function(id, callback){
         if(users[id]){
-          return this.users[id];
+          callback(null, users[id]);
         }else{
           users[id] = {};
-
-          return users[id] = UserResource.get({
+          // TODO add a error handler in get user
+          UserResource.get({
             id: id
-          }, function(){
-            return users[id];
+          }, function(data){
+
+            if(data.item && data.item.id){
+              // cache this user
+              users[id] = data.item;
+              callback(null, users[id]);
+            } else {
+              callback(null, null);
+            }
+
           });
         }
       };

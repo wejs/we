@@ -28,16 +28,15 @@
           }
 
           function getUserAvatarId(uid){
-            user = UserService.getUser(uid);
-            user.$promise.then(function(){
-              // if user has avatar
+            UserService.getUser(uid, function(err, user){
+
               if(user.avatarId){
                 scope.avatarId = user.avatarId;
                 setVars(scope, scope.avatarId);
               }
               scope.avatarLink = '/users/' + user.id;
-            });
 
+            });
           }
 
           function setVars(scope, newId){
