@@ -3,9 +3,8 @@
 
     <avatar user-id="{{post.creator.id}}" class="creator-avatar"></avatar>
 
-    <we-user-name user-id="post.creator.id" class="creator-name"></we-user-name>
-
     <div class="creator">
+      <we-user-name user-id="post.creator.id" class="creator-name"></we-user-name>
       <span am-time-ago="post.createdAt" class="createdAt post-created-at">{{post.createdAt}}</span>
     </div>
 

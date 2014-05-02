@@ -75,6 +75,7 @@ define('user/user',[
 // load module components like directives or controllers
 requirejs([
   'user/directives/userMenuDirective',
+  'user/directives/weUserNameDirective',
   //'user/factories/UserService',
   'user/factories/userResolver',
   'user/factories/userShowResolver',

@@ -3,18 +3,15 @@
 
     <avatar user-id="{{post.creator.id}}" class="creator-avatar"></avatar>
 
-    <a href="/post/{{post.id}}">
-      {{post.id}}
-    </a>
     <div class="creator">
-
+      <we-user-name user-id="post.creator.id" class="creator-name"></we-user-name>
+      <span am-time-ago="post.createdAt" class="createdAt post-created-at">{{post.createdAt}}</span>
     </div>
 
   </div>
 
   <div class="content">
     <div data-ng-hide="post.editing" class="post-text" >{{post.text}}</div>
-
     <form data-ng-show="post.editing" id="form-post-{{post.id}}" class="edit-post">
       <textarea class="post-text"ng-model="post.text"></textarea>
       <div class="actions">

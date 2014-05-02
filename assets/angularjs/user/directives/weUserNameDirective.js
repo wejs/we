@@ -1,5 +1,3 @@
-
-
 /**
  * User menu Directive
  */
@@ -14,7 +12,7 @@ define('user/directives/weUserNameDirective',[
     app
   ){
 
-  app.plugDirective('weUserName',[
+  module.directive('weUserName',[
     '$compile',
     'UserService',
   function($compile, UserService){

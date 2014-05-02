@@ -32,14 +32,6 @@ define('post/post', [
       */
       .state('post', {
         url: "/post/:id",
-        resolve: {
-          // load dependences
-          deps: function($q){
-            return wejs.load($q, [
-              'user/directives/weUserNameDirective'
-            ])
-          }
-        },
         views: {
           "": {
             controller: 'PostItemController',
