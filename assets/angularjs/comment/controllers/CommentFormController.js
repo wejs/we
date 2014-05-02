@@ -15,8 +15,6 @@ define('comment/controllers/CommentFormController',[
       "commentService",
     function($scope, commentService) {
 
-      console.log('comentform',$scope);
-
       var startNewComment = function(){
         $scope.comment = {
           text : ''

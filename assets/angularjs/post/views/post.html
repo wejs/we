@@ -3,14 +3,11 @@
 
     <avatar user-id="{{post.creator.id}}" class="creator-avatar"></avatar>
 
-  {{post.id}}
-    </a>
+    <we-user-name user-id="post.creator.id" class="creator-name"></we-user-name>
+
     <div class="creator">
-
+      <span am-time-ago="post.createdAt" class="createdAt post-created-at">{{post.createdAt}}</span>
     </div>
-
-  {{post.id}}
-  {{post.creator_id}}
 
   </div>
   <div class="content">
@@ -19,7 +16,6 @@
       <div class="content">
         <div class="post-text">{{post.text}}</div>
       </div>
-
 
     </div>
   </div>

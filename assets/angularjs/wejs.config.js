@@ -98,6 +98,21 @@ define('wejs.config',function () {
     return this.config.templateUrl+defaultUrlString;
   }
 
+  /**
+   * AngularJS / requireJS dependence loader helper for use in route resolve
+   *
+   * @param  {function} $q           AngularJS $q service
+   * @param  {array}    dependencies array with requireJS dependence files
+   */
+  wejs.load = function($q, dependencies){
+    var deferred = $q.defer();
+    require(dependencies,function(){
+      deferred.resolve();
+    });
+    return deferred.promise;
+  }
+
+  // TODO change for AMD return ...
   window['wejs'] = wejs;
 
   //return wejs;

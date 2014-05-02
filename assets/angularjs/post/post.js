@@ -2,16 +2,14 @@ define('post/post', [
   'angular',
   '$socket',
   'angular-resource',
-  'modules',
-  './directives/shareboxDirective',
-  './directives/postTeaserDirective',
-  'comment/comment'
+  'wejs.config',
+  'comment/comment',
 ], function (
   angular,
   $socket,
   ngResource
 ) {
-  angular.module('post', [
+  var module = angular.module('post', [
     'ngResource','ngRoute', 'ui.router', 'ui.bootstrap', 'comment'
   ]).
   config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
@@ -34,10 +32,18 @@ define('post/post', [
       */
       .state('post', {
         url: "/post/:id",
+        resolve: {
+          // load dependences
+          deps: function($q){
+            return wejs.load($q, [
+              'user/directives/weUserNameDirective'
+            ])
+          }
+        },
         views: {
           "": {
-            templateUrl: wejs.getTemplateUrl("post/views/post.html"),
-            controller: 'PostItemController'
+            controller: 'PostItemController',
+            templateUrl: wejs.getTemplateUrl("post/views/post.html")
           }
         }
       })
@@ -64,21 +70,6 @@ define('post/post', [
     }
   ]);
 
-  // --- RESOURCES
-  angular.module('post')
-  .factory('PostResource',[
-    '$resource',
-    function($resource){
-      var PostResource;
-      PostResource = $resource('/post/:id', {
-        id: '@id'
-      }, {
-        'update': { method:'PUT' }
-      });
-      return PostResource;
-    }
-  ]);
-
   // --- RESOLVERS ---
   angular.module('post')
   .factory('postResolver',[
@@ -86,6 +77,7 @@ define('post/post', [
     '$q',
     'PostResource',
     function($http,$q, PostResource){
+
       return function () {
         var deferred = $q.defer();
         var posts;
@@ -124,179 +116,15 @@ define('post/post', [
     };
   }]);
 
-  // --- CONTROLERS ---
-  angular.module("post")
-  .controller("PostItemController", [
-    "$rootScope","$scope", 'PostResource', '$stateParams',
-    function($rootScope, $scope, PostResource, $stateParams) {
-      var show;
-
-      if(!$rootScope.posts) $rootScope.posts = {};
-
-      if(!$scope.post){
-        $scope.post = {};
-
-        // get post from post cache
-        if($rootScope.posts[$stateParams.id]){
-          $scope.post = $rootScope.posts[$stateParams.id];
-        } else {
-          // if dont are in cache get from server
-          PostResource.get({
-            id: $stateParams.id
-          }, function(post, getResponseHeaders){
-
-            $rootScope.posts[post.id] = post;
-            $scope.post = post;
-
-          }, function(error) {
-            console.error('error on post show', error);
-          });
-        }
-      }
-
-      $rootScope.$watch('posts.'+ $scope.post.id , function() {
-        $scope.post = $rootScope.posts[$scope.post.id];
-      }, true);
-
-      $scope.up = function() {
-        return console.log('up');
-      };
-
-      $scope.down = function() {
-        return console.log('down');
-      };
-
-      $scope.share = function() {
-        return console.log('share');
-      };
-
-      // show edit form
-      $scope.edit = function() {
-        // save one back
-        $scope.post_old = angular.copy($scope.post);
-
-        $scope.post.editing = true;
-      };
-
-      $scope.cancelEdit = function() {
-        console.log($scope.post_old);
-        $scope.post = angular.copy($scope.post_old);
-
-        $scope.post.editing = false;
-      };
-
-      // Update post on server
-      $scope.update = function() {
-        delete($scope.post.editing);
-
-        $scope.post.$update( function(data, headers) {
-          console.log('headers',headers);
-          if(data.post){
-            // update root posts cache
-            $rootScope.posts[data.post.id] = $scope.post;
-
-            // update parent posts list
-            //jQuery('#posts').scope().posts.unshift($scope.post);
-          }
-
-          $scope.post.editing = false;
-        }, function(err, headers) {
-          // error here
-          // TODO
-          console.error('error: ',err);
-        });
-      };
-
-      // delete the scope post
-      $scope["delete"] = function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        var post_id = $scope.post.id;
-
-        if (confirm('Permanently delete this post?')) {
-          $scope.post.$delete(function() {
-            // search post in posts list and remove it
-            jQuery('#posts').scope().posts.forEach( function(item, key){
-              if(item.id == post_id){
-               jQuery('#posts').scope().posts.splice(key, 1);
-              }
-            });
-          });
-        }
-      };
-
-      $scope.submit = function(event, post) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        var Post;
-
-        Post = new PostResource({
-          'text': post.content
-        });
-
-        Post.$save(function(data, headers) {
-
-          console.log('Post.$save', data);
-          if(data.post){
-            $scope.posts.unshift(data.post);
-          }
-
-          $scope.closeSharebox();
-          jQuery('.sharebox textarea').val('');
-
-        }, function(err, headers) {
-          // error here
-          // TODO
-          console.error('error: ',err);
-        });
-      };
-    }
-
-  ]);
-
-  angular.module("post")
-  .controller("PostController", [
-    "$rootScope","$scope", "SessionService", "PostResource",  "$route", "$routeParams",
-    function($rootScope, $scope, SessionService, PostResource,  $route, $routeParams) {
-      var init;
-      var show;
-
-      if(!$rootScope.posts) $rootScope.posts = {};
-
-      init = function (){
-        /*
-        $scope.posts = postData;
-
-        postData.forEach( function(post){
-          $rootScope.posts[post.id] = post;
-        });
-        */
-        postData = PostResource.query(function() {
-          $scope.posts = postData;
-          postData.forEach( function(post){
-            $rootScope.posts[post.id] = post;
-          });
-        }, function(error) {
-          console.error('PostController: Error in get posts', error);
-        });
-
-
-      };
-
-      // get new items from server
-      $scope.getNews = function(){
-
-      };
-
-      // get olds items from server
-      $scope.getOlds= function(){
-
-      };
-
-      return init();
-    }
-  ]);
-
+  return module;
 });
+
+
+// load module components like directives or controllers
+requirejs([
+  'post/factories/PostResource',
+  'post/controllers/PostController',
+  'post/controllers/PostItemController',
+  'post/directives/shareboxDirective',
+  'post/directives/postTeaserDirective'
+]);

@@ -66,9 +66,17 @@
       'formly',
       'auth'
     ]).
-    config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
-      function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+    config([ '$locationProvider','$httpProvider','$stateProvider', '$urlRouterProvider',  '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
+      function( $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {
 
+        // salve references to angular provider for lazy load resources
+        app.plugController = $controllerProvider.register;
+        app.plugDirective = $compileProvider.directive;
+        //app.routeProvider      = $routeProvider;
+        app.filterProvider     = $filterProvider;
+        app.provide            = $provide;
+
+        // get csrf token //
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
@@ -85,7 +93,6 @@
             "highlighted": {
               templateUrl:  wejs.getTemplateUrl("site/views/highlighted.html")
             }
-
           }
         })
         .state('dashboard', {
