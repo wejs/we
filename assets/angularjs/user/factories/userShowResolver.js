@@ -26,7 +26,6 @@ define('user/factories/userShowResolver',[
           UserResource.get({
             id: $stateParams.id
           }, function(user, getResponseHeaders){
-            console.log('resolvids');
             return deferred.resolve(user);
           }, function(error) {
             return deferred.reject(error);

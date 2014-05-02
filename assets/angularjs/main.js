@@ -17,6 +17,7 @@ require.config({
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
     'we-messenger': '../bower_components/we-messenger/messenger',
     moment: '../bower_components/moment/moment',
+    'moment-pt-br': '../bower_components/moment/lang/pt-br',
     'angular-moment': '../bower_components/angular-moment/angular-moment',
     plugins: '../bower_components/tupi/dist/js/plugins.min',
     tupi: '../bower_components/tupi/dist/js/tupi.min',
@@ -45,7 +46,8 @@ require.config({
     'angular-moment': {
       deps: [
         'angular',
-        'moment'
+        'moment',
+        'moment-pt-br'
       ]
     },
     angular: {
