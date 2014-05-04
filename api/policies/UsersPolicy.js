@@ -8,8 +8,12 @@ module.exports = function (req, res, next) {
   }
 
   if(req.isSocket){
-    console.log('On police Is socket user: ',req.isSocket);
-    return res.send("Socket access is not allowed here", 403);
+    if(req.url == '/users/current' && req.method == 'GET'){
+      return next();
+    }else{
+      return res.send("Socket access is not allowed here", 403);
+    }
+
   }
 
   if (req.isAuthenticated()) {

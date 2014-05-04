@@ -180,12 +180,19 @@ module.exports = {
    */
   getContactList: function (req, res, next){
     var friendList = {};
-    // get contact/frinend list
-    friendList = sails.util.clone(sails.onlineusers);
+
+    // get contact/frinend list from online users
+    // TODO implement contact list
+    _.forEach(sails.onlineusers, function(onlineuser){
+      if(onlineuser.sockets.length){
+        friendList[onlineuser.user.id] = onlineuser.user;
+      }
+    });
 
     // remove current user from list
     delete(friendList[req.user.id]);
 
+    // TODO change this response to array
     res.send(
       {
         friendList: friendList

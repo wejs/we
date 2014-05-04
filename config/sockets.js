@@ -26,10 +26,29 @@ module.exports.sockets = {
     if(userId){
       // save user data in online users cache
       if(typeof sails.onlineusers[userId] === 'undefined' ){
+
         Users.findOneById(userId).exec(function(err, user){
           user.messengerStatus = 'online';
-          sails.onlineusers[userId] = user.toJSON();
+
+          // save a the new socket connected on links users
+          sails.onlineusers[userId] = {
+            user: user.toJSON(),
+            sockets: []
+          }
+
+          sails.onlineusers[userId].sockets.push(socket.id);
+
+          // TODO change to send to friends
+          sails.io.sockets.in('global').emit('user:connected', {
+            status: 'connected',
+            item: user
+          });
+
         });
+
+      } else {
+        sails.onlineusers[userId].sockets.push(socket.id);
+
       }
 
       // join user exclusive room to allow others users send
@@ -50,21 +69,37 @@ module.exports.sockets = {
   onDisconnect: function(session, socket) {
     var userId;
 
-    if(session.passport)
-      userId = session.passport.user;
-
-    if(userId){
-      // TODO change to send to friends
+    var disconnect = function disconnect(userId){
+      delete sails.onlineusers[userId];
       sails.io.sockets.in('global').emit('contact:disconnect', {
         status: 'disconected',
         contact: {
           id: userId
         }
       });
+    }
 
-      console.log('User disconected uid: ',userId);
-      // remove user from users online
-      delete sails.onlineusers[userId];
+    if(session.passport)
+      userId = session.passport.user;
+
+    if(userId){
+
+      if(sails.onlineusers[userId]){
+
+        if(sails.onlineusers[userId].sockets.length){
+
+          sails.onlineusers[userId].sockets = _.without(sails.onlineusers[userId].sockets, socket.id);
+          if(!sails.onlineusers[userId].sockets.length){
+            disconnect(userId);
+          }
+
+        }else {
+          disconnect(userId);
+        }
+      }
+
+    }else{
+      sails.log.warn('Socket disconnect withouth user id in onDisconnect');
     }
 
   },
