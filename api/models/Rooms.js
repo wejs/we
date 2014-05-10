@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-
+  schema: true,
   attributes: {
 
     members_id: {

@@ -11,7 +11,7 @@ var uuid = require('node-uuid');
 module.exports = {
 
 //  adapter: 'sails-local-fs'
-
+  schema: true,
   attributes: {
 
     name: {

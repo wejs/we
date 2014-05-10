@@ -8,7 +8,7 @@
 var uuid = require('node-uuid');
 
 module.exports = {
-
+  schema: true,
   attributes: {
 
     token: {
