@@ -79,6 +79,11 @@ module.exports.routes = {
     action: 'index'
   },
 
+  'get /users/:id': {
+    controller: 'users',
+    action: 'find'
+  },
+
   // User Auth
   // TODO move to AuthController
 

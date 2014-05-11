@@ -76,7 +76,7 @@ describe('UsersController', function() {
         });
       });
 
-      it('/users should return 200 and one user', function (done) {
+      it('/users/:uid should return 200 and one user', function (done) {
 
         Users.create(UserStub(), function(err, newUser) {
           if(err) return done(err);
@@ -90,7 +90,6 @@ describe('UsersController', function() {
             if(err) return done(err);
 
             should(err).not.be.ok;
-
             should(res.body).have.property('item').have.properties({
               'email': newUser.email,
               'id': newUser.id

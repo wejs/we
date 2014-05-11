@@ -12,14 +12,6 @@ module.exports = {
 
   index: function (req, res) {
 
-    //console.log(sails.io);
-    //console.log('Alberto:',sails.io.sockets.clients('user_5354f7b75a6bdfb84b559d15'));
-    //console.log('Santos:',sails.io.sockets.clients('user_53560eb7027499a827d2e5d0'));
-    console.log('all:',sails.io.sockets.clients().length );
-    console.log('namespace:',sails.io.of('/user').clients().length );
-    console.log('Alberto:',sails.io.sockets.clients('user_5354f7b75a6bdfb84b559d15').length );
-    console.log('Santos:',sails.io.sockets.clients('user_53560eb7027499a827d2e5d0').length );
-
     Users.find({})
     .limit(10)
     .sort('name ASC')
@@ -52,7 +44,6 @@ module.exports = {
 
   find: function(req, res){
     var id = req.param('id');
-
 
     Users.findOneById(id)
     .exec(function(err, user){
