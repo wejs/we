@@ -11,7 +11,7 @@
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define([
+    define('we-messenger',[
       'jquery',
       'angular',
       'angular-resource',
