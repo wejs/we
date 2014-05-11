@@ -1,10 +1,8 @@
 define('admin/admin',[
   'angular',
-  '$socket',
   'angular-resource'
 ], function (
   angular,
-  $socket,
   ngResource
 ) {
 

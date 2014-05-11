@@ -1,12 +1,10 @@
 define('post/post', [
   'angular',
-  '$socket',
   'angular-resource',
   'wejs.config',
   'comment/comment',
 ], function (
   angular,
-  $socket,
   ngResource
 ) {
   var module = angular.module('post', [

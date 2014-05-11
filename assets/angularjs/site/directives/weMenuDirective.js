@@ -41,7 +41,7 @@
           restrict:"E",
           link: linker,
           scope: false,
-          template: '<div class="well sidebar-nav" data-ng-show="authorized"><ul class="menu nav"><li>{{title}}</li></ul></div>'
+          template: '<div class="menu-sidebar-nav" data-ng-show="authorized"><ul class="menu nav"><li>{{title}}</li></ul></div>'
 
         };
       }

@@ -1,13 +1,11 @@
 define('news/news',[
   'angular',
-  '$socket',
   'angular-resource',
   'modules',
   './directives/activityDirective',
   'auth/factories/SessionService'
 ], function (
   angular,
-  $socket,
   ngResource
 ) {
   angular.module('news', [
@@ -67,15 +65,15 @@ define('news/news',[
     "$scope",
     '$stateParams',
     'ActivityResource',
-    '$socket',
     'SessionService',
     function(
       $scope,
       $stateParams,
       ActivityResource,
-      $socket,
       SessionService
     ) {
+
+      $socket = we.io.socket;
 
       $scope.activities = [];
 

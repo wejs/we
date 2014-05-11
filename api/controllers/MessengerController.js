@@ -121,7 +121,6 @@ module.exports = {
         console.log(error);
         res.send(500, {error: res.i18n("DB Error") });
       } else {
-
         // TODO add suport to rooms
         if(message.toId){
           // if has toId send toId
@@ -144,7 +143,9 @@ module.exports = {
 
 
         if(req.isSocket){
-
+          res.send({
+            message: newMessage
+          });
         } else {
           res.send({
             message: newMessage
@@ -159,19 +160,9 @@ module.exports = {
    * Start messenger
    */
   start: function(req, res){
-    if(!req.user) res.forbidden('forbidden');
+    if(!req.user) return res.forbidden('forbidden');
 
-    var contact = req.user.toJSON();
-    // set user status
-    contact.messengerStatus = 'online';
-
-    res.send(200,'');
-
-    // TODO change to send to friends
-    sails.io.sockets.in('global').emit('contact:connect', {
-      status: 'connected',
-      contact: contact
-    });
+    res.send(200, req.user.toJSON());
   },
 
   /**
@@ -179,18 +170,21 @@ module.exports = {
    * TODO add suport to friends and roons
    */
   getContactList: function (req, res, next){
-    var friendList = {};
+    if(!req.user){
+      return res.forbidden('forbidden');
+    }
 
-    // get contact/frinend list from online users
+    var friendList = [];
+
+    // get contact/friend list from online users
     // TODO implement contact list
     _.forEach(sails.onlineusers, function(onlineuser){
       if(onlineuser.sockets.length){
-        friendList[onlineuser.user.id] = onlineuser.user;
+        if(req.user.id != onlineuser.user.id){
+          friendList.push(onlineuser.user);
+        }
       }
     });
-
-    // remove current user from list
-    delete(friendList[req.user.id]);
 
     // TODO change this response to array
     res.send(

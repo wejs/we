@@ -10,7 +10,7 @@
 
 (function (io) {
 
-  // as soon as this file is loaded, connect automatically, 
+  // as soon as this file is loaded, connect automatically,
   var socket = io.connect();
   if (typeof console !== 'undefined') {
     log('Connecting to Sails.js...');
@@ -34,12 +34,12 @@
 
     ///////////////////////////////////////////////////////////
     // Here's where you'll want to add any custom logic for
-    // when the browser establishes its socket connection to 
+    // when the browser establishes its socket connection to
     // the Sails.js server.
     ///////////////////////////////////////////////////////////
     log(
-        'Socket is now connected and globally accessible as `socket`.\n' + 
-        'e.g. to send a GET request to Sails, try \n' + 
+        'Socket is now connected and globally accessible as `socket`.\n' +
+        'e.g. to send a GET request to Sails, try \n' +
         '`socket.get("/", function (response) ' +
         '{ console.log(response); })`'
     );
@@ -60,8 +60,17 @@
       console.log.apply(console, arguments);
     }
   }
-  
 
+  /* off-canvas sidebar toggle */
+
+  $('[data-toggle=offcanvas]').click(function() {
+      $(this).toggleClass('visible-xs text-center');
+      $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
+      $('.row-offcanvas').toggleClass('active');
+      $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
+      $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
+      $('#btnShow').toggle();
+  });
 })(
 
   // In case you're wrapping socket.io to prevent pollution of the global namespace,

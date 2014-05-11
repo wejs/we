@@ -4,24 +4,29 @@
     <h4 class="modal-title">Change avatar</h4>
   </div>
   <div class="modal-body">
-    <div class="row file-uploader">
-      <div class="col-md-8">
-        <input type="file" ng-file-select="onFileSelect($files)" >
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-primary" type="buttom" data-ng-click="submit($event)">Upload and save</button>
-      </div>
-    </div>
+    <div class="row"><div class=" col-lg-offset-2 col-lg-8">
+      <div class="form-group">
+      <br><br>
 
-    <div class="file-upload-progress">
-      <progressbar max="max" value="dynamic" type="{{type}}" class="progress-striped {{progressActive}}">
-        <span data-ng-show="progressActive" style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span>
-      </progressbar>
-    </div>
+        <div class="form-controll file-uploader">
+          <div class="col-md-8">
+            <input type="file" ng-file-select="onFileSelect($files)" >
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-primary" type="buttom" data-ng-click="submit($event)">Upload and save</button>
+          </div>
+        </div>
+      </div>
+        <div class="form-group">
 
-    <div>
-      <avatar user-id="user.id" class="creator-avatar"></avatar>
-    </div>
+          <div class=" form-controll file-upload-progress">
+            <progressbar max="max" value="dynamic" type="{{type}}" class="progress-striped {{progressActive}}">
+              <span data-ng-show="progressActive" style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span>
+            </progressbar>
+          </div>
+      </div>
+    </div></div>
+
   </div>
   <div class="modal-footer">
     <button type="button"  data-ng-click="modalClose()" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -8,7 +8,6 @@
     .controller("FileManagerController", [
       "$rootScope",
       "$scope",
-      "$socket",
       "$location",
       "SessionService",
       "$http",

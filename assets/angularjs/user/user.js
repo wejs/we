@@ -3,11 +3,9 @@
  */
 define('user/user',[
   'angular',
-  '$socket',
   'angular-resource'
 ], function (
   angular,
-  $socket,
   ngResource
 ) {
 

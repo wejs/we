@@ -14,7 +14,7 @@
   z-index: 3;
   .messenger-column {
     height: 267px;
-    width: 240px;
+    width: 250px;
     margin: 0px 5px;
     float: right;
     div {
@@ -22,9 +22,20 @@
     }
   }
 
-  .avatar-small {
-    width: 20px;
+  avatar {
+    img {
+      width: 30px;
+      height: 30px;
+    }
   }
+
+  .createdAt {
+    color: #999999;
+    font-size: 0.75em;
+    margin: 2px;
+    text-align: left;
+  }
+
 }
 
 
@@ -37,12 +48,13 @@ div.messenger-area .messenger {
 }
 
 .contact-chat {
-  width: 240px;
+  width: 250px;
 
   .header {
-    background-color: @messengerHeadBgColor;
-    padding: 5px;
+    background-color: #3B5999;
+    color: #fff;
     cursor: pointer;
+    padding: 5px;
   }
 
   .actions {
@@ -55,15 +67,62 @@ div.messenger-area .messenger {
     height: 200px;
     padding: 5px;
     overflow-y: scroll;
+    background-color: #ccc;
+
+    .contact {
+      margin: 4px 2px;
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 3px;
+
+      &.status-salved {
+
+      }
+
+      &.status-sending {
+        background-color: #FFFFAC;
+      }
+
+      &.status-send {
+        background-color: #97EA90;
+      }
+
+      &.status-error {
+        background-color: #FF6630;
+      }
+
+    }
   }
 
   .footer {
     padding: 5px;
+
+    input {
+      max-width: 185px
+    }
   }
 }
 
+.messenger {
+  .contact {
+    avatar{
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+  }
+
+  .rooms-list {
+    cursor: pointer;
+  }
+}
+
+
 .messenger .header {
-    background-color: @messengerHeadBgColor;
+    background-color: #3B5999;
+    color: #fff;
     width: 240px;
     padding: 5px;
     cursor: pointer;
@@ -79,7 +138,8 @@ div.messenger-area .messenger .search-area {
 }
 div.messenger-off {
   border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  background-color: #3B5999;
+  color: #fff;
   width: 240px;
   padding: 5px;
   cursor: pointer;

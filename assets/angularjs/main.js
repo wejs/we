@@ -5,7 +5,6 @@ require.config({
     'sails.io': '/js/sails.io',
     app: '/js/app',
     modules: 'modules',
-    '$socket': 'site/services/socket',
     angular: '../bower_components/angular/angular',
     'angular-cookies': '../bower_components/angular-cookies/angular-cookies',
     'angular-resource': '../bower_components/angular-resource/angular-resource',
@@ -15,15 +14,15 @@ require.config({
     jquery: '../bower_components/jquery/dist/jquery',
     'ng-table': '../bower_components/ng-table/ng-table',
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'we-messenger': '../bower_components/we-messenger/messenger',
+    'we-messenger': 'messenger/messenger',
     moment: '../bower_components/moment/moment',
     'moment-pt-br': '../bower_components/moment/lang/pt-br',
     'angular-moment': '../bower_components/angular-moment/angular-moment',
-    plugins: '../bower_components/tupi/dist/js/plugins.min',
-    tupi: '../bower_components/tupi/dist/js/tupi.min',
     'ng-file-upload-shim': '../bower_components/ng-file-upload/angular-file-upload-shim',
     'ng-file-upload': '../bower_components/ng-file-upload/angular-file-upload',
     'wejs.config': 'wejs.config',
+    we: '../bower_components/we/dist/we.onlywe',
+    async: '../js/libs/async',
     'angular-formly': '../bower_components/angular-formly/dist/formly.min'
   },
   shim: {
@@ -53,8 +52,8 @@ require.config({
     angular: {
       exports: 'angular',
       deps: [
-        'ng-file-upload-shim',
-        'wejs.config'
+        'ng-file-upload-shim'
+        //'wejs.config'
       ]
     },
     'angular-ui-router': {
@@ -87,6 +86,14 @@ require.config({
         'jquery'
       ]
     },
+    we: {
+      deps: [
+        'io',
+        'sails.io',
+        'jquery',
+        'async'
+      ]
+    },
     app: {
       deps: [
         'io',
@@ -100,9 +107,10 @@ require.config({
     }
   },
   baseUrl: '/angularjs',
-  urlArgs: 'v=0.0.51',
+  urlArgs: 'v=0.0.52',
   deps: [
-    'wejs.config',
+    'async',
+    'we',
     'application'
   ]
 });

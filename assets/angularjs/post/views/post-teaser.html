@@ -1,14 +1,14 @@
-<div class="post-teaser teaser">
-  <div class="header">
+<div class="post-teaser teaser panel panel-default">
 
+<div class="header panel-heading">
     <avatar user-id="{{post.creator.id}}" class="creator-avatar"></avatar>
-
     <div class="creator">
       <we-user-name user-id="post.creator.id" class="creator-name"></we-user-name>
       <span am-time-ago="post.createdAt" class="createdAt post-created-at">{{post.createdAt}}</span>
     </div>
+</div>
 
-  </div>
+<div class="panel-body">
 
   <div class="content">
     <div data-ng-hide="post.editing" class="post-text" >{{post.text}}</div>
@@ -23,7 +23,6 @@
         </button>
       </div>
     </form>
-
   </div>
 
   <div class="footer ng-scope">
@@ -47,6 +46,11 @@
             <span class="glyphicon glyphicon-remove"></span> Delete
           </button>
       </div>
-      <we-comments data-model-id="{{post.id}}" data-model-name="Post"></we-comments>
   </div>
+</div>
+
+<div class="panel-footer">
+  <we-comments data-model-id="{{post.id}}" data-model-name="Post"></we-comments>
+</div>
+
 </div>

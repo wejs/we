@@ -39,7 +39,7 @@ module.exports.sockets = {
           sails.onlineusers[userId].sockets.push(socket.id);
 
           // TODO change to send to friends
-          sails.io.sockets.in('global').emit('user:connected', {
+          sails.io.sockets.in('global').emit('contact:connect', {
             status: 'connected',
             item: user
           });

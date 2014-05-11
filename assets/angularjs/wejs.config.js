@@ -87,7 +87,7 @@ define('wejs.config',function () {
   }
 
   wejs.config.regions.sidebar.widgets.push(menuWidget);
-  wejs.config.regions.sidebar.widgets.push(newsWidget);
+  //wejs.config.regions.sidebar.widgets.push(newsWidget);
 
   /**
    * Get template url for angularjs templates

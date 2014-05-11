@@ -60,6 +60,11 @@ module.exports = {
 
       // remove password
       var obj = this.toObject();
+
+      if(!obj.name){
+        obj.name = obj.username;
+      }
+
       delete obj.password;
 
       // set default objectType

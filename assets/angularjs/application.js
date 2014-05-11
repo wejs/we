@@ -156,7 +156,21 @@
     }]);
 
     require(['domReady!'], function (document) {
+
+
+      we.bootstrap(function(){
         angular.bootstrap(document, ['application']);
+      });
+      /*
+      we.getAuthenticatedUser(function(err, user){
+
+        we.io.connect();
+        we.notify('Connected!', 'Connected to wejs.org server');
+
+        angular.bootstrap(document, ['application']);
+
+      });
+      */
     });
 
     return app;

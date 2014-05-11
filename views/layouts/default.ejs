@@ -15,7 +15,9 @@
     <meta name="csrf-token" content="<%= _csrf %>" />
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/theme.css">
     <!--STYLES END-->
 
     <!--SCRIPTS-->
@@ -43,42 +45,99 @@
   </head>
 
   <body ng-cloak>
-    <main role="main" class="social-theme main container" >
-      <!-- navbar -->
-      <%- include ../partials/navbar.ejs %>
-      <!-- /navbar -->
-      <div class="row">
-        <div class="col-md-12">
-          <!-- /angular js main area -->
-          <div data-ui-view="highlighted"></div>
-        </div>
-      </div>
 
-      <div class="row">
-        <!-- /angular js dinamic sidebar -->
-        <div class="sidebar-area col-md-3">
-          <we-region name="sidebar"></we-region>
-        </div>
+    <div class="wrapper">
+        <div class="box">
+            <div class="row row-offcanvas row-offcanvas-left">
 
-        <div class="col-md-9">
-          <div data-ui-view>
-            <%- body %>
+          <!-- sidebar -->
+          <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+
+              <!-- /angular js dinamic sidebar -->
+              <div class="sidebar-area">
+                <we-region name="sidebar"></we-region>
+              </div>
+
+              <!-- form-login -->
+              <login-form></login-form>
+              <!-- /form-login -->
+
+
+              <ul class="nav">
+                <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+              </ul>
+
+              <ul class="nav hidden-xs" id="lg-menu">
+                  <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Featured</a></li>
+                  <li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
+                  <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>
+                  <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
+              </ul>
+
+
+                <!-- tiny only nav-->
+                <ul class="nav visible-xs" id="xs-menu">
+                    <li><a href="#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                    <li><a href="#stories" class="text-center"><i class="glyphicon glyphicon-list"></i></a></li>
+                    <li><a href="#" class="text-center"><i class="glyphicon glyphicon-paperclip"></i></a></li>
+                    <li><a href="#" class="text-center"><i class="glyphicon glyphicon-refresh"></i></a></li>
+                </ul>
+
           </div>
+          <!-- /sidebar -->
 
+            <!-- main right col -->
+            <div class="column col-sm-10 col-xs-11" id="main">
+
+                <!-- navbar -->
+                <%- include ../partials/navbar.ejs %>
+                <!-- /navbar -->
+
+                <div class="padding">
+                    <div class="full col-sm-9">
+
+                        <!-- content -->
+                        <div class="row">
+
+                          <div class="col-md-12">
+                            <!-- /angular js main area -->
+                            <div data-ui-view="highlighted"></div>
+                          </div>
+
+
+                          <!-- main col right -->
+                          <div class="col-sm-8">
+                            <div data-ui-view>
+                              <%- body %>
+                            </div>
+                          </div>
+                         <!-- main col left -->
+                        <div class="col-sm-4">
+                            <we-news></we-news>
+                         </div>
+
+                       </div><!--/row-->
+
+                        <!-- footer -->
+                        <%- include ../partials/footer.ejs %>
+                        <!-- /footer -->
+
+                      <hr>
+
+
+                    </div><!-- /col-9 -->
+                </div><!-- /padding -->
+            </div>
+            <!-- /main -->
         </div>
-      </div>
-    </main>
 
-    <div data-we-messenger></div>
-
-
-    <!-- footer -->
-    <%- include ../partials/footer.ejs %>
-    <!-- /footer -->
+      <div data-we-messenger></div>
 
     <div class="site-loading text-center">
       loading ...
     </div>
 
-    </body>
-</html>
+    </div>
+</div>
+
+</body></html>

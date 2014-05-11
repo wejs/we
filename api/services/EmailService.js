@@ -51,7 +51,7 @@ exports.sendInviteEmail = function(options) {
 exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
   var smtpTransport;
 
-  AuthToken.create( {user_id: user.id} ).done(function(error, token) {
+  AuthToken.create( {user_id: user.id} ).exec(function(error, token) {
     if(error) return cb(error);
 
     var options = {};

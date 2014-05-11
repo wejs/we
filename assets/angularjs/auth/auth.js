@@ -6,7 +6,6 @@ define('auth/auth',[
   'angular-resource'
 ], function (
   angular,
-  $socket,
   ngResource
 ) {
 
