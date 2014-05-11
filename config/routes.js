@@ -135,9 +135,19 @@ module.exports.routes = {
     action        : 'changeAvatar'
   },
 
-  'get /images/': {
+  'get /images': {
+    controller    : 'images',
+    action        : 'index'
+  },
+
+  'get /images/:id': {
     controller    : 'images',
     action        : 'find'
+  },
+
+  'post /images': {
+    controller    : 'images',
+    action        : 'create'
   },
 
   //  -- MESSENGER

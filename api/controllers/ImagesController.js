@@ -10,7 +10,6 @@ var fs = require('fs');
 module.exports = {
 
   index : function (req, res, next){
-    console.log('images index controler');
     res.send(
       {"files":[]}
     );
