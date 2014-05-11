@@ -1,10 +1,10 @@
 <aside class="form-signup">
   <h2 class="form-signin-heading">
-    Create account
-    <br><small class="subtitle">It’s free and always will be.</small>
+    {{"Create account"|i18n}}
+    <br>
   </h2>
 
-  <form data-ng-controller="CreateAccountCtrl" data-ng-submit="submit($event)" name="createAccountForm" class="user-signup-form ng-pristine ng-invalid ng-invalid-required" method="POST">    
+  <form data-ng-controller="CreateAccountCtrl" data-ng-submit="submit($event)" name="createAccountForm" class="user-signup-form ng-pristine ng-invalid ng-invalid-required" method="POST">
     <!-- input: username -->
     <div class="form-group">
       <div class="input-group">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <!-- /input: username -->
-    
+
     <!-- input: email -->
     <div class="form-group">
       <div class="input-group">
@@ -29,7 +29,7 @@
       </div>
     </div>
     <!-- /input: email -->
-    
+
     <!-- input: password -->
     <div class="form-group">
       <div class="input-group">
@@ -47,10 +47,10 @@
       </div>
     </div>
     <!-- /input: password -->
-    
+
     <!-- button -->
     <button class="btn btn-lg btn-success btn-block" type="submit">
-      Sign up
+      {{"Sign up"|i18n}}
       <i class="glyphicon glyphicon-chevron-right"> </i>
     </button>
     <!-- /button -->
@@ -62,7 +62,7 @@
 
 
   <div class="agree-terms">
-    By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
+    {{"By clicking Sign Up, you agree to: We dont are responsible for anything that may happens to your data in this test system"|i18n}}
   </div>
 
 </aside>

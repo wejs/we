@@ -5,8 +5,9 @@ define('wejs.config',function () {
   wejs.config = {
     locale: 'pt-br',
     applicationUrl: '/angularjs/',
-    templateUrl: '/templates/wejs/pt-br/angularjs/'
-  }
+    //templateUrl: '/templates/wejs/pt-br/angularjs/'
+    templateUrl: '/angularjs/'
+  };
 
   wejs.config.regions = {};
   wejs.config.regions.sidebar = {};

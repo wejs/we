@@ -2,7 +2,7 @@
   <div class="messenger-chat-area">
     <div class="contact-chat">
       <div data-ng-click="messengerPublicBoxToggle(contact.id, 'public')" class="header">
-        <span class="contact-name">Public</span>
+        <span class="contact-name">{{"Public"|i18n}}</span>
       </div>
       <div class="actions">
         <button data-ng-click="messengerPublicBoxClose(contact.id)" type="button" class="remove btn btn-danger btn-xs pull-right">
@@ -23,7 +23,7 @@
             <input data-ng-model="publicRoom.newMessage" type="text" name="newMessage" value="">
             <input data-ng-model="publicRoom.id" type="hidden" name="toId" value="{{user.id}}">
             <span class="input-group-btn">
-              <button class="btn btn-xs btn-primary" type="submit">Send</button>
+              <button class="btn btn-xs btn-primary" type="submit">{{"Send"|i18n}</button>
             </span>
           </div><!-- /input-group -->
         </form>

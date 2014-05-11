@@ -28,8 +28,8 @@ module.exports = function(grunt) {
 			// When assets are changed:
 			tasks: [
 				'syncAssets' ,
-				'linkAssets',
-				'template_runner:angularjs'
+				'linkAssets'
+				//'template_runner:angularjs'
 			]
 		}
 	});

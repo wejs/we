@@ -3,13 +3,13 @@
   <form action="/post" method="POST" data-ng-submit="submit($event,post)" class="sharebox ng-scope ng-pristine ng-valid">
 
     <div class="form-group">
-        <label for="Post_content">What is happening?</label>
+        <label for="Post_content">{{"What is happening?"|i18n}}</label>
         <textarea name="content" class="form-control post-content ng-pristine ng-valid" data-ng-click="openSharebox()" data-ng-model="post.content"></textarea>
     </div>
 
     <div class="attach-options">
-      <span><a class="btn btn-xs btn-default"><i class="icon-picture"></i> Images</a></span>
-      <span><a class="btn btn-xs btn-default"><i class="icon-bookmark"></i> Link</a></span>
+      <span><a class="btn btn-xs btn-default"><i class="icon-picture"></i>{{"Image"|i18n}}</a></span>
+      <span><a class="btn btn-xs btn-default"><i class="icon-bookmark"></i>{{"Link"|i18n}}</a></span>
     </div>
 
     <div data-ng-show="sharebox.open" class="footer" style="display: block;">
@@ -20,9 +20,9 @@
 
       <div class="actions">
         <button type="submit" class="btn btn-primary">
-          <span class="glyphicon glyphicon-ok"></span> Share
+          <span class="glyphicon glyphicon-ok"></span>{{"Share"|i18n}}
         </button>
-        <button type="button" data-ng-click="closeSharebox()" class="btn btn-default cancel">Cancel</button>
+        <button type="button" data-ng-click="closeSharebox()" class="btn btn-default cancel">{{"Cancel"|i18n}}</button>
       </div>
     </div>
   </form>

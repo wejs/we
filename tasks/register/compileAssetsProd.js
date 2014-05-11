@@ -3,8 +3,8 @@ module.exports = function (grunt) {
     'clean:dev',
     //'jst:dev',
     'less:dev',
-    'copy:prod',
-    'template_runner:angularjs'
+    'copy:prod'
+    //'template_runner:angularjs'
     //'coffee:dev'
   ]);
 };
