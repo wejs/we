@@ -55,7 +55,7 @@ module.exports = {
   // Upload the files
   upload: function(file, callback) {
 
-    file.extension = file.name.split('.').pop();
+    file.extension = file.filename.split('.').pop();
 
     file.newName =  uuid.v1() + '.' + file.extension;
 

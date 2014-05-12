@@ -142,23 +142,30 @@ module.exports = {
 
   changeAvatar: function (req, res, next) {
     // TODO validate req.files.files
-    var  avatarFile = req.files.file;
+    var avatarFile = {};
 
-    Images.upload(avatarFile, function(err){
-      if(err){
-        res.send(
-          {
-            "files":[],
-            "error": err
-          }
-        );
-      } else {
-        saveImage();
-      }
+    req.file('file').upload(function (err, files) {
+      if (err) return res.serverError(err);
 
+      avatarFile = files[0];
+      avatarFile.path = '.tmp/uploads/' + files[0].filename;
+
+      Images.upload(files[0], function(err){
+        if(err){
+          res.send(
+            {
+              "files":[],
+              "error": err
+            }
+          );
+        } else {
+          saveImage();
+        }
+
+      });
     });
 
-    function saveImage(){
+    function saveImage(file){
 
       var uploadedFile = {};
 
