@@ -33,5 +33,6 @@ requirejs([
   'auth/directives/signupFormDirective',
   'auth/factories/SessionService',
   'auth/controllers/LoginController',
-  'auth/controllers/CreateAccountController'
+  'auth/controllers/CreateAccountController',
+  'auth/directives/weLoginButtomDirective'
 ]);

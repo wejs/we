@@ -1,0 +1,46 @@
+  <form class="form center-block" role="form" name="loginForm" method="post" data-ng-submit="login($event)">
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeModal()">×</button>
+  {{"Login Form"|i18n}}
+</div>
+
+<div class="modal-body">
+
+<!-- form-login -->
+<div class="form-login" data-ng-hide="authorized">
+
+
+    <div class="form-group">
+      <label class="sr-only">{{'Email address'|i18n}}</label>
+      <input type="email" class="form-control input-lg" placeholder="{{'Enter email'|i18n}}" id="email" name="email" data-ng-model="user.email" required >
+    </div>
+
+    <div class="form-group">
+      <label class="sr-only">{{"Password"|i18n}}</label>
+      <input type="password" class="form-control input-lg" placeholder="{{'Password'|i18n}}"  id="password" name="password" data-ng-model="user.password">
+    </div>
+
+</div>
+<!-- /form-login -->
+</div>
+
+<div class="modal-footer">
+
+<div class="row">
+  <div class=" col-sm-6">
+    <button id="loginButton" class="pull-left btn btn-primary" type="submit">{{"Sign in"|i18n}}</button>
+  </div>
+
+  <p class="login-form-links col-sm-6">
+    <a class="link" ng-click="closeModal()" href="/auth/forgot-password"><span class="glyphicon glyphicon-question-sign"></span> {{"Forgot password?"|i18n}}</a>
+    |
+    <span class="glyphicon glyphicon-log-in"></span><a class="link" ng-click="closeModal()" href="/auth/register"> {{"Register"|i18n}}</a>
+  </p>
+</div>
+
+</form>
+
+
+
+

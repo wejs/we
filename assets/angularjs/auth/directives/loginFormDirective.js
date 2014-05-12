@@ -11,18 +11,34 @@ define('auth/directives/loginFormDirective',[
   ) {
 
   return authModule.directive('loginForm', [
-    '$compile','$http', '$rootScope', 'SessionService',
-    function($compile, $http, $rootScope, SessionService) {
+    '$compile','$http', '$rootScope', 'SessionService', 'AUTH_EVENTS',
+    function($compile, $http, $rootScope, SessionService, AUTH_EVENTS) {
 
       var linker = function(scope, element, attrs) {
 
-        $rootScope.$watch('user.authorized', function () {
-          if($rootScope.user.authorized){
-            scope.authorized = true;
-          } else {
-            scope.authorized = false;
-          }
+        var doAfterLoginSuccess = function doAfterLoginSuccess(){
+          scope.authorized = true;
+        };
+
+        var doAfterLogoutSuccess = function doAfterLogoutSuccess(){
+          scope.authorized = false;
+        };
+
+        if( SessionService.authorized() ){
+          doAfterLoginSuccess();
+        }else {
+          doAfterLogoutSuccess();
+        }
+        // Login Event
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
+          doAfterLoginSuccess();
         });
+
+        // logout Event
+        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
+          doAfterLogoutSuccess();
+        });
+
       };
 
       return {

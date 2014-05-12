@@ -22,7 +22,7 @@
     </form>
     <ul class="nav navbar-nav">
       <li>
-        <a href="/"><i class="glyphicon glyphicon-home"></i> Home</a>
+        <a href="/"><i class="glyphicon glyphicon-home"></i> {{'Home'|i18n}}</a>
       </li>
       <li>
         <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
@@ -30,11 +30,11 @@
       <li>
         <a href="/users" ><i class="glyphicon glyphicon-user"></i> Users</a>
       </li>
-      <li>
-        <a href="#"><span class="badge">badge</span></a>
-      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-       <user-menu></user-menu>
+      <li>
+        <buttom we-login-buttom class="btn navbar-login-buttom navbar-btn btn-success" href="#loginForm" role="button"> <span class="glyphicon glyphicon-log-in"></span> {{'Login'|i18n}}</buttom>
+      </li>
+      <user-menu></user-menu>
     </nav>
 </div>

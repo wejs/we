@@ -52,6 +52,7 @@ require.config({
     angular: {
       exports: 'angular',
       deps: [
+        'we',
         'ng-file-upload-shim'
         //'wejs.config'
       ]
@@ -84,14 +85,6 @@ require.config({
     bootstrap: {
       deps: [
         'jquery'
-      ]
-    },
-    we: {
-      deps: [
-        'io',
-        'sails.io',
-        'jquery',
-        'async'
       ]
     },
     app: {
