@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.54",
+  "version": "0.0.54-1",
   "description": "A system for make real time social networks written with Sails.js",
   "keywords": [],
   "dependencies": {
@@ -52,5 +52,9 @@
     "url": "git@github.com:wejs/we.git"
   },
   "author": "Alberto Souza",
-  "license": "MIT"
+  "license": "MIT",
+  "subdomain": "albertosouza-we-up",
+  "engines": {
+    "node": "0.10.x"
+  }
 }
