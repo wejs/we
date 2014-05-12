@@ -109,9 +109,15 @@ module.exports.routes = {
   },
 
   // form to get one time login email
-  'get /user/forgot-password': {
-    controller    : 'users',
+  'get /auth/forgot-password': {
+    controller    : 'auth',
     action        : 'forgotPasswordForm'
+  },
+
+  // register  form
+  'get /auth/register': {
+    controller    : 'auth',
+    action        : 'registerForm'
   },
 
   'get /user/:id/activate/:token': {

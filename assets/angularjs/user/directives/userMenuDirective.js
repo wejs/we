@@ -16,19 +16,19 @@ define('user/directives/userMenuDirective',[
       var linker = function(scope, element, attrs) {
 
         if( SessionService.authorized() ){
-          scope.user.authorized = true;
+          element.show();
         }else {
-          scope.user.authorized = false;
+          element.hide();
         }
 
         // Login Event
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
-          scope.user.authorized = true;
+          element.show();
         });
 
         // Log out event
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
-          scope.user.authorized = false;
+          element.hide();
         });
 
       };
