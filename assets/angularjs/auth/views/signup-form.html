@@ -9,9 +9,9 @@
     <div class="form-group">
       <div class="input-group">
         <label for="name" class="input-group-addon">
-          <i class="fa fa-user fa-lg"></i>
+          <span class="glyphicon glyphicon-user"></span>
         </label>
-      <input data-ng-model="user.name" id="name" type="text" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="Pick a username" autofocus="" name="name" required="">
+      <input data-ng-model="user.name" id="name" type="text" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="{{'Pick a username'|i18n}}" autofocus="" name="name" required="">
       </div>
     </div>
     <!-- /input: username -->
@@ -20,9 +20,9 @@
     <div class="form-group">
       <div class="input-group">
         <label for="email" class="input-group-addon">
-          <i class="fa fa-envelope fa-lg"></i>
+          <span class="glyphicon glyphicon-envelope"></span>
         </label>
-        <input data-ng-model="user.email" id="email" type="email" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required ng-valid-email" placeholder="Your email" name="email" required="">
+        <input data-ng-model="user.email" id="email" type="email" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required ng-valid-email" placeholder="{{'Your email'|i18n}}" name="email" required="">
       </div>
       <div class="message" data-ng-repeat="message in user.email.messages">
         <div class="message.type">{{message.message}}</div>
@@ -34,35 +34,44 @@
     <div class="form-group">
       <div class="input-group">
         <label for="password" class="input-group-addon">
-          <i class="fa fa-key fa-lg"> </i>
+          <span class="glyphicon glyphicon-lock"> </span>
         </label>
-        <input data-ng-model="user.password" id="password" type="password" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="Password" name="password" required="">
+        <input data-ng-model="user.password" id="password" type="password" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="{{'Password'|i18n}}" name="password" required="">
 
         <!-- input: confirm-password -->
-        <label for="confirm-password" class="input-group-btn">
-          <i class="glyphicon glyphicon-user"> </i>
+        <label for="confirm-password" class="sr-only input-group-btn">
+
         </label>
-        <input data-ng-model="user.confirmPassword" id="confirm-password" type="password" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="Confirm password" name="confirmPassword" required="">
+        <input data-ng-model="user.confirmPassword" id="confirm-password" type="password" class="form-control input-lg ng-pristine ng-invalid ng-invalid-required" placeholder="{{'Confirm password'|i18n}}" name="confirmPassword" required="">
         <!-- /input: confirm-password -->
       </div>
     </div>
     <!-- /input: password -->
 
-    <!-- button -->
-    <button class="btn btn-lg btn-success btn-block" type="submit">
-      {{"Sign up"|i18n}}
-      <i class="glyphicon glyphicon-chevron-right"> </i>
-    </button>
-    <!-- /button -->
-
-    <div class="message" data-ng-repeat="message in messages">
-      <div class="message.type">{{message.message}}</div>
+    <div class="form-group">
+      <div class="input-group">
+        <!-- button -->
+        <button class="btn btn-lg btn-success " type="submit">
+          {{"Sign up"|i18n}}
+          <span class="glyphicon glyphicon-chevron-right"> </span>
+        </button>
+        <!-- /button -->
+      </div>
     </div>
+
+    <div class="input-group">
+      <div class="message" data-ng-repeat="message in messages">
+        <div class="message.type">{{message.message}}</div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <div class="agree-terms">
+        {{"By clicking Sign Up, you agree to: We dont are responsible for anything that may happens to your data in this test system"|i18n}}
+      </div>
+    </div>
+
   </form>
 
-
-  <div class="agree-terms">
-    {{"By clicking Sign Up, you agree to: We dont are responsible for anything that may happens to your data in this test system"|i18n}}
-  </div>
 
 </aside>
