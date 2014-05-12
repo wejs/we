@@ -1,27 +1,29 @@
 <!-- form-login -->
 <div class="form-login" data-ng-controller="LoginCtrl" data-ng-hide="authorized">
-  <form class="form-inline" role="form" name="loginForm" method="post" data-ng-submit="login($event)">
-    <div class="form-group left">
-      <label class="sr-only">{{"Email address"|i18n}}</label>
-      <input type="email" class="form-control input-sm" placeholder="Enter email" id="email" name="email" data-ng-model="user.email" required >
+  <form class="form center-block" role="form" name="loginForm" method="post" data-ng-submit="login($event)">
 
-      <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me" id="remember" name="remember" data-ng-model="user.remember"> {{"Remember me"|i18n}}
-      </label>
+    <div class="form-group">
+      <label class="sr-only">{{'Email address'|i18n}}</label>
+      <input type="email" class="form-control input-lg" placeholder="{{'Enter email'|i18n}}" id="email" name="email" data-ng-model="user.email" required >
     </div>
 
-    </div>
-    <div class="form-group right">
+    <div class="form-group">
       <label class="sr-only">{{"Password"|i18n}}</label>
-      <input type="password" class="form-control input-sm" placeholder="Password"  id="password" name="password" data-ng-model="user.password">
-
-      <div class="lost-password">
-        <a class="link" href="#">{{"Forgot password?"|i18n}}</a>
-      </div>
+      <input type="password" class="form-control input-lg" placeholder="{{'Password'|i18n}}"  id="password" name="password" data-ng-model="user.password">
     </div>
 
-    <button id="loginButton" class="btn btn-primary" type="submit" class="btn btn-sm btn-success">{{"Sign in"|i18n}}</button>
+    <div class="form-group">
+      <button id="loginButton" class="btn btn-primary" type="submit">{{"Sign in"|i18n}}</button>
+    </div>
+
   </form>
+
+
+  <p class="login-form-links">
+    <a class="link" href="/auth/forgot-password"><span class="glyphicon glyphicon-question-sign"></span> {{"Forgot password?"|i18n}}</a>
+    |
+    <span class="glyphicon glyphicon-log-in"></span><a class="link" href="/auth/register"> {{"Register"|i18n}}</a>
+  </p>
+
 </div>
 <!-- /form-login -->

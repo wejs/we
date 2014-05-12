@@ -8,13 +8,13 @@
     </a>
     <ul class="dropdown-menu">
       <li data-ng-controller="AvatarModalController">
-        <a data-ng-click="openModal()" href="#ChangeAvatarModal">Change Avatar</a>
+        <a data-ng-click="openModal()" href="#ChangeAvatarModal">{{"Change Avatar"|i18n}}</a>
       </li>
       <li class="divider"></li>
-      <li><a href="/users/{{user.id}}">View account</a></li>
-      <li><a href="/users/{{user.id}}/edit/">Edit account</a></li>
+      <li><a href="/users/{{user.id}}">{{"View account"|i18n}}</a></li>
+      <li><a href="/users/{{user.id}}/edit/">{{"Edit account"|i18n}}</a></li>
       <li class="divider"></li>
-      <li><a href="/auth/logout">Sing out</a></li>
+      <li><a href="/auth/logout">{{"Sing out"|i18n}}</a></li>
     </ul>
   </li>
 </ul>

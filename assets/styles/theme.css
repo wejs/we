@@ -221,10 +221,6 @@ h1,h2,h3 {
     color:#c0c0c0;
 }
 
-.modal-body {
-  padding:0px;
-}
-
 .modal-body textarea.form-control
 {
    resize: none;

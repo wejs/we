@@ -59,11 +59,6 @@
                 <we-region name="sidebar"></we-region>
               </div>
 
-              <!-- form-login -->
-              <login-form></login-form>
-              <!-- /form-login -->
-
-
               <ul class="nav">
                 <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
               </ul>
@@ -140,5 +135,33 @@
 
     </div>
 </div>
+
+
+
+<!--post modal Login-->
+<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      {{"Login Form"|i18n}}
+    </div>
+
+    <div class="modal-body">
+
+      <!-- form-login -->
+      <login-form></login-form>
+      <!-- /form-login -->
+
+    </div>
+
+    <div class="modal-footer">
+    </div>
+
+  </div>
+  </div>
+</div>
+
 
 </body></html>
