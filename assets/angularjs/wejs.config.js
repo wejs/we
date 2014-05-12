@@ -20,12 +20,14 @@ define('wejs.config',function () {
       {
         title: 'Lista de contatos',
         url: '/users',
-        content: 'Contatos'
+        content: 'Contatos',
+        beforeText: '<span class="glyphicon glyphicon-user"></span> '
       },
       {
         title: 'Admin Widgets',
         url: '/admin/widgets',
-        content: 'Admin Widgets'
+        content: 'Admin Widgets',
+        beforeText: '<span class="glyphicon glyphicon-th"></span> '
       }
     ]
   };
@@ -62,12 +64,12 @@ define('wejs.config',function () {
       //default: Submit
       submitCopy: 'Save configs'
     }
-  }
+  };
 
   var newsWidget = {
     type: 'we-news',
     widgetType: 'directive'
-  }
+  };
 
   var menuWidget = {
     type: 'we-menu',
@@ -75,7 +77,7 @@ define('wejs.config',function () {
     scopeData: new Array(
       {
         name: 'title',
-        value: 'Menu de usuário'
+        value: 'Menu de usuário',
       },
       {
         name: 'menu',
@@ -85,7 +87,7 @@ define('wejs.config',function () {
         value: wejs.menus['left-menu'].links
       }
     )
-  }
+  };
 
   wejs.config.regions.sidebar.widgets.push(menuWidget);
   //wejs.config.regions.sidebar.widgets.push(newsWidget);

@@ -11,37 +11,60 @@
     'auth/factories/SessionService'
     ], function ( angular ) {
 
-    // A simple directive to display a gravatar image given an email
-    return angular.module('application.directives')
+    angular.module('application.directives')
       .directive('weMenu', [
       '$compile','$location','SessionService','$rootScope', 'AUTH_EVENTS',
       function($compile, $location, SessionService, $rootScope, AUTH_EVENTS) {
         var linker = function($scope, $element, $attrs) {
 
-          var menu = $element.find('ul.menu');
-          $scope.authorized = SessionService.authorized();
+          var constructMenuLinks = function constructMenuLinks(){
+            var menu = $element.find('ul.menu');
+            var link;
+
+            $scope.links.forEach(function(item){
+              var link = '<li>';
+
+              link += '<a href="'+item.url+'" title="'+item.title+'"">';
+              if(item.beforeText){
+                link += item.beforeText;
+              }
+              link += item.content;
+              link += '</li></a>';
+              menu.append(link);
+
+            });
+          };
+
+          var doAfterLoginSuccess = function doAfterLoginSuccess(){
+            constructMenuLinks();
+          };
+
+          var doAfterLogoutSuccess = function doAfterLogoutSuccess(){
+            constructMenuLinks();
+          };
+
+          if( SessionService.authorized() ){
+            doAfterLoginSuccess();
+          }else {
+            doAfterLogoutSuccess();
+          }
 
           // Login Event
           $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
-            $scope.authorized = true;
+            doAfterLoginSuccess();
           });
 
           // logout Event
           $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
-            $scope.authorized = false;
+            doAfterLogoutSuccess();
           });
-
-          $scope.links.forEach(function(item){
-             var link = '<li><a href="'+item.url+'" title="'+item.title+'"">'+ item.content +'</li></a>';
-             menu.append(link);
-            });
 
         };
         return {
           restrict:"E",
           link: linker,
           scope: false,
-          template: '<div class="menu-sidebar-nav" data-ng-show="authorized"><ul class="menu nav"><li>{{title}}</li></ul></div>'
+          template: '<nav class="menu-sidebar-nav"><h4 class="menu-title">{{title}}</h4><ul class="menu nav"></ul></nav>'
 
         };
       }

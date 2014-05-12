@@ -66,28 +66,34 @@ define('news/news',[
     '$stateParams',
     'ActivityResource',
     'SessionService',
+    '$rootScope',
+    'AUTH_EVENTS',
     function(
       $scope,
       $stateParams,
       ActivityResource,
-      SessionService
+      SessionService,
+      $rootScope,
+      AUTH_EVENTS
     ) {
 
       $socket = we.io.socket;
 
       $scope.activities = [];
 
-      ActivityResource.query(function(data) {
-        data.forEach(function(item, i){
-          item = formatTitle(item);
-          $scope.activities.push(item);
+      var getActivities = function getActivitiesFunc(){
+        ActivityResource.query(function(data) {
+          data.forEach(function(item, i){
+            item = formatTitle(item);
+            $scope.activities.push(item);
+          });
+
+        }, function(error) {
+          console.error('NewsController: Error in get activities', error);
         });
+      };
 
-      }, function(error) {
-        console.error('NewsController: Error in get activities', error);
-      });
-
-      var formatTitle = function(activity){
+      var formatTitle = function formatTitleFunc(activity){
         console.log(activity);
         if(activity.verb == 'post'){
 
@@ -105,7 +111,33 @@ define('news/news',[
         }
 
         return activity;
+      };
+
+      var showBlock = function showblock(){
+        $scope.authorized = true;
+        getActivities();
+      };
+
+      var hideBlock = function hideBlock(){
+        $scope.authorized = false;
+        $scope.activities = [];
+      };
+
+      if( SessionService.authorized() ){
+        showBlock();
+      }else {
+        hideBlock();
       }
+
+      // Login Event
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, next) {
+        showBlock();
+      });
+
+      // logout Event
+      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function (event, next) {
+        hideBlock();
+      });
 
       /**
        * Receive a messenger message
