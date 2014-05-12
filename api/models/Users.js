@@ -39,6 +39,10 @@ module.exports = {
       type: 'string'
     },
 
+    avatarId: {
+      type: 'string'
+    },
+
     active: {
       type: 'boolean',
       defaultsTo: false

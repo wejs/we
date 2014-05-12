@@ -198,9 +198,16 @@ module.exports = {
 
     function saveAvatar(salvedFile){
       // Lookup a user
-      console.log('on user',req.user);
+
+      console.log('New avatar to user:',req.user, salvedFile.id);
+
       req.user.avatarId = salvedFile.id;
-      req.user.save( function(err) {
+
+      Users.update(
+        {id: req.user.id},
+        {avatarId: salvedFile.id}
+      ).exec(function afterwards(err,updated){
+
         if(err){
           return res.send(500, {err: res.i18n("Error on user avatar save") });
         }
@@ -209,7 +216,9 @@ module.exports = {
           "user": req.user,
           "avatar": salvedFile
         });
+
       });
+
     }
   },
 
