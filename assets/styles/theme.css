@@ -22,8 +22,12 @@ hr {
   border-color:#dedede;
 }
 
+.box > .row {
+  background-color: #444444;
+}
+
 .wrapper, .row {
-   height: 100%;
+
    margin-left:0;
    margin-right:0;
 }
