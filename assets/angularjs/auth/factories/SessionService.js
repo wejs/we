@@ -26,11 +26,11 @@ define('auth/factories/SessionService',[
     var service = $resource('/users/:param',{},{
       'login': {
         method: 'POST',
-        url: '/users/login'
+        url: '/auth/login'
       },
       'logout': {
         method: 'DELETE',
-        url: '/users/logout'
+        url: '/auth/logout'
       },
       'getCurrent': {
         method: 'GET',

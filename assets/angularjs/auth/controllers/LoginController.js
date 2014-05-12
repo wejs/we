@@ -59,7 +59,7 @@ define('auth/controllers/LoginController',[
         console.log('no logoutHandler', res);
 
         // redirect to serverside logout
-        return $location.path("/users/logout");
+        return $location.path("/auth/logout");
 
       };
       errorHandler = function(err) {

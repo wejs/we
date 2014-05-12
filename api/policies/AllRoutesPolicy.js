@@ -5,7 +5,13 @@ module.exports = function (req, res, ok) {
   // if user acess the page send default index and let angularjs mount the page
   if(!req.wantsJSON && !req.isSocket){
 
-    if(req.options.controller == 'images' && req.options.action == 'find'){
+console.log(req.options.controller);
+console.log(req.options.action);
+
+    if(req.options.controller == 'auth'){
+      console.log('passs');
+      return ok();
+    } else if(req.options.controller == 'images' && req.options.action == 'find'){
       return ok();
     } else {
       sails.log.info('Send the index page for request: ', req.url);

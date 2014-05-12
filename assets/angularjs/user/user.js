@@ -24,9 +24,9 @@ define('user/user',[
         templateUrl: wejs.getTemplateUrl('user/views/forgotPasswordForm.html')
       })
       .state('logout', {
-        url: "/users/logout",
+        url: "/auth/logout",
         controller: function($scope,$window){
-          return $window.location.href = "/users/logout";
+          return $window.location.href = "/auth/logout";
         }
       })
       .state('signup', {

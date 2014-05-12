@@ -98,12 +98,12 @@ module.exports.routes = {
     //view: 'users/signup'
   },
 
-  'post /users/login': {
+  'post /auth/login': {
     controller    : 'auth',
     action        : 'login'
   },
 
-  '/users/logout': {
+  '/auth/logout': {
     controller    : 'auth',
     action        : 'logout'
   },
