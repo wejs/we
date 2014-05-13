@@ -54,8 +54,8 @@
             }
             scope.avatarImageUrl = '/images/' + newId;
 
-            if(!$scope.$$phase) {
-              $scope.$apply();
+            if(!scope.$$phase) {
+              scope.$apply();
             }
           }
 
