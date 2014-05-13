@@ -38,6 +38,12 @@ module.exports = {
       // set default objectType
       obj.objectType = "post";
 
+      if( _.isObject(obj.creator) ){
+        obj.creator_id = obj.creator.id;
+      } else {
+        obj.creator_id = obj.creator;
+      }
+
       // set url for this content
       obj.url = "/post/" + obj.id;
 

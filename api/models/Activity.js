@@ -39,6 +39,7 @@ module.exports = {
       } else {
         obj.actor_id = obj.actor;
       }
+
       return obj;
     }
 
