@@ -53,6 +53,10 @@
                 scope.avatarClass = 'img-rounded avatar-small';
             }
             scope.avatarImageUrl = '/images/' + newId;
+
+            if(!$scope.$$phase) {
+              $scope.$apply();
+            }
           }
 
           $rootScope.$on('user-avatar-change', function (event, userId, newAvatarId) {
