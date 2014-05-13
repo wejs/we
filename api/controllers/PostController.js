@@ -33,10 +33,14 @@ module.exports = {
     post.text = req.param("text");
     post.creator = req.user.id;
 
-    Post.create(post).exec(function(error, newPost) {
+    Post.create(post)
+      .exec(function(error, newPost) {
       if (error) {
         res.send(500, {error: res.i18n("DB Error") });
       } else {
+
+        newPost.creator = req.user.toJSON();
+        newPost.creator_id = newPost.creator.id;
 
         res.send({
           'post': newPost

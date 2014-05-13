@@ -42,6 +42,10 @@ module.exports = {
       type: 'string'
     },
 
+    creator: {
+      model:'users'
+    },
+
     width: {
       type: 'string'
     },

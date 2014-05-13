@@ -20,7 +20,7 @@ module.exports = {
     },
 
     creator: {
-      model: 'Users'
+      model: 'users'
     },
 
     sharedWith: {

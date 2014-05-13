@@ -15,7 +15,7 @@
           scope: {
             posts : '='
           },
-          controller: function($scope, $element, $attrs, $rootScope, PostResource) {
+          controller: function($scope, $element, $attrs, $rootScope, PostResource, SessionService) {
 
             $scope.sharebox = {};
             $scope.sharebox.open = false;
@@ -41,8 +41,11 @@
                 'text': post.content
               });
 
-              Post.$save( function(data, headers) {
+              var user = SessionService.getUser();
 
+
+              Post.$save( function(data, headers) {
+                console.warn('sarebox',data);
                 if(data.post){
                   // convert simple post object in post resource object
                   var postR = new PostResource(data.post);

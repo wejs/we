@@ -11,8 +11,8 @@ define('post/controllers/PostItemController',[
   ) {
 
   module.controller("PostItemController", [
-    "$rootScope","$scope", 'PostResource', '$stateParams',
-    function($rootScope, $scope, PostResource, $stateParams) {
+    "$rootScope","$scope", 'PostResource', '$stateParams', 'SessionService',
+    function($rootScope, $scope, PostResource, $stateParams, SessionService) {
       var show;
 
       if(!$rootScope.posts) $rootScope.posts = {};
@@ -114,7 +114,7 @@ define('post/controllers/PostItemController',[
         event.preventDefault();
         event.stopPropagation();
 
-        var Post;
+        var user = SessionService.getUser();
 
         Post = new PostResource({
           'text': post.content

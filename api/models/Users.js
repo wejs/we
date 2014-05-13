@@ -43,6 +43,10 @@ module.exports = {
       type: 'string'
     },
 
+    avatar: {
+      model: 'images'
+    },
+
     active: {
       type: 'boolean',
       defaultsTo: false
@@ -56,6 +60,17 @@ module.exports = {
     isModerator: {
       type: 'boolean',
       defaultsTo: false
+    },
+
+    comments: {
+      collection: 'comment',
+      via: 'creator'
+    },
+
+    // comment parent, to replay one specific comment
+    posts: {
+      collection: 'post',
+      via: 'creator'
     },
 
     // Override toJSON instance method

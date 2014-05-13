@@ -176,7 +176,7 @@ module.exports = {
 
       // TODO check if are better get mime direct from file
       //uploadedFile.mime = req.files.files.headers['content-type'];
-      uploadedFile.user_id = req.user.id;
+      uploadedFile.creator = req.user.id;
 
       Images.create(uploadedFile).exec(function(error, salvedFile) {
         if (error) {
