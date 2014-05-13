@@ -60,7 +60,7 @@ module.exports = {
       // set creator_id
       if(  _.isString(obj.creator) ){
         obj.creator_id = obj.creator;
-      }else if(_.isObject(obj)){
+      }else if(_.isObject(obj.creator) && obj.creator.id){
         obj.creator_id = obj.creator.id;
       }
 

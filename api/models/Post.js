@@ -38,10 +38,11 @@ module.exports = {
       // set default objectType
       obj.objectType = "post";
 
-      if( _.isObject(obj.creator) ){
-        obj.creator_id = obj.creator.id;
-      } else {
+      if( _.isString(obj.creator) ){
         obj.creator_id = obj.creator;
+      } else if(_.isObject(obj.creator) && obj.creator.id) {
+        obj.creator_id = obj.creator.id;
+
       }
 
       // set url for this content
