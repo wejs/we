@@ -103,11 +103,15 @@ define('news/news',[
           activity.title = username+' created the post '+displayName;
 
         }else if(activity.verb == 'comment'){
+          if(activity.actor && activity.actor.name && activity.target.model){
+            var username = activity.actor.name;
+            var displayName = '<a href="'+activity.target.url+'">'+ activity.target.displayName + '</a>';
 
-          var username = activity.actor.name;
-          var displayName = '<a href="'+activity.target.url+'">'+ activity.target.displayName + '</a>';
+            activity.title =  username+' comentou '+displayName+' no conteúdo '+ activity.target.model.text;
+          }else{
+            console.warn('Data not found in news');
+          }
 
-          activity.title =  username+' comentou '+displayName+' no conteúdo '+ activity.target.model.text;
         }
 
         return activity;

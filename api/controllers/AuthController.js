@@ -18,7 +18,7 @@ module.exports = {
   signup: function (req, res, next) {
     var requireAccountActivation = false;
     var user = {};
-    user.name = req.param("name");
+    user.displayName = req.param("name");
     user.username = req.param("name");
     user.email = req.param("email");
     user.password = req.param("password");

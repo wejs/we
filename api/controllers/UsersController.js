@@ -50,7 +50,7 @@ module.exports = {
       // add suport for json errror and warning messages in wejs message format
       if (err) {
         console.error('Error on find user: ',err);
-        return res.serverError('Error on find user.')
+        return res.serverError('Error on find user.');
       }
 
       if(!user){

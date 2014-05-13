@@ -31,16 +31,24 @@ module.exports = {
       type: 'string',
       required: true
     },
+
     // comment creator
-    creator_id: {
-      type: 'string'
+    creator: {
+      model:'users'
     },
 
     // comment parent, to replay one specific comment
-    replyTo_id: {
-      type: 'string',
+    replyTo: {
+      model:'comment',
       defaultsTo: null
     },
+
+    // comment parent, to replay one specific comment
+    replys: {
+      collection: 'comment',
+      via: 'replyTo'
+    },
+
     // Override toJSON instance method
     toJSON: function() {
       // remove password
@@ -48,6 +56,13 @@ module.exports = {
 
       // set default objectType
       obj.objectType = "comment";
+
+      // set creator_id
+      if(  _.isString(obj.creator) ){
+        obj.creator_id = obj.creator;
+      }else if(_.isObject(obj)){
+        obj.creator_id = obj.creator.id;
+      }
 
       // set url for this content
       obj.url = "/comment/" + obj.id;

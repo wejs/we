@@ -16,6 +16,7 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access)
+  //'*':[true],
   '*':['AllRoutesPolicy'],
   'messenger': ['AllRoutesPolicy','MessengerPolicy'],
   //'main': 'MainPolicy',
