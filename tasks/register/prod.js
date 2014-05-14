@@ -3,9 +3,9 @@ module.exports = function (grunt) {
 		'compileAssets',
 		'concat',
 		'uglify',
-		//'cssmin',
+		'cssmin',
 		'sails-linker:prodJs',
-		'sails-linker:devStyles',
-		//'sails-linker:devTpl'
+		'sails-linker:prodStyles',
+		'sails-linker:devTpl'
 	]);
 };

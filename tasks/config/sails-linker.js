@@ -18,11 +18,13 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script data-main="/angularjs/main" src="/js/libs/require.js" data-dump="%s"></script>',
+				fileTmpl: '<script src="%s"></script>',
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'views/**/*.ejs': ['.tmp/public/angularjs/main.js']
+				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
+				'views/**/*.html': require('../pipeline').jsFilesToInject,
+				'views/**/*.ejs': require('../pipeline').jsFilesToInject
 			}
 		},
 
@@ -30,12 +32,14 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script data-main="/antularjs/main" src="/js/libs/require.js" data-dump="%s" ></script>',
+				fileTmpl: '<script src="%s"></script>',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'views/**/*.ejs': ['.tmp/public/angularjs/main.js']
+				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
+				'views/**/*.html': require('../pipeline').jsFilesToInject,
+				'views/**/*.ejs': require('../pipeline').jsFilesToInject
 			}
 		},
 
@@ -43,12 +47,13 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
-				,
+				fileTmpl: '<script src="%s"></script>',
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'views/**/*.ejs': ['.tmp/public/main.prod.js']
+				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
+				'views/**/*.html': ['.tmp/public/min/production.js'],
+				'views/**/*.ejs': ['.tmp/public/min/production.js']
 			}
 		},
 
@@ -56,13 +61,14 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
-				,
+				fileTmpl: '<script src="%s"></script>',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'views/**/*.ejs': ['.tmp/public/main.prod.js']
+				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
+				'views/**/*.html': ['.tmp/public/min/production.js'],
+				'views/**/*.ejs': ['.tmp/public/min/production.js']
 			}
 		},
 
@@ -123,6 +129,21 @@ module.exports = function(grunt) {
 				'.tmp/public/index.html': ['.tmp/public/min/production.css'],
 				'views/**/*.html': ['.tmp/public/min/production.css'],
 				'views/**/*.ejs': ['.tmp/public/min/production.css']
+			}
+		},
+
+		// Bring in JST template object
+		devTpl: {
+			options: {
+				startTag: '<!--TEMPLATES-->',
+				endTag: '<!--TEMPLATES END-->',
+				fileTmpl: '<script type="text/javascript" src="%s"></script>',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'.tmp/public/index.html': ['.tmp/public/tpls.hbs.js'],
+				'views/**/*.html': ['.tmp/public/tpls.hbs.js'],
+				'views/**/*.ejs': ['.tmp/public/tpls.hbs.js']
 			}
 		}
 	});

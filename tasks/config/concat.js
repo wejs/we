@@ -17,13 +17,6 @@ module.exports = function(grunt) {
 			src: require('../pipeline').jsFilesToInject,
 			dest: '.tmp/public/concat/production.js'
 		},
-		angularjs: {
-			src: [
-				'assets/angularjs/main.js',
-				'assets/angularjs/**/*.js'
-			],
-			dest: '.tmp/public/main.prod.js'
-		},
 		css: {
 			src: require('../pipeline').cssFilesToInject,
 			dest: '.tmp/public/concat/production.css'

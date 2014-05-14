@@ -27,21 +27,45 @@ var jsFilesToInject = [
   // linked in the proper order order
 
   // Bring in the socket.io client
-  'js/socket.io.js',
+  'js/libs/socket.io.js',
 
   // then beef it up with some convenience logic for talking to Sails.js
   'js/sails.io.js',
 
   // finally, include a simple boilerplate script that connects a socket
   // to the Sails backend with some example code
-  'js/connection.example.js',
+  //'js/connection.example.js',
 
   //
   // *->    you might put other dependencies like jQuery or Angular here   <-*
   //
 
+  'bower_components/jquery/dist/jquery.js',
+  'bower_components/handlebars/handlebars.js',
+
+  'bower_components/ember/ember.js',
+  'bower_components/ember-data/ember-data.js',
+
+  'bower_components/ember-data-sails-adapter/ember-data-sails-adapter.js',
+
+
+  'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max.js',
+
+  'bower_components/ember-auth/dist/ember-auth.js',
+  'bower_components/ember-i18n/lib/i18n.js',
+
+  'bower_components/showdown/src/showdown.js',
+
+
+  'js/ember/emberApp.js',
+
+
+  'js/ember/!(tests)**/*.js',
+  'js/ember/*.js',
   // All of the rest of your app scripts
-  'js/**/*.js'
+  //'js/**/*.js',
+
+
 ];
 
 
@@ -55,7 +79,7 @@ var jsFilesToInject = [
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
 var templateFilesToInject = [
-  'templates/**/*.html'
+  'templates/**/*.hbs'
 ];
 
 

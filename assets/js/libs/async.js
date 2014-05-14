@@ -1042,7 +1042,7 @@
 
     root.async = async;
 
-    /*
+
     // AMD / RequireJS
     if (typeof define !== 'undefined' && define.amd) {
         define([], function () {
@@ -1053,5 +1053,5 @@
     else {
         root.async = async;
     }
-    */
+
 }());
