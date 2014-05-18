@@ -1,5 +1,10 @@
 {
   "generators": {
     "modules": {}
-  }
+  },
+  "plugins": [
+    "sails-plugin-first",
+    "sails-plugin-second"
+  ]
 }
+

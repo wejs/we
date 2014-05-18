@@ -22,7 +22,7 @@ module.exports.policies = {
   //'main': 'MainPolicy',
   'activity': ['AllRoutesPolicy','PostPolicy'],
   'roles': ['AllRoutesPolicy','RolesPolicy'],
-  'users': ['AllRoutesPolicy','UsersPolicy'],
+  'user': ['AllRoutesPolicy','UserPolicy'],
   'auth': [true]
 
 

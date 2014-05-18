@@ -71,7 +71,7 @@ module.exports.blueprints = {
    * you must take great care not to inadvertently expose unsafe/unintentional controller logic
    * to GET requests.
    */
-  actions: true,
+  actions: false,
 
 
 
@@ -128,7 +128,7 @@ module.exports.blueprints = {
    *
    * By default, no prefix is used.
    */
-  prefix: '',
+  prefix: '/api/v1',
 
 
 
@@ -147,6 +147,6 @@ module.exports.blueprints = {
    * PUT    /foos/:id?
    * DELETE /foos/:id?
    */
-  pluralize: false
+  pluralize: true
 
 };

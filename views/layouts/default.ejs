@@ -8,6 +8,10 @@
     -->
     <title><%- title %></title>
 
+    <!--SCRIPTS-->
+    <script data-main="/main" src="/js/libs/require.js" data-dump="/js/app.js"></script>
+    <!--SCRIPTS END-->
+
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
@@ -49,7 +53,8 @@
           <!-- sidebar -->
           <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
-              <!-- /angular js dinamic sidebar -->
+              {{outlet sidebar}}
+
               <div class="sidebar-area">
                 <we-region name="sidebar"></we-region>
               </div>
@@ -90,7 +95,7 @@
                         <div class="row">
 
                           <div class="col-md-12">
-
+                            {{outlet highlighted}}
                             <div data-ui-view="highlighted"></div>
                           </div>
 
@@ -102,6 +107,8 @@
                           </div>
 
                         <div class="col-sm-4">
+
+                             {{outlet mainLeft}}
                             <we-news></we-news>
                          </div>
 
@@ -122,47 +129,8 @@
 
       <div data-we-messenger></div>
 
-
-
     </div>
 </div>
 
 </script>
-
-<script type="text/x-handlebars" data-template-name="my_layout">
-  <div class="content-wrapper">
-    {{yield}}
-  </div>
-</script>
-
-<script type="text/x-handlebars" data-template-name="my_content">
-  Hello, <b>{{view.name}}</b>!
-</script>
-
-
-
-
-<!--SCRIPTS-->
-<script src="/js/libs/socket.io.js"></script>
-<script src="/js/sails.io.js"></script>
-<script src="/bower_components/jquery/dist/jquery.js"></script>
-<script src="/bower_components/handlebars/handlebars.js"></script>
-<script src="/bower_components/ember/ember.js"></script>
-<script src="/bower_components/ember-data/ember-data.js"></script>
-<script src="/bower_components/ember-data-sails-adapter/ember-data-sails-adapter.js"></script>
-<script src="/bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max.js"></script>
-<script src="/bower_components/ember-auth/dist/ember-auth.js"></script>
-<script src="/bower_components/ember-i18n/lib/i18n.js"></script>
-<script src="/bower_components/showdown/src/showdown.js"></script>
-<script src="/js/ember/emberApp.js"></script>
-<script src="/js/ember/messenger/routes.js"></script>
-<script src="/js/ember/posts/routes.js"></script>
-<!--SCRIPTS END-->
-
-
-<!--TEMPLATES-->
-<script type="text/javascript" src="/tpls.hbs.js"></script>
-<!--TEMPLATES END-->
-
-
 </body></html>

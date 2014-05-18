@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // Strategies in passport require a `verify` function, which accept
 // credentials (in this case, a username and password), and invoke a callback
 // with a user object. In the real world, this would query a database;
-// however, in this example we are using a baked-in set of users.
+// however, in this example we are using a baked-in set of User.
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
@@ -20,7 +20,7 @@ passport.use(new LocalStrategy({
       // username, or the password is not correct, set the user to `false` to
       // indicate failure and set a flash message. Otherwise, return the
       // authenticated `user`.
-      Users.findOneByEmail(email).exec(function(err, user) {
+      User.findOneByEmail(email).exec(function(err, user) {
         if (err) {
           return done(err);
         }
@@ -46,7 +46,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  Users.findOneById(id).exec(function(err, user) {
+  User.findOneById(id).exec(function(err, user) {
     // error - user is'not on database ...
     if(!user) return done(null, false);
     // load user

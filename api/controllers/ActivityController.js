@@ -8,14 +8,14 @@
 module.exports = {
 
   index: function (req,res) {
-    var queryParams = {}
+    var queryParams = {};
 
     if(req.user && req.user.id){
       queryParams = {
         actor: {
           $ne: req.user.id
         }
-      }
+      };
     }
 
     Activity.find(queryParams)
@@ -41,9 +41,7 @@ module.exports = {
       }
 
       function sendResponse(){
-        res.send({
-          items : activities
-        });
+        res.send(activities);
       }
 
     });

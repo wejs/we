@@ -12,9 +12,9 @@ module.exports = {
 
   index: function (req, res) {
 
-    Users.find({})
-    .limit(10)
-    .sort('name ASC')
+    User.find()
+    .limit(25)
+    .sort('createdAt ASC')
     .exec(function(err, users) {
 
       // Error handling
@@ -23,21 +23,7 @@ module.exports = {
 
       // Found multiple users!
       } else {
-        res.format({
-           'text/html': function(){
-            // TODO add suport to html requests
-              res.view("home/index.ejs");
-            /*
-             res.view({
-                users: users
-              });
-            */
-           },
-
-           'application/json': function(){
-             res.send(users);
-           }
-        });
+        res.send(users);
       }
     });
   },
@@ -45,7 +31,7 @@ module.exports = {
   find: function(req, res){
     var id = req.param('id');
 
-    Users.findOneById(id)
+    User.findOneById(id)
     .exec(function(err, user){
       // add suport for json errror and warning messages in wejs message format
       if (err) {
@@ -57,9 +43,7 @@ module.exports = {
         return res.notFound('User not found.');
       }
 
-      res.send({
-        item: user
-      });
+      res.send(user);
     });
 
   },
@@ -104,7 +88,7 @@ module.exports = {
     var id = req.param('id');
 
     if(id){
-      Users.findOneById(id).exec(function(err, user){
+      User.findOneById(id).exec(function(err, user){
         if(err){
           sails.error(err);
           return res.send(500,{'error':err});
@@ -203,7 +187,7 @@ module.exports = {
 
       req.user.avatarId = salvedFile.id;
 
-      Users.update(
+      User.update(
         {id: req.user.id},
         {avatarId: salvedFile.id}
       ).exec(function afterwards(err,updated){

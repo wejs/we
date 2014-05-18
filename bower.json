@@ -20,7 +20,8 @@
     "ember-data-sails-adapter": "~2.0.0",
     "ember": "~1.5.1",
     "jquery": "~2.1.1",
-    "showdown": "~0.3.1"
+    "showdown": "~0.3.1",
+    "async": "~0.9.0"
   },
   "license": "MIT",
   "authors": [

@@ -6,9 +6,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a  href="/" class="navbar-brand site-logo-link logo">
-          <img class="logo-img" src="/imgs/we-logo-branco-small.png" />
-        </a>
+        {{#link-to 'home' classNames="navbar-brand site-logo-link logo"}}
+            <img class="logo-img" src="/imgs/we-logo-branco-small.png" />
+        {{/link-to}}
       </div>
       <nav class="collapse navbar-collapse" role="navigation">
       <form class="navbar-form navbar-left">
@@ -21,15 +21,20 @@
       </form>
       <ul class="nav navbar-nav">
         <li>
-          <a href="/"><i class="glyphicon glyphicon-home"></i> {{translate Home}}</a>
+         {{#link-to 'home'}}
+           <i class="glyphicon glyphicon-home"></i> {{t Home}}
+         {{/link-to}}
         </li>
         <li>
-          <a href="/users" ><i class="glyphicon glyphicon-user"></i> {{translate Users}}</a>
+          {{#link-to 'user'}}
+            <i class="glyphicon glyphicon-user"></i>
+             {{t Users}}
+          {{/link-to}}
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <buttom we-login-buttom class="btn navbar-login-buttom navbar-btn btn-success" href="#loginForm" role="button"> <span class="glyphicon glyphicon-log-in"></span> {{translate Login}}</buttom>
+          {{view App.ModalLoginView}}
         </li>
         <user-menu></user-menu>
       </nav>

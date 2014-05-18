@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
   grunt.registerTask('compileAssetsProd', [
     'clean:dev',
-    'handlebars:dev',
+    'emberhandlebars:dev',
     'less:dev',
     'copy:prod'
   ]);

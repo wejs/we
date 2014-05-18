@@ -34,7 +34,7 @@ module.exports = {
 
     // comment creator
     creator: {
-      model:'users'
+      model:'user'
     },
 
     // comment parent, to replay one specific comment

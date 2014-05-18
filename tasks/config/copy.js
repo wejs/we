@@ -14,13 +14,21 @@
  * 		https://github.com/gruntjs/grunt-contrib-copy
  */
 module.exports = function(grunt) {
+	var devfiles = [
+		'fonts/**',
+		'imgs/**',
+		'langs/**'
+	];
 
 	grunt.config.set('copy', {
 		dev: {
 			files: [{
 				expand: true,
 				cwd: './assets',
-				src: ['**/*.!(coffee|less)'],
+				src: 	devfiles
+								.concat(require('../pipeline').jsFilesToInjectOriginal)
+								.concat(require('../pipeline').cssFilesToInjectOriginal)
+				,
 				dest: '.tmp/public'
 			}]
 		},

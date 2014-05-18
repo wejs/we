@@ -14,63 +14,57 @@
 module.exports = function(grunt) {
 
 	grunt.config.set('sails-linker', {
-		devJs: {
-			options: {
-				startTag: '<!--SCRIPTS-->',
-				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
-				appRoot: '.tmp/public'
-			},
-			files: {
-				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.ejs': require('../pipeline').jsFilesToInject
-			}
-		},
+    devJs: {
+      options: {
+        startTag: '<!--SCRIPTS-->',
+        endTag: '<!--SCRIPTS END-->',
+        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s"></script>',
+        appRoot: '.tmp/public'
+      },
+      files: {
+        'views/**/*.ejs': ['.tmp/public/js/app.js']
+      }
+    },
 
-		devJsRelative: {
-			options: {
-				startTag: '<!--SCRIPTS-->',
-				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
-				appRoot: '.tmp/public',
-				relative: true
-			},
-			files: {
-				'.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.html': require('../pipeline').jsFilesToInject,
-				'views/**/*.ejs': require('../pipeline').jsFilesToInject
-			}
-		},
+    devJsRelative: {
+      options: {
+        startTag: '<!--SCRIPTS-->',
+        endTag: '<!--SCRIPTS END-->',
+        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>',
+        appRoot: '.tmp/public',
+        relative: true
+      },
+      files: {
+        'views/**/*.ejs': ['.tmp/public/js/app.js']
+      }
+    },
 
-		prodJs: {
-			options: {
-				startTag: '<!--SCRIPTS-->',
-				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
-				appRoot: '.tmp/public'
-			},
-			files: {
-				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.ejs': ['.tmp/public/min/production.js']
-			}
-		},
+    prodJs: {
+      options: {
+        startTag: '<!--SCRIPTS-->',
+        endTag: '<!--SCRIPTS END-->',
+        fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+        ,
+        appRoot: '.tmp/public'
+      },
+      files: {
+        'views/**/*.ejs': ['.tmp/public/main.prod.js']
+      }
+    },
 
-		prodJsRelative: {
-			options: {
-				startTag: '<!--SCRIPTS-->',
-				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
-				appRoot: '.tmp/public',
-				relative: true
-			},
-			files: {
-				'.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.html': ['.tmp/public/min/production.js'],
-				'views/**/*.ejs': ['.tmp/public/min/production.js']
-			}
-		},
+    prodJsRelative: {
+      options: {
+        startTag: '<!--SCRIPTS-->',
+        endTag: '<!--SCRIPTS END-->',
+        fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+        ,
+        appRoot: '.tmp/public',
+        relative: true
+      },
+      files: {
+        'views/**/*.ejs': ['.tmp/public/main.prod.js']
+      }
+    },
 
 		devStyles: {
 			options: {

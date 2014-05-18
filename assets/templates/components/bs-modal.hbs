@@ -1,0 +1,9 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    {{#if body}}
+      {{view view.body}}
+    {{else}}
+      {{yield}}
+    {{/if}}
+  </div>
+</div>

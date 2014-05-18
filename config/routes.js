@@ -32,15 +32,21 @@ module.exports.routes = {
   // located at `views/home/index.ejs`
   //
   // (This would also work if you had a file at: `/views/home.ejs`)
+  '/main.js': {
+    controller: 'main',
+    action: 'requireJSmain'
+  },
+
+  '/configs.js': {
+    controller: 'main',
+    action: 'getConfigsJS'
+  },
+
+
   '/': {
     controller: 'main',
     action: 'index'
     //view: 'home/index'
-  },
-
-  'get /dashboard': {
-      controller: 'main',
-      action: 'dashboard'
   },
 
   'get /links' : {
@@ -68,19 +74,19 @@ module.exports.routes = {
   // If no id is given, an array of all users will be returned
 
   'get /users/current': {
-    controller    : 'users',
+    controller    : 'user',
     action        : 'current'
   },
 
   // USERS
 
   'get /users': {
-    controller: 'users',
+    controller: 'user',
     action: 'index'
   },
 
   'get /users/:id': {
-    controller: 'users',
+    controller: 'user',
     action: 'find'
   },
 
@@ -132,12 +138,12 @@ module.exports.routes = {
 
   // get logged in user avatar
   'get /user/avatar/:id': {
-    controller    : 'users',
+    controller    : 'user',
     action        : 'getAvatar'
   },
 
   'post /user/avatar': {
-    controller    : 'users',
+    controller    : 'user',
     action        : 'changeAvatar'
   },
 

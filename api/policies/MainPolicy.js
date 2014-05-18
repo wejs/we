@@ -1,5 +1,4 @@
 module.exports = function (req, res, next) {
-    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
         var action = req.param('action');
         if (action == "create") {
