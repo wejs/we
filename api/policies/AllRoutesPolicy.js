@@ -30,7 +30,7 @@ module.exports = function (req, res, ok) {
 
         if(session && session.passport && session.passport.user){
 
-          Users.findOneById(session.passport.user).exec(function(error, user){
+          User.findOneById(session.passport.user).exec(function(error, user){
             if(error){
               sails.log.error('Error on get user from session in socket.io: ', err);
             }
