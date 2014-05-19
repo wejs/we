@@ -32,7 +32,11 @@ module.exports.requirejs = {
     // wejs files
     we: 'bower_components/we/dist/we.onlywe',
     weEmberPlugin: 'js/ember/weEmberPlugin',
-    emberApp: 'js/ember/emberApp'
+    emberApp: 'js/ember/emberApp',
+
+    emberControllers: 'js/ember/emberControllers',
+    emberViews: 'js/ember/emberViews'
+
   },
   shim: {
     bootstrap: {
@@ -81,7 +85,8 @@ module.exports.requirejs = {
       deps: [
         'ember',
         'handlebars',
-        'bootstrap'
+        'bootstrap',
+        'bs-core'
       ]
     },
     'bs-core': {

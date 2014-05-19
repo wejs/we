@@ -79,10 +79,10 @@ define('weEmberPlugin',['we','async'], function (we, async) {
         if(attributeName == 'id'){
           nextAttr();
         }else{
-          if(model[attributeName].type == 'email'){
-            modelToAdd[attributeName] = attr('string');
-          }else if(model[attributeName].type == 'datetime'){
+          if(model[attributeName].type == 'datetime'){
             modelToAdd[attributeName] = attr('date');
+          }else{
+            modelToAdd[attributeName] = attr('string');
           }
           nextAttr();
         }

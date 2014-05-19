@@ -79,7 +79,7 @@ module.exports.routes = {
   },
 
   // USERS
-
+  /*
   'get /users': {
     controller: 'user',
     action: 'index'
@@ -89,7 +89,7 @@ module.exports.routes = {
     controller: 'user',
     action: 'find'
   },
-
+  */
   // User Auth
   // TODO move to AuthController
 
@@ -137,12 +137,12 @@ module.exports.routes = {
   },
 
   // get logged in user avatar
-  'get /user/avatar/:id': {
+  'get /avatar/:id': {
     controller    : 'user',
     action        : 'getAvatar'
   },
 
-  'post /user/avatar': {
+  'post /avatar': {
     controller    : 'user',
     action        : 'changeAvatar'
   },

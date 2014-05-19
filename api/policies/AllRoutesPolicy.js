@@ -3,6 +3,7 @@
  */
 module.exports = function (req, res, ok) {
   // if user acess the page send default index and let angularjs mount the page
+
   if(!req.wantsJSON && !req.isSocket){
 
     if(

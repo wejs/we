@@ -11,7 +11,6 @@ var fs = require('fs');
 module.exports = {
 
   index: function (req, res) {
-
     User.find()
     .limit(25)
     .sort('createdAt ASC')

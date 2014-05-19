@@ -121,10 +121,6 @@
       data = {};
     }
 
-    // set csrf token on all requests
-    // TODO change token html to config
-    data['_csrf'] = $('meta[name=csrf-token]').attr('content');
-
     // Build to request
     var json = io.JSON.stringify({
       url: url,

@@ -27,7 +27,7 @@ module.exports.sockets = {
       // save user data in online users cache
       if(typeof sails.onlineusers[userId] === 'undefined' ){
 
-        Users.findOneById(userId).exec(function(err, user){
+        User.findOneById(userId).exec(function(err, user){
           user.messengerStatus = 'online';
 
           // save a the new socket connected on links users
@@ -53,7 +53,7 @@ module.exports.sockets = {
 
       // join user exclusive room to allow others users send
       // mesages to this user
-      // Users.subscribe(socket , [userId] );
+      // User.subscribe(socket , [userId] );
       socket.join('user_' + userId);
 
     }

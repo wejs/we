@@ -12,8 +12,11 @@ define('emberApp',[
   'showdown',
   'async',
   'ember',
-  'weEmberPlugin'
+  'weEmberPlugin',
+  'sails.io'
 ], function (we, Showdown, async) {
+
+  window.socket = we.io.socket;
 
   window.App = Ember.Application.create({
     locale: 'en_US',
@@ -22,8 +25,16 @@ define('emberApp',[
     LOG_VIEW_LOOKUPS: true
   });
 
-  App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
-    namespace: 'api/v1'
+  App.deferReadiness();
+
+  //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
+  App.ApplicationAdapter = DS.SailsSocketAdapter.extend({
+      defaultSerializer: '-default',
+    //namespace: 'api/v1'
+    // pathForType: function(type) {
+    //   var camelized = Ember.String.camelize(type);
+    //   return Ember.String.singularize(camelized);
+    // }
   });
 
   App.Router.reopen({
@@ -32,41 +43,46 @@ define('emberApp',[
 
   var modelNames = Object.keys(we.emberApp.models);
 
-  async.each( modelNames, function(modelName, next){
+  require(['emberControllers', 'emberViews'],function(){
+    // Set default routes contigs
+    async.each( modelNames, function(modelName, next){
 
-    var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
-    App[modelVarName] = we.emberApp.models[modelName];
+      var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
+      App[modelVarName] = we.emberApp.models[modelName];
 
-
-
-    App[modelVarName + 'Route'] = Ember.Route.extend({
-      model: function() {
-        return this.store.find(modelName);
-      }
-    });
-
-    console.log('modelName',modelName, modelVarName);
-    next();
-
-  }, function(){
-
-    App.Router.map(function() {
-      this.resource('home', {
-        path: '/'
+      App[modelVarName + 'Route'] = Ember.Route.extend({
+        model: function() {
+          return this.store.find(modelName);
+        }
       });
+      next();
 
-      var thisPointer = this;
+    }, function(){
 
-      modelNames.forEach(function(modelName){
-        this.resource(modelName, function() {
-          this.route(modelName);
+
+      // Map app routers
+      App.Router.map(function(match) {
+        this.resource('home', {
+          path: '/'
         });
 
-      }, this);
+        var thisPointer = this;
+
+        modelNames.forEach(function(modelName){
+          this.resource(modelName, function() {
+            this.route(modelName);
+          });
+
+        }, this);
+
+        App.advanceReadiness();
+
+      });
 
     });
-
   });
+
+
 
   var showdown = new Showdown.converter();
 
@@ -88,22 +104,7 @@ define('emberApp',[
     }
   });
 
-//  require([]);
 
-
-App.ModalLoginView = Ember.View.extend({
-  templateName: 'auth-login',
-
-  init: function() {
-    this._super();
-    //this.set("controller", App.ModalLoginController.create());
-  }
-});
-
-
-App.AuthViewRegister = Ember.View.create({
-  templateName: 'auth-register'
-});
   return App;
 
 });

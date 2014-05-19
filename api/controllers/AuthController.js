@@ -46,7 +46,7 @@ module.exports = {
       });
     } else {
 
-      Users.findOneByEmail(user.email).exec(function(err, usr){
+      User.findOneByEmail(user.email).exec(function(err, usr){
         if (err) {
             return res.send(500, { error: res.i18n("DB Error") });
         } else if ( usr ) {
@@ -62,7 +62,7 @@ module.exports = {
               }
             });
         } else {
-            Users.create(user).exec(function(error, newUser) {
+            User.create(user).exec(function(error, newUser) {
               if (error) {
 
                 if(error.ValidationError){
@@ -154,7 +154,11 @@ module.exports = {
       var email = req.param("email");
       var password = req.param("password");
 
-      Users.findOneByEmail(email).exec(function(err, usr) {
+      if(!email || !password){
+        return  res.forbidden('Password and email is required');
+      }
+
+      User.findOneByEmail(email).exec(function(err, usr) {
           if (err) {
               res.send(500, { error: res.i18n("DB Error") });
           } else {
@@ -225,7 +229,7 @@ module.exports = {
       console.log(result);
 
 	    // token is valid then get user form db
-	    Users.findOneById(user.id).exec(function(err, usr) {
+	    User.findOneById(user.id).exec(function(err, usr) {
 	      if (err) {
 	        return res.send(500, { error: res.i18n("DB Error") });
 	      }
