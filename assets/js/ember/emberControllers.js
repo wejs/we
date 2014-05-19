@@ -15,15 +15,19 @@ App.ModalLoginController = Ember.Controller.extend({
       $.post('/auth/login',{
         email: this.get("email"),
         password: this.get("password")
-      }, function(data){
-
-
-        console.log(data);
+      })
+      .done(function(data) {
+        if(data.id){
+          we.authenticatedUser = data;
+          we.hooks.trigger("user-authenticated", {
+            'user':  data
+          });
+          return Bootstrap.ModalManager.hide(modalName);
+        }
+      })
+      .fail(function(data) {
+        console.error( "Error on login" );
       });
-      //this.set("email", r);
-
-      //Bootstrap.NM.push('Successfully submitted modal', 'success');
-      //return Bootstrap.ModalManager.hide(modalName);
     },
 
     //Cancel the modal, we don't need to hide the model manually because we set {..., dismiss: 'modal'} on the button meta data
@@ -33,6 +37,9 @@ App.ModalLoginController = Ember.Controller.extend({
 
     //Show the modal
     show: function() {
+      console.warn(this);
+      console.warn(this.get('view'));
+      console.warn('isVisible',this.get('isVisible'));
       return Bootstrap.ModalManager.show(modalName);
     }
 
