@@ -1,6 +1,8 @@
 # WE [![Build Status](https://travis-ci.org/wejs/we.png?branch=master)](https://travis-ci.org/wejs/we) [![Dependency Status](https://david-dm.org/wejs/we.png?theme=shields.io)](https://david-dm.org/wejs/we) [![devDependency Status](https://david-dm.org/wejs/we/dev-status.png?theme=shields.io)](https://david-dm.org/wejs/we#info=devDependencies)
 #### A system for create Social Networks  written with [Sails.js](http://sailsjs.org).
 
+#Changing to Ember.js with a lot of good and automatic features like client side automatic router and model generation ...
+
 Status - in development, not working for production
 
 Have a question or found a fix? Please read a [Contribute guide](https://github.com/wejs/we/blob/master/CONTRIBUTING.md) and open a [issue](https://github.com/wejs/we/issues) and/or submit a pull request. <br>
@@ -55,8 +57,8 @@ $ npm test
 ## Build with love and:
 * Sails.js - http://sailsjs.org
 * Node.js - http://nodejs.org/
-* Angularjs - http://angularjs.org/
 * require.js - http://requirejs.org/
+* Ember.js - http://emberjs.com/
 
 ## Links
 * A complish - "Interpretation of a Blog using CompoundJS" https://github.com/dlochrie/acomplish
