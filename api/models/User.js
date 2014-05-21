@@ -66,6 +66,10 @@ module.exports = {
       collection: 'comment',
       via: 'creator'
     },
+    language: {
+      type: 'string',
+      defaultsTo: 'en'
+    },
 
     // comment parent, to replay one specific comment
     posts: {
