@@ -61,10 +61,7 @@
         <label for="language" class="input-group-addon">
           <span class="glyphicon glyphicon-globe"></span> {{t 'Language'}}
         </label>
-        <select id="language" name="language" class="form-control input-md">
-          <option>en-us</option>
-          <option>pt-br</option>
-        </select>
+        {{view Ember.Select name="language" value=user.language content=defaultlanguages classNames="form-control input-md"}}
       </div>
     </div>
 

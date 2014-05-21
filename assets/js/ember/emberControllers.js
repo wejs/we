@@ -55,6 +55,7 @@ App.AuthRegisterController = Ember.Controller.extend({
   user: {},
   isVisible: true,
 
+  defaultlanguages: ['en-us', 'pt-br'],
   emailPlaceholder: we.i18n('Your email'),
   passwordPlaceholder: we.i18n('Password'),
   confirmPasswordPlaceholder: we.i18n('Confirm password'),

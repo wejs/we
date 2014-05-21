@@ -19,7 +19,7 @@ define('emberApp',[
   window.socket = we.io.socket;
 
   window.App = Ember.Application.create({
-    locale: 'en_US',
+    locale: we.config.language,
     LOG_TRANSITIONS: true, // basic logging of successful transitions
     LOG_TRANSITIONS_INTERNAL: true, // detailed logging of all routing steps
     LOG_VIEW_LOOKUPS: true
@@ -96,7 +96,6 @@ define('emberApp',[
   });
 
 
-
   Ember.Handlebars.registerHelper('t', function (property, options) {
     if(property){
       return we.i18n( property );
@@ -104,7 +103,6 @@ define('emberApp',[
       return '';
     }
   });
-
 
   return App;
 
