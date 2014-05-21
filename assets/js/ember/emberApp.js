@@ -43,7 +43,7 @@ define('emberApp',[
 
   var modelNames = Object.keys(we.emberApp.models);
 
-  require(['emberControllers', 'emberViews'],function(){
+  require(['emberControllers', 'emberViews', 'emberRoutes'],function(){
     // Set default routes contigs
     async.each( modelNames, function(modelName, next){
 
@@ -63,8 +63,11 @@ define('emberApp',[
       // Map app routers
       App.Router.map(function(match) {
         this.resource('home', {
-          path: '/'
+          path: '/',
+
         });
+
+
 
         var thisPointer = this;
 
@@ -81,8 +84,6 @@ define('emberApp',[
 
     });
   });
-
-
 
   var showdown = new Showdown.converter();
 

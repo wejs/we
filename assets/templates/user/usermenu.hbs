@@ -1,20 +1,22 @@
+{{#if isVisible}}
 <ul class="nav navbar-nav navbar-right">
   <li class="">
     <a href="#" class="dropdown-toggle user-menu-link" data-toggle="dropdown">
       <span class="avatar-small">
         <avatar user-id="537035d1fa197b3d710f9fa6" class="ng-scope"><img width="50px" height="50px" class="img-rounded avatar-small" src="/images/53704262cd6cc7297338f947" data-ng-src="/image/53704262cd6cc7297338f947"></avatar>
       </span>
-      <span class="user-name " data-ng-bind="user.name">Alberto</span><b class="caret"></b>
+      <span class="user-name " >{{user.username}}</span><b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a  href="#ChangeAvatarModal" class="">Mudar avatar</a>
+        <a  href="#ChangeAvatarModal" class="">{{t 'Change avatar'}}</a>
       </li>
       <li class="divider"></li>
-      <li><a href="/user/537035d1fa197b3d710f9fa6" class="">Ver perfil</a></li>
-      <li><a href="/user/537035d1fa197b3d710f9fa6/edit/" class="">Editar Perfil</a></li>
+      <li><a href="/user/537035d1fa197b3d710f9fa6" class="">{{t 'View profile'}}</a></li>
+      <li><a href="/user/537035d1fa197b3d710f9fa6/edit/" class="">{{t 'Edit Profile'}}</a></li>
       <li class="divider"></li>
-      <li><a href="/auth/logout" class="">Sair</a></li>
+      <li><a href="/auth/logout" class="">{{t 'Sair'}}</a></li>
     </ul>
   </li>
 </ul>
+{{/if}}

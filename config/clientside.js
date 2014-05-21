@@ -14,6 +14,7 @@ module.exports.clientside = {
     'weSocketIO',
     'weI18njs',
     'weMessenger',
+    'i18njs-log-untranslated-texts',
     'weEmberPlugin'
   ]
 

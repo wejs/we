@@ -4,12 +4,7 @@ module.exports = function(grunt) {
     dev: {
       options: {
         templateName: function(sourceFile){
-          sourceFile = sourceFile.replace(/^assets\/templates\//, '');
-          if( !sourceFile.match(/^components\//) ){
-            sourceFile = sourceFile.replace('/', '-');
-          }
-
-          return sourceFile.replace(/\.hbs$/, '');
+          return sourceFile.replace(/^assets\/templates\//, '').replace(/\.hbs$/, '');
         }
       },
       files: require('../pipeline').templateFilesToInject,

@@ -18,10 +18,12 @@ module.exports = {
   signup: function (req, res, next) {
     var requireAccountActivation = false;
     var user = {};
-    user.displayName = req.param("name");
-    user.username = req.param("name");
+    user.displayName = req.param("displayName");
+    user.username = req.param("username");
     user.email = req.param("email");
     user.password = req.param("password");
+    user.language = req.param("language");
+
 
     if( !sails.util.isUndefined(sails.config.site) )
       if( !sails.util.isUndefined( sails.config.site.requireAccountActivation ) ){
@@ -123,16 +125,7 @@ module.exports = {
                   req.logIn(newUser, function(err){
                     if(err) return next(err);
 
-                    res.send('201',{
-                      user: newUser,
-                      responseMessage: {
-                        success: [
-                          {
-                            message: res.i18n('User successfully registered')
-                          }
-                        ]
-                      }
-                    });
+                    res.send('201',newUser);
 
                   });
 

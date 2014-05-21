@@ -68,7 +68,8 @@ module.exports = {
     },
     language: {
       type: 'string',
-      defaultsTo: 'en'
+      defaultsTo: 'en-us',
+      maxLength: 6
     },
 
     // comment parent, to replay one specific comment

@@ -1,0 +1,86 @@
+
+<div  class="wrapper main">
+  <div class="box">
+    <div class="row row-offcanvas row-offcanvas-left">
+
+      <!-- sidebar -->
+      <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+
+          {{outlet sidebar}}
+
+          <div class="sidebar-area">
+            <we-region name="sidebar"></we-region>
+          </div>
+
+          <ul class="nav">
+            <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+          </ul>
+
+          <ul class="nav hidden-xs" id="lg-menu">
+              <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Featured</a></li>
+              <li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
+              <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>
+              <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
+          </ul>
+
+
+            <!-- tiny only nav-->
+            <ul class="nav visible-xs" id="xs-menu">
+                <li><a href="#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                <li><a href="#stories" class="text-center"><i class="glyphicon glyphicon-list"></i></a></li>
+                <li><a href="#" class="text-center"><i class="glyphicon glyphicon-paperclip"></i></a></li>
+                <li><a href="#" class="text-center"><i class="glyphicon glyphicon-refresh"></i></a></li>
+            </ul>
+
+      </div>
+      <!-- /sidebar -->
+
+        <!-- main right col -->
+        <div class="column col-sm-10 col-xs-11" id="main">
+
+            <!-- navbar -->
+            {{partial "partials/navbar" }}
+            <!-- /navbar -->
+
+            <div class="padding">
+                <div class="full col-sm-9">
+                {{#view App.LayoutView}}
+
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      {{outlet highlighted}}
+                      <div data-ui-view="highlighted"></div>
+                    </div>
+
+                    <div class="col-sm-8">
+                      <div data-ui-view>
+                        {{outlet}}
+                      </div>{{we-messenger}}
+                    </div>
+
+                    <div class="col-sm-4">
+
+                       {{outlet mainLeft}}
+                      <we-news></we-news>
+                    </div>
+
+                  </div>
+                {{/view}}
+
+                    {{partial 'partials/footer' }}
+
+
+                  <hr>
+
+
+                </div><!-- /col-9 -->
+            </div><!-- /padding -->
+        </div>
+        <!-- /main -->
+    </div>
+
+  <div data-we-messenger></div>
+
+</div>
+</div>

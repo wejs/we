@@ -57,6 +57,15 @@ module.exports = {
   },
 
   index: function (req, res) {
-    res.view("home/index.ejs");
+    console.log('hi');
+
+    res.view("home/index",{
+      partials: {
+        head: '../partials/head',
+        tail: '../partials/tail',
+      },
+    });
+
+    //res.view("home/index.ejs");
   }
 };

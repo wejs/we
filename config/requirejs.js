@@ -35,8 +35,8 @@ module.exports.requirejs = {
     emberApp: 'js/ember/emberApp',
 
     emberControllers: 'js/ember/emberControllers',
-    emberViews: 'js/ember/emberViews'
-
+    emberViews: 'js/ember/emberViews',
+    emberRoutes: 'js/ember/emberRoutes'
   },
   shim: {
     bootstrap: {

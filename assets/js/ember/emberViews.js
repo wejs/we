@@ -1,6 +1,6 @@
 
 App.ModalLoginView = Ember.View.extend({
-  templateName: 'auth-login',
+  templateName: 'auth/login',
   isVisible: true,
   attributeBindings: ['isVisible'],
   init: function() {
@@ -24,29 +24,8 @@ App.ModalLoginView = Ember.View.extend({
   }
 });
 
-App.UserMenuView = Ember.View.extend({
-  templateName: 'user-usermenu',
-  isVisible: false,
-  attributeBindings: ['isVisible'],
-  init: function() {
-    this._super();
-    var thisView = this;
-    if(we.authenticatedUser.id){
-      this.set('isVisible', true);
-    }
-    we.hooks.on("user-authenticated",function(user, done){
-      thisView.set('isVisible', true);
-      done();
-    });
-    we.hooks.on("user-unauthenticated",function(user, done){
-      thisView.set('isVisible', false);
-      done();
-    });
-  }
-});
-
 App.AvatarView = Ember.View.extend({
-  templateName: 'user-avatar',
+  templateName: 'user/avatar',
   src: '',
   attributeBindings: ['src'],
   init: function() {
@@ -66,8 +45,38 @@ App.AvatarView = Ember.View.extend({
   }
 });
 
+App.AuthRegisterView = Ember.View.extend({
+  templateName: 'auth/registerForm',
+  isVisible: true,
+  attributeBindings: ['isVisible'],
+  init: function() {
+    this._super();
+    var thisView = this;
+    this.set("controller", App.ModalLoginController.create());
 
+    if(we.authenticatedUser.id){
+      this.set('isVisible', false);
+    }
 
-App.AuthViewRegister = Ember.View.create({
-  templateName: 'auth-register'
+    we.hooks.on("user-authenticated",function(user, done){
+      thisView.set('isVisible', false);
+      done();
+    });
+
+    we.hooks.on("user-unauthenticated",function(user, done){
+      thisView.set('isVisible', true);
+      done();
+    });
+  }
+});
+
+App.LayoutView = Ember.View.extend({
+  //templateName: 'layouts/twoColumns',
+  isVisible: true,
+  attributeBindings: ['isVisible'],
+  init: function() {
+    this._super();
+    var thisView = this;
+    this.set("controller", App.ModalLoginController.create());
+  }
 });
