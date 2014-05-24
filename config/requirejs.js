@@ -30,7 +30,7 @@ module.exports.requirejs = {
     emberTemplates: 'tpls.hbs',
 
     // wejs files
-    we: 'bower_components/we/dist/we.onlywe',
+    we: 'bower_components/we/dist/we',
     weEmberPlugin: 'js/ember/weEmberPlugin',
     emberApp: 'js/ember/emberApp',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
