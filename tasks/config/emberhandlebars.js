@@ -12,7 +12,5 @@ module.exports = function(grunt) {
     }
   });
 
-
   grunt.loadNpmTasks('grunt-ember-template-compiler');
-
 };

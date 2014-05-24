@@ -27,30 +27,6 @@ module.exports = {
     });
   },
 
-  find: function(req, res){
-    var id = req.param('id');
-
-    User.findOneById(id)
-    .exec(function(err, user){
-      // add suport for json errror and warning messages in wejs message format
-      if (err) {
-        console.error('Error on find user: ',err);
-        return res.serverError('Error on find user.');
-      }
-
-      if(!user){
-        return res.notFound('User not found.');
-      }
-
-      res.send(user);
-    });
-
-  },
-
-  create: function (){
-
-  },
-
   update: function(req, res, next) {
     sails.log('update');
     sails.log(req.params);

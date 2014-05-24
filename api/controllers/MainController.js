@@ -4,7 +4,7 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
-
+var fs = require('fs');
 module.exports = {
   // require js main file
   requireJSmain: function (req, res) {
@@ -29,6 +29,7 @@ module.exports = {
 
     configs.version = '1';
     configs.server = {};
+    configs.client = {};
     configs.user = {};
     configs.authenticatedUser = {};
 
@@ -48,12 +49,14 @@ module.exports = {
       configs.plugins.enabled = sails.config.clientside.pluginsDefaultEnabled;
     }
 
-    //weEmberPlugin
+    fs.exists('.tmp/config/clientsideEmberjsParts.js', function(exists) {
+      if (exists) {
+        configs.client.emberjsParts = require('../../.tmp/config/clientsideEmberjsParts.js').clientsideEmberjsParts;
+      }
+      configs.models = HelpersService.getModelsAttributes();
 
-    // get model atribs
-    configs.models = HelpersService.getModelsAttributes();
-
-    res.send(configs);
+      res.send(configs);
+    });
   },
 
   index: function (req, res) {

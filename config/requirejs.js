@@ -98,7 +98,7 @@ module.exports.requirejs = {
     }
   },
   //baseUrl: '/',
-  urlArgs: 'v=0.0.53',
+  urlArgs: 'v=0.0.54',
   deps: [
     'we'
   ]

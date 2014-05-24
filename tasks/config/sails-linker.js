@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         appRoot: '.tmp/public'
       },
       files: {
-        'views/**/*.ejs': ['.tmp/public/js/app.js']
+        'views/**/*.ejs': ['.tmp/public/js/ember/emberApp.js']
       }
     },
 
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         relative: true
       },
       files: {
-        'views/**/*.ejs': ['.tmp/public/js/app.js']
+        'views/**/*.ejs': ['.tmp/public/js/ember/emberApp.js']
       }
     },
 

@@ -3,7 +3,7 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-define('weEmberPlugin',['we','async'], function (we, async) {
+define(['we','async'], function (we, async) {
 
   var plugin = {};
 
@@ -87,7 +87,6 @@ define('weEmberPlugin',['we','async'], function (we, async) {
           nextAttr();
         }
       }, function(){
-        console.log(modelName);
         we.emberApp.models[modelName] = DS.Model.extend(modelToAdd);
 
         nextModel();

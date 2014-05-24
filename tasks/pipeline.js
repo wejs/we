@@ -45,6 +45,7 @@ var jsFilesToInject = [
   'js/libs/jquery.js',
   'js/libs/**.js',
 
+  'js/ember/**/*.js'
   // 'tpls.hbs.js',
 
   // 'bower_components/async/lib/async.js',
@@ -88,7 +89,7 @@ var jsFilesToInject = [
 ];
 
 var requirejsConfigs = require('../config/requirejs.js').requirejs;
-console.log('jsFilesToInject',jsFilesToInject);
+
 
 if(requirejsConfigs.paths){
   _.map( requirejsConfigs.paths,function(path) {
@@ -96,9 +97,6 @@ if(requirejsConfigs.paths){
   });
 }
 
-//console.log('requirejsConfigs',requirejsConfigs);
-
-console.log('jsFilesToInject',jsFilesToInject);
 //jsFilesToInject +
 //console.log('jsFilesToInject',jsFilesToInject);
 
@@ -114,12 +112,6 @@ console.log('jsFilesToInject',jsFilesToInject);
 var templateFilesToInject = [
   'templates/**/*.hbs'
 ];
-
-
-
-
-
-
 
 
 // Prefix relative paths to source files so they point to the proper locations

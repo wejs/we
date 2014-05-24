@@ -6,6 +6,7 @@ module.exports = function (grunt) {
 		'cssmin',
 		'sails-linker:prodJs',
 		'sails-linker:prodStyles',
-		'sails-linker:devTpl'
+		'sails-linker:devTpl',
+    'we_sails_ember_tasks:prod'
 	]);
 };

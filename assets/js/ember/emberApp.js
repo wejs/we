@@ -7,13 +7,14 @@
 // starts we.js lib
 // TODO move this to amber logic
 
-define('emberApp',[
+define([
   'we',
   'showdown',
   'async',
   'ember',
   'weEmberPlugin',
-  'sails.io'
+  'sails.io',
+  'ember-uploader'
 ], function (we, Showdown, async) {
 
   window.socket = we.io.socket;
@@ -27,6 +28,7 @@ define('emberApp',[
 
   App.deferReadiness();
 
+
   //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
   App.ApplicationAdapter = DS.SailsSocketAdapter.extend({
       defaultSerializer: '-default',
@@ -37,13 +39,31 @@ define('emberApp',[
     // }
   });
 
+  App.LayoutView = Ember.View.extend({
+    //templateName: 'layouts/twoColumns',
+    isVisible: true,
+    attributeBindings: ['isVisible'],
+    init: function() {
+      this._super();
+      var thisView = this;
+      this.set("controller", App.ModalLoginController.create());
+    }
+  });
+
   App.Router.reopen({
     location: 'history'
   });
 
   var modelNames = Object.keys(we.emberApp.models);
+  console.warn('we.config', we.configs.client.emberjsParts.parts);
 
-  require(['emberControllers', 'emberViews', 'emberRoutes'],function(){
+  var emberRequireModules = [];
+
+  for(var emberjsPart in we.configs.client.emberjsParts.parts){
+    emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
+  }
+
+  require(emberRequireModules,function(){
     // Set default routes contigs
     async.each( modelNames, function(modelName, next){
 
@@ -66,8 +86,6 @@ define('emberApp',[
           path: '/',
 
         });
-
-
 
         var thisPointer = this;
 
@@ -94,7 +112,6 @@ define('emberApp',[
   Ember.Handlebars.helper('format-date', function(date) {
     return moment(date).fromNow();
   });
-
 
   Ember.Handlebars.registerHelper('t', function (property, options) {
     if(property){
