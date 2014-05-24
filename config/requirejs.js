@@ -33,10 +33,8 @@ module.exports.requirejs = {
     we: 'bower_components/we/dist/we.onlywe',
     weEmberPlugin: 'js/ember/weEmberPlugin',
     emberApp: 'js/ember/emberApp',
+    'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
 
-    emberControllers: 'js/ember/emberControllers',
-    emberViews: 'js/ember/emberViews',
-    emberRoutes: 'js/ember/emberRoutes'
   },
   shim: {
     bootstrap: {
@@ -79,6 +77,12 @@ module.exports.requirejs = {
       deps: [
         'ember',
         'handlebars',
+      ]
+    },
+    'ember-uploader': {
+      deps: [
+        'ember',
+        'handlebars'
       ]
     },
     'bs-button': {
