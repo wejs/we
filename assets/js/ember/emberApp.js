@@ -46,7 +46,7 @@ define([
     init: function() {
       this._super();
       var thisView = this;
-      this.set("controller", App.ModalLoginController.create());
+      //this.set("controller", App.ModalLoginController.create());
     }
   });
 
@@ -55,12 +55,17 @@ define([
   });
 
   var modelNames = Object.keys(we.emberApp.models);
-  console.warn('we.config', we.configs.client.emberjsParts.parts);
 
   var emberRequireModules = [];
 
+  // ember routes load after application route map
+  var emberRouteModules = [];
   for(var emberjsPart in we.configs.client.emberjsParts.parts){
-    emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
+     console.warn(emberjsPart)
+
+      emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
+
+
   }
 
   require(emberRequireModules,function(){
@@ -79,12 +84,10 @@ define([
 
     }, function(){
 
-
       // Map app routers
       App.Router.map(function(match) {
         this.resource('home', {
           path: '/',
-
         });
 
         var thisPointer = this;
@@ -93,8 +96,9 @@ define([
           this.resource(modelName, function() {
             this.route(modelName);
           });
-
         }, this);
+
+        //require(emberRouteModules,function(){});
 
         App.advanceReadiness();
 

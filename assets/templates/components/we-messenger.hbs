@@ -1,0 +1,50 @@
+<div  data-ng-controller="MessengerCtrl" class="messenger-area-wrapper">
+  <div class="messenger-column">
+    <div class="messenger-area">
+      {{#if isListOpen}}
+        <div class="messenger">
+          <div class="header" {{action 'closeList'}}>
+            {{t 'Messenger'}}
+          <button type="button" class="remove btn btn-default btn-xs pull-right">
+            <span class="glyphicon glyphicon-wrench"></span>
+          </button>
+          </div>
+          <ul class="nav nav-list friendlist contact-list">
+            <li class="contact {{contact.messengerStatus}}" data-ng-repeat="contact in contacts | filter:searchFriend"  >
+              <a data-ng-click="startTalk(contact.id)" >
+                <avatar user-id="{{contact.id}}"></avatar>
+                {{contact.name}}
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-list rooms-list contact-list">
+            <li class="global-room">
+              <a data-ng-click="startTalk(room.id, 'public')" >
+                {{t 'Public room'}}
+              </a>
+            </li>
+          </ul>
+          <div class="search-area">
+            <input type="search" data-ng-model="searchFriend" placeholder="Search ...">
+          </div>
+        </div>
+      {{else}}
+        <div class="messenger-off" {{action 'openList'}}>
+          <span class="ui-icon ui-icon-person"></span>
+          <span class="text">{{t 'Messenger'}}</span>
+          <button type="button" class="remove btn btn-default btn-xs pull-right">
+            <span class="glyphicon glyphicon-wrench"></span>
+          </button>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div data-ng-repeat="contact in contacts" messenger-list-contact>
+    <div data-ng-include="templates.messengerBox.url"></div>
+  </div>
+
+  <div class="public-room-container">
+    <div data-ng-include="templates.messengerBoxPublic.url"></div>
+  </div>
+</div>

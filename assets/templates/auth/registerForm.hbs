@@ -1,5 +1,5 @@
-{{#if isVisible}}
 
+{{#if isVisible}}
 <div class="panel panel-default">
   <div class="panel-heading">
     {{partial 'partials/home-about-site'}}
@@ -11,6 +11,22 @@
     {{t "Create account"}}
     <br>
   </h2>
+
+  {{#if messages.warning}}
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {{messages.warning}}
+    </div>
+  {{/if}}
+
+  {{#if messages.error}}
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {{messages.error}}
+    </div>
+  {{/if}}
+
+
 
   <form  {{action "submit" on="submit"}} name="createAccountForm" class="user-signup-form" method="POST">
     <!-- input: username -->
@@ -30,7 +46,7 @@
         <label for="email" class="input-group-addon">
           <span class="glyphicon glyphicon-envelope"></span>
         </label>
-        {{input name="email" value=user.email  type="email" placeholder=controller.emailPlaceholder classNames="form-control input-lg" required="true"}}
+        {{input name="email" value=user.email  type="email" placeholder=emailPlaceholder classNames="form-control input-lg" required="true"}}
       </div>
       <div class="message" data-ng-repeat="message in user.email.messages">
         <div class="message.type">{{message.message}}</div>
@@ -74,12 +90,6 @@
       </div>
     </div>
 
-
-    <div class="input-group">
-      <div class="message" data-ng-repeat="message in messages">
-        <div class="message.type">{{message.message}}</div>
-      </div>
-    </div>
 
     <div class="input-group">
       <div class="agree-terms">

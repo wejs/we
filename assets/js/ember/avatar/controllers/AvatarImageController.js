@@ -10,6 +10,8 @@ define(['we','ember'], function (we) {
     avatarUrl: '/imgs/avatars/user-avatar.png',
     defaultAvatarUrl: '/imgs/avatars/user-avatar.png',
     init: function(){
+      this._super();
+
       this.changeAvatarUrl();
     },
     changeAvatarUrl: function() {

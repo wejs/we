@@ -44,19 +44,18 @@
 
             <div class="padding">
                 <div class="full col-sm-9">
-                {{#view App.LayoutView}}
+                {{#view App.LayoutView id="AppLayoutView"}}
 
                   <div class="row">
 
                     <div class="col-md-12">
                       {{outlet highlighted}}
-                      <div data-ui-view="highlighted"></div>
                     </div>
 
                     <div class="col-sm-8">
                       <div data-ui-view>
                         {{outlet}}
-                      </div>{{we-messenger}}
+                      </div>
                     </div>
 
                     <div class="col-sm-4">
@@ -79,8 +78,6 @@
         </div>
         <!-- /main -->
     </div>
-
-  <div data-we-messenger></div>
-
+{{we-messenger}}
 </div>
 </div>

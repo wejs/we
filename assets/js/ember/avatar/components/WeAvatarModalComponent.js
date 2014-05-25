@@ -5,6 +5,8 @@ define(['we','ember'], function (we) {
   App.WeAvatarModalComponent = Ember.Component.extend({
     url: "/avatar/",
     init: function(){
+      this._super();
+
       var self = this;
       we.events.on('showAvatarChangeModal',function( event, data){
         self.set('user', data.user);

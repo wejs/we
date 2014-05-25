@@ -5,6 +5,7 @@ define(['we','ember'], function (we) {
   App.AvatarLinkImageController = Ember.ObjectController.extend({
     avatarUrl: '/imgs/avatars/user-avatar.png',
     init: function(){
+      this._super();
 
       var user = this.get('model');
       if(user.avatarId){
