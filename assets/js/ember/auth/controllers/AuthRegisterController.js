@@ -3,7 +3,7 @@ define(['we','ember'], function (we) {
 
   App.AuthRegisterController = Ember.Controller.extend({
     user: {},
-    messages: {},
+    messages: [],
 
     isVisible: true,
     attributeBindings: ['isVisible'],
@@ -35,20 +35,49 @@ define(['we','ember'], function (we) {
     },
     actions: {
       submit: function() {
+        var self = this;
         var user = this.get('user');
+        self.set('messages',[]);
 
         $.post('/signup',user)
         .done(function(data) {
-          console.log('data',data);
-          if(data.id){
+
+          if(data.responseMessages){
+            self.set('messages', data.responseMessages.success);
+          }else if(data.id){
+            // reload pega to load with new user
+            location.reload();
             we.authenticatedUser = data;
-            we.hooks.trigger("user-authenticated", {
-              'user':  data
-            });
+            // we.hooks.trigger("user-authenticated", {
+            //   'user':  data
+            // });
+          }else{
+            console.warn('A unknow message in user register', data);
           }
         })
         .fail(function(data) {
-          console.error( "Error on register: ", data );
+          // handle validation error message;
+          if(data.responseJSON.error === 'E_VALIDATION'){
+            var messages = [];
+            var invalidAttributes = data.responseJSON.invalidAttributes;
+
+            for(var fieldName in invalidAttributes){
+              // TODO add suport to multiple messages for same field
+              messages.push({
+                status: 'danger',
+                field: fieldName,
+                rule: invalidAttributes[fieldName][0].rule,
+                message: we.i18n(invalidAttributes[fieldName][0].message)
+              });
+            }
+
+            self.set('messages', messages);
+
+          }else if(data.responseMessages){
+            console.error( "TODO handle responseMessage error on register: ", data );
+          }else{
+            console.error( "Unknow error on register: ", data );
+          }
         });
 
       }

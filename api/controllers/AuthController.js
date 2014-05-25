@@ -39,103 +39,81 @@ module.exports = {
 
     errors = validSignup(user, confirmPassword, res);
 
-    if( errors.length >0 ){
+    if( ! _.isEmpty(errors) ){
       // error on data or confirm password
-      res.send('400',{
-        responseMessage: {
-          errors: errors
-        }
-      });
-    } else {
-
-      User.findOneByEmail(user.email).exec(function(err, usr){
-        if (err) {
-            return res.send(500, { error: res.i18n("DB Error") });
-        } else if ( usr ) {
-            return res.send(403, {
-              responseMessage: {
-                errors: [
-                  {
-                    field: 'email',
-                    type: 'validation',
-                    message: res.i18n("Email already Taken")
-                  }
-                ]
-              }
-            });
-        } else {
-            User.create(user).exec(function(error, newUser) {
-              if (error) {
-
-                if(error.ValidationError){
-
-                  // wrong email format
-                  if(error.ValidationError.email){
-
-                    var errors = [];
-                    var errorsLength = error.ValidationError.email.length;
-                    errorsLength--;
-
-                    error.ValidationError.email.forEach( function(err, index){
-
-                      err.field = 'email';
-                      err['type'] = 'validation';
-                      err.message = res.i18n(err.message);
-                      errors.push(err);
-
-                      if( errorsLength === index){
-                        return res.send(403,{
-                          responseMessage: {
-                            errors: errors
-                          }
-                        });
-                      }
-                    });
-
-                  }
-
-                }else {
-                  return res.send(500, {error: res.i18n("DB Error") });
-                }
-
-
-
-              } else {
-
-                if(requireAccountActivation){
-                  var options = {};
-
-                  EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err, responseStatus){
-                    if(err) return next(err);
-
-                    res.send('201',{
-                      responseMessage: {
-                        success: [
-                          {
-                            message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
-                          }
-                        ]
-                      }
-                    });
-
-                  });
-                } else {
-                  // TODO add suporte do configure user registration activation
-                  // like with email confirmation or auto login
-                  req.logIn(newUser, function(err){
-                    if(err) return next(err);
-
-                    res.send('201',newUser);
-
-                  });
-
-
-                }
-              }
-          });
-        }
+      return res.send('400',{
+        "error": "E_VALIDATION",
+        "status": 400,
+        "summary": "Validation errors",
+        "model": "User",
+        "invalidAttributes": errors
       });
     }
+
+    User.findOneByEmail(user.email).exec(function(err, usr){
+      if (err) {
+          sails.log.error('Error on find user by email.',err);
+          return res.send(500, { error: res.i18n("Error") });
+      } else if ( usr ) {
+        return res.send(400,{
+          "error": "E_VALIDATION",
+          "status": 400,
+          "summary": "The email address is already registered in the system",
+          "model": "User",
+          "invalidAttributes": {
+            "email": [
+              {
+                "rule": "email",
+                "message": "The email address is already registered in the system"
+              }
+            ]
+          }
+        });
+      } else {
+          User.create(user).exec(function(error, newUser) {
+            if (error) {
+
+              if(error.ValidationError){
+                // wrong email format
+                if(error.ValidationError.email){
+                  return res.send(400,error);
+                }
+
+              }else {
+                return res.send(500, {error: res.i18n("DB Error") });
+              }
+            } else {
+              if(requireAccountActivation){
+                var options = {};
+
+                EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err, responseStatus){
+                  if(err) return next(err);
+
+                  res.send('201',{
+                    responseMessages: {
+                      success: [
+                        {
+                          status: 'success',
+                          message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
+                        }
+                      ]
+                    }
+                  });
+
+                });
+              } else {
+                // TODO add suporte do configure user registration activation
+                // like with email confirmation or auto login
+                req.logIn(newUser, function(err){
+                  if(err) return next(err);
+                  res.send('201',newUser);
+                });
+              }
+            }
+        });
+      }
+    });
+
   },
 
   logout: function (req, res) {
@@ -219,8 +197,6 @@ module.exports = {
         return responseForbiden();
       }
 
-      console.log(result);
-
 	    // token is valid then get user form db
 	    User.findOneById(user.id).exec(function(err, usr) {
 	      if (err) {
@@ -290,36 +266,44 @@ module.exports = {
 
 
 var validSignup = function(user, confirmPassword, res){
-  var errors = [];
+  var errors = {};
 
   if(!user.email){
-    errors.push({
+    errors.email = [];
+    errors.email.push({
       type: 'validation',
       field: 'email',
+      rule: 'required',
       message: res.i18n("Field <strong>email</strong> is required")
     });
   }
 
   if(!user.password){
-    errors.push({
+    errors.password = [];
+    errors.password.push({
       type: 'validation',
       field: 'password',
+      rule: 'required',
       message: res.i18n("Field <strong>password</strong> is required")
     });
   }
 
   if(!confirmPassword){
-    errors.push({
+    errors.confirmPassword = [];
+    errors.confirmPassword.push({
       type: 'validation',
       field: 'confirmPassword',
+      rule: 'required',
       message: res.i18n("Field <strong>Confirm new password</strong> is required")
     });
   }
 
   if(confirmPassword != user.password){
-    errors.push({
+    if(!errors.password) errors.password = [];
+    errors.password.push({
       type: 'validation',
       field: 'password',
+      rule: 'required',
       message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
     });
   }

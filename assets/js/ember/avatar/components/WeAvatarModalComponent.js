@@ -4,6 +4,8 @@ define(['we','ember'], function (we) {
 
   App.WeAvatarModalComponent = Ember.Component.extend({
     url: "/avatar/",
+    attributeBindings: ['user'],
+
     init: function(){
       this._super();
 

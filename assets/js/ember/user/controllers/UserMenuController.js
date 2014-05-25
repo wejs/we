@@ -4,9 +4,6 @@ define(['we','ember'], function (we) {
   App.UserMenuController = Ember.Controller.extend({
     isVisible: false,
     user: {},
-    model: function(params) {
-      return this.store.find('user', params.id);
-    },
     init: function() {
       var self = this;
       if(we.authenticatedUser.id){
@@ -16,8 +13,10 @@ define(['we','ember'], function (we) {
         });
       }
       we.hooks.on("user-authenticated",function(user, done){
-        self.set('user', we.authenticatedUser);
-        self.set('isVisible', true);
+        self.store.find('user',we.authenticatedUser.id).then(function(userModel){
+          self.set('user', user);
+          self.set('isVisible', true);
+        });
         done();
       });
       we.hooks.on("user-unauthenticated",function(user, done){

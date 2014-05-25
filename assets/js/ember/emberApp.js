@@ -28,6 +28,16 @@ define([
 
   App.deferReadiness();
 
+  Ember.onLoad('App', function(App) {
+    App.initializer({
+      name: 'injectStoreIntoComponents',
+      before: 'registerComponents',
+      initialize: function(container, application){
+        container.register('store:main', App.Store);
+        container.injection('component', 'store', 'store:main');
+      }
+    });
+  });
 
   //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
   App.ApplicationAdapter = DS.SailsSocketAdapter.extend({

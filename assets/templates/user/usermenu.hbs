@@ -2,7 +2,7 @@
 <ul class="nav navbar-nav navbar-right">
   <li>
     <a href="#" class="dropdown-toggle user-menu-link" data-toggle="dropdown">
-      <span class="avatar-small">{{render 'avatar/image' user}}</span>
+      <span class="avatar-small">{{render 'avatar/image' user model=user}}</span>
       <span class="user-name " >{{user.username}}</span><b class="caret"></b>
     </a>
     <ul class="dropdown-menu">

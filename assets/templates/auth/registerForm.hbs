@@ -11,22 +11,7 @@
     {{t "Create account"}}
     <br>
   </h2>
-
-  {{#if messages.warning}}
-    <div class="alert alert-warning alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      {{messages.warning}}
-    </div>
-  {{/if}}
-
-  {{#if messages.error}}
-    <div class="alert alert-danger alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      {{messages.error}}
-    </div>
-  {{/if}}
-
-
+  {{we-sys-messages messages=messages}}
 
   <form  {{action "submit" on="submit"}} name="createAccountForm" class="user-signup-form" method="POST">
     <!-- input: username -->
@@ -80,6 +65,10 @@
         {{view Ember.Select name="language" value=user.language content=defaultlanguages classNames="form-control input-md"}}
       </div>
     </div>
+
+
+  {{we-sys-messages messages=messages}}
+
 
     <div class="form-group">
       <div class="input-group">
