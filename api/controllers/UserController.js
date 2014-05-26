@@ -80,7 +80,7 @@ module.exports = {
               fs.readFile(path,function (err, contents) {
 
                 if (err){
-                  console.log(err);
+                  sails.log.error(err);
                   return res.send(404);
                 }else{
                   res.contentType('image/png');
@@ -91,7 +91,7 @@ module.exports = {
             }
           });
         }else{
-          return next();
+          return res.send(404);
         }
       });
     } else {

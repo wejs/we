@@ -9,34 +9,49 @@
 module.exports = {
 
   index: function (req,res) {
+    var uid = req.param('uid');
 
-    var format = 'json';
-    if(req.param('format')){
-      format = req.param('format');
+    var query ;
+
+    if(uid){
+      query = {
+        where: {
+          or: [
+            { fromId: uid,
+              toId: req.user.id
+            },
+            {
+              fromId: req.user.id,
+              toId: uid
+            }
+          ]
+        }
+      };
+    }else{
+      query = {
+        where: {
+          or: [
+            { fromId: null },
+            { toId: null }
+          ]
+        }
+      };
     }
 
-    Messages.find({})
+
+
+    Messages.find(query)
     .limit(10)
-    .sort('createdAt ASC')
+    .sort('createdAt DESC')
     .exec(function(err, messages) {
 
       // Error handling
       if (err) {
         return console.log(err);
       }
-      // Found multiple messages!
-      if (messages) {
 
-        if(format == 'json'){
-          res.json({
-            messages: messages
-          });
-        } else {
-          res.view({
-            messages: messages
-          });
-        }
-      }
+      res.send(messages);
+
     });
   },
 
@@ -100,6 +115,7 @@ module.exports = {
       if (err) {
         return console.log(err);
       }
+      console.warn(messages);
       // Found multiple messages!
       if (messages) {
         res.json({
@@ -110,51 +126,53 @@ module.exports = {
   },
 
   // add message
-  create: function (req, res, next) {
-    var message = {};
-    message.content = req.param("content");
-    message.fromId = req.param("fromId");
-    message.toId = req.param("toId");
+  // create: function (req, res, next) {
+  //   var message = {};
+  //   message.content = req.param("content");
+  //   message.fromId = req.param("fromId");
+  //   message.toId = req.param("toId");
 
-    Messages.create(message).exec(function (error, newMessage){
-      if (error) {
-        console.log(error);
-        res.send(500, {error: res.i18n("DB Error") });
-      } else {
-        // TODO add suport to rooms
-        if(message.toId){
-          // if has toId send toId
-          sails.io.sockets.in('user_' + newMessage.toId[0]).emit(
-            'receive:message',
-            {
-              message: newMessage
-            }
-          );
-        } else {
-          console.log('sendo to public');
-          // send to public room
-          sails.io.sockets.in('public').emit(
-            'receive:public:message',
-            {
-              message: newMessage
-            }
-          );
-        }
+  //   console.warn('create messsage');
+
+  //   Messages.create(message).exec(function (error, newMessage){
+  //     if (error) {
+  //       console.log(error);
+  //       res.send(500, {error: res.i18n("DB Error") });
+  //     } else {
+  //       // TODO add suport to rooms
+  //       if(message.toId){
+  //         // if has toId send toId
+  //         sails.io.sockets.in('user_' + newMessage.toId[0]).emit(
+  //           'receive:message',
+  //           {
+  //             message: newMessage
+  //           }
+  //         );
+  //       } else {
+  //         console.log('sendo to public');
+  //         // send to public room
+  //         sails.io.sockets.in('public').emit(
+  //           'receive:public:message',
+  //           {
+  //             message: newMessage
+  //           }
+  //         );
+  //       }
 
 
-        if(req.isSocket){
-          res.send({
-            message: newMessage
-          });
-        } else {
-          res.send({
-            message: newMessage
-          });
-        }
+  //       if(req.isSocket){
+  //         res.send({
+  //           message: newMessage
+  //         });
+  //       } else {
+  //         res.send({
+  //           message: newMessage
+  //         });
+  //       }
 
-      }
-    });
-  },
+  //     }
+  //   });
+  // },
 
   /**
    * Start messenger
@@ -187,12 +205,49 @@ module.exports = {
     });
 
     // TODO change this response to array
-    res.send(
-      {
-        friendList: friendList
-      }
-    );
+    res.send(friendList);
   },
+
+  /**
+   * Create one message
+   * @requires  User Logged in
+   */
+  create: function (req, res, next) {
+    var message = {};
+    message.content = req.param("content");
+    message.fromId = req.user.id;
+    message.toId = req.param("toId");
+
+
+    Messages.create(message).exec(function (error, newMessage){
+      if (error) {
+        console.log(error);
+        res.send(500, {error: res.i18n("DB Error") });
+      } else {
+        // TODO add suport to rooms
+        if(message.toId){
+          // if has toId send toId
+          sails.io.sockets.in('user_' + newMessage.toId[0]).emit(
+            'receive:message',
+            {
+              message: newMessage
+            }
+          );
+        } else {
+          // send to public room
+          sails.io.sockets.in('public').emit(
+            'receive:public:message',
+            {
+              message: newMessage
+            }
+          );
+        }
+
+        res.send(newMessage);
+      }
+    });
+  },
+
 
   /**
    * I am writing!

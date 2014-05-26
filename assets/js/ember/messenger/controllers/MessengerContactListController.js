@@ -1,9 +1,11 @@
 
 define(['we','ember'], function (we) {
-  App.WeMessengerComponent = Ember.Component.extend({
+
+  App.MessengerContactListController = Ember.ArrayController.extend({
     contacts: [],
     openContacts: [],
-    isListOpen: true,
+    publicMessages: [],
+    isListOpen: false,
     init: function initWeMessengerComponent(){
       this._super();
 
@@ -31,6 +33,7 @@ define(['we','ember'], function (we) {
         message.save()
         .then(function(message){
           console.warn(message);
+
         }, function(error){
           console.warn('error',error);
         });
@@ -39,14 +42,13 @@ define(['we','ember'], function (we) {
 
     },
     didInsertElement: function didInsertElement() {
-      if (!this.get('store')) {
+       if (!this.get('store')) {
           throw 'WeMessengerComponent requires store for autocomplete feature. Inject as store=store';
-      }
+       }
     },
     actions: {
       openList: function openList(){
         this.set('isListOpen', true);
-        this.get('openContacts').pushObject({      name: 'oi2',})
       },
       closeList: function closeList(){
         this.set('isListOpen', false);
@@ -56,9 +58,7 @@ define(['we','ember'], function (we) {
         //this.set('isListOpen', false);
         //
         this.getMessages(id);
-      },
-      openPublicBox: function(){
-        we.events.trigger('weMessengerOpenPublicBox');
+
       }
     },
     getMessages: function getMessages(id, callback){
@@ -73,7 +73,5 @@ define(['we','ember'], function (we) {
     }
 
   });
-
-  // Helper functions
 
 });

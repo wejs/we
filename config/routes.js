@@ -121,10 +121,10 @@ module.exports.routes = {
   },
 
   // register  form
-  'get /auth/register': {
-    controller    : 'auth',
-    action        : 'registerForm'
-  },
+  // 'get /auth/register': {
+  //   controller    : 'auth',
+  //   action        : 'registerForm'
+  // },
 
   'get /user/:id/activate/:token': {
     controller: 'auth',
@@ -165,47 +165,48 @@ module.exports.routes = {
   //  -- MESSENGER
 
   'get /messenger/start': {
-      controller    : 'messenger',
+      controller    : 'messages',
       action        : 'start'
   },
 
   'get /messenger/contact-list': {
-      controller    : 'messenger',
+      controller    : 'messages',
       action        : 'getContactList'
   },
 
-  'get /messenger/:id?': {
-      controller    : 'messenger',
+  // TODO use sails.js blueprint for set routes
+  'get /messages/:id?': {
+      controller    : 'messages',
       action        : 'index'
   },
-  'post /messenger': {
-      controller    : 'messenger',
+  'post /messages': {
+      controller    : 'messages',
       action        : 'create'
   },
-  'put /messenger/:id?': {
-      controller    : 'messenger',
+  'put /messages/:id?': {
+      controller    : 'messages',
       action        : 'update'
   },
-  'delete /messenger/:id?': {
-      controller    : 'messenger',
+  'delete /messages/:id?': {
+      controller    : 'messages',
       action        : 'destroy'
   },
 
   // Return a list of messages between authenticated user and :uid user
   'get /messenger/messages/with-user/:uid?': {
-      controller    : 'messenger',
+      controller    : 'messages',
       action        : 'messagesWithUser'
   },
 
   // Return messages without toIds and roomIds
   'get /messenger/messages/public': {
-      controller    : 'messenger',
+      controller    : 'messages',
       action        : 'getPublicMessages'
   },
 
   // Send a message to show writing status
   'post /messenger/user/writing': {
-      controller    : 'messenger',
+      controller    : 'messages',
       action        : 'emitIamWriting'
   },
 
