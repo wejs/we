@@ -14,9 +14,8 @@
       {{#if isListOpen}}
 
       <div scrollTo="bottom" id="messengerBox-public" class="messages">
-
         {{#each messages}}
-          {{view  App.MessengerContactView message=this}}
+          {{render 'messenger/message' this}}
         {{/each}}
 
         <div id='messenger-after-contacts'></div>
@@ -26,7 +25,7 @@
         <form {{action "sendMessage" on="submit"}} >
           <div class="input-group">
 
-            {{input name="messageNew" value=messageNew  type="text" placeholder=messagePlaceholder required="true" classNames="input-xs"}}
+            {{input name="messageNew" value=messageNew type="text" placeholder=messagePlaceholder classNames="input-xs"}}
 
             <span class="input-group-btn">
               <button  {{action "sendMessage"}} class="btn btn-xs btn-primary" type="submit">{{t "Send"}}</button>

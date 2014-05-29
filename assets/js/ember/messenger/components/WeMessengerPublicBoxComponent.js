@@ -20,17 +20,16 @@ define(['we','ember'], function (we) {
         self.set('messages',messages);
       });
 
-      we.events.on('weMessengerNewPublicMessage', function(event, message){
-
-         self.get('messages').pushObject(message);
-      });
-
       // open and shown public box
       we.events.on('weMessengerOpenPublicBox', function(){
         if(!self.get('isVisible')){
           self.set('isVisible', true);
         }
         we.utils.scrollToBottom('#messengerBox-public', self);
+      });
+
+      we.events.on('weMessengerPublicMessageReceived',function(event, message){
+        self.get('messages').pushObject(message);
       });
 
     },
