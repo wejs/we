@@ -10,13 +10,18 @@
 define([
   'we',
   'showdown',
+  'moment',
   'async',
   'ember',
   'weEmberPlugin',
   'sails.io',
-  'ember-uploader'
-], function (we, Showdown, async) {
+  'ember-uploader',
+], function (we, Showdown, moment, async) {
 
+  // configure moment.js
+  moment.lang(we.config.language);
+
+  // set socket for ember-sails-adapter
   window.socket = we.io.socket;
 
   window.App = Ember.Application.create({
@@ -55,6 +60,14 @@ define([
     }
   });
 
+  App.initializer({
+    name: "injectStoreInComponent",
+    initialize: function(container, application) {
+      application.inject('component', 'store', 'store:main');
+    }
+  });
+
+
   App.Router.reopen({
     location: 'history'
   });
@@ -66,11 +79,7 @@ define([
   // ember routes load after application route map
   var emberRouteModules = [];
   for(var emberjsPart in we.configs.client.emberjsParts.parts){
-     console.warn(emberjsPart)
-
       emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
-
-
   }
 
   require(emberRequireModules,function(){

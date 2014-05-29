@@ -1,6 +1,6 @@
 
 /**
- * Avatar component
+ * Avatar Contrlller
  * Usage  {{avatar userId=[user.id]}}
  */
 

@@ -7,7 +7,7 @@ module.exports.requirejs = {
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
     jquery: 'bower_components/jquery/dist/jquery',
     //'we-messenger': 'messenger/messenger',
-    moment: 'bower_components/moment/moment',
+    moment: 'bower_components/moment/min/moment-with-langs.min',
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     async: 'bower_components/async/lib/async',
     handlebars: 'bower_components/handlebars/handlebars',

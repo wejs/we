@@ -21,6 +21,7 @@ define(['we','ember'], function (we) {
             we.hooks.trigger("user-authenticated", {
               'user':  data
             });
+            location.reload();
             return Bootstrap.ModalManager.hide('AuthLoginModal');
           }
         })

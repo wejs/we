@@ -69,25 +69,25 @@ div.messenger-area .messenger {
     overflow-y: scroll;
     background-color: #ccc;
 
-    .contact {
+    .message {
       margin: 4px 2px;
       background-color: #fff;
       border-radius: 4px;
       padding: 3px;
 
-      &.status-salved {
+      &.salved {
 
       }
 
-      &.status-sending {
+      &.sending {
         background-color: #FFFFAC;
       }
 
-      &.status-send {
+      &.send {
         background-color: #97EA90;
       }
 
-      &.status-error {
+      &.error {
         background-color: #FF6630;
       }
 
@@ -112,6 +112,18 @@ div.messenger-area .messenger {
       }
     }
 
+  }
+
+  .contact-list{
+    .contact a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+      &:hover {
+        text-decoration: none;
+        background-color: #eee;
+      }
+    }
   }
 
   .rooms-list {
@@ -156,4 +168,11 @@ div.messenger-off .text {
   .messenger-box;
   position: absolute;
   bottom: 0;
+}
+
+#weConnectionStatusArea {
+  a {
+    padding: 9px;
+    display: block;
+  }
 }

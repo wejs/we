@@ -22,11 +22,11 @@
         <div id='messenger-after-contacts'></div>
       </div>
 
-      <div data-ng-show="publicRoom.messengerBox.opened" class="footer">
+      <div class="footer">
         <form {{action "sendMessage" on="submit"}} >
           <div class="input-group">
 
-            {{input name="messageNew" value=messageNew  type="text" placeholder=usernamePlaceholder required="true" classNames="input-xs"}}
+            {{input name="messageNew" value=messageNew  type="text" placeholder=messagePlaceholder required="true" classNames="input-xs"}}
 
             <span class="input-group-btn">
               <button  {{action "sendMessage"}} class="btn btn-xs btn-primary" type="submit">{{t "Send"}}</button>

@@ -1,13 +1,14 @@
 
 define(['we','ember'], function (we) {
+
   App.WeMessengerComponent = Ember.Component.extend({
     contacts: [],
     openContacts: [],
     isListOpen: true,
     init: function initWeMessengerComponent(){
       this._super();
+      var _this = this;
 
-      var self = this;
       // get contact list on innit
       var store = this.get('store');
 
@@ -17,12 +18,12 @@ define(['we','ember'], function (we) {
         if(error){
           console.error(error);
         }
-        self.set('contacts',contactsList);
+        _this.set('contacts',contactsList);
       });
 
       we.events.on('weMessengerSendPublicMessage',function weMessengerSendPublicMessage(event, messageObj){
         console.warn('we messenger send public message', messageObj);
-        var store = self.get('store');
+        var store = _this.get('store');
 
         // Create the new message
         var message = store.createRecord('messages', messageObj);
@@ -34,7 +35,47 @@ define(['we','ember'], function (we) {
         }, function(error){
           console.warn('error',error);
         });
+      });
 
+      we.events.on('weMessengerCloseContactBox',function(event, contact){
+        _this.get('openContacts').removeObject(contact);
+      });
+
+      we.events.on('we-messenger-contact-connected',function(event, contact){
+        var contacts = _this.get('contacts');
+        var len = contacts.length;
+        var inList = false;
+        for(var i=0;i<len;i++){
+          if(contacts[i].id == contact.id ){
+            _this.set('contacts.'+i+'.messengerStatus', 'online');
+            inList = true;
+            break;
+          }
+        }
+
+        if(!inList){
+          _this.get('contacts').pushObject(contact);
+        }
+
+      });
+
+      //we.events.on('we-messenger-message-received', _this.pushNewMessage);
+
+      we.events.on('we-messenger-contact-diconnected',function(event, contact){
+        var contacts = _this.get('contacts');
+        var len = contacts.length;
+        var inList = false;
+        for(var i=0;i<len;i++){
+          if(contacts[i].id == contact.id ){
+            _this.set('contacts.'+i+'.messengerStatus', 'offline');
+            inList = true;
+            break;
+          }
+        }
+
+        if(!inList){
+          _this.get('contacts').pushObject(contact);
+        }
       });
 
     },
@@ -46,16 +87,20 @@ define(['we','ember'], function (we) {
     actions: {
       openList: function openList(){
         this.set('isListOpen', true);
-        this.get('openContacts').pushObject({      name: 'oi2',})
+        //this.get('openContacts').pushObject({      name: 'oi2',})
       },
       closeList: function closeList(){
         this.set('isListOpen', false);
       },
-      startTalk: function startTalk(id){
-        console.warn('start talk',id);
-        //this.set('isListOpen', false);
-        //
-        this.getMessages(id);
+      startTalk: function startTalk(user){
+        var _this = this;
+
+        we.events.trigger('weMessengerOpenContactBox', user);
+
+        if(!_this.isOpenContactBox(user)){
+          _this.get('openContacts').pushObject(user);
+        }
+
       },
       openPublicBox: function(){
         we.events.trigger('weMessengerOpenPublicBox');
@@ -70,6 +115,16 @@ define(['we','ember'], function (we) {
       }, function(error){
         callback(error,null);
       });
+    },
+    isOpenContactBox: function isOpenContactBox(user){
+      var openContacts = this.get('openContacts');
+      var len = openContacts.length;
+      for(var i=0; i < len; i++){
+        if(openContacts[i].id == user.id){
+          return true;
+        }
+      }
+      return false;
     }
 
   });

@@ -1,9 +1,7 @@
-
 <div  class="wrapper main">
   <div class="box">
     <div class="row row-offcanvas row-offcanvas-left">
 
-      <!-- sidebar -->
       <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
           {{outlet sidebar}}
@@ -22,9 +20,6 @@
               <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>
               <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
           </ul>
-
-
-            <!-- tiny only nav-->
             <ul class="nav visible-xs" id="xs-menu">
                 <li><a href="#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
                 <li><a href="#stories" class="text-center"><i class="glyphicon glyphicon-list"></i></a></li>
@@ -73,6 +68,8 @@
         </div>
 
     </div>
-{{we-messenger store=store}}
+    {{#if isAuthenticated}}
+      {{we-messenger store=store}}
+    {{/if}}
 </div>
 </div>

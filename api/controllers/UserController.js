@@ -61,6 +61,7 @@ module.exports = {
 
   getAvatar: function (req, res, next) {
     var id = req.param('id');
+    var defaultAvatarPath = 'assets/imgs/avatars/user-avatar.png';
 
     if(id){
       User.findOneById(id).exec(function(err, user){
@@ -91,7 +92,15 @@ module.exports = {
             }
           });
         }else{
-          return res.send(404);
+          fs.readFile(defaultAvatarPath,function (err, contents) {
+            if(err){
+              sails.log.error('Error on get avatar',err);
+              return res.send(404);
+            }
+
+            res.contentType('image/png');
+            res.send(contents);
+          });
         }
       });
     } else {

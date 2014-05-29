@@ -30,19 +30,14 @@ define(['we','ember'], function (we) {
         if(!self.get('isVisible')){
           self.set('isVisible', true);
         }
-
-        var box = self.$().children('#messengerBox-public');
-        if(box){
-          console.warn(self.$(), box);
-          box.scrollTop(box.prop("scrollHeight"));
-        }
+        we.utils.scrollToBottom('#messengerBox-public', self);
       });
 
     },
     actions: {
       openList: function(){
-        console.warn('open');
         this.set('isVisible', true);
+        we.utils.scrollToBottom('#messengerBox-public', self);
       }.observes('messages'),
       closeList: function(){
         this.set('isVisible', false);
@@ -53,16 +48,19 @@ define(['we','ember'], function (we) {
         }else{
           this.set('isListOpen', true);
         }
+        we.utils.scrollToBottom('#messengerBox-public', self);
       },
       sendMessage: function(){
         var self = this;
-        console.warn('send talk',this.get('messageNew'));
 
         var messageObj = {};
         messageObj.content = this.get('messageNew');
         messageObj.toId = null;
 
         //we.events.trigger('weMessengerSendPublicMessage', messageObj);
+
+        // clear message input
+        this.set('messageNew', '');
 
         we.messenger.sendPublicMessage(messageObj.content,function(error,response){
           if(error){

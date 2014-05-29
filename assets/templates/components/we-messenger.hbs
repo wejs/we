@@ -1,4 +1,4 @@
-<div  data-ng-controller="MessengerCtrl" class="messenger-area-wrapper">
+<div class="messenger-area-wrapper">
   <div class="messenger-column">
     <div class="messenger-area">
       {{#if isListOpen}}
@@ -11,12 +11,7 @@
           </div>
           <ul class="nav nav-list friendlist contact-list">
             {{#each contacts}}
-            <li class="contact {{messengerStatus}}">
-              <a {{action "startTalk" this}} >
-                <span class="avatar-small">{{we-avatar userId=id}}</span>
-                {{name}}
-              </a>
-            </li>
+              {{render 'messenger/contact' this}}
             {{/each}}
           </ul>
           <ul class="nav nav-list rooms-list contact-list">
@@ -43,10 +38,7 @@
   </div>
 
   {{#each openContacts}}
-    {{we-messenger-box }}
-    <div data-ng-repeat="contact in contacts" messenger-list-contact>
-      <div data-ng-include="templates.messengerBox.url"></div>
-    </div>
+    {{we-messenger-box contact=this}}
   {{/each}}
 
   {{we-messenger-public-box }}

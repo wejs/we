@@ -38,8 +38,6 @@ module.exports = {
       };
     }
 
-
-
     Messages.find(query)
     .limit(10)
     .sort('createdAt DESC')
@@ -218,7 +216,6 @@ module.exports = {
     message.fromId = req.user.id;
     message.toId = req.param("toId");
 
-
     Messages.create(message).exec(function (error, newMessage){
       if (error) {
         console.log(error);
@@ -242,7 +239,6 @@ module.exports = {
             }
           );
         }
-
         res.send(newMessage);
       }
     });

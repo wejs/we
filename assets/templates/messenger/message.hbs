@@ -1,7 +1,6 @@
-{{#with view.message}}
-<div class="contact" messenger-contact-message>
+<div {{bind-attr class=messageClass}} >
   <span class="avatar-small">{{we-avatar userId=fromId}}</span>
-  <span class="message">{{content}}</span>
-  <div am-time-ago="message.createdAt" class="createdAt">{{createdAt}}</div>
+  <span class="message">{{content.content}}</span>
+  <div class="createdAt">{{format-date createdAt}}</div>
 </div>
-{{/with}}
+

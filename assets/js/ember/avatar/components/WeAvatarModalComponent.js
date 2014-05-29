@@ -1,5 +1,4 @@
 
-
 define(['we','ember'], function (we) {
 
   App.WeAvatarModalComponent = Ember.Component.extend({

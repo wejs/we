@@ -48,7 +48,6 @@ module.exports.sockets = {
 
       } else {
         sails.onlineusers[userId].sockets.push(socket.id);
-
       }
 
       // join user exclusive room to allow others users send
@@ -68,7 +67,7 @@ module.exports.sockets = {
   // This custom onDisconnect function will be run each time a socket disconnects
   onDisconnect: function(session, socket) {
     var userId;
-
+    sails.log.info('onDisconnect',session);
     var disconnect = function disconnect(userId){
       delete sails.onlineusers[userId];
       sails.io.sockets.in('global').emit('contact:disconnect', {
@@ -77,7 +76,7 @@ module.exports.sockets = {
           id: userId
         }
       });
-    }
+    };
 
     if(session.passport)
       userId = session.passport.user;
@@ -96,6 +95,8 @@ module.exports.sockets = {
         }else {
           disconnect(userId);
         }
+      }else{
+        sails.log.warn('Socket:onDisconnect - User id fount but dont are in onlineUsers');
       }
 
     }else{
