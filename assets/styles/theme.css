@@ -53,10 +53,6 @@ hr {
     padding: 20px;
 }
 
-.full{
-  padding-top:70px;
-}
-
 .box {
     bottom: 0; /* increase for footer use */
     left: 0;
@@ -76,13 +72,10 @@ hr {
 }
 
 .navbar-blue {
-    border-width:0;
+  border-width:0;
   background-color:#3B5999;
-    color:#ffffff;
-    font-family:arial,sans-serif;
-    top:0;
-    position:fixed;
-    width:inherit;
+  color:#ffffff;
+  font-family:arial,sans-serif;
 }
 
 .navbar-blue li > a,.navbar-toggle  {
