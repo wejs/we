@@ -83,15 +83,28 @@ define([
   }
 
   require(emberRequireModules,function(){
-    // Set default routes contigs
+    // Set default router contigs
     async.each( modelNames, function(modelName, next){
 
       var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
       App[modelVarName] = we.emberApp.models[modelName];
+      // route list
+      App[modelVarName + 'ListRoute'] = Ember.Route.extend({
+        model: function() {
+          return this.store.find(modelName);
+        },
+        renderTemplate: function() {
+          this.render(modelName+'/'+modelName+'List');
+        }
+      });
 
+      // route item
       App[modelVarName + 'Route'] = Ember.Route.extend({
         model: function() {
           return this.store.find(modelName);
+        },
+        renderTemplate: function() {
+          this.render(modelName+'/'+modelName+'Item');
         }
       });
       next();
@@ -100,19 +113,21 @@ define([
 
       // Map app routers
       App.Router.map(function(match) {
-        this.resource('home', {
-          path: '/',
-        });
-
         var thisPointer = this;
 
+        this.resource('home',{path: '/'});
+        // TODO add route config to select how routes will be generated
         modelNames.forEach(function(modelName){
-          this.resource(modelName, function() {
-            this.route(modelName);
+          // list route
+          this.resource(modelName+'List',{path: '/'+modelName}, function(){
+            // item route
+            this.resource(modelName, { path: '/:'+modelName+'_id' }, function(){
+              // edit item route
+              this.resource(modelName+'Edit', { path: '/edit' });
+            });
           });
-        }, this);
 
-        //require(emberRouteModules,function(){});
+        }, this);
 
         App.advanceReadiness();
 

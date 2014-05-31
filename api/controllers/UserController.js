@@ -192,5 +192,38 @@ module.exports = {
 
   forgotPasswordForm: function (req, res, next) {
     res.view();
+  },
+
+  /**
+   * Get contacts from user with uid
+   * TODO add suport to contacts in we
+   */
+  getContactsName: function(req, res){
+
+    var userId = req.param('id');
+
+    // TODO find only user id contacts
+    User.find()
+    .limit(25)
+    .sort('createdAt ASC')
+    .exec(function(err, users) {
+
+      // Error handling
+      if (err) {
+        return console.log(err);
+
+      // Found multiple users!
+      }
+
+      var userNames = [];
+      async.each(users,
+        function(user, next){
+          userNames.push({ name: user.username } );
+          next();
+        },function(){
+          res.send(userNames);
+        }
+      );
+    });
   }
 };

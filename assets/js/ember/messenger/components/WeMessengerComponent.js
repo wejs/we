@@ -10,31 +10,11 @@ define(['we','ember'], function (we) {
       var _this = this;
 
       // get contact list on innit
-      var store = this.get('store');
-
-      console.warn('we messenger innit');
-      // get contact list on innit
       we.messenger.getContactList(function(error,contactsList){
         if(error){
           console.error(error);
         }
         _this.set('contacts',contactsList);
-      });
-
-      we.events.on('weMessengerSendPublicMessage',function weMessengerSendPublicMessage(event, messageObj){
-        console.warn('we messenger send public message', messageObj);
-        var store = _this.get('store');
-
-        // Create the new message
-        var message = store.createRecord('messages', messageObj);
-
-        // Save the new model
-        message.save()
-        .then(function(message){
-          console.warn(message);
-        }, function(error){
-          console.warn('error',error);
-        });
       });
 
       we.events.on('weMessengerCloseContactBox',function(event, contact){
@@ -78,11 +58,38 @@ define(['we','ember'], function (we) {
         }
       });
 
+      we.events.on('we-messenger-message-received', OnReceiveMessage);
+
+      function OnReceiveMessage(event, message){
+
+        // check if is open contact box for received message
+        if(!_this.isOpenContactBox(message.fromId)){
+          // if now is open try to get user from contacts
+          var user = _this.getUserFromContacts(message.fromId);
+
+          // user is in contacts
+          if(user){
+             we.events.trigger('weMessengerOpenContactBox', user);
+            _this.get('openContacts').pushObject(user);
+
+          // else get user from server
+          }else{
+            we.io.getUser(message.fromId ,function(error, user){
+              we.events.trigger('weMessengerOpenContactBox', user);
+              _this.get('contacts').pushObject(user);
+              _this.get('openContacts').pushObject(user);
+            });
+          }
+        }
+      }
     },
     didInsertElement: function didInsertElement() {
       if (!this.get('store')) {
           throw 'WeMessengerComponent requires store for autocomplete feature. Inject as store=store';
       }
+    },
+    willDestroyElement: function willDestroyElement(){
+      console.warn('TODO! willDestroyElement unsubscribe from events here', this);
     },
     actions: {
       openList: function openList(){
@@ -97,7 +104,7 @@ define(['we','ember'], function (we) {
 
         we.events.trigger('weMessengerOpenContactBox', user);
 
-        if(!_this.isOpenContactBox(user)){
+        if(!_this.isOpenContactBox(user.id)){
           _this.get('openContacts').pushObject(user);
         }
 
@@ -107,6 +114,7 @@ define(['we','ember'], function (we) {
       }
     },
     getMessages: function getMessages(id, callback){
+      // TODO change to use WEjs get messages
       var store = this.get('store');
 
       store.find('messages', { uid: id })
@@ -116,12 +124,22 @@ define(['we','ember'], function (we) {
         callback(error,null);
       });
     },
-    isOpenContactBox: function isOpenContactBox(user){
+    isOpenContactBox: function isOpenContactBox(userId){
       var openContacts = this.get('openContacts');
       var len = openContacts.length;
       for(var i=0; i < len; i++){
-        if(openContacts[i].id == user.id){
+        if(openContacts[i].id == userId){
           return true;
+        }
+      }
+      return false;
+    },
+    getUserFromContacts: function getUserFromContacts(userId){
+      var contacts = this.get('contacts');
+      var len = contacts.length;
+      for(var i=0; i < len; i++){
+        if(contacts[i].id == userId){
+          return contacts[i];
         }
       }
       return false;
@@ -129,6 +147,5 @@ define(['we','ember'], function (we) {
 
   });
 
-  // Helper functions
 
 });

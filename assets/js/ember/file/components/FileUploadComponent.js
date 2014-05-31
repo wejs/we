@@ -3,11 +3,9 @@ define(['we','ember'], function (we) {
 
   App.FileUploadComponent = Ember.FileField.extend({
     files: [],
-    /*
-    filesDidChange: (function() {
+    mimeTypes: null,
+    extensions: null
 
-    }).observes('files')
-    */
   });
 
 });

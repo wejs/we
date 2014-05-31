@@ -12,6 +12,12 @@
         </button>
       </div>
 
+      <div class="action-bar">
+        <button {{action 'openRoomBox'}} type="button" class="remove btn btn-xs">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </div>
+
       <div {{bind-attr class=isListOpen}}>
         <div {{bind-attr id=boxId}} class="messages">
           {{#each messages}}

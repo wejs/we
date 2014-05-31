@@ -1,11 +1,14 @@
 module.exports.requirejs = {
   paths: {
     domReady: 'js/libs/requirejs/domReady',
+    jquery: 'bower_components/jquery/dist/jquery',
     io: 'js/libs/socket.io',
     'sails.io': 'js/sails.io',
     app: 'js/app',
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
-    jquery: 'bower_components/jquery/dist/jquery',
+    bloodhound: 'bower_components/typeahead.js/dist/bloodhound',
+    typeahead: 'bower_components/typeahead.js/dist/typeahead.jquery',
+    "tagmanager": 'bower_components/tagmanager/tagmanager',
     //'we-messenger': 'messenger/messenger',
     moment: 'bower_components/moment/min/moment-with-langs.min',
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
@@ -39,6 +42,24 @@ module.exports.requirejs = {
   shim: {
     bootstrap: {
       deps: [
+        'jquery'
+      ]
+    },
+    "tagmanager": {
+      deps: [
+        'bootstrap',
+        'jquery'
+      ]
+    },
+    bloodhound: {
+      deps: [
+        'jquery',
+        "typeahead"
+      ]
+    },
+    "typeahead": {
+      deps: [
+        'bootstrap',
         'jquery'
       ]
     },

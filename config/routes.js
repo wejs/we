@@ -174,6 +174,11 @@ module.exports.routes = {
       action        : 'getContactList'
   },
 
+  'get /user/:id?/contacts-name': {
+      controller    : 'user',
+      action        : 'getContactsName'
+  },
+
   // TODO use sails.js blueprint for set routes
   'get /messages/:id?': {
       controller    : 'messages',
