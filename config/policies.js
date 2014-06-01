@@ -17,13 +17,35 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   // (`true` allows public access)
   //'*':[true],
-  '*':['AllRoutesPolicy'],
-  'messenger': ['AllRoutesPolicy','MessengerPolicy'],
+  '*':['GetAuthenticatedUserPolicy'],
+  'messenger': [
+    'GetAuthenticatedUserPolicy',
+    'AllRoutesPolicy',
+    'MessengerPolicy'
+  ],
   //'main': 'MainPolicy',
-  'activity': ['AllRoutesPolicy','PostPolicy'],
-  'roles': ['AllRoutesPolicy','RolesPolicy'],
-  'user': ['AllRoutesPolicy'],
-  'auth': [true]
+  'activity': [
+    'GetAuthenticatedUserPolicy',
+    'AllRoutesPolicy'
+  ],
+  'post': [
+    'GetAuthenticatedUserPolicy',
+    'AllRoutesPolicy',
+    'PostPolicy'
+  ],
+  'roles': [
+    'GetAuthenticatedUserPolicy',
+    'AllRoutesPolicy',
+    'RolesPolicy'
+  ],
+  'user': [
+    'GetAuthenticatedUserPolicy',
+    'AllRoutesPolicy'
+  ],
+  'auth': [
+    'GetAuthenticatedUserPolicy',
+    true
+  ]
 
 
   /*
