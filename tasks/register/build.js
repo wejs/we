@@ -3,7 +3,6 @@ module.exports = function (grunt) {
 		'compileAssets',
 		'linkAssetsBuild',
 		'clean:build',
-		'copy:build',
-    'we_sails_ember_tasks:dev'
+		'copy:build'
 	]);
 };
