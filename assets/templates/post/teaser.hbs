@@ -1,0 +1,63 @@
+<div class="masonry-brick content-block post">
+
+<div class="post-teaser teaser panel panel-default">
+
+  <div class="header panel-heading">
+      <span class="creator-avatar avatar-small">{{we-avatar userId=creator.id}}</span>
+      <div class="creator">
+        <we-user-name user-id="post.creator.id" class="creator-name">{{creator.username}}</we-user-name>
+        <span class="createdAt post-created-at">{{format-date createdAt}}</span>
+      </div>
+  </div>
+
+  <div class="panel-body">
+
+    <div class="content">
+      {{#if isEditing}}
+        <form class="edit-post">
+          {{textarea name="body" value=body classNames="form-control post-body"}}
+          <div class="actions">
+            <button type="button" class="btn btn-primary" {{action 'save'}} >
+              <span class="glyphicon glyphicon-ok">{{t 'Save'}} </span>
+            </button>
+            <button type="button" class="btn btn-default" {{action 'cancel'}} >
+              <span class="glyphicon glyphicon-remove">{{t 'Cancel'}} </span>
+            </button>
+          </div>
+        </form>
+      {{else}}
+        <div class="post-text">{{body}}</div>
+      {{/if}}
+
+    </div>
+
+    <div class="footer">
+        <div class="actions">
+            <span class="social pull-left">
+                <button type="button" class="btn btn-xs btn-default" data-ng-click="up($event)">
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+                <button type="button" class="btn btn-xs btn-default" data-ng-click="down($event)">
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                </button>
+            </span>
+
+            <button type="button" class="btn btn-xs btn-default">
+              <span class="glyphicon glyphicon-share-alt"></span> {{t 'Share'}}
+            </button>
+            <button type="button" class="btn btn-xs btn-default" {{action 'edit'}}>
+              <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
+            </button>
+            <button class="btn btn-xs btn-danger" {{action 'delete'}}>
+              <span class="glyphicon glyphicon-remove"></span> {{t 'Delete'}}
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <we-comments data-model-id="id" data-model-name="Post"></we-comments>
+  </div>
+
+</div>
+</div>

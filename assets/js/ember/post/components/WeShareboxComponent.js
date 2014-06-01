@@ -4,11 +4,11 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
   App.WeShareboxComponent = Ember.Component.extend({
     shareboxClass: 'small',
     postNew: {
-      content: ''
+      body: ''
     },
     toIdtagsManagerElement: 'input[name="toIds"]',
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
-    contentPlaceholder: we.i18n("What is happening?"),
+    bodyPlaceholder: we.i18n("What is happening?"),
     files: [],
     filesNew: {},
     init: function init(){
@@ -79,9 +79,33 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
         this.set('shareboxClass','small');
       },
       submit: function submit(){
+        var _this = this;
         var postNew = this.get('postNew');
         var element = this.$(this.get('toIdtagsManagerElement')) ;
-        console.warn('Submit post',this.get('postNew'), element.tagsManager('tags'));
+        var store = this.get('store');
+
+        // set some default values
+        postNew.createdAt = new Date();
+        postNew.updatedAt = postNew.createdAt;
+
+        store.find('user', we.authenticatedUser.id)
+        .then(function(user){
+          // create new post on store
+          var post = store.createRecord('post', postNew);
+
+          post.set('creator', user);
+
+          // save post
+          post.save().then(function(){
+            // close and clear sharebox form inputs
+            _this.setProperties({
+              'postNew.body': '',
+              'shareboxClass': 'small'
+            });
+            // empty selectd tags
+            element.tagsManager('empty');
+          });
+        });
       }
     }
   });

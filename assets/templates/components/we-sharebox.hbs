@@ -2,7 +2,7 @@
   <div class="well">
     <form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
       <div class="form-group">
-          {{textarea name="content" value=postNew.content placeholder=contentPlaceholder classNames="form-control post-content" focus-in="openBox"}}
+          {{textarea name="body" value=postNew.body placeholder=bodyPlaceholder classNames="form-control post-content" focus-in="openBox"}}
       </div>
       {{#if shareImages}}
         <div class="form-group add-images">

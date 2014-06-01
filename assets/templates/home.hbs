@@ -2,7 +2,10 @@
   <div class="sharebox-area masonry-brick  content-block">
     {{we-sharebox post=post store=store}}
   </div>
-  <div data-ng-repeat="post in posts" class="masonry-brick content-block post">
-    <we-post-teaser id="post-{{post.id}}" data-post="post"></we-post-teaser>
+  <div class="new-posts-notification alert alert-info">
+    TODO show new post notifications here
   </div>
+  {{#each}}
+    {{render 'post/teaser' this controller='Post'}}
+  {{/each}}
 </div>
