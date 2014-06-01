@@ -67,7 +67,7 @@ module.exports = {
   },
 
   fetchData: function(activity, callback){
-    Users.findOneById(activity.actor)
+    User.findOneById(activity.actor)
     .exec(function(err, dbActor) {
       if(err){
         sails.log.error('ActivityController:index: error on get actors: ',err);
@@ -82,7 +82,7 @@ module.exports = {
       if( activity.verb ){
         sails.models[activity.verb].findOneById(activity.target_id).exec(function(err, targetObject){
           if(err){
-            sails.log.error('ActiviryController:index: erros on get targetObject from activity: ',activity, err)
+            sails.log.error('ActiviryController:index: erros on get targetObject from activity: ',activity, err);
             return callback(err);
           }
 

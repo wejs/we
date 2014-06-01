@@ -14,9 +14,9 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true
     },
-
-    content: {
-      type: 'url'
+    // post content
+    body: {
+      type: 'string'
     },
 
     creator: {
@@ -25,10 +25,6 @@ module.exports = {
 
     sharedWith: {
       type: 'array'
-    },
-
-    text: {
-      type: 'string'
     },
     // Override toJSON instance method
     toJSON: function() {
