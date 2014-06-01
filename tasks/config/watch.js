@@ -19,7 +19,8 @@ module.exports = function(grunt) {
 			files: ['assets/**/*'],
 
 			// When assets are changed:
-			tasks: ['syncAssets' , 'linkAssets']
+			tasks: ['syncAssets' , 'linkAssets','emberhandlebars:dev',
+    'we_sails_ember_tasks:dev']
 		}
 	});
 
