@@ -79,11 +79,20 @@ define(['we','async'], function (we, async) {
         if(attributeName == 'id'){
           nextAttr();
         }else{
+          // DATE
           if(model[attributeName].type == 'datetime'){
             modelToAdd[attributeName] = attr('date');
-          }else{
+          // MODEL relationship
+          }else if(model[attributeName].model){
+            modelToAdd[attributeName] = DS.belongsTo( model[attributeName].model );
+          // STRING
+          }else if(model[attributeName].type == 'string'){
             modelToAdd[attributeName] = attr('string');
+
+          }else{
+            modelToAdd[attributeName] = attr();
           }
+
           nextAttr();
         }
       }, function(){
