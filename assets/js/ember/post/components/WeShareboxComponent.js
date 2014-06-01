@@ -9,6 +9,8 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
     toIdtagsManagerElement: 'input[name="toIds"]',
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
     contentPlaceholder: we.i18n("What is happening?"),
+    files: [],
+    filesNew: {},
     init: function init(){
       this._super();
       var _this = this;
@@ -63,29 +65,9 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
     },
     filesDidChange: (function() {
       var _this = this;
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-          };
-
-          reader.readAsDataURL(input.files[0]);
-          }
-        }
-      var files = this.get('files');
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        console.warn(e);
-        _this.$('.preview').attr('src', e.target.result);
-      };
-
-      console.warn(files[0]);
-      reader.readAsDataURL(files[0]);
-
-    }).observes('files'),
+      var files = _this.get('filesNew');
+      _this.get('files').pushObject(files[0]);
+    }).observes('filesNew'),
 
     actions: {
       openBox: function openBox(){
