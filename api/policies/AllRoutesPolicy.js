@@ -24,41 +24,6 @@ module.exports = function (req, res, ok) {
     }
 
   }else{
-
-    if(req.isSocket){
-      // Get session and current user
-      sails.session.fromSocket(req.socket, function (err, session) {
-        if(err){
-          sails.log.error(err);
-          return res.send("Forbiden", 403);
-        }
-
-        if(session && session.passport && session.passport.user){
-
-          User.findOneById(session.passport.user).exec(function(error, user){
-            if(error){
-              sails.log.error('Error on get user from session in socket.io: ', err);
-            }
-
-            if(user){
-              req.user = user;
-            }
-
-            return ok();
-          });
-
-        }else{
-          // not authenticated ...
-          return ok();
-        }
-
-      });
-
-
-    }else{
-      return ok();
-    }
-
-
+    return ok();
   }
 };
