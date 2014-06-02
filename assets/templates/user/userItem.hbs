@@ -1,1 +1,49 @@
-index.hbs
+
+<div class="user-full">
+  <div class="header">
+    <h1 class="user-name">{{username}}</h1>
+  </div>
+
+  <div class="content">
+    <div class="user-area-data row">
+      <div class="user-area-data-left col-md-4" >
+        <span class="avatar-large">{{we-avatar userId=id}}</span>
+      </div>
+      <div class="user-area-data-rigth col-md-6">
+        <div class="user-bio">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="user-area-seccond-row row">
+      <div class="user-area-sidebar col-md-3">
+        adicionar os blocos aqui ...
+      </div>
+      <div class="user-area-activities col-md-7">
+      <h3>Time line</h3>
+      .... adicionar as atividades do usuário atual aqui ...
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="actions">
+        <span class="social pull-left">
+          <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
+                <span class="glyphicon glyphicon-plus"></span>{{t 'Add in contacts'}}
+          </button>
+          <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
+                <span class="glyphicon glyphicon-plus"></span>{{t 'Follow'}}
+          </button>
+        </span>
+
+        <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
+          <span class="glyphicon glyphicon-edit"></span>{{t 'Edit'}}
+        </button>
+        <button class="btn btn-xs btn-danger" data-ng-click="delete($index,$event)">
+          <span class="glyphicon glyphicon-remove"></span>{{t 'Delete'}}
+        </button>
+    </div>
+  </div>
+</div>

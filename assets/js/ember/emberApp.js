@@ -100,13 +100,15 @@ define([
 
       // route item
       App[modelVarName + 'Route'] = Ember.Route.extend({
-        model: function() {
-          return this.store.find(modelName);
+        model: function(params) {
+          return this.store.find(modelName, params[modelName+'_id']);
         },
         renderTemplate: function() {
           this.render(modelName+'/'+modelName+'Item');
         }
       });
+
+
       next();
 
     }, function(){
@@ -119,12 +121,11 @@ define([
         // TODO add route config to select how routes will be generated
         modelNames.forEach(function(modelName){
           // list route
-          this.resource(modelName+'List',{path: '/'+modelName}, function(){
-            // item route
-            this.resource(modelName, { path: '/:'+modelName+'_id' }, function(){
-              // edit item route
-              this.resource(modelName+'Edit', { path: '/edit' });
-            });
+          this.resource(modelName+'List',{path: '/'+modelName});
+          // item route
+          this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
+            // edit item route
+            this.route('edit');
           });
 
         }, this);

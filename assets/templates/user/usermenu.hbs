@@ -12,8 +12,15 @@
         </a>
       </li>
       <li class="divider"></li>
-      <li><a href="/user/537035d1fa197b3d710f9fa6" class="">{{t 'View profile'}}</a></li>
-      <li><a href="/user/537035d1fa197b3d710f9fa6/edit/" class="">{{t 'Edit Profile'}}</a></li>
+      <li>
+        {{#link-to 'user' user.id}}
+          {{t 'View profile'}}
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to 'user.edit'}}
+          {{t 'Edit Profile'}}
+        {{/link-to}}
       <li class="divider"></li>
       <li><a href="/auth/logout" class="">{{t 'Sair'}}</a></li>
     </ul>

@@ -1,28 +1,8 @@
 module.exports = function (req, res, next) {
-  var action = req.method;
   var isAllowed = false;
-  var user = null;
+  var user = req.user;
 
-  if(req.method) {
-    action = req.method;
-  }
-
-  if(req.isSocket){
-    if(req.url == '/users/current' && req.method == 'GET'){
-      return next();
-    }else{
-      return res.send("Socket access is not allowed here", 403);
-    }
-
-  }
-
-  if (req.isAuthenticated()) {
-    if(req.user) {
-      user = req.user;
-    }
-  }
-
-  switch(action){
+  switch(req.method){
     case 'GET':
       isAllowed = true;
       break;

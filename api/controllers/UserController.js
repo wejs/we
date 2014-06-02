@@ -27,6 +27,30 @@ module.exports = {
     });
   },
 
+  find: function(req, res) {
+    var id = req.param('id');
+    if(!id){
+      return res.badRequest();
+    }
+
+    User.findOneById(id)
+    .exec(function(err, user) {
+
+      // Error handling
+      if (err) {
+        return console.log(err);
+      // Found multiple users!
+      }
+
+      if(!user){
+        return res.notFound('User not found');
+      }
+
+      res.send(user);
+
+    });
+  },
+
   update: function(req, res, next) {
     sails.log('update');
     sails.log(req.params);
