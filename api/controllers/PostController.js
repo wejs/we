@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-
+  /*
   index: function (req,res) {
 
     Post.find({})
@@ -26,7 +26,7 @@ module.exports = {
 
     //res.view('home/index.ejs');
   },
-
+  */
   create : function (req, res){
 
     var post = {};

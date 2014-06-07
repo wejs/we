@@ -2,13 +2,46 @@
 define(['we','ember'], function (we) {
 
   App.WeAvatarComponent = Ember.Component.extend({
+    tagName: 'img',
+    heigth: 35,
+    width: 35,
     avatarUrl: '/imgs/avatars/user-avatar.png',
     defaultAvatarUrl: '/imgs/avatars/user-avatar.png',
-    attributeBindings: ['userId'],
+    attributeBindings: [
+      'heigth', 'width','userId', 'avatarUrl:src'
+    ],
     userId: null,
-    didInsertElement: function didInsertElement() {
-
+    // init function
+    init: function init(){
       this._super();
+
+      // if pass size atribute set heigth and width
+      var size = this.get('size');
+      if(size){
+        switch(size) {
+        case 'large':
+          this.setProperties({
+            heigth: 250,
+            width: 250,
+          });
+          break;
+        case 'medium':
+          this.setProperties({
+            heigth: 100,
+            width: 100,
+          });
+          break;
+        default:
+          //default is small
+          this.setProperties({
+            heigth: 35,
+            width: 35,
+          });
+        }
+      }
+    },
+    // after insert element
+    didInsertElement: function didInsertElement() {
       var self = this;
 
       self.changeAvatarUrl();

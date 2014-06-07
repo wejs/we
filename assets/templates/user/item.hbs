@@ -1,13 +1,15 @@
-
 <div class="user-full">
   <div class="header">
     <h1 class="user-name">{{username}}</h1>
+    {{input name="username" value=username  type="text" classNames="form-control input-lg" required="true"}}
   </div>
 
   <div class="content">
     <div class="user-area-data row">
       <div class="user-area-data-left col-md-4" >
-        <span class="avatar-large">{{we-avatar userId=id}}</span>
+        <span class="avatar-large">{{we-avatar userId=id size="medium"}}</span>
+        <div class="language-area">{{language}}</div>
+        {{view Ember.Select name="language" value=language content=defaultlanguages classNames="form-control input-md"}}
       </div>
       <div class="user-area-data-rigth col-md-6">
         <div class="user-bio">
@@ -47,3 +49,6 @@
     </div>
   </div>
 </div>
+
+
+{{outlet}}

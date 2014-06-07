@@ -38,7 +38,6 @@ module.exports = {
         obj.creator_id = obj.creator;
       } else if(_.isObject(obj.creator) && obj.creator.id) {
         obj.creator_id = obj.creator.id;
-
       }
 
       // set url for this content

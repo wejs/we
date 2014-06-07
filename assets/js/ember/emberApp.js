@@ -33,9 +33,25 @@ define([
 
   App.deferReadiness();
 
+  // custom date transform for convert sails.js date
+  App.DateTransform = DS.Transform.extend({
+    deserialize: function (serialized) {
+      if (serialized) {
+        return moment(serialized).toISOString();
+      }
+      return serialized;
+    },
+    serialize: function (deserialized) {
+      if (deserialized) {
+        return deserialized;
+      }
+      return deserialized;
+    }
+  });
+
   //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
   App.ApplicationAdapter = DS.SailsSocketAdapter.extend({
-      defaultSerializer: '-default',
+     defaultSerializer: '-default',
 
     //namespace: 'api/v1'
     // pathForType: function(type) {
@@ -94,7 +110,7 @@ define([
           return this.store.find(modelName);
         },
         renderTemplate: function() {
-          this.render(modelName+'/'+modelName+'List');
+          this.render(modelName+'/list');
         }
       });
 
@@ -104,10 +120,16 @@ define([
           return this.store.find(modelName, params[modelName+'_id']);
         },
         renderTemplate: function() {
-          this.render(modelName+'/'+modelName+'Item');
+          this.render(modelName+'/item');
         }
       });
 
+      // route item /edit
+      App[modelVarName + 'EditRoute'] = Ember.Route.extend({
+        renderTemplate: function() {
+          this.render(modelName+'/edit');
+        }
+      });
 
       next();
 

@@ -30,12 +30,12 @@ module.exports = function findOneRecord (req, res) {
   query.exec(function found(err, matchingRecord) {
     if (err) return res.serverError(err);
     if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
-
+    /*
     if (sails.hooks.pubsub && req.isSocket) {
       Model.subscribe(req, matchingRecord);
       actionUtil.subscribeDeep(req, matchingRecord);
     }
-
+    */
     res.ok(matchingRecord);
   });
 

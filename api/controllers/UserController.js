@@ -10,23 +10,6 @@ var fs = require('fs');
 
 module.exports = {
 
-  index: function (req, res) {
-    User.find()
-    .limit(25)
-    .sort('createdAt ASC')
-    .exec(function(err, users) {
-
-      // Error handling
-      if (err) {
-        return console.log(err);
-
-      // Found multiple users!
-      } else {
-        res.send(users);
-      }
-    });
-  },
-
   find: function(req, res) {
     var id = req.param('id');
     if(!id){

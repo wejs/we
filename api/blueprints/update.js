@@ -34,6 +34,8 @@ module.exports = function updateOneRecord (req, res) {
   var idParamExplicitlyIncluded = ((req.body && req.body.id) || req.query.id);
   if (!idParamExplicitlyIncluded) delete values.id;
 
+  delete values.createdAt;
+  delete values.updatedAt;
 
   // Find and update the targeted record.
   //
@@ -91,7 +93,7 @@ module.exports = function updateOneRecord (req, res) {
       }); // </foundAgain>
       */
 
-      res.send(201,updatedRecord);
+      res.ok(updatedRecord);
     });// </updated>
   }); // </found>
 };
