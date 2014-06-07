@@ -59,8 +59,6 @@ module.exports = function findRecords (req, res) {
       });
     }
 
-
-    console.log('matchingRecords',matchingRecords);
     res.ok(matchingRecords);
   });
 };
