@@ -13,7 +13,7 @@
   "dependencies": {
     "bootstrap": "~3.0.3",
     "lodash": "~2.4.1",
-    "we": "~0.0.4",
+    "we": "~0.0.6",
     "ember-addons.bs_for_ember": "~0.6.1",
     "ember-auth": "~9.0.7",
     "ember-i18n": "~1.6.3",
