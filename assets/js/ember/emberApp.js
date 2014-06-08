@@ -49,6 +49,54 @@ define([
     }
   });
 
+  App.HasManyTransform = DS.Transform.extend({
+    deserialize: function (serialized) {
+      if (serialized) {
+        return moment(serialized).toISOString();
+      }
+      return serialized;
+    },
+    serialize: function (deserialized) {
+      if (deserialized) {
+        return deserialized;
+      }
+      return deserialized;
+    }
+  });
+
+
+  App.ApplicationSerializer = DS.JSONSerializer.extend({
+    keyForAttribute: function(attr) {
+      return Ember.String.underscore(attr).toUpperCase();
+    },
+    // use extracFindAll to pushMany relations prepopulated
+    extractFindAll: function(store, type, payload){
+      if(type == 'App.Post'){
+        for (var i = payload.length - 1; i >= 0; i--) {
+          if(payload[i].comments.length > 0){
+
+            // push comments into store comment model
+            store.pushMany('comment',payload[i].comments);
+
+            // set comment id for every comment in post.comments
+            var commentLen = payload[i].comments.length;
+            for (var j = 0; j < commentLen; j++) {
+              payload[i].comments[j] = payload[i].comments[j].id;
+            }
+          }else{
+            continue;
+          }
+        }
+        return payload;
+      }else{
+        return payload;
+      }
+    },
+    extractFindHasMany: function(store, type, payload){
+      console.warn('extractFindHasMany',store, type, payload);
+    }
+  });
+
   //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
   App.ApplicationAdapter = DS.SailsSocketAdapter.extend({
      defaultSerializer: '-default',
@@ -62,6 +110,78 @@ define([
     // fix is error objectt check
     isErrorObject: function(data) {
       return !!(data.error && data.model && data.summary && data.status);
+    },
+    _listenToSocket: function(model) {
+      if(model in this.listeningModels) {
+        return;
+      }
+      var self = this;
+      var store = this.container.lookup('store:main');
+      var socketModel = model;
+
+      function findModelName(model) {
+        var mappedName = self.modelNameMap[model];
+        return mappedName || model;
+      }
+
+      function pushMessage(message) {
+        var type = store.modelFor(socketModel);
+        var serializer = store.serializerFor(type.typeKey);
+        // Messages from 'created' don't seem to be wrapped correctly,
+        // however messages from 'updated' are, so need to double check here.
+        /*
+        if(!(model in message.data)) {
+          var obj = {};
+          obj[model] = message.data;
+          message.data = obj;
+        }
+        */
+        var record = serializer.extractSingle(store, type, message.data);
+
+
+        var recordStored = store.push(socketModel, record);
+
+        var attributeNames = Object.keys(we.configs.models[socketModel]);
+
+        for (var attributeName in we.configs.models[socketModel] ) {
+          if(we.configs.models[socketModel][attributeName].model){
+            if(we.configs.models[socketModel][attributeName].via){
+              var parentName = we.configs.models[socketModel][attributeName].model;
+              var via = we.configs.models[socketModel][attributeName].via;
+              record[parentName].get(via).pushObject(recordStored);
+            }
+          }
+        }
+      }
+
+      function destroy(message) {
+        var type = store.modelFor(socketModel);
+        var record = store.getById(type, message.id);
+
+        if ( record && typeof record.get('dirtyType') === 'undefined' ) {
+          record.unloadRecord();
+        }
+      }
+
+      var eventName = Ember.String.camelize(model).toLowerCase();
+      socket.on(eventName, function (message) {
+        // Left here to help further debugging.
+        console.log("Got message on Socket : ", message, eventName);
+        if (message.verb === 'created') {
+          // Run later to prevent creating duplicate records when calling store.createRecord
+          Ember.run.later(null, pushMessage, message, 50);
+        }
+        if (message.verb === 'updated') {
+          pushMessage(message);
+        }
+        if (message.verb === 'destroyed') {
+          destroy(message);
+        }
+      });
+
+      // We add an emtpy property instead of using an array
+      // ao we can utilize the 'in' keyword in first test in this function.
+      this.listeningModels[model] = 0;
     }
   });
 
@@ -75,14 +195,6 @@ define([
       //this.set("controller", App.ModalLoginController.create());
     }
   });
-
-  App.initializer({
-    name: "injectStoreInComponent",
-    initialize: function(container, application) {
-      application.inject('component', 'store', 'store:main');
-    }
-  });
-
 
   App.Router.reopen({
     location: 'history'

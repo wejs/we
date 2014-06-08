@@ -88,6 +88,15 @@ define(['we','async'], function (we, async) {
           // STRING
           }else if(model[attributeName].type == 'string'){
             modelToAdd[attributeName] = attr('string');
+          // has many associations
+          }else if( model[attributeName].collection ){
+            if(model[attributeName].embedded){
+              modelToAdd[attributeName] = DS.hasMany( model[attributeName].collection,{
+                embedded: model[attributeName].embedded
+              });
+            }else{
+              modelToAdd[attributeName] = DS.hasMany( model[attributeName].collection );
+            }
 
           }else{
             modelToAdd[attributeName] = attr();
