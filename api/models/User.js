@@ -62,20 +62,10 @@ module.exports = {
       defaultsTo: false
     },
 
-    comments: {
-      collection: 'comment',
-      via: 'creator'
-    },
     language: {
       type: 'string',
       defaultsTo: 'en-us',
       maxLength: 6
-    },
-
-    // comment parent, to replay one specific comment
-    posts: {
-      collection: 'post',
-      via: 'creator'
     },
 
     // Override toJSON instance method

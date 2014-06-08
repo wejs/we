@@ -56,7 +56,14 @@
   </div>
 
   <div class="panel-footer">
-    <we-comments data-model-id="id" data-model-name="Post"></we-comments>
+
+    <div class="comments">
+      {{#each comments}}
+        {{render 'comment/item' this}}
+      {{/each}}
+    </div>
+    {{we-comment-form creatorId=creator.id post=model store=store}}
+
   </div>
 
 </div>

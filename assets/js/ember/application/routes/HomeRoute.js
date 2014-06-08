@@ -12,7 +12,6 @@ define(['we','ember'], function (we) {
       });
     },
     model: function(params) {
-      console.warn('params:',params);
       return this.store.find('post');
     }
 

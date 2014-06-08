@@ -1,0 +1,14 @@
+<div class="comment">
+  <div class="user-avatar-area comment-left">
+    <span class="creator-avatar">{{we-avatar userId=creator.id}}</span>
+  </div>
+  <div class="comment-right">
+    <div class="comment-header">
+        <span class="comment-username">{{creator.username}}</span>
+        <span class="createdAt comment-date">{{format-date createdAt}}</span>
+    </div>
+    <div class="comment-body">
+      <div>{{body}}</div>
+    </div>
+  </div>
+</div>

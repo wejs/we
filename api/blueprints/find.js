@@ -52,7 +52,9 @@ module.exports = function findRecords (req, res) {
     // `autoWatch` is enabled.
     if (req._sails.hooks.pubsub && req.isSocket) {
       Model.subscribe(req, matchingRecords);
-      if (req.options.autoWatch) { Model.watch(req); }
+      if (req.options.autoWatch) {
+        Model.watch(req);
+      }
       // Also subscribe to instances of all associated models
       _.each(matchingRecords, function (record) {
         actionUtil.subscribeDeep(req, record);

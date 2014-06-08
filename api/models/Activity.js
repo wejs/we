@@ -103,19 +103,7 @@ module.exports = {
             activity.target.displayName = targetObject.comment;
           }
 
-          // if is comment load comment target object from db
-          if(activity.verb == 'comment'){
-            Comment.getTargetFromDb( targetObject, function(err, commentTarget){
-              if(err){
-                sails.log.error(err);
-              }
-              activity.target.model = commentTarget;
-              callback();
-            });
-          }else{
-            callback();
-          }
-
+          callback();
         });
       }else{
         callback();

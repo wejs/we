@@ -6,27 +6,27 @@
  */
 
 module.exports = {
-  /*
+
   index: function (req,res) {
 
     Post.find({})
       .limit(10)
       .sort('updatedAt DESC')
-      //.populate('creator')
+      .populate('comments')
       .exec(function(err, posts) {
       // Error handling
       if (err) {
         return console.log(err);
         // TODO
-      // Found multiple users!
       } else {
+        Comment.watch(req.socket);
         res.send(posts);
       }
     });
 
     //res.view('home/index.ejs');
   },
-  */
+
   create : function (req, res){
 
     var post = {};
@@ -34,13 +34,23 @@ module.exports = {
     post.creator = req.user.id;
 
     Post.create(post)
-      .exec(function(error, newPost) {
-      if (error) {
-        sails.log.error('Error on post create:',error);
-        return res.send(500, {error: res.i18n("Error") });
+    .exec(function(err, newInstance) {
+      if (err) return res.negotiate(err);
+
+
+      // If we have the pubsub hook, use the model class's publish method
+      // to notify all subscribers about the created item
+      if (req._sails.hooks.pubsub) {
+        if (req.isSocket) {
+          Post.subscribe(req, newInstance);
+          Post.introduce(newInstance);
+        }
+        console.log('publicou');
+        Post.publishCreate(newInstance, !req.options.mirror && req);
       }
 
-      res.send(201,newPost);
+
+      res.send(201,newInstance);
     });
   },
   /*

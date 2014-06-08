@@ -26,6 +26,12 @@ module.exports = {
     sharedWith: {
       type: 'array'
     },
+
+    comments: {
+      collection: 'comment',
+      via: 'post'
+    },
+
     // Override toJSON instance method
     toJSON: function() {
 

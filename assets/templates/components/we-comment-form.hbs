@@ -1,0 +1,19 @@
+<div class="comment-form">
+  <div class="user-avatar-area pull-left">
+    <span class="creator-avatar avatar-small">{{we-avatar userId=creatorId}}</span>
+  </div>
+  <div class="comment-right">
+   <div class="comment-body">
+      <div class="form-group" style="padding:14px;">
+        {{textarea name="body" value=body placeholder=commentPlaceholder classNames="form-control comment-body"}}
+      </div>
+      <div class="actions">
+        <div class="btn-group btn-group-xs">
+          <button type="button" {{action 'sendComment'}} class="btn btn-primary">{{t 'Send'}}</button>
+          <button type="button" {{action 'cancelComment'}} class="btn btn-default">{{t 'Cancel'}}</button>
+        </div>
+      </div>
+
+   </div>
+  </div>
+</div>

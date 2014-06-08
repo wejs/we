@@ -16,18 +16,8 @@ module.exports = {
       defaultsTo: true
     },
 
-    // model id where commeted to like post id, page id ... etc
-    model_id: {
-      type: 'string'
-    },
-
-    // model name where commeted to like Post, Page ... etc
-    model_name: {
-      type: 'string'
-    },
-
     // comment text
-    text: {
+    body: {
       type: 'string',
       required: true
     },
@@ -37,7 +27,13 @@ module.exports = {
       model:'user'
     },
 
+    post: {
+      model: 'post',
+      via: 'comments'
+    },
+
     // comment parent, to replay one specific comment
+    /*
     replyTo: {
       model:'comment',
       defaultsTo: null
@@ -48,7 +44,7 @@ module.exports = {
       collection: 'comment',
       via: 'replyTo'
     },
-
+    */
     // Override toJSON instance method
     toJSON: function() {
       // remove password
@@ -75,7 +71,7 @@ module.exports = {
   afterCreate: function(comment, next) {
     Activity.create({
       title: 'new comment',
-      actor: comment.creator_id,
+      actor: comment.creator.id,
       verb: 'comment',
       target_id: comment.id
     }).exec(function(error, activity) {
@@ -85,20 +81,6 @@ module.exports = {
       }
       next();
     });
-  },
-
-  getTargetFromDb: function(comment, callback) {
-    var model_name = comment.model_name.toLowerCase();
-
-    sails.models[model_name].findOneById(comment.model_id).exec(function(err, commentTarget){
-      if(err){
-        return callback(err);
-      }
-
-      callback(null, commentTarget);
-
-    });
-
   }
 
 };
