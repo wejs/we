@@ -43,12 +43,12 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>'
         ,
         appRoot: '.tmp/public'
       },
       files: {
-        'views/**/*.ejs': ['.tmp/public/main.prod.js']
+        'views/**/*.ejs': ['.tmp/public/concat/production.js']
       }
     },
 
@@ -56,13 +56,13 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main.prod" src="/js/libs/require.js" data-dump="%s" ></script>'
+        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>'
         ,
         appRoot: '.tmp/public',
         relative: true
       },
       files: {
-        'views/**/*.ejs': ['.tmp/public/main.prod.js']
+        'views/**/*.ejs': ['.tmp/public/concat/production.js']
       }
     },
 

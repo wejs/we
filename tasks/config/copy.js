@@ -32,6 +32,16 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
+		prod: {
+			files: [{
+				expand: true,
+				cwd: './assets',
+				src: 	devfiles
+								.concat(['js/libs/*.js', 'js/libs/**/*.js'])
+								.concat(require('../pipeline').cssFilesToInjectOriginal),
+				dest: '.tmp/public'
+			}]
+		},
 		build: {
 			files: [{
 				expand: true,

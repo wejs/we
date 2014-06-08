@@ -11,12 +11,21 @@ module.exports = {
     res.set('Content-Type', 'application/javascript');
 
     var requireJsConfig = '';
+    var requireEnvDeps = '';
+
+
+    requireJsConfig += requireEnvDeps;
 
     if(sails.config.requirejs){
-      requireJsConfig = JSON.stringify(sails.config.requirejs);
+      requireJsConfig += 'require.config('+ JSON.stringify(sails.config.requirejs) +');';
     }
 
-    res.send(200,'require.config('+ requireJsConfig +');');
+    if(sails.config.environment == 'production'){
+      requireJsConfig = 'require(["/min/production.js"],function(){' + requireJsConfig + '});';
+
+    }
+
+    res.send(200,requireJsConfig );
   },
   /**
    * Client side configs

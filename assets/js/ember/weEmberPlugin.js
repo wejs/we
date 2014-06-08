@@ -3,7 +3,7 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-define(['we','async'], function (we, async) {
+define('weEmberPlugin',['we','async'], function (we, async) {
 
   var plugin = {};
 
@@ -38,6 +38,7 @@ define(['we','async'], function (we, async) {
 
     // load ember and ember-data
     require([
+      'handlebars',
       'ember',
       'ember-data',
       'ember-data-sails-adapter',

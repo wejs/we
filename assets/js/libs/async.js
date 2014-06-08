@@ -1045,7 +1045,7 @@
 
     // AMD / RequireJS
     if (typeof define !== 'undefined' && define.amd) {
-        define([], function () {
+        define('async',[], function () {
             return async;
         });
     }

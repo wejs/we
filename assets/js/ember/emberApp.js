@@ -7,7 +7,7 @@
 // starts we.js lib
 // TODO move this to amber logic
 
-define([
+define('emberApp',[
   'we',
   'showdown',
   'moment',

@@ -16,12 +16,12 @@ module.exports = function(grunt) {
         requireJsConfig: require('../../config/requirejs.js').requirejs,
         concat: true,
         emberFilesPath: 'assets/js/ember/',
-        generateEmberPartsConfigFile: false // disable in production
+        generateEmberPartsConfigFile: true
       },
       src: require('../pipeline').jsFilesToInjectOriginal.map(function(src){
         return 'assets/' + src;
       }),
-      dest: '.tmp/public/emberApp.prod.js'
+      dest: '.tmp/public/concat/production.js'
     }
   });
 

@@ -1,12 +1,12 @@
 module.exports = function (grunt) {
 	grunt.registerTask('prod', [
-		'compileAssets',
-		'concat',
+		'compileAssetsProd',
+		'concat:css',
+		//'concat:jsProd',
 		'uglify',
 		'cssmin',
 		'sails-linker:prodJs',
 		'sails-linker:prodStyles',
-		'sails-linker:devTpl',
-    'we_sails_ember_tasks:prod'
+		'sails-linker:devTpl'
 	]);
 };

@@ -13,7 +13,7 @@ module.exports.requirejs = {
     moment: 'bower_components/moment/min/moment-with-langs.min',
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     async: 'bower_components/async/lib/async',
-    handlebars: 'bower_components/handlebars/handlebars',
+    handlebars: 'js/libs/handlebars',
     // ember
     ember: 'bower_components/ember/ember',
     'ember-data': 'bower_components/ember-data/ember-data',
