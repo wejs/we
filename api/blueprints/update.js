@@ -22,12 +22,19 @@ module.exports = function updateOneRecord (req, res) {
   // Look up the model
   var Model = actionUtil.parseModel(req);
 
+
   // Locate and validate the required `id` parameter.
   var pk = actionUtil.requirePk(req);
 
   // Create `values` object (monolithic combination of all parameters)
   // But omit the blacklisted params (like JSONP callback param, etc.)
   var values = actionUtil.parseValues(req);
+
+
+  // fix body uppercase rewrite
+  if(req.param('BODY')){
+    values.body = req.param('BODY');
+  }
 
   // Omit the path parameter `id` from values, unless it was explicitly defined
   // elsewhere (body/query):
