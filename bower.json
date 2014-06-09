@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.54",
+  "version": "0.0.56",
   "ignore": [
     "**/.*",
     "node_modules",
