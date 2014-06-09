@@ -26,7 +26,7 @@ define(['we','ember'], function (we) {
 
       //Show the modal
       show: function() {
-        return Bootstrap.ModalManager.show(modalName);;
+        return Bootstrap.ModalManager.show(modalName);
       }
 
     }

@@ -45,12 +45,18 @@
             <button type="button" class="btn btn-xs btn-default">
               <span class="glyphicon glyphicon-share-alt"></span> {{t 'Share'}}
             </button>
-            <button type="button" class="btn btn-xs btn-default" {{action 'edit'}}>
-              <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
-            </button>
-            <button class="btn btn-xs btn-danger" {{action 'delete'}}>
-              <span class="glyphicon glyphicon-remove"></span> {{t 'Delete'}}
-            </button>
+
+            {{#can editPost model}}
+              <button type="button" class="btn btn-xs btn-default" {{action 'edit'}}>
+                <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
+              </button>
+            {{/can}}
+
+            {{#can deletePost model}}
+              <button class="btn btn-xs btn-danger" {{action 'delete'}}>
+                <span class="glyphicon glyphicon-remove"></span> {{t 'Delete'}}
+              </button>
+            {{/can}}
         </div>
     </div>
   </div>
