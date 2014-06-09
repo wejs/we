@@ -123,7 +123,7 @@ module.exports.requirejs = {
     }
   },
   //baseUrl: '/',
-  urlArgs: 'v=0.0.54',
+  urlArgs: 'v=0.0.55',
   waitSeconds: 15,
   deps: [
     'we'
