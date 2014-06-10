@@ -34,7 +34,7 @@ module.exports.sockets = {
           sails.onlineusers[userId] = {
             user: user.toJSON(),
             sockets: []
-          }
+          };
 
           sails.onlineusers[userId].sockets.push(socket.id);
 
@@ -67,7 +67,7 @@ module.exports.sockets = {
   // This custom onDisconnect function will be run each time a socket disconnects
   onDisconnect: function(session, socket) {
     var userId;
-    sails.log.info('onDisconnect',session);
+
     var disconnect = function disconnect(userId){
       delete sails.onlineusers[userId];
       sails.io.sockets.in('global').emit('contact:disconnect', {
