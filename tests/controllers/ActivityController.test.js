@@ -19,7 +19,7 @@ function PostsStub(uid) {
 
 function UserStub () {
   return {
-    username: uuid.v1(),
+    Username: uuid.v1(),
     name: "Alberto",
     email: uuid.v1() + "@albertosouza.net",
     password: uuid.v1()
@@ -28,23 +28,23 @@ function UserStub () {
 
 describe('Activity', function() {
 
-  var userSaved;
-  // before create one user and some activities
+  var UserSaved;
+  // before create one User and some activities
   before(function (done) {
     var newUser = UserStub();
 
-    // create one user
-    Users.create(newUser, function(err, user) {
+    // create one User
+    User.create(newUser, function(err, User) {
       if(err) return done(err);
 
-      userSaved = user;
+      UserSaved = User;
 
       var newPostlist = [];
 
       // create 3 posts
-      newPostlist[0] = PostsStub(user.id);
-      newPostlist[1] = PostsStub(user.id);
-      newPostlist[2] = PostsStub(user.id);
+      newPostlist[0] = PostsStub(User.id);
+      newPostlist[1] = PostsStub(User.id);
+      newPostlist[2] = PostsStub(User.id);
 
       Post.createEach(newPostlist).exec(function(error, newPost) {
         if (error) {
@@ -61,7 +61,7 @@ describe('Activity', function() {
   describe('JSON Requests', function() {
     describe('GET', function() {
 
-      it('/activities should return 200 and activities array', function (done) {
+      it('/activity should return 200 and activities array', function (done) {
 
         request(sails.hooks.http.app)
         .get('/activity')
@@ -70,10 +70,9 @@ describe('Activity', function() {
         .expect(200)
         .end(function (err, res) {
           if(err) return done(err);
-          // TODO add suport for server messages
-          should.exist(res.body.items);
-          res.body.items.should.have.lengthOf( 3 );
-          res.body.items[0].actor.objectType.should.be.equal('person');
+
+            res.body.should.have.length(3);
+            res.body.should.be.an.instanceOf(Array);
 
           done();
         });
@@ -98,7 +97,7 @@ describe('Activity', function() {
   // after clear the database
   after(function (done) {
 
-    Users.destroy();
+    User.destroy();
     Post.destroy();
     Activity.destroy();
 

@@ -20,7 +20,7 @@ describe('UsersModel', function() {
 
   afterEach(function(done){
     // remove all users after each test block
-    Users.destroy(function (err) {
+    User.destroy(function (err) {
       if(err) return done(err);
       done();
 
@@ -31,7 +31,7 @@ describe('UsersModel', function() {
 
 
     it("Should be able to create a user", function(done) {
-      Users.create(UserStub(), function(err, user) {
+      User.create(UserStub(), function(err, user) {
         if(err) return done(err);
         assert.notEqual(user, undefined);
         done();
@@ -42,10 +42,10 @@ describe('UsersModel', function() {
       var newUser = UserStub();
 
       // first create one user
-      Users.create(newUser, function(err, userCreated) {
+      User.create(newUser, function(err, userCreated) {
         if(err) return done(err);
 
-        Users.create(newUser, function(err, user) {
+        User.create(newUser, function(err, user) {
           err.should.not.be.empty;
 
           assert.equal(user, undefined);
@@ -64,7 +64,7 @@ describe('UsersModel', function() {
     before(function (done) {
       var newUser = UserStub();
       // create one user
-      Users.create(newUser, function(err, user) {
+      User.create(newUser, function(err, user) {
         if(err) return done(err);
 
         userSaved = user;
@@ -75,7 +75,7 @@ describe('UsersModel', function() {
     it("Should find by id and return one user object ", function(done) {
       var user;
 
-      Users.findOneById(userSaved.id).exec(function(err, user){
+      User.findOneById(userSaved.id).exec(function(err, user){
         if(err) return done(err);
 
         should.exist(user);
@@ -96,7 +96,7 @@ describe('UsersModel', function() {
     before(function (done) {
       var newUser = UserStub();
       // create one user
-      Users.create(newUser, function(err, user) {
+      User.create(newUser, function(err, user) {
         if(err) return done(err);
 
         userSaved = user;
@@ -110,7 +110,7 @@ describe('UsersModel', function() {
         name: uuid.v1()
       };
 
-      Users.update({
+      User.update({
         id: userSaved.id
       }, userDataToUpdate ).exec(function (err, users) {
         if(err) return done(err);
@@ -140,7 +140,7 @@ describe('UsersModel', function() {
     before(function (done) {
       var newUser = UserStub();
       // create one user
-      Users.create(newUser, function(err, user) {
+      User.create(newUser, function(err, user) {
         if(err) return done(err);
 
         userSaved = user;
@@ -149,12 +149,12 @@ describe('UsersModel', function() {
     });
 
     it("Should delete user by id", function(done) {
-      Users.destroy({
+      User.destroy({
         id: userSaved.id
       }).exec(function (err) {
         if(err) return done(err);
 
-        Users.findOneById(userSaved.id).exec(function(err, user){
+        User.findOneById(userSaved.id).exec(function(err, user){
           if(err) return done(err);
 
           should.not.exist(user);

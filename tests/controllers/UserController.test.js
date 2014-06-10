@@ -18,7 +18,7 @@ describe('UsersController', function() {
 
   afterEach(function(done){
     // remove all users after each test block
-    Users.destroy(function (err) {
+    User.destroy(function (err) {
       if(err) return done(err);
       done();
     } );
@@ -28,10 +28,10 @@ describe('UsersController', function() {
   describe('JSON Requests', function() {
     describe('GET', function() {
 
-      it('/users without users in database return 200 and a empty array', function (done) {
+      it('/user without users in database return 200 and a empty array', function (done) {
 
         request(sails.hooks.http.app)
-        .get('/users')
+        .get('/user')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -45,7 +45,7 @@ describe('UsersController', function() {
         });
       });
 
-      it('/users should return 200 and users array', function (done) {
+      it('/user should return 200 and users array', function (done) {
 
         var user;
         // get 3 diferent users for salve in database
@@ -55,11 +55,11 @@ describe('UsersController', function() {
           UserStub()
         ];
 
-        Users.createEach(users, function(err, newUsers) {
+        User.createEach(users, function(err, newUsers) {
           if(err) return done(err);
 
           request(sails.hooks.http.app)
-          .get('/users')
+          .get('/user')
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -76,13 +76,13 @@ describe('UsersController', function() {
         });
       });
 
-      it('/users/:uid should return 200 and one user', function (done) {
+      it('/user/:uid should return 200 and one user', function (done) {
 
-        Users.create(UserStub(), function(err, newUser) {
+        User.create(UserStub(), function(err, newUser) {
           if(err) return done(err);
 
           request(sails.hooks.http.app)
-          .get('/users/' + newUser.id)
+          .get('/user/' + newUser.id)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -90,7 +90,7 @@ describe('UsersController', function() {
             if(err) return done(err);
 
             should(err).not.be.ok;
-            should(res.body).have.property('item').have.properties({
+            should(res.body).have.properties({
               'email': newUser.email,
               'id': newUser.id
             });
