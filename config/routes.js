@@ -119,7 +119,13 @@ module.exports.routes = {
   // form to get one time login email
   'get /auth/forgot-password': {
     controller    : 'auth',
-    action        : 'forgotPasswordForm'
+    action        : 'forgotPasswordPage'
+  },
+
+  // post for get new password link
+  'post /auth/forgot-password': {
+    controller    : 'auth',
+    action        : 'forgotPassword'
   },
 
   // register  form
@@ -276,10 +282,6 @@ module.exports.routes = {
   },
 
   // -- COMMENT
-  'get /:model_url/:model_id/comments': {
-    controller    : 'comment',
-    action        : 'index'
-  },
 
   'post /comment': {
     controller    : 'comment',

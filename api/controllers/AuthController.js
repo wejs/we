@@ -260,6 +260,14 @@ module.exports = {
   SendPasswordResetToken: function(req, res, next){
     console.log('TODO GetloginResetToken');
     return next();
+  },
+
+  forgotPasswordPage: function(){
+    console.log('TODO add forgot password page');
+  },
+
+  forgotPassword: function(){
+    console.log('TODO add a forgot password POST for send a new password to user');
   }
 
 };
