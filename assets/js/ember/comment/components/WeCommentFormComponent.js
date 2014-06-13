@@ -4,6 +4,17 @@ define(['we', 'ember'], function (we) {
     body: '',
     post: null,
     tagName: 'form',
+    isOpenComentTextarea: false,
+    commentBodyClass: function(){
+      if(this.get('isOpenComentTextarea')){
+        return 'comment-body open';
+      }else{
+        return 'comment-body closed';
+      }
+    }.property('isOpenComentTextarea'),
+    didInsertTextarea: function(){
+      this.$().focus();
+    },
     actions: {
       sendComment: function(){
         var _this = this;
@@ -22,21 +33,27 @@ define(['we', 'ember'], function (we) {
 
           // create new comment on store
           var comment = store.createRecord('comment', commentNew);
-
           comment.setProperties({
             'creator': user,
             'post': post
           });
 
-          // save comment
-          comment.save().then(function(){
-            // close and clear sharebox form inputs
-            _this.setProperties({
-              'body': ''
-            });
+          // close and clear sharebox form inputs
+          _this.setProperties({
+            'body': '',
+            'isOpenComentTextarea': false
           });
 
+          // save comment
+          comment.save();
+
         });
+      },
+      openComentTextarea: function(){
+        this.set('isOpenComentTextarea', true);
+      },
+      closeComentTextarea: function(){
+        this.set('isOpenComentTextarea', false);
       }
     }
   });

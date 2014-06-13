@@ -4,16 +4,19 @@
   </div>
   <div class="comment-right">
    <div class="comment-body">
-      <div class="form-group" style="padding:14px;">
-        {{textarea name="body" value=body placeholder=commentPlaceholder classNames="form-control comment-body"}}
-      </div>
-      <div class="actions">
-        <div class="btn-group btn-group-xs">
-          <button type="button" {{action 'sendComment'}} class="btn btn-primary">{{t 'Send'}}</button>
-          <button type="button" {{action 'cancelComment'}} class="btn btn-default">{{t 'Cancel'}}</button>
+      {{#if isOpenComentTextarea}}
+        <div class="comment-textarea form-group">
+          {{textarea name="body" value=body placeholder=commentPlaceholder classNames="form-control comment-body" didInsertElement=didInsertTextarea}}
         </div>
-      </div>
-
+        <div class="actions">
+          <div class="btn-group btn-group-xs">
+            <button type="button" {{action 'sendComment'}} class="btn btn-primary">{{t 'Send'}}</button>
+            <button type="button" {{action 'closeComentTextarea'}} class="btn btn-default">{{t 'Cancel'}}</button>
+          </div>
+        </div>
+      {{else}}
+        <div {{action "openComentTextarea"}} class="comment-placeholder">{{t 'Add comment'}}</div>
+      {{/if}}
    </div>
   </div>
 </div>

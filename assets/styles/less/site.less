@@ -156,6 +156,40 @@ user-menu {
     margin-left: 33px;
   }
 
+  .comment-body {
+    .comment-placeholder {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 5px;
+      margin: 2px 2px 2px 10px;
+      cursor: pointer;
+    }
+
+    .comment-textarea {
+      padding: 0px 15px;
+    }
+
+    &.open {
+      .comment-placeholder {
+        display: none;
+      }
+      .comment-textarea,
+      .actions {
+        display: block;
+      }
+    }
+    &.closed {
+      .comment-placeholder {
+        display: block;
+      }
+      .comment-textarea,
+      .actions {
+        display: none;
+      }
+    }
+  }
+
 }
 
 .navbar-login-buttom {
