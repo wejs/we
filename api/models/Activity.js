@@ -59,18 +59,18 @@ module.exports = {
       activity.actor_id = activity.actor;
     }
 
-    Activity.fetchData(activity, function(){
+    //Activity.fetchData(activity, function(){
       sails.io.sockets.in('public').emit(
         'activity:new',
         {
           item: activity
         }
       );
-    });
+    //});
 
     next();
   },
-
+  /*
   fetchData: function(activity, callback){
     User.findOneById(activity.actor)
     .exec(function(err, dbActor) {
@@ -115,4 +115,5 @@ module.exports = {
       }
     });
   }
+  */
 };

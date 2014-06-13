@@ -48,10 +48,11 @@ hr {
     overflow: auto;
     *zoom:1;
 }
-
+/*
 .column .padding {
     padding: 20px;
 }
+*/
 
 .box {
     bottom: 0; /* increase for footer use */

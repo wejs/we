@@ -37,7 +37,8 @@ module.exports = {
       async.forEachSeries(activities, activityIterator, sendResponse);
 
       function activityIterator(activity, callback ){
-        Activity.fetchData(activity, callback);
+        callback();
+        //Activity.fetchData(activity, callback);
       }
 
       function sendResponse(){

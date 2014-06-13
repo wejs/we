@@ -3,11 +3,16 @@
 <div class="post-teaser teaser panel panel-default">
 
   <div class="header panel-heading">
-      <span class="creator-avatar avatar-small">{{we-avatar userId=creator.id}}</span>
-      <div class="creator">
-        <we-user-name user-id="post.creator.id" class="creator-name">{{creator.username}}</we-user-name>
-        <span class="createdAt post-created-at">{{format-date createdAt}}</span>
-      </div>
+    <span class="creator">
+      {{#link-to 'user' creator.id}}
+        <span class="creator-avatar avatar-small">{{we-avatar userId=creator.id}}</span>
+
+        <span class="creator-name">
+          {{creator.username}}
+        </span>
+      {{/link-to}}
+    </span>
+    <span class="createdAt post-created-at">{{format-date createdAt}}</span>
   </div>
 
   <div class="panel-body">
