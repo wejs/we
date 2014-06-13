@@ -69,6 +69,31 @@ define('emberApp',[
     keyForAttribute: function(attr) {
       return Ember.String.underscore(attr).toUpperCase();
     },
+    // extract relationship objects
+    extractFindQuery: function(store, type, payload, x){
+      for (var i = payload.length - 1; i >= 0; i--) {
+        // get model config from wejs
+        var modelConfig = we.configs.models[type.typeKey];
+        // get attribute names
+        for(var attributeName in payload[i]){
+          // check if are collection array hasMany
+          if(modelConfig[attributeName] && modelConfig[attributeName].collection ){
+            // get relationship model
+            relationshipModel = type.typeForRelationship(attributeName);
+            if(relationshipModel){
+              // store this resources
+              store.pushMany(relationshipModel.typeKey, payload[i][attributeName]);
+              // change resource object to id
+              for (var j = 0; j < payload[i][attributeName].length; j++) {
+                payload[i][attributeName][j] = payload[i][attributeName][j].id;
+              }
+
+            }
+          }
+        }
+      }
+      return payload;
+    },
     // use extracFindAll to pushMany relations prepopulated
     extractFindAll: function(store, type, payload){
       if(type == 'App.Post'){
@@ -138,7 +163,6 @@ define('emberApp',[
         */
         var record = serializer.extractSingle(store, type, message.data);
 
-
         var recordStored = store.push(socketModel, record);
 
         var attributeNames = Object.keys(we.configs.models[socketModel]);
@@ -206,6 +230,12 @@ define('emberApp',[
 
   // ember routes load after application route map
   var emberRouteModules = [];
+  if(we.configs.client.emberjsParts.parts.routes){
+    emberRouteModules = we.configs.client.emberjsParts.parts.routes;
+    delete we.configs.client.emberjsParts.parts.routes;
+  }
+
+  // get emberjs modules
   for(var emberjsPart in we.configs.client.emberjsParts.parts){
       emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
   }
@@ -246,28 +276,29 @@ define('emberApp',[
       next();
 
     }, function(){
+      // load requirejs custom routes
+      require(emberRouteModules,function(){
+        // Map app routers
+        App.Router.map(function(match) {
+          var thisPointer = this;
 
-      // Map app routers
-      App.Router.map(function(match) {
-        var thisPointer = this;
+          this.resource('home',{path: '/'});
+          // TODO add route config to select how routes will be generated
+          modelNames.forEach(function(modelName){
+            // list route
+            this.resource(modelName+'List',{path: '/'+modelName});
+            // item route
+            this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
+              // edit item route
+              this.route('edit');
+            });
 
-        this.resource('home',{path: '/'});
-        // TODO add route config to select how routes will be generated
-        modelNames.forEach(function(modelName){
-          // list route
-          this.resource(modelName+'List',{path: '/'+modelName});
-          // item route
-          this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
-            // edit item route
-            this.route('edit');
-          });
+          }, this);
 
-        }, this);
+          App.advanceReadiness();
 
-        App.advanceReadiness();
-
+        });
       });
-
     });
   });
 
