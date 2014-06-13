@@ -11,15 +11,11 @@ define(['we','ember'], function (we) {
       _this = this;
 
       if(we.isAuthenticated()){
-        _this.isAuthenticated = true;
+        _this.set('isAuthenticated', true);
 
       }else{
-        _this.isAuthenticated = false;
+        _this.set('isAuthenticated', false);
       }
-
     }
-
-
   });
-
 });

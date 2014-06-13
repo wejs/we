@@ -1,32 +1,33 @@
-<div class="user-full">
-  <div class="header">
-    <h1 class="user-name">{{username}}</h1>
-    {{input name="username" value=username  type="text" classNames="form-control input-lg" required="true"}}
-  </div>
-
-  <div class="content">
-    <div class="user-area-data row">
-      <div class="user-area-data-left col-md-4" >
-        <span class="avatar-large">{{we-avatar userId=id size="medium"}}</span>
-        <div class="language-area">{{language}}</div>
-        {{view Ember.Select name="language" value=language content=defaultlanguages classNames="form-control input-md"}}
-      </div>
-      <div class="user-area-data-rigth col-md-6">
-        <div class="user-bio">
-
+<div class="user-full well">
+  <div class="panel panel-default">
+    <div class="header panel-body">
+      <div class="user-area-data row">
+        <div class="user-area-data-left col-md-2" >
+          <span class="avatar-large">{{we-avatar userId=id size="medium"}}</span>
+          <div class="language-area">{{language}}</div>
+        </div>
+        <div class="user-area-data-rigth col-md-10">
+          <h1 class="user-name">{{username}}</h1>
+          <p class="user-bio">
+            Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
+          </p>
         </div>
       </div>
+
+    </div>
+  </div>
+
+  <div class="activities row">
+
+    <div class="activities-left col-md-5">
+        adicionar os blocos aqui ...
     </div>
 
-    <div class="user-area-seccond-row row">
-      <div class="user-area-sidebar col-md-3">
-        adicionar os blocos aqui ...
-      </div>
-      <div class="user-area-activities col-md-7">
-      <h3>Time line</h3>
-      .... adicionar as atividades do usuário atual aqui ...
-      </div>
+    <div class="activities-right col-md-7">
+      <h3>{{t 'Activity'}}</h3>
+     {{render 'post/list' activities controller='Home'}}
     </div>
+
   </div>
 
   <div class="footer">

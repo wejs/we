@@ -12,7 +12,11 @@ define(['we','ember'], function (we) {
       });
     },
     model: function(params) {
-      return this.store.find('post');
+      if(we.isAuthenticated()){
+        return this.store.find('post');
+      }else{
+        return null;
+      }
     }
 
   });

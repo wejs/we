@@ -40,24 +40,29 @@
                 {{#view App.LayoutView id="AppLayoutView"}}
 
                   <div class="row">
-
                     <div class="col-md-12">
                       {{outlet highlighted}}
                     </div>
+                  </div>
 
+                  <div class="row">
                     <div class="col-sm-8">
                       <div data-ui-view>
-                        {{outlet}}
+                        {{outlet mainLeft}}
                       </div>
                     </div>
 
                     <div class="col-sm-4">
-
-                       {{outlet mainLeft}}
-                      <we-news></we-news>
+                       {{outlet mainRigth}}
                     </div>
 
+                </div>
+                <div class='row'>
+                  <div "col-md-12">
+                      {{outlet}}
                   </div>
+                </div>
+
                 {{/view}}
 
                   {{partial 'partials/footer' }}
