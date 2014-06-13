@@ -32,6 +32,11 @@ module.exports = {
       via: 'comments'
     },
 
+    activities: {
+      collection: 'activity',
+      via: 'comment'
+    },
+
     // comment parent, to replay one specific comment
     /*
     replyTo: {
@@ -69,16 +74,18 @@ module.exports = {
 
   // After create, register one activity
   afterCreate: function(comment, next) {
+    // register one activity on create
     Activity.create({
-      title: 'new comment',
       actor: comment.creator.id,
       verb: 'comment',
-      target_id: comment.id
+      comment: comment.id,
+      post: comment.post
     }).exec(function(error, activity) {
       // if has one error in activity creation, log it
       if (error) {
         sails.log.error('CommentModel:create: error on create Activity: ',error);
       }
+
       next();
     });
   }

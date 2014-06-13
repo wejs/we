@@ -5,15 +5,20 @@
  * @description	:: Contains logic for handling requests.
  */
 
+var util = require('util');
+var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
+
+
 module.exports = {
 
   index: function (req,res) {
-
-    Post.find({})
-      .limit(10)
-      .sort('updatedAt DESC')
-      .populate('comments')
-      .exec(function(err, posts) {
+    Post.find()
+    .where( actionUtil.parseCriteria(req) )
+    .limit( actionUtil.parseLimit(req) )
+    .skip( actionUtil.parseSkip(req) )
+    .sort('updatedAt DESC')
+    .populate('comments')
+    .exec(function(err, posts) {
       // Error handling
       if (err) {
         return console.log(err);

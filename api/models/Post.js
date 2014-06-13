@@ -32,6 +32,11 @@ module.exports = {
       via: 'post'
     },
 
+    activities: {
+      collection: 'activity',
+      via: 'post'
+    },
+
     // Override toJSON instance method
     toJSON: function() {
 
@@ -55,13 +60,12 @@ module.exports = {
 
   //-- Lifecycle Callbacks
 
-  // After register one activity
+  // After register one create activity
   afterCreate: function(post, next) {
     Activity.create({
-      title: 'New post',
       actor: post.creator,
       verb: 'post',
-      target_id: post.id
+      post: post.id
     }).exec(function(error, activity) {
       // if has one error in activity creation, log it
       if (error) {

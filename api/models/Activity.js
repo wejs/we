@@ -13,12 +13,8 @@ module.exports = {
       defaultsTo: true
     },
 
-    title: {
-      type: 'string'
-    },
-
     actor: {
-      type: 'string'
+      model: 'user'
     },
 
     // activity object type exemple: post, user, comment ...
@@ -26,8 +22,17 @@ module.exports = {
       type: 'string'
     },
 
-    target_id: {
-      type: 'string'
+    post: {
+      model: 'post',
+      via: 'activities'
+    },
+
+    user: {
+      model: 'user'
+    },
+
+    comment: {
+      model: 'comment'
     },
     // Override toJSON instance method
     toJSON: function() {
