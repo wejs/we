@@ -72,13 +72,13 @@ module.exports = {
     // to remove password value
     toJSON: function() {
 
-      // remove password
       var obj = this.toObject();
 
       if(!obj.name){
         obj.name = obj.username;
       }
 
+      // remove password from view
       delete obj.password;
 
       // set default objectType

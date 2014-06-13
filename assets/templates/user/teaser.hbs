@@ -1,0 +1,19 @@
+<div class="col-md-3">
+<div class="user user-teaser teaser panel panel-default text-center">
+  <div class="header panel-heading">
+    <h3>
+    {{#link-to 'user' id}}
+      {{substr username max=15}}
+    {{/link-to}}
+    </h3>
+  </div>
+  <div class="content panel-body">
+    {{#link-to 'user' id}}
+      <span class="avatar-large">{{we-avatar userId=id size="medium"}}</span>
+    {{/link-to}}
+  </div>
+  <div class="footer panel-footer">
+
+  </div>
+</div>
+</div>
