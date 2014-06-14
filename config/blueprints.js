@@ -24,6 +24,7 @@
 
 module.exports.blueprints = {
 
+  defaultLimit: 15,
 
   /**
    * NOTE:

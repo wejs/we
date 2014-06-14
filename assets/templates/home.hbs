@@ -1,5 +1,5 @@
 {{#if isAuthenticated}}
-  <div id="posts" class="posts ">
+<div id="posts" class="posts ">
     <div class="sharebox-area masonry-brick  content-block">
       {{we-sharebox post=post store=store}}
     </div>
@@ -9,6 +9,9 @@
   {{#each }}
     {{render 'post/teaser' this controller='Post'}}
   {{/each}}
+
+  {{we-timeline-loading loadingMore=loadingMore getMore=getMore}}
+
 </div>
 
 {{/if}}

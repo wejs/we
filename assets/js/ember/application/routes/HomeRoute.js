@@ -1,5 +1,4 @@
 
-
 define(['we','ember'], function (we) {
 
   App.HomeRoute = Ember.Route.extend({
@@ -18,7 +17,6 @@ define(['we','ember'], function (we) {
         return null;
       }
     }
-
   });
 
 });
