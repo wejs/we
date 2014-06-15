@@ -25,12 +25,13 @@
     "ember-uploader": "~0.2.8",
     "moment": "~2.6.0",
     "tagmanager": "~3.0.1",
-    "typeahead.js": "~0.10.2"
+    "typeahead.js": "~0.10.2",
+    "summernote": "~0.5.1",
+    "codemirror": "~4.2.0"
   },
   "license": "MIT",
-  "authors": [
-    "Alberto Souza <alberto.souza.99@gmail.com>",
-    "Daniel Torres <daniel@updigital.me>"
+  "author": [
+    "Alberto Souza <alberto.souza.99@gmail.com>"
   ],
   "resolutions": {
     "ember": "~1.5.1",

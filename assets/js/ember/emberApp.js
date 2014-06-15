@@ -15,7 +15,7 @@ define('emberApp',[
   'ember',
   'weEmberPlugin',
   'sails.io',
-  'ember-uploader',
+  'ember-uploader'
 ], function (we, Showdown, moment, async) {
 
   // configure moment.js

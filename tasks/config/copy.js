@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 				src: 	devfiles
 								.concat(require('../pipeline').jsFilesToInjectOriginal)
 								.concat(require('../pipeline').cssFilesToInjectOriginal)
-				,
+								.concat('bower_components/font-awesome/fonts/*'),
 				dest: '.tmp/public'
 			}]
 		},
@@ -38,7 +38,8 @@ module.exports = function(grunt) {
 				cwd: './assets',
 				src: 	devfiles
 								.concat(['js/libs/*.js', 'js/libs/**/*.js'])
-								.concat(require('../pipeline').cssFilesToInjectOriginal),
+								.concat(require('../pipeline').cssFilesToInjectOriginal)
+								.concat('bower_components/font-awesome/fonts/*'),
 				dest: '.tmp/public'
 			}]
 		},

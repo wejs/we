@@ -1,4 +1,24 @@
-<div class="user-full well">
+{{outlet}}
+
+<div class="user-admin-actions-area well">
+  <div class="actions">
+    <span class="actions-title">{{t 'Actions'}}: </span>
+
+    <button {{action 'save'}} type="button" class="btn btn-xs btn-success">
+      <span class="glyphicon glyphicon-saved"></span> {{t 'Save'}}
+    </button>
+
+    <button {{action 'cancel'}} type="button" class="btn btn-xs btn-default">
+      <span class="glyphicon glyphicon-unchecked"></span> {{t 'Cancel'}}
+    </button>
+
+    <button {{action 'edit'}} type="button" class="btn btn-xs btn-primary">
+      <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
+    </button>
+
+  </div>
+</div>
+<div class="user-full">
   <div class="panel panel-default">
     <div class="header panel-body">
       <div class="user-area-data row">
@@ -7,10 +27,22 @@
           <div class="language-area">{{language}}</div>
         </div>
         <div class="user-area-data-rigth col-md-10">
-          <h1 class="user-name">{{username}}</h1>
-          <p class="user-bio">
-            Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
-          </p>
+
+          {{we-editable-text tagName='h1' name='username' value=username isEditing=isEditing}}
+
+          {{we-editable-html name='biography' value=biography isEditing=isEditing}}
+
+          <div class="actions">
+            <span class="social">
+              <button type="button" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> {{t 'Add in contacts'}}
+              </button>
+              <button type="button" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> {{t 'Follow'}}
+              </button>
+            </span>
+          </div>
+
         </div>
       </div>
 
@@ -31,25 +63,6 @@
   </div>
 
   <div class="footer">
-    <div class="actions">
-        <span class="social pull-left">
-          <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
-                <span class="glyphicon glyphicon-plus"></span>{{t 'Add in contacts'}}
-          </button>
-          <button type="button" class="btn btn-xs btn-default" data-ng-click="share($event)">
-                <span class="glyphicon glyphicon-plus"></span>{{t 'Follow'}}
-          </button>
-        </span>
 
-        <button type="button" class="btn btn-xs btn-default" data-ng-click="edit($event)">
-          <span class="glyphicon glyphicon-edit"></span>{{t 'Edit'}}
-        </button>
-        <button class="btn btn-xs btn-danger" data-ng-click="delete($index,$event)">
-          <span class="glyphicon glyphicon-remove"></span>{{t 'Delete'}}
-        </button>
-    </div>
   </div>
 </div>
-
-
-{{outlet}}

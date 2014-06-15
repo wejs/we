@@ -10,13 +10,15 @@
 
 var _ = require('lodash');
 
-
 // CSS files to inject in order
 //
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css'
+  'styles/**/*.css',
+  'bower_components/font-awesome/css/font-awesome.css',
+  'bower_components/summernote/dist/summernote.css',
+  'bower_components/codemirror/lib/codemirror.css'
 ];
 
 
