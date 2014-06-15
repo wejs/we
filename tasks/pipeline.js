@@ -17,7 +17,7 @@ var _ = require('lodash');
 var cssFilesToInject = [
   'styles/**/*.css',
   'bower_components/font-awesome/css/font-awesome.css',
-  'bower_components/summernote/dist/summernote.css',
+  'wysiwyg/summernote/dist/summernote.css',
   'bower_components/codemirror/lib/codemirror.css'
 ];
 

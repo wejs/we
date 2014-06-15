@@ -39,7 +39,7 @@ module.exports.requirejs = {
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
 
     // wysiwyg editor
-    summernote: 'bower_components/summernote/dist/summernote',
+    summernote: 'wysiwyg/summernote/dist/summernote',
     codemirror: 'bower_components/codemirror/lib/codemirror'
   },
   shim: {
@@ -122,12 +122,6 @@ module.exports.requirejs = {
         'ember',
         'handlebars',
         'bootstrap'
-      ]
-    },
-    ckeditor: {
-      deps: [
-        'ember',
-        'jquery'
       ]
     }
   },
