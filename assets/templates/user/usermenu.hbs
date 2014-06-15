@@ -14,13 +14,9 @@
       <li class="divider"></li>
       <li>
         {{#link-to 'user' user.id}}
-          {{t 'View profile'}}
+          {{t 'View / edit profile'}}
         {{/link-to}}
       </li>
-      <li>
-        {{#link-to 'user.edit' user.id}}
-          {{t 'Edit Profile'}}
-        {{/link-to}}
       <li class="divider"></li>
       <li><a href="/auth/logout" class="">{{t 'Sair'}}</a></li>
     </ul>

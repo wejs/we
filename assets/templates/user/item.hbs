@@ -1,30 +1,41 @@
 {{outlet}}
 
-<div class="user-admin-actions-area well">
-  <div class="actions">
-    <span class="actions-title">{{t 'Actions'}}: </span>
+{{#can editUser model}}
+  <div class="user-admin-actions-area well">
+    <div class="actions">
+      <span class="actions-title">{{t 'Actions'}}: </span>
 
-    <button {{action 'save'}} type="button" class="btn btn-xs btn-success">
-      <span class="glyphicon glyphicon-saved"></span> {{t 'Save'}}
-    </button>
+      <button {{action 'save'}} type="button" class="btn btn-xs btn-success">
+        <span class="glyphicon glyphicon-saved"></span> {{t 'Save'}}
+      </button>
 
-    <button {{action 'cancel'}} type="button" class="btn btn-xs btn-default">
-      <span class="glyphicon glyphicon-unchecked"></span> {{t 'Cancel'}}
-    </button>
+      <button {{action 'cancel'}} type="button" class="btn btn-xs btn-default">
+        <span class="glyphicon glyphicon-unchecked"></span> {{t 'Cancel'}}
+      </button>
 
-    <button {{action 'edit'}} type="button" class="btn btn-xs btn-primary">
-      <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
-    </button>
+      <button {{action 'edit'}} type="button" class="btn btn-xs btn-primary">
+        <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
+      </button>
 
+    </div>
   </div>
-</div>
+{{/can}}
+
 <div class="user-full">
   <div class="panel panel-default">
     <div class="header panel-body">
       <div class="user-area-data row">
         <div class="user-area-data-left col-md-2" >
-          <span class="avatar-large">{{we-avatar userId=id size="medium"}}</span>
-          <div class="language-area">{{language}}</div>
+          <span class="avatar-large">{{we-avatar userId=id size="responsive"}}</span>
+
+          {{#if isEditing}}
+            <div class="form-group">
+              {{view Ember.Select name="language" value=language content=defaultlanguages classNames="form-control input-md"}}
+            </div>
+          {{else}}
+            <div class="language-area text-center">{{language}}</div>
+          {{/if}}
+
         </div>
         <div class="user-area-data-rigth col-md-10">
 
@@ -33,14 +44,16 @@
           {{we-editable-html name='biography' value=biography isEditing=isEditing}}
 
           <div class="actions">
-            <span class="social">
-              <button type="button" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> {{t 'Add in contacts'}}
-              </button>
-              <button type="button" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> {{t 'Follow'}}
-              </button>
-            </span>
+            {{#if showSocialActions}}
+              <span class="social">
+                <button type="button" class="btn btn-xs btn-default">
+                      <span class="glyphicon glyphicon-plus"></span> {{t 'Add in contacts'}}
+                </button>
+                <button type="button" class="btn btn-xs btn-default">
+                      <span class="glyphicon glyphicon-plus"></span> {{t 'Follow'}}
+                </button>
+              </span>
+            {{/if}}
           </div>
 
         </div>

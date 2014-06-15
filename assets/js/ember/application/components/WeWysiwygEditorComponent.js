@@ -1,17 +1,11 @@
 /**
- * WeContentEditableComponent Create a editable component how can change to
- * @param  {[type]} we         [description]
- * @param  {[type]} summernote [description]
- * @return {[type]}            [description]
+ * WeWysiwygEditorComponent editor html for we.js
  */
 define(['we','summernote','ember'], function (we, summernote) {
 
   App.WeWysiwygEditorComponent = Ember.Component.extend({
     editor: {},
     tagName: 'div',
-    // change isEditing to true to load the editor
-    isEditing: false,
-
     didInsertElement: function() {
       this._super();
       var _this = this;
