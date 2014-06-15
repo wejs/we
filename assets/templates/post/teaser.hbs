@@ -19,19 +19,21 @@
 
     <div class="content">
       {{#if isEditing}}
-        <form class="edit-post">
-          {{textarea name="body" value=body classNames="form-control post-body"}}
-          <div class="actions">
+        <form class="edit-post" role="form">
+          <div class="form-group">
+            {{we-wysiwyg-editor name="body" value=body}}
+          </div>
+          <div class="actions form-group">
             <button type="button" class="btn btn-primary" {{action 'save'}} >
-              <span class="glyphicon glyphicon-ok">{{t 'Save'}} </span>
+              <span class="glyphicon glyphicon-ok"> {{t 'Save'}} </span>
             </button>
             <button type="button" class="btn btn-default" {{action 'cancel'}} >
-              <span class="glyphicon glyphicon-remove">{{t 'Cancel'}} </span>
+              <span class="glyphicon glyphicon-remove"> {{t 'Cancel'}} </span>
             </button>
           </div>
         </form>
       {{else}}
-        <div class="post-text">{{body}}</div>
+        <div class="post-text">{{{body}}}</div>
       {{/if}}
 
     </div>
