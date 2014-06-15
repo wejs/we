@@ -65,7 +65,7 @@ define(['we','ember'], function (we) {
     return Ember.Handlebars.helpers.boundIf.call(permission, "can", options);
   });
 
-
+  // -- POST
   App.Permissions.register("createPost", App.Permission.extend({
     can: function() {
       return this.get("currentUser.id");
@@ -89,6 +89,17 @@ define(['we','ember'], function (we) {
       }
 
       return this.get("currentUser.isAdmin") || this.get("content.creator.id") == this.get("currentUser.id");
+    }.property("currentUser.isAdmin", "content")
+  }));
+
+  // -- USER
+  App.Permissions.register("editUser", App.Permission.extend({
+    can: function(){
+      if(!this.get("currentUser.id")){
+        return false;
+      }
+
+      return this.get("currentUser.isAdmin") || this.get("content.id") == this.get("currentUser.id");
     }.property("currentUser.isAdmin", "content")
   }));
 
