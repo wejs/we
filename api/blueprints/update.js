@@ -30,12 +30,6 @@ module.exports = function updateOneRecord (req, res) {
   // But omit the blacklisted params (like JSONP callback param, etc.)
   var values = actionUtil.parseValues(req);
 
-
-  // fix body uppercase rewrite
-  if(req.param('BODY')){
-    values.body = req.param('BODY');
-  }
-
   // Omit the path parameter `id` from values, unless it was explicitly defined
   // elsewhere (body/query):
   var idParamExplicitlyIncluded = ((req.body && req.body.id) || req.query.id);

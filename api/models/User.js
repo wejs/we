@@ -19,6 +19,10 @@ module.exports = {
       type: 'string'
     },
 
+    biography: {
+      type: 'text'
+    },
+
     email: {
       type: 'email', // Email type will get validated by the ORM
       required: true,
@@ -136,6 +140,29 @@ module.exports = {
         next();
       });
     });
+  },
+  beforeUpdate: function(user, next) {
 
-  }
+    // if has user.newPassword generate the new password
+    if(user.newPassword){
+      bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        // hash the password along with our new salt
+        bcrypt.hash(user.newPassword, salt, function(err, crypted) {
+          if(err) return next(err);
+
+          // delete newPassword variable
+          delete user.newPassword;
+          // set new password
+          user.password = crypted;
+
+          next();
+        });
+      });
+    }else{
+      next();
+    }
+  },
+
 };
