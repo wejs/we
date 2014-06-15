@@ -31,6 +31,12 @@ define(['we','ember'], function (we) {
             width: 100,
           });
           break;
+        case 'responsive':
+          this.setProperties({
+            heigth: 'auto',
+            width: '100%',
+          });
+          break;
         default:
           //default is small
           this.setProperties({
