@@ -3344,8 +3344,6 @@
       return this;
     }
   });
-  console.warn('window.$',window.$);
-  console.warn('$$',$().summernote);
-  console.warn('$$',window.$().summernote);
+
 
 }));

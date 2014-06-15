@@ -126,7 +126,7 @@ module.exports.requirejs = {
     }
   },
   //baseUrl: '/',
-  urlArgs: 'v=0.0.55',
+  urlArgs: 'v=0.0.56',
   waitSeconds: 15,
   deps: [
     'we'
