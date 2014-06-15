@@ -66,9 +66,6 @@ define('emberApp',[
 
 
   App.ApplicationSerializer = DS.JSONSerializer.extend({
-    keyForAttribute: function(attr) {
-      return Ember.String.underscore(attr).toUpperCase();
-    },
     // extract relationship objects
     extractFindQuery: function(store, type, payload, x){
       for (var i = payload.length - 1; i >= 0; i--) {
