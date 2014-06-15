@@ -38,6 +38,9 @@ module.exports.requirejs = {
     emberApp: 'js/ember/emberApp',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
 
+    // wysiwyg editor
+    summernote: 'bower_components/summernote/dist/summernote',
+    codemirror: 'bower_components/codemirror/lib/codemirror'
   },
   shim: {
     bootstrap: {
@@ -119,6 +122,12 @@ module.exports.requirejs = {
         'ember',
         'handlebars',
         'bootstrap'
+      ]
+    },
+    ckeditor: {
+      deps: [
+        'ember',
+        'jquery'
       ]
     }
   },
