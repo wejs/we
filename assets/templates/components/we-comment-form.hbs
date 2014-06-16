@@ -6,7 +6,7 @@
    <div class="comment-body">
       {{#if isOpenComentTextarea}}
         <div class="comment-textarea form-group">
-          {{textarea name="body" value=body placeholder=commentPlaceholder classNames="form-control comment-body" didInsertElement=didInsertTextarea}}
+          {{we-wysiwyg-editor name="body" value=body}}
         </div>
         <div class="actions">
           <div class="btn-group btn-group-xs">

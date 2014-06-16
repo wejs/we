@@ -2,20 +2,16 @@
 define(['we','ember'], function (we) {
 
   App.UserController = Ember.ObjectController.extend({
-    isEditing: false,
     defaultlanguages: [
       'pt-br',
       'en-us'
     ],
-    // TODO user this variable to show and hide salve buttom
-    hasChangesToSave: false,
     showSocialActions: function(){
       if(this.get('model.id') == we.authenticatedUser.id){
         return false;
       }else{
         return true;
       }
-
     }.property('model.id'),
     activities: function() {
       var user = this.get('model');
@@ -28,12 +24,12 @@ define(['we','ember'], function (we) {
     actions: {
       edit: function edit(){
         this.setProperties({
-          isEditing: true,
-          hasChangesToSave: true
+          'model.isEditing': true,
+          'model.hasChangesToSave': true
         });
       },
       cancel: function edit(){
-        this.set('isEditing', false);
+        this.set('model.isEditing', false);
       },
       save: function save(){
         var _this = this;
@@ -47,14 +43,14 @@ define(['we','ember'], function (we) {
         _this.get('model').save().then(function(){
           // updated!
           _this.setProperties({
-            isEditing: false,
-            hasChangesToSave: false
+            'model.isEditing': false,
+            'model.hasChangesToSave': false
           });
 
         });
       },
       remove: function remove(){
-        this.set('isEditing', false);
+        this.set('model.isEditing', false);
       }
     }
   });

@@ -33,6 +33,9 @@ define(['we','summernote','ember'], function (we, summernote) {
         onkeyup: function(e) {
           // on keyUp update the binded value variable
           _this.set('value',editor.code());
+        },
+        onblur: function(e) {
+          _this.set('value',editor.code());
         }
       });
       // salve editor on ember component variable
@@ -42,14 +45,7 @@ define(['we','summernote','ember'], function (we, summernote) {
     // on destroy remove the editor
     willDestroyElement: function() {
       this._super();
-
-      var editor = this.get('editor');
-
-      var aHTML = editor.code();
-
-      this.set('value',aHTML);
-
-      editor.destroy();
+      this.get('editor').destroy();
     }
 
   });

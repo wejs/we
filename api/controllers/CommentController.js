@@ -40,7 +40,7 @@ module.exports = {
   create : function (req, res, next){
 
     var comment = {};
-    comment.body = req.param("BODY");
+    comment.body = req.param("body");
     comment.creator = req.user.id;
     comment.post = req.param('post');
 

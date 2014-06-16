@@ -12,9 +12,6 @@ define(['we', 'ember'], function (we) {
         return 'comment-body closed';
       }
     }.property('isOpenComentTextarea'),
-    didInsertTextarea: function(){
-      this.$().focus();
-    },
     actions: {
       sendComment: function(){
         var _this = this;

@@ -28,7 +28,7 @@
         <div class="user-area-data-left col-md-2" >
           <span class="avatar-large">{{we-avatar userId=id size="responsive"}}</span>
 
-          {{#if isEditing}}
+          {{#if model.isEditing}}
             <div class="form-group">
               {{view Ember.Select name="language" value=language content=defaultlanguages classNames="form-control input-md"}}
             </div>
@@ -39,9 +39,9 @@
         </div>
         <div class="user-area-data-rigth col-md-10">
 
-          {{we-editable-text tagName='h1' name='username' value=username isEditing=isEditing}}
+          {{we-editable-text tagName='h1' name='username' value=username isEditing=model.isEditing}}
 
-          {{we-editable-html name='biography' value=biography isEditing=isEditing}}
+          {{we-editable-html name='biography' value=biography isEditing=model.isEditing}}
 
           <div class="actions">
             {{#if showSocialActions}}
