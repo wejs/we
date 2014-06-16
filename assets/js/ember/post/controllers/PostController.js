@@ -21,7 +21,12 @@ define(['we','ember'], function (we) {
         });
       },
       deleteItem: function(){
-        console.warn('TODO delete');
+        var userConfirmation = confirm( we.i18n("Are you sure you want to delete the post?") );
+        if (userConfirmation === true) {
+          var model = this.get('model');
+          model.deleteRecord();
+          model.save();
+        }
       }
     }
   });

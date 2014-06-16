@@ -72,10 +72,16 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
 
     actions: {
       openBox: function openBox(){
-        this.set('isOpen', true );
+        this.setProperties({
+          'isOpen': true,
+          'shareboxClass': 'normal'
+        });
       },
       closeBox: function closeBox(){
-        this.set('isOpen', false );
+        this.setProperties({
+          'isOpen': false,
+          'shareboxClass': 'small'
+        });
       },
       submit: function submit(){
         var _this = this;
@@ -98,11 +104,11 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
           post.save().then(function(){
             // empty selectd tags
             element.tagsManager('empty');
-
             // close and clear sharebox form inputs
             _this.setProperties({
               'postNew.body': '',
-              'isOpen': false
+              'isOpen': false,
+              'shareboxClass': 'small'
             });
 
           });

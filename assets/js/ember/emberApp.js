@@ -67,7 +67,7 @@ define('emberApp',[
 
   App.ApplicationSerializer = DS.JSONSerializer.extend({
     // extract relationship objects
-    extractFindQuery: function(store, type, payload, x){
+    extractFindQuery: function(store, type, payload){
       for (var i = payload.length - 1; i >= 0; i--) {
         // get model config from wejs
         var modelConfig = we.configs.models[type.typeKey];
@@ -113,6 +113,12 @@ define('emberApp',[
       }else{
         return payload;
       }
+    },
+    extractDeleteRecord:function(store, type, payload) {
+      // TODO handle delete association feature
+      // console.warn(type,payload);
+
+      return null;
     },
     extractFindHasMany: function(store, type, payload){
       console.warn('extractFindHasMany',store, type, payload);
