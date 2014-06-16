@@ -6,6 +6,7 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
     postNew: {
       body: ''
     },
+    isOpen: false,
     toIdtagsManagerElement: 'input[name="toIds"]',
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
     bodyPlaceholder: we.i18n("What is happening?"),
@@ -71,12 +72,10 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
 
     actions: {
       openBox: function openBox(){
-        if( this.get('shareboxClass') != 'normal' ){
-          this.set('shareboxClass','normal');
-        }
+        this.set('isOpen', true );
       },
       closeBox: function closeBox(){
-        this.set('shareboxClass','small');
+        this.set('isOpen', false );
       },
       submit: function submit(){
         var _this = this;
@@ -97,13 +96,15 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
 
           // save post
           post.save().then(function(){
+            // empty selectd tags
+            element.tagsManager('empty');
+
             // close and clear sharebox form inputs
             _this.setProperties({
               'postNew.body': '',
-              'shareboxClass': 'small'
+              'isOpen': false
             });
-            // empty selectd tags
-            element.tagsManager('empty');
+
           });
         });
       }

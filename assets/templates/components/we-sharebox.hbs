@@ -1,49 +1,51 @@
-<div {{bind-attr class=shareboxClass }} >
-  <div class="well">
-    <form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
-      <div class="form-group">
-          {{textarea name="body" value=postNew.body placeholder=bodyPlaceholder classNames="form-control post-content" focus-in="openBox"}}
-      </div>
-      {{#if shareImages}}
-        <div class="form-group add-images">
-          <label for="addImages" class="col-sm-2 control-label">{{t "Attach images"}}</label>
-          <div class="col-sm-10">
-            {{file-upload files=filesNew}}
-          </div>
-        </div>
-        <div class="form-group images-preview">
-        {{#each files}}
-          {{we-image-preview file=this}}
-        {{/each}}
-        </div>
-      {{/if}}
-
-      <div class="footer">
-        <div class="form-group attach-options">
-          <button type="button" class="btn btn-xs btn-default">
-            <i class="glyphicon glyphicon-picture"></i> {{t "Image"}}
-          </button>
-          <button type="button" class="btn btn-xs btn-default">
-            <i class="glyphicon glyphicon-link"></i> {{t "Link"}}
-          </button>
-        </div>
-
+<div class="panel panel-default">
+  <div class="panel-body">
+    {{#if isOpen}}
+      <form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
         <div class="form-group">
-          <div class="input-group">
-            <label for="toId" class="input-group-addon">{{t "To"}}:</label>
-            <input name="toIds" class="form-control input-md tm-input tm-input-success" type="text">
+          {{we-wysiwyg-editor name="body" value=postNew.body}}
+        </div>
+        {{#if shareImages}}
+          <div class="form-group add-images">
+            <label for="addImages" class="col-sm-2 control-label">{{t "Attach images"}}</label>
+            <div class="col-sm-10">
+              {{file-upload files=filesNew}}
+            </div>
           </div>
-          <div class="toIdsSelectedDisplay"></div>
-        </div>
+          <div class="form-group images-preview">
+          {{#each files}}
+            {{we-image-preview file=this}}
+          {{/each}}
+          </div>
+        {{/if}}
+        <div class="footer">
+          <div class="form-group attach-options">
+            <button type="button" class="btn btn-xs btn-default">
+              <i class="glyphicon glyphicon-picture"></i> {{t "Image"}}
+            </button>
+            <button type="button" class="btn btn-xs btn-default">
+              <i class="glyphicon glyphicon-link"></i> {{t "Link"}}
+            </button>
+          </div>
 
-        <div class="actions">
-          <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-ok"></span> {{t "Share"}}
-          </button>
-          <button type="button" {{action 'closeBox'}} class="btn btn-default cancel"> {{t "Cancel"}}</button>
-        </div>
-      </div>
+          <div class="form-group">
+            <div class="input-group">
+              <label for="toId" class="input-group-addon">{{t "To"}}:</label>
+              <input name="toIds" class="form-control input-md tm-input tm-input-success" type="text">
+            </div>
+            <div class="toIdsSelectedDisplay"></div>
+          </div>
 
-    </form>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">
+              <span class="glyphicon glyphicon-ok"></span> {{t "Share"}}
+            </button>
+            <button type="button" {{action 'closeBox'}} class="btn btn-default cancel"> {{t "Cancel"}}</button>
+          </div>
+        </div>
+      </form>
+    {{else}}
+      <div {{action "openBox"}} class="post-placeholder form-control post-content"> {{t 'What is happening?'}}</div>
+    {{/if}}
   </div>
 </div>
