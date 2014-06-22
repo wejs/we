@@ -35,18 +35,23 @@ Inside project folder tip:
 $ npm test
 ```
 
+TODO add how to use cake and mocha grep ...
+
 
 ## FEATURES
 
-* User account - In work
+* User account - In work - good part ready
 * Mail system - In work - good part ready
-* Messenger - In work
+* PubSub - TODO
 * Notifications - TODO
+* Groups - TODO
+* Messenger - In work - working but need mode work
+* Wysiwyg editor - working - for simple edits
+* Notifications - In work
 * Images - TODO
 * Vídeos - TODO
 * Galleries - TODO
 * Task mangement - TODO
-* Groups - TODO
 * Events - TODO
 * Posts - TODO
 * Activity - TODO
@@ -67,8 +72,9 @@ $ npm test
 
 **Alberto Souza** <https://github.com/albertosouza/>
 
-**Daniel Torres** <https://github.com/danielfeelfine>
+## Contributors
 
+Link: https://github.com/wejs/we/graphs/contributors
 
 ## Copyright and license
 
