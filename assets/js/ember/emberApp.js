@@ -130,7 +130,7 @@ define('emberApp',[
     defaultSerializer: '-default',
     listeningModels: {},
     init: function () {
-      console.warn('inint sails coskcet adapter');
+
       this._super();
       var _this = this;
       if(this.useCSRF) {
