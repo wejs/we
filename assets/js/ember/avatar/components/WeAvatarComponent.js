@@ -14,7 +14,7 @@ define(['we','ember'], function (we) {
     // init function
     init: function init(){
       this._super();
-
+      var self = this;
       // if pass size atribute set heigth and width
       var size = this.get('size');
       if(size){
@@ -45,20 +45,15 @@ define(['we','ember'], function (we) {
           });
         }
       }
-    },
-    // after insert element
-    didInsertElement: function didInsertElement() {
-      var self = this;
-
-      self.changeAvatarUrl();
+      this.changeAvatarUrl();
 
       // refresh avatar on user avatar change
+      // TODO remove on element destroy
       we.events.on('userAvatarChange',function(event, data){
         if(data.user.id === self.userId){
           self.changeAvatarUrl(true);
         }
       });
-
     },
     changeAvatarUrl: function(refresh) {
       var userId = this.get('userId');
@@ -73,7 +68,7 @@ define(['we','ember'], function (we) {
       }else{
         this.set('avatarUrl', this.get('defaultAvatarUrl'));
       }
-    }
+    }.observes('userId')
   });
 
 });
