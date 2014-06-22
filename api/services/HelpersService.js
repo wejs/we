@@ -5,7 +5,7 @@ exports.getModelsAttributes = function(){
 
   _.forEach(sails.models, function(model, i){
 
-    if(i != 'permissions'){
+    if(!model.emberJsExcludeFromClient && i != 'permissions'){
       models[i] = model._attributes;
     }
 

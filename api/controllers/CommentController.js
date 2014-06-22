@@ -55,15 +55,6 @@ module.exports = {
 
       // If we have the pubsub hook, use the model class's publish method
       // to notify all subscribers about the created item
-      if (req._sails.hooks.pubsub) {
-        if (req.isSocket) {
-          Comment.subscribe(req, newInstance);
-          Comment.introduce(newInstance);
-        }
-        console.log('publicou');
-        Comment.publishCreate(newInstance, !req.options.mirror && req);
-      }
-
       Comment.publishCreate(newInstance);
 
       res.send(newInstance);

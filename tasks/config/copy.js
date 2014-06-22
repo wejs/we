@@ -29,7 +29,9 @@ module.exports = function(grunt) {
 								.concat(require('../pipeline').jsFilesToInjectOriginal)
 								.concat(require('../pipeline').cssFilesToInjectOriginal)
 								// TODO change this url to assets/fonts folder
-								.concat('bower_components/font-awesome/fonts/**'),
+								.concat('bower_components/font-awesome/fonts/**')
+								.concat('bower_components/select2/*.png')
+								.concat('bower_components/select2/*.gif'),
 				dest: '.tmp/public'
 			}]
 		},
@@ -41,7 +43,9 @@ module.exports = function(grunt) {
 								.concat(['js/libs/*.js', 'js/libs/**/*.js'])
 								.concat(require('../pipeline').cssFilesToInjectOriginal)
 								// TODO change this url to assets/fonts folder
-								.concat('bower_components/font-awesome/fonts/**'),
+								.concat('bower_components/font-awesome/fonts/**')
+								.concat('bower_components/select2/*.png')
+								.concat('bower_components/select2/*.gif'),
 				dest: '.tmp/public'
 			}]
 		},

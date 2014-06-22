@@ -8,6 +8,7 @@
 
 module.exports = {
   schema: true,
+  emberJsExcludeFromClient: true,
   attributes: {
 
     active:{
@@ -23,9 +24,20 @@ module.exports = {
       model: 'user'
     },
 
+    // shared with users
+    //sharedWith: {
+    //  collection: 'user',
+    //  via: 'sharedWithMe'
+    //},
+    // TODO find a better way to do this join with ember js configs
     sharedWith: {
       type: 'array'
     },
+
+    // shared in groups
+    //sharedIn: {
+    //  model: 'user',
+    //},
 
     comments: {
       collection: 'comment',

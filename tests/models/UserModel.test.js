@@ -12,7 +12,8 @@ function UserStub () {
     username: 'GNU/Linux',
     name: "linux",
     email: "linux@albertosouza.net",
-    password: "321"
+    password: "321",
+    sharedWithMe: []
   };
 }
 
@@ -21,7 +22,10 @@ describe('UsersModel', function() {
   afterEach(function(done){
     // remove all users after each test block
     User.destroy(function (err) {
-      if(err) return done(err);
+      if(err) {
+        console.log('error:', err);
+        return done(err);
+      }
       done();
 
     } );
@@ -47,7 +51,7 @@ describe('UsersModel', function() {
 
         User.create(newUser, function(err, user) {
           err.should.not.be.empty;
-
+          console.warn('newUser',newUser);
           assert.equal(user, undefined);
           done();
         });

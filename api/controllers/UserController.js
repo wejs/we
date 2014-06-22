@@ -273,7 +273,10 @@ module.exports = {
       var userNames = [];
       async.each(users,
         function(user, next){
-          userNames.push({ name: user.username } );
+          userNames.push({
+            id: user.id,
+            text: user.username
+          });
           next();
         },function(){
           res.send(userNames);

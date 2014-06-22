@@ -6,10 +6,6 @@ module.exports.requirejs = {
     'sails.io': 'js/sails.io',
     app: 'js/app',
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
-    bloodhound: 'bower_components/typeahead.js/dist/bloodhound',
-    typeahead: 'bower_components/typeahead.js/dist/typeahead.jquery',
-    "tagmanager": 'bower_components/tagmanager/tagmanager',
-    //'we-messenger': 'messenger/messenger',
     moment: 'bower_components/moment/min/moment-with-langs.min',
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     async: 'bower_components/async/lib/async',
@@ -40,7 +36,11 @@ module.exports.requirejs = {
 
     // wysiwyg editor
     summernote: 'wysiwyg/summernote/dist/summernote',
-    codemirror: 'bower_components/codemirror/lib/codemirror'
+    codemirror: 'bower_components/codemirror/lib/codemirror',
+
+    // typeahead and autocomplete select field
+    select2: 'bower_components/select2/select2'
+
   },
   shim: {
     bootstrap: {
@@ -48,19 +48,7 @@ module.exports.requirejs = {
         'jquery'
       ]
     },
-    "tagmanager": {
-      deps: [
-        'bootstrap',
-        'jquery'
-      ]
-    },
-    bloodhound: {
-      deps: [
-        'jquery',
-        "typeahead"
-      ]
-    },
-    "typeahead": {
+    select2: {
       deps: [
         'bootstrap',
         'jquery'
@@ -126,7 +114,7 @@ module.exports.requirejs = {
     }
   },
   //baseUrl: '/',
-  urlArgs: 'v=0.0.56',
+  urlArgs: 'v=0.0.57',
   waitSeconds: 15,
   deps: [
     'we'

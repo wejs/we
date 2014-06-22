@@ -107,7 +107,6 @@ define('weEmberPlugin',['we','async'], function (we, async) {
         }
       }, function(){
         we.emberApp.models[modelName] = DS.Model.extend(modelToAdd);
-
         nextModel();
       });
     }, callback );

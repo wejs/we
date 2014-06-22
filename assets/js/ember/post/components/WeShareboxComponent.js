@@ -1,5 +1,5 @@
 
-define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
+define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
   App.WeShareboxComponent = Ember.Component.extend({
     shareboxClass: 'small',
@@ -28,38 +28,44 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
       if(!userId){
         return console.error('authenticatedUser user id not found',userId);
       }
-      if(!element.tagsManager){
-        return console.error('jquery.tagsManager Not found on element', element);
+      if(!element.select2){
+        return console.error('jquery.select2 Not found on element', element);
       }
 
-      var tagApi = element.tagsManager({
-        tagsContainer: _this.get('toIdtagsManagerContainer'),
-        tagClass: 'tm-tag-success'
-      });
+      // we.getShareWithOptions
+      // get share with options
+      $.ajax({
+        type: 'GET',
+        url: '/user/'+userId+'/contacts-name',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data){
+          console.warn('data', data);
 
-      var contacts = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 1000,
-        prefetch: {
-          url: '/user/'+userId+'/contacts-name'
+          element.select2({
+            placeholder: "Share with ...",
+            minimumInputLength: 3,
+            multiple: true,
+            data: data,
+            formatResult: function(item){
+              console.warn('formatResult',item);
+
+              return item.text;
+            }, // omitted for brevity, see the source of this page
+            formatSelection: function(item){
+              console.warn('formatSelection',item);
+              return item.text;
+            }, // omitted for brevity, see the source of this page
+            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+            escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+          });
+        },
+        error: function(data){
+          console.error('Error on get share with list', data);
         }
       });
 
-      contacts.initialize();
-
-      element.typeahead({
-        hint: true,
-        highlight: true,
-        minLength: 2
-      },
-      {
-        name: 'states',
-        displayKey: 'name',
-        source: contacts.ttAdapter()
-      }).on('typeahead:selected', function (e, d) {
-        tagApi.tagsManager("pushTag", d.name);
-      });
     },
     willDestroyElement: function willDestroyElement(){
 
@@ -89,10 +95,19 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
         var element = this.$(this.get('toIdtagsManagerElement')) ;
         var store = this.get('store');
 
+        var sharedWith = [];
+        var sharedWithObjects = element.select2('data');
+
+        for (var i = 0; i < sharedWithObjects.length; i++) {
+          sharedWith.push(sharedWithObjects[i].id);
+        }
+
+        postNew.sharedWith = sharedWith;
+
         // set some default values
         postNew.createdAt = new Date();
         postNew.updatedAt = postNew.createdAt;
-
+return;
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
           // create new post on store
@@ -103,7 +118,7 @@ define(['we', 'ember', 'tagmanager', 'typeahead', 'bloodhound'], function (we) {
           // save post
           post.save().then(function(){
             // empty selectd tags
-            element.tagsManager('empty');
+            element.select2('data', null);
             // close and clear sharebox form inputs
             _this.setProperties({
               'postNew.body': '',

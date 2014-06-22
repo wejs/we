@@ -49,43 +49,29 @@ define('emberApp',[
     }
   });
 
-  App.HasManyTransform = DS.Transform.extend({
-    deserialize: function (serialized) {
-      if (serialized) {
-        return moment(serialized).toISOString();
-      }
-      return serialized;
-    },
-    serialize: function (deserialized) {
-      if (deserialized) {
-        return deserialized;
-      }
-      return deserialized;
-    }
-  });
-
-
   App.ApplicationSerializer = DS.JSONSerializer.extend({
     // extract relationship objects
     extractFindQuery: function(store, type, payload){
       for (var i = payload.length - 1; i >= 0; i--) {
         // get model config from wejs
         var modelConfig = we.configs.models[type.typeKey];
+
         // get attribute names
         for(var attributeName in payload[i]){
-          // check if are collection array hasMany
-          if(modelConfig[attributeName] && modelConfig[attributeName].collection ){
-            // get relationship model
-            relationshipModel = type.typeForRelationship(attributeName);
-            if(relationshipModel){
-              // store this resources
+          // get relationship model
+          relationshipModel = type.typeForRelationship(attributeName);
+          if(relationshipModel){
+            if(typeof payload[i][attributeName] == 'string'){
+              //
+            }else{
+            // store this resources if are a array of objects
               store.pushMany(relationshipModel.typeKey, payload[i][attributeName]);
               // change resource object to id
               for (var j = 0; j < payload[i][attributeName].length; j++) {
                 payload[i][attributeName][j] = payload[i][attributeName][j].id;
               }
-
             }
+
           }
         }
       }
@@ -155,16 +141,11 @@ define('emberApp',[
       function pushMessage(message) {
         var type = store.modelFor(socketModel);
         var serializer = store.serializerFor(type.typeKey);
-        // Messages from 'created' don't seem to be wrapped correctly,
-        // however messages from 'updated' are, so need to double check here.
-        /*
-        if(!(model in message.data)) {
-          var obj = {};
-          obj[model] = message.data;
-          message.data = obj;
-        }
-        */
-        var record = serializer.extractSingle(store, type, message.data);
+
+        var obj = message.data;
+        obj.id = message.id;
+
+        var record = serializer.extractSingle(store, type, obj);
 
         var recordStored = store.push(socketModel, record);
 
@@ -238,72 +219,102 @@ define('emberApp',[
     delete we.configs.client.emberjsParts.parts.routes;
   }
 
+  // get emberjs models
+  var emberModelModules = [];
+  if(we.configs.client.emberjsParts.parts.models){
+    emberModelModules = we.configs.client.emberjsParts.parts.models;
+    delete we.configs.client.emberjsParts.parts.models;
+  }
+
   // get emberjs modules
   for(var emberjsPart in we.configs.client.emberjsParts.parts){
       emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
   }
 
-  require(emberRequireModules,function(){
-    // Set default router contigs
-    async.each( modelNames, function(modelName, next){
+  // load ember js models
+  require(emberModelModules,function(){
+    // then load other resources
+    require(emberRequireModules,function(){
+      // Set default router contigs
+      async.each( modelNames, function(modelName, next){
 
-      var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
-      App[modelVarName] = we.emberApp.models[modelName];
-      // route list
-      App[modelVarName + 'ListRoute'] = Ember.Route.extend({
-        model: function() {
-          return this.store.find(modelName);
-        },
-        renderTemplate: function() {
-          this.render(modelName+'/list');
-        }
-      });
+        var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
+        App[modelVarName] = we.emberApp.models[modelName];
+        // route list
+        App[modelVarName + 'ListRoute'] = Ember.Route.extend({
+          model: function() {
+            return this.store.find(modelName);
+          },
+          renderTemplate: function() {
+            this.render(modelName+'/list');
+          }
+        });
 
-      // route item
-      App[modelVarName + 'Route'] = Ember.Route.extend({
-        model: function(params) {
-          return this.store.find(modelName, params[modelName+'_id']);
-        },
-        renderTemplate: function() {
-          this.render(modelName+'/item');
-        }
-      });
+        // route item
+        App[modelVarName + 'Route'] = Ember.Route.extend({
+          model: function(params) {
+            return this.store.find(modelName, params[modelName+'_id']);
+          },
+          renderTemplate: function() {
+            this.render(modelName+'/item');
+          }
+        });
 
-      // route item /edit
-      App[modelVarName + 'EditRoute'] = Ember.Route.extend({
-        renderTemplate: function() {
-          this.render(modelName+'/edit');
-        }
-      });
+        // route item /edit
+        App[modelVarName + 'EditRoute'] = Ember.Route.extend({
+          renderTemplate: function() {
+            this.render(modelName+'/edit');
+          }
+        });
 
-      next();
+        next();
 
-    }, function(){
-      // load requirejs custom routes
-      require(emberRouteModules,function(){
-        // Map app routers
-        App.Router.map(function(match) {
-          var thisPointer = this;
+      }, function(){
+        // load requirejs custom routes
+        require(emberRouteModules,function(){
+          // Map app routers
+          App.Router.map(function(match) {
+            var thisPointer = this;
 
-          this.resource('home',{path: '/'});
-          // TODO add route config to select how routes will be generated
-          modelNames.forEach(function(modelName){
-            // list route
-            this.resource(modelName+'List',{path: '/'+modelName});
+            this.resource('home',{path: '/'});
+
+            // user route map
+            this.resource('userList',{path: '/user'});
             // item route
-            this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
+            this.resource('user', { path: '/user/:user_id' }, function(){
               // edit item route
               this.route('edit');
             });
 
-          }, this);
+            // post route map
+            this.resource('postList',{path: '/post'});
+            // item route
+            this.resource('post', { path: '/post/:post_id' }, function(){
+              // edit item route
+              this.route('edit');
+            });
 
-          App.advanceReadiness();
 
+            // TODO add route config to select how routes will be generated
+            modelNames.forEach(function(modelName){
+              // list route
+              this.resource(modelName+'List',{path: '/'+modelName});
+              // item route
+              this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
+                // edit item route
+                this.route('edit');
+              });
+
+            }, this);
+
+            App.advanceReadiness();
+
+          });
         });
       });
     });
   });
+
 
   var showdown = new Showdown.converter();
 
