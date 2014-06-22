@@ -3,13 +3,8 @@
  * Available via the MIT or new BSD license.
  * see: http://github.com/requirejs/domReady for details
  */
-/*jslint */
-/*global require: false, define: false, requirejs: false,
-  window: false, clearInterval: false, document: false,
-  self: false, setInterval: false */
 
-
-define(function () {
+define('domReady',[],function () {
     'use strict';
 
     var isTop, testDiv, scrollIntervalId,

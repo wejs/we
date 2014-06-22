@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 
 	grunt.config.set('concat', {
 		js: {
-			src: require('../pipeline').jsFilesToInject,
+			src: require('../pipeline').jsFilesToInject
+			.concat('.tmp/tpls.hbs.js'),
 			dest: '.tmp/public/concat/production.js'
 		},
 		css: {

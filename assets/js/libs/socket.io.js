@@ -1654,7 +1654,7 @@ var io = {};
           } else if (xhr.status == 403) {
             self.onError(xhr.responseText);
           } else {
-            self.connecting = false;            
+            self.connecting = false;
             !self.reconnecting && self.onError(xhr.responseText);
           }
         }
@@ -1698,7 +1698,7 @@ var io = {};
 
     var self = this;
     self.connecting = true;
-    
+
     this.handshake(function (sid, heartbeat, close, transports) {
       self.sessionid = sid;
       self.closeTimeout = close * 1000;
@@ -1820,7 +1820,7 @@ var io = {};
     this.transport.payload(this.buffer);
     this.buffer = [];
   };
-  
+
 
   /**
    * Disconnect the established connect.
@@ -1880,7 +1880,7 @@ var io = {};
     var port = global.location.port ||
       ('https:' == global.location.protocol ? 443 : 80);
 
-    return this.options.host !== global.location.hostname 
+    return this.options.host !== global.location.hostname
       || this.options.port != port;
   };
 
@@ -2161,7 +2161,7 @@ var io = {};
    *
    * @api public
    */
-  
+
   SocketNamespace.prototype.emit = function (name) {
     var args = Array.prototype.slice.call(arguments, 1)
       , lastArg = args[args.length - 1]
@@ -2399,8 +2399,8 @@ var io = {};
    * @api public
    */
 
-  // Do to a bug in the current IDevices browser, we need to wrap the send in a 
-  // setTimeout, when they resume from sleeping the browser will crash if 
+  // Do to a bug in the current IDevices browser, we need to wrap the send in a
+  // setTimeout, when they resume from sleeping the browser will crash if
   // we don't allow the browser time to detect the socket has been closed
   if (io.util.ua.iDevice) {
     WS.prototype.send = function (data) {
@@ -2733,7 +2733,7 @@ var io = {};
 
   /**
    * The HTMLFile transport creates a `forever iframe` based transport
-   * for Internet Explorer. Regular forever iframe implementations will 
+   * for Internet Explorer. Regular forever iframe implementations will
    * continuously trigger the browsers buzy indicators. If the forever iframe
    * is created inside a `htmlfile` these indicators will not be trigged.
    *
@@ -2947,7 +2947,7 @@ var io = {};
     return false;
   };
 
-  /** 
+  /**
    * Establish a connection, for iPhone and Android this will be done once the page
    * is loaded.
    *
@@ -2999,7 +2999,7 @@ var io = {};
     function onerror () {
       self.retryCounter ++;
       if(!self.retryCounter || self.retryCounter > 3) {
-        self.onClose();  
+        self.onClose();
       } else {
         self.get();
       }
@@ -3325,6 +3325,6 @@ var io = {};
 );
 
 if (typeof define === "function" && define.amd) {
-  define([], function () { return io; });
+  define('io',[], function () { return io; });
 }
 })();
