@@ -41,20 +41,18 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         dataType: 'json',
         contentType: 'application/json',
         success: function(data){
-          console.warn('data', data);
-
           element.select2({
             placeholder: "Share with ...",
             minimumInputLength: 3,
             multiple: true,
             data: data,
             formatResult: function(item){
-              console.warn('formatResult',item);
+              //console.warn('formatResult',item);
 
               return item.text;
             }, // omitted for brevity, see the source of this page
             formatSelection: function(item){
-              console.warn('formatSelection',item);
+              //console.warn('formatSelection',item);
               return item.text;
             }, // omitted for brevity, see the source of this page
             dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
@@ -99,34 +97,50 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         var sharedWithObjects = element.select2('data');
 
         for (var i = 0; i < sharedWithObjects.length; i++) {
-          sharedWith.push(sharedWithObjects[i].id);
+          sharedWith.push(sharedWithObjects[i].id );
         }
 
-        postNew.sharedWith = sharedWith;
-
-        // set some default values
-        postNew.createdAt = new Date();
-        postNew.updatedAt = postNew.createdAt;
-return;
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
-          // create new post on store
-          var post = store.createRecord('post', postNew);
 
-          post.set('creator', user);
+          // TODO change this findMany function to something better
+          var map = Ember.ArrayPolyfills.map;
+          var promises = map.call(sharedWith, function(id) {
+            return store.find('user', id);
+          }, this);
 
-          // save post
-          post.save().then(function(){
-            // empty selectd tags
-            element.select2('data', null);
-            // close and clear sharebox form inputs
-            _this.setProperties({
-              'postNew.body': '',
-              'isOpen': false,
-              'shareboxClass': 'small'
-            });
+          Ember.RSVP.all(promises).then(function(shareWithUsers){
+            //store.find('user',{id: sharedWith} )
+            //.then(function(shareWithUsers){
+
+              // create new post on store
+              var post = store.createRecord('post', postNew);
+
+              post.setProperties({
+                'creator': user,
+                'createdAt': new Date(),
+                'updatedAt': new Date()
+              });
+
+              post.get('sharedWith').pushObjects(shareWithUsers);
+
+              // save post
+              post.save().then(function(){
+                // empty selectd tags
+                element.select2('data', null);
+                // close and clear sharebox form inputs
+                _this.setProperties({
+                  'postNew.body': '',
+                  'isOpen': false,
+                  'shareboxClass': 'small'
+                });
+
+              });
+
+            //});
 
           });
+
         });
       }
     }

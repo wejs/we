@@ -326,13 +326,23 @@ define('emberApp',[
     return moment(date).fromNow();
   });
 
-  Ember.Handlebars.registerHelper('t', function (property, options) {
-    if(property){
-      return we.i18n( property );
-    } else{
-      return '';
-    }
-  });
+
+  // Localization helper
+  if(we.config.language == "en-us"){
+    // dont translate if are the default system language
+    Ember.Handlebars.registerHelper('t', function (property, options) {
+      return property;
+    });
+  }else{
+    Ember.Handlebars.registerHelper('t', function (property, options) {
+      if(property){
+        return we.i18n( property );
+      } else{
+        return '';
+      }
+    });
+  }
+
 
   // Limit string length
   // usage: {{substr description max=20}}
