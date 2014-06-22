@@ -49,7 +49,20 @@ define('emberApp',[
     }
   });
 
+
+  // TODO mode to other file and load as requirejs module
   App.ApplicationSerializer = DS.JSONSerializer.extend({
+    /*
+      @method serializeIntoHash
+      @param {Object} hash
+      @param {subclass of DS.Model} type
+      @param {DS.Model} record
+      @param {Object} options
+    */
+    serializeIntoHash: function(hash, type, record, options) {
+      Ember.merge(hash, this.serialize(record, options));
+    },
+
     // extract relationship objects
     extractFindQuery: function(store, type, payload){
       for (var i = payload.length - 1; i >= 0; i--) {
@@ -110,22 +123,39 @@ define('emberApp',[
     extractFindHasMany: function(store, type, payload){
       console.warn('extractFindHasMany',store, type, payload);
     }
+
   });
 
-  //App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
-  App.ApplicationAdapter = DS.SailsSocketAdapter.extend({
-     defaultSerializer: '-default',
+  App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
+    defaultSerializer: '-default',
+    listeningModels: {},
+    init: function () {
+      console.warn('inint sails coskcet adapter');
+      this._super();
+      var _this = this;
+      if(this.useCSRF) {
+        socket.get('/csrfToken', function response(tokenObject) {
+          this.CSRFToken = tokenObject._csrf;
+        }.bind(this));
+      }
 
-    //namespace: 'api/v1'
-    // pathForType: function(type) {
-    //   var camelized = Ember.String.camelize(type);
-    //   return Ember.String.singularize(camelized);
-    // }
+      var models = ['post','activity','comment','user'];
 
-    // fix is error objectt check
-    isErrorObject: function(data) {
-      return !!(data.error && data.model && data.summary && data.status);
+      models.forEach(function(model){
+        _this._listenToSocket(model);
+      });
+
     },
+    //namespace: 'api/v1'
+    pathForType: function(type) {
+       var camelized = Ember.String.camelize(type);
+       return Ember.String.singularize(camelized);
+    },
+
+    /**
+     * Listen to default sails.js pubsub methods
+     * @return {[type]} [description]
+     */
     _listenToSocket: function(model) {
       if(model in this.listeningModels) {
         return;
@@ -142,25 +172,15 @@ define('emberApp',[
       function pushMessage(message) {
         var type = store.modelFor(socketModel);
         var serializer = store.serializerFor(type.typeKey);
-
-        var obj = message.data;
-        obj.id = message.id;
-
-        var record = serializer.extractSingle(store, type, obj);
-
-        var recordStored = store.push(socketModel, record);
-
-        var attributeNames = Object.keys(we.configs.models[socketModel]);
-
-        for (var attributeName in we.configs.models[socketModel] ) {
-          if(we.configs.models[socketModel][attributeName].model){
-            if(we.configs.models[socketModel][attributeName].via){
-              var parentName = we.configs.models[socketModel][attributeName].model;
-              var via = we.configs.models[socketModel][attributeName].via;
-              record[parentName].get(via).pushObject(recordStored);
-            }
-          }
+        // Messages from 'created' don't seem to be wrapped correctly,
+        // however messages from 'updated' are, so need to double check here.
+        if(!(model in message.data)) {
+          var obj = {};
+          obj[model] = message.data;
+          message.data = obj;
         }
+        var record = serializer.extractSingle(store, type, message.data);
+        store.push(socketModel, record);
       }
 
       function destroy(message) {
@@ -175,7 +195,7 @@ define('emberApp',[
       var eventName = Ember.String.camelize(model).toLowerCase();
       socket.on(eventName, function (message) {
         // Left here to help further debugging.
-        console.log("Got message on Socket : ", message, eventName);
+        //console.log("Got message on Socket : " + JSON.stringify(message));
         if (message.verb === 'created') {
           // Run later to prevent creating duplicate records when calling store.createRecord
           Ember.run.later(null, pushMessage, message, 50);
