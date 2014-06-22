@@ -27,7 +27,9 @@ define(['we','ember','ember-data'], function (we) {
 
     // relationship s
     avatar:  DS.belongsTo( 'images' ),
-    sharedWithMe: DS.hasMany('post'),
+    sharedWithMe: DS.hasMany('post',{
+      inverse: 'sharedWith'
+    }),
 
     createdAt: attr('date'),
     updatedAt: attr('date')

@@ -53,16 +53,17 @@ define('emberApp',[
     // extract relationship objects
     extractFindQuery: function(store, type, payload){
       for (var i = payload.length - 1; i >= 0; i--) {
-        // get model config from wejs
-        var modelConfig = we.configs.models[type.typeKey];
-
         // get attribute names
         for(var attributeName in payload[i]){
           // get relationship model
           relationshipModel = type.typeForRelationship(attributeName);
           if(relationshipModel){
-            if(typeof payload[i][attributeName] == 'string'){
-              //
+            if(!payload[i][attributeName].length){
+              // dont has one array or the array is empty
+              // ...
+            }else if(typeof payload[i][attributeName][0] == 'string'){
+              // if are a array of strings ids
+              // ...
             }else{
             // store this resources if are a array of objects
               store.pushMany(relationshipModel.typeKey, payload[i][attributeName]);

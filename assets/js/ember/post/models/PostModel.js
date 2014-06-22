@@ -15,7 +15,9 @@ define(['we','ember','ember-data'], function (we) {
 
     // relationship s
     creator:  DS.belongsTo('user'),
-    sharedWith: DS.hasMany('user'),
+    sharedWith: DS.hasMany('user',{
+      inverse: 'sharedWithMe'
+    }),
     comments: DS.hasMany('comment'),
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')
