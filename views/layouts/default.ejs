@@ -3,9 +3,8 @@
   <head>
     <title><%- title %></title>
 
-    <!--SCRIPTS-->
-    <script data-main="/main" src="/js/libs/require.js" data-dump="/js/ember/emberApp.js"></script>
-    <!--SCRIPTS END-->
+    <%- HelpersService.getRequirejsPreloadConfig() %>
+    <%- HelpersService.getRequireJsScriptTag() %>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />

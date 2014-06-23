@@ -14,57 +14,6 @@
 module.exports = function(grunt) {
 
 	grunt.config.set('sails-linker', {
-    devJs: {
-      options: {
-        startTag: '<!--SCRIPTS-->',
-        endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s"></script>',
-        appRoot: '.tmp/public'
-      },
-      files: {
-        'views/**/*.ejs': ['.tmp/public/js/ember/emberApp.js']
-      }
-    },
-
-    devJsRelative: {
-      options: {
-        startTag: '<!--SCRIPTS-->',
-        endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>',
-        appRoot: '.tmp/public',
-        relative: true
-      },
-      files: {
-        'views/**/*.ejs': ['.tmp/public/js/ember/emberApp.js']
-      }
-    },
-
-    prodJs: {
-      options: {
-        startTag: '<!--SCRIPTS-->',
-        endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>'
-        ,
-        appRoot: '.tmp/public'
-      },
-      files: {
-        'views/**/*.ejs': ['.tmp/public/concat/production.js']
-      }
-    },
-
-    prodJsRelative: {
-      options: {
-        startTag: '<!--SCRIPTS-->',
-        endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script data-main="/main" src="/js/libs/require.js" data-dump="%s" ></script>'
-        ,
-        appRoot: '.tmp/public',
-        relative: true
-      },
-      files: {
-        'views/**/*.ejs': ['.tmp/public/concat/production.js']
-      }
-    },
 
 		devStyles: {
 			options: {
