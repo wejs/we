@@ -1,14 +1,14 @@
 # WE [![Build Status](https://travis-ci.org/wejs/we.png?branch=master)](https://travis-ci.org/wejs/we) [![Dependency Status](https://david-dm.org/wejs/we.png?theme=shields.io)](https://david-dm.org/wejs/we) [![devDependency Status](https://david-dm.org/wejs/we/dev-status.png?theme=shields.io)](https://david-dm.org/wejs/we#info=devDependencies)
 #### A system for create Social Networks  written with [Sails.js](http://sailsjs.org).
 
-Status - in development, not working for production
+**Status** - in development, dont use it for production
 
 Have a question or found a fix? Please read a [Contribute guide](https://github.com/wejs/we/blob/master/CONTRIBUTING.md) and open a [issue](https://github.com/wejs/we/issues) and/or submit a pull request. <br>
 For documentation, see [here](https://github.com/wejs/we/blob/master/DOCUMENTATION.md).
 
 This project started in https://github.com/albertosouza/we after some testes with node.js frameworks
 
-If want see a live WE example access: http://wejs.org/
+If want see a We.js live example access: http://wejs.org/
 
 ### Installation
 
@@ -30,13 +30,22 @@ TODO
 
 ### How to Test
 
+#### With 'npm test':
 Inside project folder tip:
 ```sh
 $ npm test
 ```
 
-TODO add how to use cake and mocha grep ...
+#### With cake in terminal:
+Run all tests:
+```sh
+$ cake 'NotificationService' test
+```
 
+Grep tests to run ( mocha grep ):
+```sh
+$ cake --grep 'NotificationService' test
+```
 
 ## FEATURES
 
