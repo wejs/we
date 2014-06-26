@@ -73,6 +73,11 @@ module.exports = {
       maxLength: 6
     },
 
+    // user configs
+    configs: {
+      model: 'configuration'
+    },
+
     // Override toJSON instance method
     // to remove password value
     toJSON: function() {
@@ -83,8 +88,11 @@ module.exports = {
         obj.name = obj.username;
       }
 
-      // remove password from view
+      // remove password hash from view
       delete obj.password;
+
+      // delete and hide user email
+      delete obj.email;
 
       // set default objectType
       obj.objectType = "person";
