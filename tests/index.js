@@ -1,6 +1,6 @@
 /**
- * Test starter - with this version of sails.js we can only start one sails server, 
- * to solve this problem we use only one before All and after All to start and 
+ * Test starter - with this version of sails.js we can only start one sails server,
+ * to solve this problem we use only one before All and after All to start and
  * stop the server
  */
 
@@ -21,8 +21,8 @@ before(function(done) {
   // start sails server and for tests and user the global sails variable
   Sails.lift( config, function(err, sails) {
     done();
-    /* 
-    // CSRF getter 
+    /*
+    // CSRF getter
     getTestCsrfToken(function(err, csrf){
       done();
     });
@@ -42,9 +42,18 @@ fs.readdirSync(__dirname + "/models").forEach(function(file) {
 // load controllers test
 fs.readdirSync( __dirname + "/controllers").forEach(function(file) {
   if(file.indexOf('.test.js') > -1) {
-    require("./controllers/" + file);  
+    require("./controllers/" + file);
   }
-  
+
+});
+
+
+// load services tests
+fs.readdirSync( __dirname + "/services").forEach(function(file) {
+  if(file.indexOf('.test.js') > -1) {
+    require("./services/" + file);
+  }
+
 });
 
 // Load views tests
