@@ -118,8 +118,13 @@ module.exports = {
     },
 
     verifyPassword: function (password) {
-        var isMatch = bcrypt.compareSync(password, this.password);
-        return isMatch;
+      // if user dont have a password
+      if(!this.password){
+        return false;
+      }
+
+      var isMatch = bcrypt.compareSync(password, this.password);
+      return isMatch;
     },
 
     changePassword: function(user, oldPassword, newPassword, next){

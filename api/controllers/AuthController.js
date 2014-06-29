@@ -5,7 +5,7 @@ var passport = require('passport');
 module.exports = {
 
   index: function (req,res)	{
-		res.redirect('/signup');
+		res.redirect('/auth/register');
 	},
 
 	// Signup method GET function
@@ -87,23 +87,22 @@ module.exports = {
                 var options = {};
 
                 EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err, responseStatus){
-                  if(err) return next(err);
+                  if(err) {
+                    sails.log.error('Action:Login sendAccontActivationEmail:',err);
+                    return res.serverError('Error on send activation email for new user',newUser);
+                  }
 
                   res.send('201',{
-                    responseMessages: {
-                      success: [
-                        {
-                          status: 'success',
-                          message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
-                        }
-                      ]
-                    }
+                    success: [
+                      {
+                        status: '201',
+                        message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
+                      }
+                    ]
                   });
 
                 });
               } else {
-                // TODO add suporte do configure user registration activation
-                // like with email confirmation or auto login
                 req.logIn(newUser, function(err){
                   if(err) return next(err);
                   res.send('201',newUser);
@@ -130,33 +129,37 @@ module.exports = {
       }
 
       User.findOneByEmail(email).exec(function(err, usr) {
-          if (err) {
-              res.send(500, { error: res.i18n("DB Error") });
-          } else {
-              if (usr) {
-                  if (usr.verifyPassword(password)) {
-                      passport.authenticate('local', function(err, usr, info) {
+        if (err) {
+          res.send(500, { error: res.i18n("DB Error") });
+        } else {
+          if(usr) {
+            if (usr.verifyPassword(password)) {
+              passport.authenticate('local', function(err, usr, info) {
 
-                        if (err) return next(err);
-                        if (!usr) return res.redirect('/login');
+                if (err){
+                  return res.serverError(err);
+                }
+                if (!usr) return res.redirect('/login');
 
-                        req.logIn(usr, function(err){
-                          if(err) return next(err);
-
-                          res.send(usr);
-                          // TODO add suport to oauth tokens
-                          //res.redirect('/');
-                        });
-
-                      })(req, res, next);
-
-                  } else {
-                      res.send(400, { error: res.i18n("Wrong Password") });
+                req.logIn(usr, function(err){
+                  if(err){
+                    return res.serverError(err);
                   }
-              } else {
-                  res.send(404, { error: res.i18n("User not Found") });
-              }
+
+                  res.send(usr);
+                  // TODO add suport to oauth tokens
+                  //res.redirect('/');
+                });
+
+              })(req, res, next);
+
+            } else {
+              res.forbidden("Wrong Password");
+            }
+          } else {
+            res.forbidden("User not found");
           }
+        }
       });
   },
 
@@ -262,8 +265,9 @@ module.exports = {
     return next();
   },
 
-  forgotPasswordPage: function(){
-    console.log('TODO add forgot password page');
+  forgotPasswordPage: function(req, res){
+    // return home page and let emeberJs mount the page
+    res.view("home/index.ejs");
   },
 
   forgotPassword: function(){
