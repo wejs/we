@@ -14,6 +14,7 @@ module.exports.email = {
   // set avaible email services configs
   services: {
     // See https://github.com/andris9/Nodemailer for others configs
+    // Windows live config
     Live: {
       service: "Live",
       type: 'SMTP',
@@ -22,12 +23,14 @@ module.exports.email = {
       port: 587, // port for secure SMTP
       auth: {
           user: "email@outlook.com",
-          pass: "eitapoha99"
+          pass: "password"
       },
       tls: {
           ciphers:'SSLv3'
       }
     },
+
+    // gmail smtp configs
     gmail: {
       service: "Gmail",
       type: 'SMTP',
