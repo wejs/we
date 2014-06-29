@@ -14,6 +14,19 @@ module.exports.email = {
   // set avaible email services configs
   services: {
     // See https://github.com/andris9/Nodemailer for others configs
+
+    // Mandrill example
+    Mandrill: {
+      service: 'Mandrill',
+      type: 'SMTP',
+      host: 'smtp.mandrillapp.com',
+      port: 587,
+      auth: {
+        user: 'mandrillemail@email.com',
+        pass: 'mandrillapikey'
+      }
+    },
+
     // Windows live config
     Live: {
       service: "Live",
