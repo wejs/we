@@ -3,7 +3,7 @@
  *
  * Usage:
  * return res.notFound();
- * 
+ *
  * NOTE:
  * If no user-defined route, blueprint route, or static file matches
  * the requested URL, Sails will call `res.notFound()`.
@@ -25,16 +25,22 @@ module.exports = function notFound() {
   // If the user-agent wants a JSON response, send json
   if (req.wantsJSON) {
     return res.json(result, result.status);
+  } else{
+
   }
 
-  res.status(result.status);
-  res.render(viewFilePath, function(err) {
-    // If the view doesn't exist, or an error occured, send json
-    if (err) {
-      return res.json(result, result.status);
-    }
+  // if dont wantsJSON send ember.js index page and let app show the 404 page
+  return res.view('home/index.ejs');
 
-    // Otherwise, serve the `views/404.*` page
-    res.render(viewFilePath);
-  });
+  // // default sails js 404 logic
+  // res.status(result.status);
+  // res.render(viewFilePath, function(err) {
+  //   // If the view doesn't exist, or an error occured, send json
+  //   if (err) {
+  //     return res.json(result, result.status);
+  //   }
+
+  //   // Otherwise, serve the `views/404.*` page
+  //   res.render(viewFilePath);
+  // });
 };
