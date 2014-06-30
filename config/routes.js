@@ -272,10 +272,10 @@ module.exports.routes = {
 
 
 
-  // -- ACTIVITIES
-  'post /post': {
+  // -- POSTS
+  'get /api/v1/post': {
     controller    : 'post',
-    action        : 'create'
+    action        : 'list'
   },
 
 

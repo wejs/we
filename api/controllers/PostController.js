@@ -11,7 +11,7 @@ var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUt
 
 module.exports = {
 
-  index: function (req,res) {
+  list: function (req,res) {
 
     Post.find()
     .where( actionUtil.parseCriteria(req) )
