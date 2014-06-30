@@ -6,9 +6,20 @@
  */
 
 module.exports = {
+  schema: true,
+  emberJsExcludeFromClient: true,
 	attributes: {
-    // TODO
 
-	}
+    // user how has this configuration
+    user: {
+      model: 'user'
+    },
+
+    // none | instant | daily | weekly
+    emailNotificationType: {
+      type: 'string',
+      defaultsTo: 'none'
+    }
+  }
 
 };

@@ -1,7 +1,7 @@
 define(['we','ember'], function (we) {
   var _this;
 
-  App.ApplicationController = Ember.ObjectController.extend({
+  App.ApplicationController = Ember.Controller.extend({
     isAuthenticated: false,
     init: function(){
       this._super();
@@ -13,10 +13,7 @@ define(['we','ember'], function (we) {
       }else{
         _this.isAuthenticated = false;
       }
-
     }
-
-
   });
 
 });

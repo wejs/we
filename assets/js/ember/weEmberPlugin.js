@@ -42,10 +42,7 @@ define('weEmberPlugin',['we','async'], function (we, async) {
       'ember',
       'ember-data',
       'ember-data-sails-adapter',
-      'emberTemplates',
-      'bs-core',
-      'bs-modal',
-      'bs-button'
+      'emberTemplates'
     ],function(ember, emberData){
       buildEmberModels(function(error){
         if(error){

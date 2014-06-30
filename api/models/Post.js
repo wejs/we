@@ -17,11 +17,13 @@ module.exports = {
     },
     // post content
     body: {
-      type: 'string'
+      type: 'string',
+      required: true
     },
 
     creator: {
-      model: 'user'
+      model: 'user',
+      required: true
     },
 
     // shared with users
@@ -86,6 +88,8 @@ module.exports = {
 
       next();
     });
+
+    NotificationService.setPostNotifications('post_created', post);
   }
 
 };

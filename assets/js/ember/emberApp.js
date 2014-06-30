@@ -129,6 +129,7 @@ define('emberApp',[
   App.ApplicationAdapter = DS.SailsRESTAdapter.extend({
     defaultSerializer: '-default',
     listeningModels: {},
+    namespace: 'api/v1',
     init: function () {
 
       this._super();
@@ -146,7 +147,7 @@ define('emberApp',[
       });
 
     },
-    //namespace: 'api/v1'
+
     pathForType: function(type) {
        var camelized = Ember.String.camelize(type);
        return Ember.String.singularize(camelized);
@@ -301,6 +302,11 @@ define('emberApp',[
 
             // user route map
             this.resource('userList',{path: '/user'});
+
+            // auth
+            this.route('authForgotPassword',{path: '/auth/forgot-password'});
+            this.route('authResetPassword',{path: '/auth/reset-password'});
+
             // item route
             this.resource('user', { path: '/user/:user_id' }, function(){
               // edit item route
@@ -315,7 +321,6 @@ define('emberApp',[
               this.route('edit');
             });
 
-
             // TODO add route config to select how routes will be generated
             modelNames.forEach(function(modelName){
               // list route
@@ -327,6 +332,10 @@ define('emberApp',[
               });
 
             }, this);
+
+
+            // 404 pages
+            this.route("unknown", { path: "*path"});
 
             App.advanceReadiness();
 

@@ -5,6 +5,61 @@ var nodemailer = require("nodemailer");
 //var templatesDir   = path.resolve(__dirname, '..', 'views/mailer');
 var emailTemplates = require('email-templates');
 
+
+/**
+ * Send one email with configs set in sails configs
+ * @param  {object}   options              options on format: {email: 'toemail@exam.c', subject: 'email subject'}
+ * @param  {string}   templateName         email template name
+ * @param  {object}   templateVariables    variables to send to template
+ * @param  {Function} cb                   after ends call cb( error, responseStatus);
+ */
+exports.sendEmail = function(options, templateName, templateVariables, cb) {
+
+  var templatesDir = sails.config.paths.views + '/mailer';
+  emailTemplates(templatesDir, function(err, template) {
+    if (err) return cb(err, null);
+
+    // ## Send a single email
+
+    // Prepare nodemailer transport object
+    var transport = EmailService.getServerTransport();
+
+    // Send a single email
+    template(templateName, templateVariables, function(err, html, text) {
+      if (err) return cb(err, null);
+
+      // if are in test enviroment or transport not found in configs
+      // print email on console
+      if( sails.config.environment == 'test' || !transport ){
+        EmailService.showDebugEmail(options, html, text);
+        return cb();
+      }
+
+      var email = {
+        to: options.email,
+        subject: options.subject,
+        html: html,
+        // generateTextFromHTML: true,
+        text: text
+      };
+
+      if(options.from){
+        email.from = options.from;
+      }else{
+        email.from = sails.config.appName +' <' + sails.config.email.site_email + '>';
+      }
+
+      // Send the email
+      transport.sendMail(email, function(err, responseStatus) {
+        if (err) return cb(err, null);
+
+        return cb(null,responseStatus);
+      });
+    });
+  });
+};
+
+
 exports.sendInviteEmail = function(options) {
   var smtpTransport;
 
@@ -12,9 +67,9 @@ exports.sendInviteEmail = function(options) {
 
   var opts = {"type":"messages","call":"send","message":
     {
-      "subject": "WE ;)",
-      "from_email": "services@we-cms.org",
-      "from_name": "WE",
+      "subject": "We.js",
+      "from_email": "services@wejs.org",
+      "from_name": "we.js",
       "to":[
           {"email": options.email, "name": options.name}
       ],
@@ -51,13 +106,13 @@ exports.sendInviteEmail = function(options) {
 exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
   var smtpTransport;
 
+
   AuthToken.create( {user_id: user.id} ).exec(function(error, token) {
     if(error) return cb(error);
 
     var options = {};
-
+    // to email
     options.email = user.email;
-    options.subject = 'WE Account activation email';
 
     var templateVariables = {
       user: {
@@ -71,7 +126,8 @@ exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
     };
 
     var templateName = 'AccontActivationEmail';
-    options.subject = 'WE -> Register validation email :)';
+    // TODO make this var dinamic and translate it
+    options.subject = 'We.js -> Register validation email.';
 
     EmailService.sendEmail(options ,templateName ,templateVariables, cb);
   });
@@ -122,53 +178,17 @@ exports.getServerTransport = function(serviceName) {
   return emailServerTransport;
 };
 
-exports.sendEmail = function(options, templateName, templateVariables, cb) {
-
-  var templatesDir = sails.config.paths.views + '/mailer';
-  emailTemplates(templatesDir, function(err, template) {
-    if (err) return cb(err, null);
-
-    // ## Send a single email
-
-    // Prepare nodemailer transport object
-    var transport = EmailService.getServerTransport();
-
-    // Send a single email
-    template(templateName, templateVariables, function(err, html, text) {
-      if (err) return cb(err, null);
-
-      // if are in test enviroment or transport not fount show email on console
-      if( sails.config.environment == 'test' || !transport ){
-        // dont send emails in test enviroment
-        console.info('---- EmailService.sendEmail() ----');
-        console.info('---- Displaying the email that would be sent ----');
-        console.info('To:\n',options.email);
-        console.info('Text:\n',html);
-        console.info('----------------------------- END --------------------------');
-
-        return cb();
-
-      } else {
-
-        // Send the email
-        transport.sendMail({
-          from: sails.config.appName +' <' + sails.config.email.site_email + '>',
-          to: options.email,
-          subject: options.subject,
-          html: html,
-          // generateTextFromHTML: true,
-          text: text
-        }, function(err, responseStatus) {
-          if (err) return cb(err, null);
-
-          sails.log.info('EmailService',responseStatus.message);
-
-          return cb(null,responseStatus);
-        });
-
-      }
-
-    });
-
-  });
+/**
+ * Show email on terminal - to tests and if dont have a email server configured
+ */
+exports.showDebugEmail = function(options, html, text){
+  // dont send emails in test enviroment
+  sails.log.info('---- EmailService.showDebugEmail ----');
+  sails.log.info('---- Email options: ----');
+  sails.log.info(options);
+  sails.log.info('---- Displaying the html email that would be sent ----');
+  sails.log.info('HTML:\n',html);
+  sails.log.info('---- Displaying the text email that would be sent ----');
+  sails.log.info('text:\n',text);
+  sails.log.info('----------------------------- END --------------------------');
 };

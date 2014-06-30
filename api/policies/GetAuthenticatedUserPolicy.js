@@ -18,6 +18,7 @@ module.exports = function (req, res, ok) {
             sails.log.error('Error on get user from session in socket.io: ', err);
           }
           if(user){
+            // set user
             req.user = user;
           }
           return ok();

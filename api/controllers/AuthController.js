@@ -104,7 +104,11 @@ module.exports = {
                 });
               } else {
                 req.logIn(newUser, function(err){
-                  if(err) return next(err);
+                  if(err){
+                    sails.log.error('logIn error: ', err);
+                    return res.negotiate(err);
+                  }
+
                   res.send('201',newUser);
                 });
               }
@@ -223,7 +227,10 @@ module.exports = {
 				      }
 
               req.logIn(usr, function(err){
-                if(err) return next(err);
+                if(err){
+                  sails.log.error('logIn error:', err);
+                  return res.negotiate(err);
+                }
 
 						    return res.format({
 						     'text/html': function(){
@@ -234,7 +241,7 @@ module.exports = {
 						     },
 
 						     'application/json': function(){
-						        console.log('send result here ....');
+						        console.log('send login result here ....');
 						        res.send(200, usr);
 						     }
 						    });
@@ -254,15 +261,14 @@ module.exports = {
 
     };
 
-		validAuthToken(user.id, token, validAuthTokenRespose);
-
-
+		AuthToken.validAuthToken(user.id, token, validAuthTokenRespose);
 
   },
 
-  SendPasswordResetToken: function(req, res, next){
+  SendPasswordResetToken: function(req, res){
     console.log('TODO GetloginResetToken');
-    return next();
+
+
   },
 
   forgotPasswordPage: function(req, res){
@@ -270,12 +276,177 @@ module.exports = {
     res.view("home/index.ejs");
   },
 
-  forgotPassword: function(){
-    console.log('TODO add a forgot password POST for send a new password to user');
+  forgotPassword: function(req, res){
+   var email = req.param('email');
+
+    if(!email){
+      return res.badRequest('Email is required to request a password reset token.');
+    }
+
+    User.findOneByEmail(email)
+    .exec(function(error, user){
+      if(error){
+        sails.log.error(error);
+        return res.serverError(error);
+      }
+
+      if(!user){
+        return res.send(404,{
+          errors: [{
+            status: 'error',
+            type: 'not_found',
+            message: res.i18n('User not found for this email')
+          }]
+        });
+      }
+
+      AuthToken.create( {user_id: user.id} ).exec(function(error, token) {
+        if(error){
+          sails.log.error(error);
+          return res.serverError(error);
+        }
+
+        if(token){
+          var appName;
+          if(sails.config.appName){
+            appName = sails.config.appName;
+          }else{
+            appName = 'We.js';
+          }
+
+          var options = {
+            email: user.email,
+            subject: appName + ' - ' + res.i18n('Reset password')
+          };
+
+          user = user.toJSON();
+
+          var templateVariables = {
+            user: {
+              name: user.name
+            },
+            site: {
+              name: appName,
+              slogan: 'MIMI one slogan here',
+              url: req.baseUrl
+            },
+            resetPasswordUrl: req.baseUrl + '/auth/'+ user.id +'/reset-password/' + token.token
+          };
+
+          EmailService.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err, responseStatus){
+            if(err){
+              sails.log.error(err);
+            }
+
+            // success send {status: 200} for user
+            res.send({
+              success: [{
+                type: 'email_send',
+                status: 'success',
+                message: res.i18n('Forgot password email send')
+              }]
+            });
+          });
+        }
+
+      });
+    });
+  },
+
+  consumeForgotPasswordToken: function(req, res){
+    var uid = req.param('uid');
+    var token = req.param('token');
+
+    if(!uid || !token){
+      sails.log.info('consumeForgotPasswordToken: Uid of token not found', uid, token);
+      return res.badRequest();
+    }
+
+    loadUserAndAuthToken(uid, token, function(error, user, authToken){
+      if(error){
+        return res.negotiate(error);
+      }
+
+      if(!user || !authToken){
+        sails.log.warn('consumeForgotPasswordToken: TODO add a invalid token page and response');
+        return res.redirect('/auth/forgot-password');
+      }
+
+      // login the user
+      req.logIn(user, function(err){
+        if(err){
+          sails.log.error('consumeForgotPasswordToken:logIn error', err);
+          return res.negotiate(err);
+        }
+
+        // consumes the token
+        authToken.isValid = false;
+        authToken.save();
+
+        if(req.wantsJSON){
+          res.send('200',user);
+        }else{
+          res.redirect('/auth/reset-password');
+        }
+
+      });
+    });
+  },
+
+
+  resetPasswordPage: function(req, res){
+    res.view('home/index');
+  },
+
+  resetPassword: function(req, res){
+
   }
 
 };
 
+/**
+ * Load user and auth token
+ * @param  {string}   uid      user id
+ * @param  {string}   token    user token
+ * @param  {Function} callback    callback(error, user, authToken)
+ */
+var loadUserAndAuthToken = function(uid, token, callback){
+  User.findOneById(uid)
+  .exec(function(error, user){
+    if(error){
+      sails.log.error('consumeForgotPasswordToken: Error on get user', user, token);
+      return callback(error, null, null);
+    }
+
+    if(user){
+      AuthToken
+      .findOneByToken(token)
+      .where({
+        user_id: user.id,
+        token: token,
+        isValid: true
+      })
+      .exec(function(error, authToken){
+        if(error){
+          sails.log.error('consumeForgotPasswordToken: Error on get token', user, token);
+          return callback(error, null, null);
+        }
+
+        if(authToken){
+          return callback(null, user, authToken);
+        }else{
+          return callback(null, user, null);
+        }
+
+      });
+
+    }else{
+      // user not found
+      return callback(null, null, null);
+    }
+
+  });
+};
 
 var validSignup = function(user, confirmPassword, res){
   var errors = {};
@@ -321,43 +492,4 @@ var validSignup = function(user, confirmPassword, res){
   }
 
   return errors;
-};
-
-/**
- * Check if a auth token is valid
- * TODO move thius function to AuthToken model
- */
-var validAuthToken = function (userId, token, cb) {
-
-  // then get user token form db
-  AuthToken.findOneByToken(token).exec(function(err, authToken) {
-    if (err) {
-      return cb(res.i18n("DB Error"), null);
-    }
-
-    console.log(authToken);
-    // auth token found then check if is valid
-    if(authToken){
-
-			// user id how wons the auth token is invalid then return false
-			if(authToken.user_id != userId){
-				return cb(null, false,{
-					result: 'invalid',
-					message: 'Token does not belong to this user'
-				});
-			}
-
-			// TODO check token expiration time
-			//
-			//
-
-			// authToken is valid
-			return cb(null, true, authToken);
-
-	  } else {
-	    // auth token not fount
-			return responseForbiden();
-	  }
-
-  });
 };

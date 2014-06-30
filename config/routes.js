@@ -128,6 +128,21 @@ module.exports.routes = {
     action        : 'forgotPassword'
   },
 
+  '/auth/:uid/reset-password/:token': {
+    controller: 'auth',
+    action: 'consumeForgotPasswordToken'
+  },
+
+  'get /auth/reset-password':{
+    controller    : 'auth',
+    action        : 'resetPasswordPage'
+  },
+
+  'post /auth/reset-password':{
+    controller    : 'auth',
+    action        : 'resetPassword'
+  },
+
   // register  form
   // 'get /auth/register': {
   //   controller    : 'auth',
@@ -137,11 +152,6 @@ module.exports.routes = {
   'get /user/:id/activate/:token': {
     controller: 'auth',
     action: 'activate'
-  },
-
-  'post /user/:id/password/send-token': {
-    controller: 'auth',
-    action: 'SendPasswordResetToken'
   },
 
   // get logged in user avatar

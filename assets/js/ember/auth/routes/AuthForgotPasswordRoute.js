@@ -8,6 +8,7 @@ define(['we','ember'], function (we) {
     model: function() {
       return {
         email: '',
+        messages: [],
       };
     }
   });

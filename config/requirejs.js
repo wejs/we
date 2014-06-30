@@ -18,10 +18,10 @@ module.exports.requirejs = {
     'ember-auth': 'bower_components/ember-auth/dist/ember-auth',
 
     // bootstrap for ember
-    'bs-core': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max',
+    //'bs-core': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max',
     //'bs-modal': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max',
-    'bs-modal': 'js/libs/bs-modal',
-    'bs-button': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max',
+    //'bs-modal': 'js/libs/bs-modal',
+    //'bs-button': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max',
 
     'showdown': 'bower_components/showdown/src/showdown',
 

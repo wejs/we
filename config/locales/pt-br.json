@@ -4,5 +4,7 @@
 	"Remember me": "Remember me",
 	"Password": "Password",
 	"Forgot password?": "Forgot password?",
-	"Sign in": "Sign in"
+	"Sign in": "Sign in",
+  "User not found for this email": "Nenhum usuário registrado no sistema para esse email",
+  "Forgot password email send": "Email de trocar senha enviado"
 }
