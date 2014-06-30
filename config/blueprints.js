@@ -72,7 +72,7 @@ module.exports.blueprints = {
    * you must take great care not to inadvertently expose unsafe/unintentional controller logic
    * to GET requests.
    */
-  actions: true,
+  actions: false,
 
 
 
