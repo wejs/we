@@ -91,7 +91,6 @@ describe('UsersController', function() {
 
             should(err).not.be.ok;
             should(res.body).have.properties({
-              'email': newUser.email,
               'id': newUser.id
             });
 

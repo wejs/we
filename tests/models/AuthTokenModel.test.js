@@ -7,6 +7,8 @@ var assert = require('assert');
 var supertest = require('supertest');
 var uuid = require('node-uuid');
 
+var testUtils = require('../testUtils.js');
+
 function UserStub () {
   return {
     username: 'GNU/Linux',
@@ -32,14 +34,7 @@ describe('AuthTokenModel', function() {
   });
 
   after(function(done){
-    User.destroy(function(err){
-      if(err) {
-        console.error('error:', err);
-        return done(err);
-      }
-      done();
-    });
-
+    testUtils.emptyDatabase(done);
   });
 
   afterEach(function(done){

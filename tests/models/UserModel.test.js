@@ -51,7 +51,6 @@ describe('UsersModel', function() {
 
         User.create(newUser, function(err, user) {
           err.should.not.be.empty;
-          console.warn('newUser',newUser);
           assert.equal(user, undefined);
           done();
         });

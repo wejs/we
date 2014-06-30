@@ -12,7 +12,7 @@ function ActivityStub () {
 
 function PostsStub(uid) {
   return {
-    "text": "one post here " + uuid.v1(),
+    "body": "one post here " + uuid.v1(),
     "creator": uid
   };
 }
@@ -35,7 +35,10 @@ describe('Activity', function() {
 
     // create one User
     User.create(newUser, function(err, User) {
-      if(err) return done(err);
+      if(err){
+        console.log(err);
+        return done(err);
+      }
 
       UserSaved = User;
 
@@ -48,6 +51,7 @@ describe('Activity', function() {
 
       Post.createEach(newPostlist).exec(function(error, newPost) {
         if (error) {
+          console.log(error);
           return done(error);
         }
 
