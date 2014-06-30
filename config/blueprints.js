@@ -129,7 +129,7 @@ module.exports.blueprints = {
    *
    * By default, no prefix is used.
    */
-  prefix: '',
+  prefix: '/api/v1',
 
 
 
