@@ -14,8 +14,7 @@ define('emberApp',[
   'async',
   'ember',
   'weEmberPlugin',
-  'sails.io',
-  'ember-uploader'
+  'sails.io'
 ], function (we, Showdown, moment, async) {
 
   // configure moment.js
@@ -23,15 +22,6 @@ define('emberApp',[
 
   // set socket for ember-sails-adapter
   window.socket = we.io.socket;
-
-  window.App = Ember.Application.create({
-    locale: we.config.language,
-    LOG_TRANSITIONS: true, // basic logging of successful transitions
-    LOG_TRANSITIONS_INTERNAL: true, // detailed logging of all routing steps
-    LOG_VIEW_LOOKUPS: true
-  });
-
-  App.deferReadiness();
 
   // custom date transform for convert sails.js date
   App.DateTransform = DS.Transform.extend({
@@ -49,14 +39,6 @@ define('emberApp',[
     }
   });
 
-    // get emberjs adapters
-  var emberAdaptersModules = [];
-  if(we.configs.client.emberjsParts.parts.adapters){
-    emberAdaptersModules = we.configs.client.emberjsParts.parts.adapters;
-    delete we.configs.client.emberjsParts.parts.adapters;
-  }
-
-  App.Store = DS.Store.extend();
 
   App.LayoutView = Ember.View.extend({
     //templateName: 'layouts/twoColumns',
@@ -73,124 +55,38 @@ define('emberApp',[
     location: 'history'
   });
 
-  var modelNames = Object.keys(we.emberApp.models);
+  // Map app routers
+  App.Router.map(function(match) {
+    var thisPointer = this;
 
-  var emberRequireModules = [];
+    this.resource('home',{path: '/'});
 
-  // ember routes load after application route map
-  var emberRouteModules = [];
-  if(we.configs.client.emberjsParts.parts.routes){
-    emberRouteModules = we.configs.client.emberjsParts.parts.routes;
-    delete we.configs.client.emberjsParts.parts.routes;
-  }
+    // user route map
+    this.resource('userList',{path: '/user'});
 
-  // get emberjs models
-  var emberModelModules = [];
-  if(we.configs.client.emberjsParts.parts.models){
-    emberModelModules = we.configs.client.emberjsParts.parts.models;
-    delete we.configs.client.emberjsParts.parts.models;
-  }
+    // auth
+    this.route('authForgotPassword',{path: '/auth/forgot-password'});
+    this.route('authResetPassword',{path: '/auth/reset-password'});
 
-  // get emberjs modules
-  for(var emberjsPart in we.configs.client.emberjsParts.parts){
-      emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
-  }
-
-  // sails adapter: js/ember/application/adapters/sailsAdapter
-
-  // require emberjs adapter
-  require(['js/ember/application/adapters/sailsAdapter'],function(){
-  // load ember js models
-  require(emberModelModules,function(){
-    // then load other resources
-    require(emberRequireModules,function(){
-      // Set default router contigs
-      async.each( modelNames, function(modelName, next){
-
-        var modelVarName = modelName.charAt(0).toUpperCase() + modelName.slice(1).toLowerCase();
-        App[modelVarName] = we.emberApp.models[modelName];
-        // route list
-        App[modelVarName + 'ListRoute'] = Ember.Route.extend({
-          model: function() {
-            return this.store.find(modelName);
-          },
-          renderTemplate: function() {
-            this.render(modelName+'/list');
-          }
-        });
-
-        // route item
-        App[modelVarName + 'Route'] = Ember.Route.extend({
-          model: function(params) {
-            return this.store.find(modelName, params[modelName+'_id']);
-          },
-          renderTemplate: function() {
-            this.render(modelName+'/item');
-          }
-        });
-
-        // route item /edit
-        App[modelVarName + 'EditRoute'] = Ember.Route.extend({
-          renderTemplate: function() {
-            this.render(modelName+'/edit');
-          }
-        });
-
-        next();
-
-      }, function(){
-        // load requirejs custom routes
-        require(emberRouteModules,function(){
-          // Map app routers
-          App.Router.map(function(match) {
-            var thisPointer = this;
-
-            this.resource('home',{path: '/'});
-
-            // user route map
-            this.resource('userList',{path: '/user'});
-
-            // auth
-            this.route('authForgotPassword',{path: '/auth/forgot-password'});
-            this.route('authResetPassword',{path: '/auth/reset-password'});
-
-            // item route
-            this.resource('user', { path: '/user/:user_id' }, function(){
-              // edit item route
-              this.route('edit');
-            });
-
-            // post route map
-            this.resource('postList',{path: '/post'});
-            // item route
-            this.resource('post', { path: '/post/:post_id' }, function(){
-              // edit item route
-              this.route('edit');
-            });
-
-            // TODO add route config to select how routes will be generated
-            modelNames.forEach(function(modelName){
-              // list route
-              this.resource(modelName+'List',{path: '/'+modelName});
-              // item route
-              this.resource(modelName, { path: '/'+modelName+'/:'+modelName+'_id' }, function(){
-                // edit item route
-                this.route('edit');
-              });
-
-            }, this);
-
-
-            // 404 pages
-            this.route("unknown", { path: "*path"});
-
-            App.advanceReadiness();
-
-          });
-        });
-      });
+    // item route
+    this.resource('user', { path: '/user/:user_id' }, function(){
+      // edit item route
+      this.route('edit');
     });
-  });
+
+    // post route map
+    this.resource('postList',{path: '/post'});
+    // item route
+    this.resource('post', { path: '/post/:post_id' }, function(){
+      // edit item route
+      this.route('edit');
+    });
+
+    // 404 pages
+    this.route("unknown", { path: "*path"});
+
+    App.advanceReadiness();
+
   });
 
   var showdown = new Showdown.converter();

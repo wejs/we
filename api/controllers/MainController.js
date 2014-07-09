@@ -13,7 +13,6 @@ module.exports = {
     var requireJsConfig = '';
     var requireEnvDeps = '';
 
-
     requireJsConfig += requireEnvDeps;
 
     if(sails.config.requirejs){
@@ -22,7 +21,6 @@ module.exports = {
 
     if(sails.config.environment == 'production'){
       requireJsConfig = 'require(["/min/production.js"],function(){' + requireJsConfig + '});';
-
     }
 
     res.send(200,requireJsConfig );
@@ -62,7 +60,8 @@ module.exports = {
       if (exists) {
         configs.client.emberjsParts = require('../../.tmp/config/clientsideEmberjsParts.js').clientsideEmberjsParts;
       }
-      configs.models = HelpersService.getModelsAttributes();
+      //model export logic disabled
+      //configs.models = HelpersService.getModelsAttributes();
 
       res.send(configs);
     });

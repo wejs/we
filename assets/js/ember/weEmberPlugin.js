@@ -15,7 +15,9 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
     // start build emberJS after bootstrap we.js
     we.hooks.on("we-bootstrap-end-after-success", function(data, next){
+
       buildEmber();
+
       next();
     });
 
@@ -42,72 +44,70 @@ define('weEmberPlugin',['we','async'], function (we, async) {
       'ember',
       'ember-data',
       'ember-data-sails-adapter',
-      'emberTemplates'
-    ],function(ember, emberData){
-      buildEmberModels(function(error){
-        if(error){
-          return console.error('WEjs config models not found');
-        }
+      'emberTemplates',
+      'ember-uploader'
+    ],function(){
 
-
-        require(['emberApp']);
-
+      // start app after
+      window.App = Ember.Application.create({
+        locale: we.config.language,
+        LOG_TRANSITIONS: true, // basic logging of successful transitions
+        LOG_TRANSITIONS_INTERNAL: true, // detailed logging of all routing steps
+        LOG_VIEW_LOOKUPS: true
       });
+
+      App.deferReadiness();
+
+      App.Store = DS.Store.extend();
+
+
+
+        // get emberjs adapters
+      var emberAdaptersModules = [];
+      if(we.configs.client.emberjsParts.parts.adapters){
+        emberAdaptersModules = we.configs.client.emberjsParts.parts.adapters;
+        delete we.configs.client.emberjsParts.parts.adapters;
+      }
+
+      var emberRequireModules = [];
+
+      // ember routes load after application route map
+      var emberRouteModules = [];
+      if(we.configs.client.emberjsParts.parts.routes){
+        emberRouteModules = we.configs.client.emberjsParts.parts.routes;
+        delete we.configs.client.emberjsParts.parts.routes;
+      }
+
+      // get emberjs models
+      var emberModelModules = [];
+      if(we.configs.client.emberjsParts.parts.models){
+        emberModelModules = we.configs.client.emberjsParts.parts.models;
+        delete we.configs.client.emberjsParts.parts.models;
+      }
+
+      // get emberjs modules
+      for(var emberjsPart in we.configs.client.emberjsParts.parts){
+          emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
+      }
+
+      // sails adapter: js/ember/application/adapters/sailsAdapter
+
+      // require emberjs adapter
+      require(['js/ember/application/adapters/sailsAdapter'],function(){
+        // load ember js models
+        require(emberModelModules,function(){
+          // then load other resources
+          require(emberRequireModules,function(){
+            // load requirejs custom routes
+            require(emberRouteModules,function(){
+              // require emberApp file
+              require(['emberApp']);
+            });
+          });
+        });
+      });
+
     });
-
-  };
-
-  /**
-   * Build ember js models based on sails server side models
-   * @param  {Function} callback [description]
-   */
-  var buildEmberModels = function buildEmberModelsFunc(callback){
-    if(!we.configs.models){
-      callback('WEjs config models not found');
-    }
-
-    var attr = DS.attr;
-    var modelNames = Object.keys(we.configs.models);
-
-    async.each( modelNames , function(modelName,  nextModel){
-      var model = we.configs.models[modelName];
-      var modelToAdd = {};
-
-      async.each( Object.keys(model) , function(attributeName, nextAttr){
-        if(attributeName == 'id'){
-          nextAttr();
-        }else{
-          // DATE
-          if(model[attributeName].type == 'datetime'){
-            modelToAdd[attributeName] = attr('date');
-          // MODEL relationship
-          }else if(model[attributeName].model){
-            modelToAdd[attributeName] = DS.belongsTo( model[attributeName].model );
-          // STRING
-          }else if(model[attributeName].type == 'string'){
-            modelToAdd[attributeName] = attr('string');
-          // has many associations
-          }else if( model[attributeName].collection ){
-            if(model[attributeName].embedded){
-              modelToAdd[attributeName] = DS.hasMany( model[attributeName].collection,{
-                embedded: model[attributeName].embedded
-              });
-            }else{
-              modelToAdd[attributeName] = DS.hasMany( model[attributeName].collection );
-            }
-
-          }else{
-            modelToAdd[attributeName] = attr();
-          }
-
-          nextAttr();
-        }
-      }, function(){
-        we.emberApp.models[modelName] = DS.Model.extend(modelToAdd);
-        nextModel();
-      });
-    }, callback );
-
   };
 
   return plugin;
