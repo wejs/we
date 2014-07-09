@@ -150,6 +150,11 @@ h1,h2,h3 {
    font-weight:800;
 }
 
+/* Overide default title css to remove sans serif font */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: verdana,"Helvetica Neue",Arial;
+}
+
 .navbar-toggle, .close {
   outline:0;
 }
@@ -430,3 +435,4 @@ input[type="text"].tm-input {
 .toIdsSelectedDisplay {
   margin-top: 5px;
 }
+
