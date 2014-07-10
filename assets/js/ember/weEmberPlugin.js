@@ -60,6 +60,16 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
       App.Store = DS.Store.extend();
 
+      // TODO move this mixn to one mixins file
+      App.LoggedInMixin = Ember.Mixin.create({
+        isVisible: function(){
+          if(App.currentUser.get('id')){
+            return true;
+          }else{
+            return false;
+          }
+        }.property('App.currentUser.id')
+      });
 
 
         // get emberjs adapters
