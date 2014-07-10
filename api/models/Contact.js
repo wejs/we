@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-
+  schema: true,
 	attributes: {
 
     // user how send the request
@@ -15,10 +15,8 @@ module.exports = {
       required: true
     },
 
-    // user how receive the request
-    to: {
-      model: 'user',
-      required: true
+    users: {
+      type: 'array'
     },
 
     // requested | accepted| ignored

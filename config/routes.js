@@ -78,6 +78,11 @@ module.exports.routes = {
     action        : 'current'
   },
 
+  'get /api/v1/user/:uid/contact/:contact_id': {
+    controller    : 'contact',
+    action        : 'findOneUserContact'
+  },
+
   // USERS
   /*
   'get /user': {

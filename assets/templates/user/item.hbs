@@ -1,5 +1,5 @@
 
-{{#can editUser model}}
+{{#can editUser model.user}}
   <div class="user-admin-actions-area well">
     <div class="actions">
       <span class="actions-title">{{t 'Actions'}}: </span>
@@ -25,30 +25,30 @@
     <div class="header panel-body">
       <div class="user-area-data row">
         <div class="user-area-data-left col-md-2" >
-          <span class="avatar-large">{{we-avatar userId=id size="responsive"}}</span>
+          <span class="avatar-large">{{we-avatar userId=user.id size="responsive"}}</span>
 
-          {{#if model.isEditing}}
+          {{#if isEditing}}
             <div class="form-group">
-              {{view Ember.Select name="language" value=language content=defaultlanguages classNames="form-control input-md"}}
+              {{view Ember.Select name="language" value=user.language content=defaultlanguages classNames="form-control input-md"}}
             </div>
           {{else}}
-            <div class="language-area text-center">{{language}}</div>
+            <div class="language-area text-center">{{user.language}}</div>
           {{/if}}
 
         </div>
         <div class="user-area-data-rigth col-md-10">
 
-          {{we-editable-text tagName='h1' name='username' value=username isEditing=model.isEditing}}
+          {{we-editable-text tagName='h1' name='username' value=user.username isEditing=isEditing}}
 
-          {{we-editable-html name='biography' value=biography isEditing=model.isEditing}}
+          {{we-editable-html name='biography' value=user.biography isEditing=isEditing}}
 
           <div class="actions">
             {{#if showSocialActions}}
               <span class="social">
-                <button type="button" class="btn btn-xs btn-default">
-                      <span class="glyphicon glyphicon-plus"></span> {{t 'Add in contacts'}}
-                </button>
-                <button type="button" class="btn btn-xs btn-default">
+
+                {{view App.ContactButtomView contact=contact}}
+
+                <button {{action follow}} type="button" class="btn btn-xs btn-default">
                       <span class="glyphicon glyphicon-plus"></span> {{t 'Follow'}}
                 </button>
               </span>
@@ -63,8 +63,13 @@
   <div class="user-profile-menu-area text-center">
     <ul class="user-profile-menu nav nav-pills">
       <li>
-      {{#link-to 'user' id}}
-        {{t 'Atividades'}}
+      {{#link-to 'user' user.id}}
+        {{t 'Activity'}}
+      {{/link-to}}
+      </li>
+      <li>
+      {{#link-to 'user.contacts' user.id}}
+        {{t 'Contacts'}}
       {{/link-to}}
       </li>
       <li><a>Perfil</a></li>

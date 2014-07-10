@@ -40,18 +40,6 @@ define('emberApp',[
   // save current user in App.currentUser
   App.currentUser = Ember.Object.create(we.authenticatedUser);
 
-
-  // App.LayoutView = Ember.View.extend({
-  //   //templateName: 'layouts/twoColumns',
-  //   isVisible: true,
-  //   attributeBindings: ['isVisible'],
-  //   init: function() {
-  //     this._super();
-  //     var thisView = this;
-  //     //this.set("controller", App.ModalLoginController.create());
-  //   }
-  // });
-
   App.Router.reopen({
     location: 'history'
   });

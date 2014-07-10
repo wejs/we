@@ -27,6 +27,7 @@ module.exports = function createRecord (req, res) {
   // Omit the blacklisted params (like JSONP callback param, etc.)
   var data = actionUtil.parseValues(req);
 
+
   // Create new instance of model using data from params
   Model.create(data).exec(function created (err, newInstance) {
 

@@ -7,50 +7,72 @@ define(['we','ember'], function (we) {
       'en-us'
     ],
     showSocialActions: function(){
-      if(this.get('model.id') == we.authenticatedUser.id){
+      if(this.get('user.id') == we.authenticatedUser.id){
         return false;
       }else{
         return true;
       }
-    }.property('model.id'),
-    activities: function() {
-      var user = this.get('model');
-      if(user && user.id){
-        return this.store.find('post', { creator: user.id });
-      }else{
-        return [];
-      }
-    }.property('model.id'),
+    }.property('user.id'),
+
     actions: {
       edit: function edit(){
         this.setProperties({
-          'model.isEditing': true,
-          'model.hasChangesToSave': true
+          'isEditing': true,
+          'hasChangesToSave': true
         });
       },
       cancel: function edit(){
-        this.set('model.isEditing', false);
+        this.set('isEditing', false);
       },
       save: function save(){
         var _this = this;
 
         // do nothin if is already salved
-        if( _this.get('model.currentState.stateName') == 'root.loaded.saved' ){
+        if( _this.get('user.currentState.stateName') == 'root.loaded.saved' ){
           return ;
         }
 
         // save the model
-        _this.get('model').save().then(function(){
+        _this.get('user').save().then(function(){
           // updated!
           _this.setProperties({
-            'model.isEditing': false,
-            'model.hasChangesToSave': false
+            'isEditing': false,
+            'hasChangesToSave': false
           });
 
         });
       },
       remove: function remove(){
-        this.set('model.isEditing', false);
+        this.set('isEditing', false);
+      },
+
+      requestAddInContactList: function(){
+        var _this = this;
+        var store = this.get('store');
+        var to = this.get('user');
+        var contact = {};
+        var from = store.getById('user', App.currentUser.get('id'));
+
+        contact.from = from;
+
+        contact = store.createRecord('contact', {from: from});
+        contact.get('users').pushObject(from);
+        contact.get('users').pushObject(to);
+
+        contact.save()
+        .then(function(contact){
+          _this.set('contact',contact);
+          console.warn(contact);
+        });
+      },
+      acceptAddInContactList: function(){
+        var contact = this.get('model.contact');
+
+
+        contact.set('status','accepted');
+        console.warn('contact',contact);
+        contact.save();
+
       }
     }
   });

@@ -13,7 +13,6 @@ SALT_WORK_FACTOR = 10;
 
 module.exports = {
   schema: true,
-  emberJsExcludeFromClient: true,
   attributes: {
 
     username: {

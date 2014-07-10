@@ -31,6 +31,10 @@ define(['we','ember','ember-data'], function (we) {
       inverse: 'sharedWith'
     }),
 
+    contacts: DS.hasMany('user',{
+      inverse: 'users'
+    }),
+
     createdAt: attr('date'),
     updatedAt: attr('date')
   });
