@@ -37,6 +37,9 @@ define('emberApp',[
     }
   });
 
+  // save current user in App.currentUser
+  App.currentUser = Ember.Object.create(we.authenticatedUser);
+
 
   // App.LayoutView = Ember.View.extend({
   //   //templateName: 'layouts/twoColumns',
@@ -64,6 +67,9 @@ define('emberApp',[
     this.resource('users',{path: '/user'}, function(){
       // item route
       this.resource('user',{ path: '/:user_id' }, function(){
+
+        // edit item route
+        this.route('contacts');
         // edit item route
         this.route('edit');
       });
