@@ -436,3 +436,6 @@ input[type="text"].tm-input {
   margin-top: 5px;
 }
 
+.user-profile-menu {
+  display: inline-block;
+}

@@ -62,7 +62,11 @@
   </div>
   <div class="user-profile-menu-area text-center">
     <ul class="user-profile-menu nav nav-pills">
-      <li><a>Atividades</a></li>
+      <li>
+      {{#link-to 'user' id}}
+        {{t 'Atividades'}}
+      {{/link-to}}
+      </li>
       <li><a>Perfil</a></li>
       <li><a>Grupos</a></li>
       <li><a>Imagens</a></li>
