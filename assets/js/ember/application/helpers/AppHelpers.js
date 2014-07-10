@@ -1,5 +1,10 @@
 
-define(['we','showdown','ember'], function (we, showdown) {
+define([
+  'we',
+  'showdown',
+  'moment',
+  'ember'
+], function (we, Showdown, moment) {
 
   var showdown = new Showdown.converter();
 

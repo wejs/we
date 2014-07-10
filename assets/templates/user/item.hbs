@@ -1,4 +1,3 @@
-{{outlet}}
 
 {{#can editUser model}}
   <div class="user-admin-actions-area well">
@@ -61,19 +60,17 @@
 
     </div>
   </div>
-
-  <div class="activities row">
-
-    <div class="activities-left col-md-5">
-        adicionar os blocos aqui ...
-    </div>
-
-    <div class="activities-right col-md-7">
-      <h3>{{t 'Activity'}}</h3>
-     {{render 'post/list' activities controller='Home'}}
-    </div>
-
+  <div class="user-profile-menu-area text-center">
+    <ul class="user-profile-menu nav nav-pills">
+      <li><a>Atividades</a></li>
+      <li><a>Perfil</a></li>
+      <li><a>Grupos</a></li>
+      <li><a>Imagens</a></li>
+    </ul>
   </div>
+
+  {{outlet}}
+
 
   <div class="footer">
 

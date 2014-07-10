@@ -4,7 +4,16 @@ module.exports = function(grunt) {
     dev: {
       options: {
         templateName: function(sourceFile){
-          return sourceFile.replace(/^assets\/templates\//, '').replace(/\.hbs$/, '');
+          var name =  sourceFile.replace(/^assets\/templates\//, '').replace(/\.hbs$/, '');
+          var names = name.split("/");
+          var featureName = null;
+          if(names.length == 2){
+            if(names[0] == names[1]){
+              // like notifications/notifications will be notifications
+              return names[1];
+            }
+          }
+          return name;
         }
       },
       files: require('../pipeline').templateFilesToInject,

@@ -38,16 +38,16 @@ define('emberApp',[
   });
 
 
-  App.LayoutView = Ember.View.extend({
-    //templateName: 'layouts/twoColumns',
-    isVisible: true,
-    attributeBindings: ['isVisible'],
-    init: function() {
-      this._super();
-      var thisView = this;
-      //this.set("controller", App.ModalLoginController.create());
-    }
-  });
+  // App.LayoutView = Ember.View.extend({
+  //   //templateName: 'layouts/twoColumns',
+  //   isVisible: true,
+  //   attributeBindings: ['isVisible'],
+  //   init: function() {
+  //     this._super();
+  //     var thisView = this;
+  //     //this.set("controller", App.ModalLoginController.create());
+  //   }
+  // });
 
   App.Router.reopen({
     location: 'history'
@@ -56,20 +56,18 @@ define('emberApp',[
   // Map app routers
   App.Router.map(function(match) {
     var thisPointer = this;
-
     this.resource('home',{path: '/'});
-
-    // user route map
-    this.resource('userList',{path: '/user'});
-
     // auth
     this.route('authForgotPassword',{path: '/auth/forgot-password'});
     this.route('authResetPassword',{path: '/auth/reset-password'});
+    // user route map
+    this.resource('users',{path: '/user'}, function(){
+      // item route
+      this.resource('user',{ path: '/:user_id' }, function(){
+        // edit item route
+        this.route('edit');
+      });
 
-    // item route
-    this.resource('user', { path: '/user/:user_id' }, function(){
-      // edit item route
-      this.route('edit');
     });
 
     // post route map

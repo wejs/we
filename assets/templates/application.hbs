@@ -1,7 +1,6 @@
 <div  class="wrapper main">
   <div class="box">
     <div class="row row-offcanvas row-offcanvas-left">
-
       <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
           {{outlet sidebar}}
@@ -28,50 +27,16 @@
             </ul>
 
       </div>
-
-        <div class="column col-sm-10 col-xs-11" id="main">
-
-
-            {{partial "partials/navbar" }}
-
-
-            <div class="padding">
-                <div class="full col-sm-9">
-                {{#view App.LayoutView id="AppLayoutView"}}
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      {{outlet highlighted}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <div data-ui-view>
-                        {{outlet mainLeft}}
-                      </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                       {{outlet mainRigth}}
-                    </div>
-
-                </div>
-                <div class='row'>
-                  <div "col-md-12">
-                      {{outlet}}
-                  </div>
-                </div>
-
-                {{/view}}
-
-                  {{partial 'partials/footer' }}
-
-                  <hr>
-                </div>
-            </div>
-        </div>
-
+      <div class="column col-sm-10 col-xs-11" id="main">
+          {{partial "partials/navbar" }}
+          <div class="padding">
+              <div class="full col-sm-9">
+                {{outlet}}
+                {{partial 'partials/footer' }}
+                <hr>
+              </div>
+          </div>
+      </div>
     </div>
     {{#if isAuthenticated}}
       {{we-messenger store=store}}
