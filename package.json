@@ -32,7 +32,8 @@
     "sails-mongo": "~0.10.0-rc5",
     "lodash": "~2.4.1",
     "grunt-we-sails-ember-tasks": "~0.0.4",
-    "connect-mongo": "~0.4.1"
+    "connect-mongo": "~0.4.1",
+    "wejs-theme-default": "~0.0.1"
   },
   "devDependencies": {
     "grunt-bower-requirejs": "~0.8.1",
