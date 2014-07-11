@@ -93,6 +93,22 @@ var jsFilesToInject = [
 
 ];
 
+// wejs theme config
+var themeConfigs = require('../config/theme.js');
+var themeCss = [];
+if(themeConfigs.themes && themeConfigs.themes.enabled){
+  var themeName = themeConfigs.themes.enabled;
+  var theme = require(themeName);
+
+  if(theme.configs.stylesheet.files){
+    themeCss = theme.configs.stylesheet.files.map(function(path) {
+      return 'node_modules/'+themeName+'/'+ path;
+    });
+  }
+}
+
+
+// requirejs config
 var requirejsConfigs = require('../config/requirejs.js').requirejs;
 
 
@@ -140,3 +156,5 @@ module.exports.templateFilesToInjectOriginal = templateFilesToInject;
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
   return 'assets/' + path;
 });
+
+module.exports.themeCss = themeCss;

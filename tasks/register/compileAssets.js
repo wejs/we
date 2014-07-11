@@ -3,6 +3,7 @@ module.exports = function (grunt) {
 		'clean:dev',
 		'less:dev',
 		'copy:dev',
+    'copy:theme_dev',
     'emberhandlebars:dev',
     'we_sails_ember_tasks:dev'
 	]);

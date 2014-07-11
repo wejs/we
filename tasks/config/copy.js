@@ -20,14 +20,16 @@ module.exports = function(grunt) {
 		'langs/**'
 	];
 
+	var pipelineConfig = require('../pipeline');
+
 	grunt.config.set('copy', {
 		dev: {
 			files: [{
 				expand: true,
 				cwd: './assets',
 				src: 	devfiles
-								.concat(require('../pipeline').jsFilesToInjectOriginal)
-								.concat(require('../pipeline').cssFilesToInjectOriginal)
+								.concat(pipelineConfig.jsFilesToInjectOriginal)
+								.concat(pipelineConfig.cssFilesToInjectOriginal)
 								// TODO change this url to assets/fonts folder
 								.concat('bower_components/font-awesome/fonts/**')
 								.concat('bower_components/select2/*.png')
@@ -35,13 +37,23 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
+		theme_dev: {
+			files: [{
+				expand: true,
+				cwd: '.',
+				flatten: true,
+				src: 	pipelineConfig.themeCss,
+				dest: '.tmp/public/styles/theme'
+			}]
+		},
+
 		prod: {
 			files: [{
 				expand: true,
 				cwd: './assets',
 				src: 	devfiles
 								.concat(['js/libs/*.js', 'js/libs/**/*.js'])
-								.concat(require('../pipeline').cssFilesToInjectOriginal)
+								.concat(pipelineConfig.cssFilesToInjectOriginal)
 								// TODO change this url to assets/fonts folder
 								.concat('bower_components/font-awesome/fonts/**')
 								.concat('bower_components/select2/*.png')
