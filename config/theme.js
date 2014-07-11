@@ -4,6 +4,6 @@
 
 module.exports.themes = {
   // theme enabled
-  enabled: 'sails-we-theme-default'
+  enabled: 'wejs-theme-default'
 
 };
