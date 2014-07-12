@@ -1,17 +1,20 @@
 {{#if isAuthenticated}}
-<div id="posts" class="posts ">
-    <div class="sharebox-area masonry-brick  content-block">
-      {{we-sharebox post=post store=store}}
+  <div id="posts" class="posts ">
+      <div class="sharebox-area masonry-brick  content-block">
+        {{we-sharebox post=post store=store}}
+      </div>
+    <div class="new-posts-notification alert alert-info">
+      TODO show new post notifications here
     </div>
-  <div class="new-posts-notification alert alert-info">
-    TODO show new post notifications here
+    {{#each }}
+      {{render 'post/teaser' this controller='Post'}}
+    {{/each}}
+
+    {{we-timeline-loading loadingMore=loadingMore getMore=getMore}}
+
   </div>
-  {{#each }}
-    {{render 'post/teaser' this controller='Post'}}
-  {{/each}}
-
-  {{we-timeline-loading loadingMore=loadingMore getMore=getMore}}
-
-</div>
-
+{{else}}
+  <div class="highlighted">
+    {{render 'auth/registerForm' this controller='AuthRegister'}}
+  </div>
 {{/if}}
