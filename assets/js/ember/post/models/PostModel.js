@@ -18,6 +18,8 @@ define(['we','ember','ember-data'], function (we) {
     sharedWith: DS.hasMany('user',{
       inverse: 'sharedWithMe'
     }),
+    sharedIn: DS.hasMany('group'),
+
     comments: DS.hasMany('comment'),
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')

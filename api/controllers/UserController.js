@@ -275,6 +275,7 @@ module.exports = {
         function(user, next){
           userNames.push({
             id: user.id,
+            model: 'user',
             text: user.username
           });
           next();

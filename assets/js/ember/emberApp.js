@@ -61,7 +61,14 @@ define('emberApp',[
         // edit item route
         this.route('edit');
       });
+    });
 
+    // groups route map
+    this.resource('groups',{path: '/g'}, function(){
+      this.route('create',{path: '/c'});
+      // item route
+      this.resource('group',{ path: '/:group_id' }, function(){
+      });
     });
 
     // post route map

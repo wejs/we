@@ -14,8 +14,18 @@ var emailTemplates = require('email-templates');
  * @param  {Function} cb                   after ends call cb( error, responseStatus);
  */
 exports.sendEmail = function(options, templateName, templateVariables, cb) {
+  var templatesDir;
 
-  var templatesDir = sails.config.paths.views + '/mailer';
+  // get email template dir
+  if(sails.config.themes.enabled){
+    var theme_enabled = require(sails.config.themes.enabled);
+
+    templatesDir = sails.config.appPath + '/node_modules/'+ sails.config.themes.enabled + '/' + theme_enabled.configs.emailTemplates.path;
+  }else{
+    templatesDir = sails.config.paths.views + '/mailer';
+  }
+
+  // load email template
   emailTemplates(templatesDir, function(err, template) {
     if (err) return cb(err, null);
 

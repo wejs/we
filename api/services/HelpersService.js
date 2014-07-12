@@ -49,7 +49,6 @@ exports.getlinkCssTags = function(){
 
     tags += '<link rel="stylesheet" href="/styles/bootstrap.min.css">'
     tags += '<link rel="stylesheet" href="/styles/importer.css">';
-    tags += '<link rel="stylesheet" href="/styles/theme.css">';
     tags += '<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">';
     tags += '<link rel="stylesheet" href="/wysiwyg/summernote/dist/summernote.css">';
     tags += '<link rel="stylesheet" href="/bower_components/select2/select2.css">';

@@ -10,6 +10,10 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     toIdtagsManagerElement: 'input[name="toIds"]',
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
     bodyPlaceholder: we.i18n("What is happening?"),
+
+    group: null,
+    enableShareInput: true,
+
     files: [],
     filesNew: {},
     init: function init(){
@@ -22,6 +26,13 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     },
     didInsertElement: function didInsertElement() {
       var _this = this;
+      var group = this.get('group');
+
+      if(group){
+        this.set('enableShareInput', false);
+        return;
+      }
+
       var element = this.$(_this.get('toIdtagsManagerElement'));
       var userId = we.authenticatedUser.id;
 
@@ -47,16 +58,24 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
             multiple: true,
             data: data,
             formatResult: function(item){
-              //console.warn('formatResult',item);
-
               return item.text;
-            }, // omitted for brevity, see the source of this page
+            },
             formatSelection: function(item){
-              //console.warn('formatSelection',item);
               return item.text;
-            }, // omitted for brevity, see the source of this page
-            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
-            escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+            },
+            formatSelectionCssClass: function (item) {
+              switch(item.model) {
+                case 'user':
+                  return 'model-user';
+                  break;
+                case 'group':
+                  return 'model-group';
+                  break;
+              }
+              return "";
+            },
+            dropdownCssClass: "sharebox-dropdown",
+            escapeMarkup: function (m) { return m; }
           });
         },
         error: function(data){
@@ -93,11 +112,17 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         var element = this.$(this.get('toIdtagsManagerElement')) ;
         var store = this.get('store');
 
+        var sharedIn = [];
         var sharedWith = [];
-        var sharedWithObjects = element.select2('data');
 
-        for (var i = 0; i < sharedWithObjects.length; i++) {
-          sharedWith.push(sharedWithObjects[i].id );
+        var group = this.get('group');
+        if(group){
+          sharedIn.push(group.id);
+        }else{
+          var sharedWithObjects = element.select2('data');
+          for (var i = 0; i < sharedWithObjects.length; i++) {
+            sharedWith.push(sharedWithObjects[i].id );
+          }
         }
 
         store.find('user', we.authenticatedUser.id)
@@ -109,7 +134,14 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
             return store.find('user', id);
           }, this);
 
+          var promisesGroup = map.call(sharedIn, function(id) {
+            return store.find('group', id);
+          }, this);
+
           Ember.RSVP.all(promises).then(function(shareWithUsers){
+          Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
+
+
             //store.find('user',{id: sharedWith} )
             //.then(function(shareWithUsers){
 
@@ -123,6 +155,7 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
               });
 
               post.get('sharedWith').pushObjects(shareWithUsers);
+              post.get('sharedIn').pushObjects(shareInGroups);
 
               // save post
               post.save().then(function(){
@@ -139,6 +172,7 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
             //});
 
+          });
           });
 
         });

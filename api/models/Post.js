@@ -37,9 +37,9 @@ module.exports = {
     },
 
     // shared in groups
-    //sharedIn: {
-    //  model: 'user',
-    //},
+    sharedIn: {
+      type: 'array'
+    },
 
     comments: {
       collection: 'comment',

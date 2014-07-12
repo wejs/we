@@ -1,0 +1,24 @@
+<div class="row">
+<div class="col-md-3">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="group-name">
+        {{#link-to 'group' id}}
+          <h4>{{name}}</h4>
+        {{/link-to}}
+      </div>
+
+      <div class="group-logo">
+        {{#link-to 'group' id}}
+          <img width="100%" src="/imgs/logos/group2.jpg">
+        {{/link-to}}
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="col-md-9">
+  {{outlet}}
+</div>
+
+</div>
