@@ -13,6 +13,7 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
   plugin.enable = function(we) {
 
+    loadUtils(we);
     // start build emberJS after bootstrap we.js
     we.hooks.on("we-bootstrap-end-after-success", function(data, next){
 
@@ -119,6 +120,23 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
     });
   };
+
+  var loadUtils = function(we){
+
+    we.utils.ember = {};
+
+    /**
+     *  Check if a emberjs array of object has te value atrib
+     */
+    we.utils.ember.arrayObjsHas = function(items, attrib, value){
+      for (i = 0; i < items.length; i++) {
+        if(items[i].get(attrib) === value){
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 
   return plugin;
 });
