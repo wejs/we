@@ -44,6 +44,15 @@ module.exports = function(grunt) {
    * a Grunt task.
    */
   function loadTasks(relPath) {
+    // in prod env only load config copy task
+    if(relPath == './tasks/config' && grunt.cli.tasks[0] == 'prod'){
+      return includeAll({
+        dirname: require('path').resolve(__dirname, relPath),
+        filter: 'copy.js'
+      }) || {};
+    }
+
+    //console.warn(grunt);
     return includeAll({
       dirname: require('path').resolve(__dirname, relPath),
       filter: /(.+)\.js$/

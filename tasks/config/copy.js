@@ -21,7 +21,6 @@ module.exports = function(grunt) {
 	];
 
 	var pipelineConfig = require('../pipeline');
-	console.log(pipelineConfig.themeCss);
 
 	grunt.config.set('copy', {
 		dev: {
