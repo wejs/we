@@ -1,7 +1,7 @@
 module.exports.requirejs = {
   paths: {
     domReady: 'js/libs/requirejs/domReady',
-    jquery: 'bower_components/jquery/dist/jquery',
+    jquery: 'bower_components/jquery/jquery',
     io: 'js/libs/socket.io',
     'sails.io': 'js/sails.io',
     app: 'js/app',
