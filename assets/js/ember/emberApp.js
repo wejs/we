@@ -15,6 +15,9 @@ define('emberApp',[
   'sails.io'
 ], function (we, moment) {
 
+  var get = Ember.get;
+  var set = Ember.set;
+
   // configure moment.js
   moment.lang(we.config.language);
 

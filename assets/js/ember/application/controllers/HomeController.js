@@ -28,39 +28,30 @@ define(['we','ember'], function (we) {
     actions: {
       getMore: function() {
         var _this = this;
-
         // if dont have more skip this feature
         // in one timeline new contents go to timeline start and are added with push
         if (!this.get('haveMore')) return ;
-
         // don't load new data if we already are
         if (this.get('loadingMore')) return ;
-
         this.set('loadingMore', true);
-
         // add some delay after get more content from server
         Ember.run.later(function() {
-
           // set nextPage value
           var nextPage = _this.get('page') + 1;
           // get skip value
           // TODO change this to createdAt time
           var skip = nextPage * _this.get('perPage');
-
           // get more content from store
           _this.store.find( _this.get('modelType') ,{
             limit: _this.get('perPage'),
             skip: skip
           }).then(function(posts){
-
             if(posts.get('content').length > 0){
               _this.send('gotMore');
             }else{
               _this.send('dontHaveMore');
             }
-
           });
-
         }, 500);
       },
 

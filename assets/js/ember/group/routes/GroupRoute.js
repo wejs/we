@@ -68,12 +68,25 @@ define(['we','ember'], function (we) {
   // route /user/:uid/index
   App.GroupIndexRoute = Ember.Route.extend({
     model: function() {
-      return {
+      var group_id = this.modelFor('group').get('id')
+      return Ember.RSVP.hash({
         group: this.modelFor('group'),
-        // posts: this.store.find('post',{
-        //   creator: user_id
-        // })
-      }
+        loadData: this.loadPosts(group_id),
+        posts: this.get('store').filter('post', function(post) {
+          var sharedIn = post.get('sharedIn');
+          if(sharedIn){
+            return we.utils.ember.arrayObjsHas(sharedIn.content,'id', group_id);
+          }else{
+            return false;
+          }
+
+        })
+      })
+    },
+    loadPosts: function(group_id){
+      return this.store.find('post',{
+        sharedIn: group_id
+      });
     },
     renderTemplate: function() {
       this.render('group/index');
