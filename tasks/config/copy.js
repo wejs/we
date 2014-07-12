@@ -47,29 +47,45 @@ module.exports = function(grunt) {
 				dest: '.tmp/public/styles/theme'
 			}]
 		},
-
-		prod: {
-			files: [{
-				expand: true,
-				cwd: './assets',
-				src: 	devfiles
-								.concat(['js/libs/*.js', 'js/libs/**/*.js'])
-								.concat(pipelineConfig.cssFilesToInjectOriginal)
-								// TODO change this url to assets/fonts folder
-								.concat('bower_components/font-awesome/fonts/**')
-								.concat('bower_components/select2/*.png')
-								.concat('bower_components/select2/*.gif'),
-				dest: '.tmp/public'
-			}]
-		},
 		build: {
 			files: [{
 				expand: true,
 				cwd: '.tmp/public',
-				src: ['**/*'],
-				dest: 'www'
+				src: [
+					'bower_components/**',
+					'fonts/**',
+					'imgs/**',
+					'min/**',
+					'js/libs/require.js',
+					'wysiwyg/**',
+					'langs/**',
+					'tpls.hbs.js'
+				],
+				dest: 'build/assets'
 			}]
-		}
+		},
+		build_for_prod: {
+			files: [{
+				expand: true,
+				cwd: './assets',
+				src: 	devfiles
+						.concat(['js/libs/*.js', 'js/libs/**/*.js'])
+						.concat(pipelineConfig.cssFilesToInjectOriginal)
+						// TODO change this url to assets/fonts folder
+						.concat('bower_components/font-awesome/fonts/**')
+						.concat('bower_components/select2/*.png')
+						.concat('bower_components/select2/*.gif'),
+				dest: '.tmp/public'
+			}]
+		},
+		prod: {
+			files: [{
+				expand: true,
+				cwd: 'build/assets',
+				src: ['**/*'],
+				dest: '.tmp/public'
+			}]
+		},
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-copy');

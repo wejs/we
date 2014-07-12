@@ -1,7 +1,11 @@
 module.exports = function (grunt) {
 	grunt.registerTask('build', [
-		'compileAssets',
-		'linkAssetsBuild',
+    'compileAssetsProd',
+    'concat:css',
+    //'concat:jsProd',
+    'uglify',
+    'cssmin',
+//		'compileAssets',
 		'clean:build',
 		'copy:build'
 	]);
