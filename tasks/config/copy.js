@@ -49,16 +49,17 @@ module.exports = function(grunt) {
 		build: {
 			files: [{
 				expand: true,
-				cwd: '.tmp/public',
+				cwd: '.tmp',
 				src: [
-					'bower_components/**',
-					'fonts/**',
-					'imgs/**',
-					'min/**',
-					'js/libs/require.js',
-					'wysiwyg/**',
-					'langs/**',
-					'tpls.hbs.js'
+					'public/bower_components/**',
+					'public/fonts/**',
+					'public/imgs/**',
+					'public/min/**',
+					'public/js/libs/require.js',
+					'public/wysiwyg/**',
+					'public/langs/**',
+					'public/tpls.hbs.js',
+					'config/**'
 				],
 				dest: 'build/assets'
 			}]
@@ -80,9 +81,9 @@ module.exports = function(grunt) {
 		prod: {
 			files: [{
 				expand: true,
-				cwd: 'build/assets',
+				cwd: 'build',
 				src: ['**/*'],
-				dest: '.tmp/public'
+				dest: '.tmp'
 			}]
 		},
 	});
