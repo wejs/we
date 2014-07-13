@@ -2,8 +2,8 @@
 <ul class="nav navbar-nav navbar-right">
   <li>
     <a href="#" class="dropdown-toggle user-menu-link" data-toggle="dropdown">
-      <span class="avatar-small">{{we-avatar userId=user.id}}</span>
-      <span class="user-name " >{{user.username}}</span><b class="caret"></b>
+      <span class="avatar-small">{{we-avatar userId=App.currentUser.id}}</span>
+      <span class="user-name " >{{App.currentUser.username}}</span><b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
       <li>
@@ -13,7 +13,7 @@
       </li>
       <li class="divider"></li>
       <li>
-        {{#link-to 'user' user.id}}
+        {{#link-to 'user' App.currentUser.id}}
           {{t 'View / edit profile'}}
         {{/link-to}}
       </li>
