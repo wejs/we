@@ -28,6 +28,8 @@ module.exports = function findRecords (req, res) {
   // Look up the model
   var Model = actionUtil.parseModel(req);
 
+  var modelName = req.options.model || req.options.controller;
+
   // Lookup for records that match the specified criteria
   var query = Model.find()
   .where( actionUtil.parseCriteria(req) )
@@ -52,6 +54,10 @@ module.exports = function findRecords (req, res) {
       });
     }
 
-    res.ok(matchingRecords);
+    var resultObject = {};
+
+    resultObject[modelName] = matchingRecords;
+    res.send(resultObject);
+
   });
 };

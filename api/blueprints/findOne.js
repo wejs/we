@@ -24,6 +24,8 @@ module.exports = function findOneRecord (req, res) {
 
   var Model = actionUtil.parseModel(req);
   var pk = actionUtil.requirePk(req);
+  var modelName = req.options.model || req.options.controller;
+
 
   var query = Model.findOne(pk);
   //query = actionUtil.populateEach(query, req.options);
@@ -36,7 +38,12 @@ module.exports = function findOneRecord (req, res) {
       actionUtil.subscribeDeep(req, matchingRecord);
     }
     */
-    res.ok(matchingRecord);
+
+    var resultObject = {};
+
+    resultObject[modelName] = matchingRecord;
+
+    res.send(resultObject);
   });
 
 };

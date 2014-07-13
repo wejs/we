@@ -36,10 +36,11 @@ module.exports = {
       }, function(err){
         if(err) return res.send(500,err);
 
-        sails.log.warn('done');
-        res.ok(matchingRecords);
-      });
+        res.send({
+          group: matchingRecords
+        });
 
+      });
     });
   },
 

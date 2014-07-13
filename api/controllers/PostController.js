@@ -18,16 +18,14 @@ module.exports = {
     .limit( actionUtil.parseLimit(req) )
     .skip( actionUtil.parseSkip(req) )
     .sort('updatedAt DESC')
-    .populate('comments')
+    //.populate('comments')
     .exec(function(err, posts) {
-      // Error handling
-      if (err) {
-        return console.log(err);
-        // TODO
-      } else {
-        Comment.watch(req.socket);
-        res.send(posts);
-      }
+      if (err) return res.serverError(err);
+
+      res.send({
+        post: posts
+      });
+
     });
 
     //res.view('home/index.ejs');
