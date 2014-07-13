@@ -38,6 +38,22 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true
     },
-	}
+	},
 
+  // After register one create activity
+  afterCreate: function(group, next) {
+    // save creator membership
+    Membership.create({
+      user: group.creator,
+      group: group.id,
+      status: 'administrator'
+    }).exec(function(error, m) {
+      // if has one error in activity creation, log it
+      if (error) {
+        sails.log.error('GroupModel:create: error on create membership: ',error);
+      }
+      group.userMembership = m;
+      next();
+    });
+  }
 };
