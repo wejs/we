@@ -94,7 +94,8 @@ define(['we','ember'], function (we) {
   });
 
   // TODO mode to other file and load as requirejs module
-  App.ApplicationSerializer = DS.JSONSerializer.extend({
+  //App.ApplicationSerializer = DS.JSONSerializer.extend({
+  App.ApplicationSerializer = DS.RESTSerializer.extend({
     /*
       @method serializeIntoHash
       @param {Object} hash
@@ -102,70 +103,73 @@ define(['we','ember'], function (we) {
       @param {DS.Model} record
       @param {Object} options
     */
-    serializeIntoHash: function(hash, type, record, options) {
-      Ember.merge(hash, this.serialize(record, options));
-    },
+    // serializeIntoHash: function(hash, type, record, options) {
+    //   Ember.merge(hash, this.serialize(record, options));
+    // },
 
     // extract relationship objects
-    extractFindQuery: function(store, type, payload){
-      for (var i = payload.length - 1; i >= 0; i--) {
-        // get attribute names
-        for(var attributeName in payload[i]){
-          // get relationship model
-          relationshipModel = type.typeForRelationship(attributeName);
-          if(relationshipModel){
-            if(!payload[i][attributeName].length){
-              // dont has one array or the array is empty
-              // ...
-            }else if(typeof payload[i][attributeName][0] == 'string'){
-              // if are a array of strings ids
-              // ...
-            }else{
-            // store this resources if are a array of objects
-              store.pushMany(relationshipModel.typeKey, payload[i][attributeName]);
-              // change resource object to id
-              for (var j = 0; j < payload[i][attributeName].length; j++) {
-                payload[i][attributeName][j] = payload[i][attributeName][j].id;
-              }
-            }
+    // extractFindQuery: function(store, type, payload){
+    //   var keys = Object.keys(payload);
+    //   for (var prop in obj) {
+    //     for (var i = obj.length - 1; i >= 0; i--) {
+    //       // get attribute names
+    //       for(var attributeName in obj[i]){
+    //         // get relationship model
+    //         relationshipModel = type.typeForRelationship(attributeName);
+    //         if(relationshipModel){
+    //           if(!obj[i][attributeName].length){
+    //             // dont has one array or the array is empty
+    //             // ...
+    //           }else if(typeof obj[i][attributeName][0] == 'string'){
+    //             // if are a array of strings ids
+    //             // ...
+    //           }else{
+    //           // store this resources if are a array of objects
+    //             store.pushMany(relationshipModel.typeKey, obj[i][attributeName]);
+    //             // change resource object to id
+    //             for (var j = 0; j < obj[i][attributeName].length; j++) {
+    //               obj[i][attributeName][j] = obj[i][attributeName][j].id;
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
 
-          }
-        }
-      }
-      return payload;
-    },
+    //   return payload;
+    // },
     // use extracFindAll to pushMany relations prepopulated
-    extractFindAll: function(store, type, payload){
-      if(type == 'App.Post'){
-        for (var i = payload.length - 1; i >= 0; i--) {
-          if(payload[i].comments.length > 0){
+    // extractFindAll: function(store, type, payload){
+    //   if(type == 'App.Post'){
+    //     for (var i = payload.length - 1; i >= 0; i--) {
+    //       if(payload[i].comments.length > 0){
 
-            // push comments into store comment model
-            store.pushMany('comment',payload[i].comments);
+    //         // push comments into store comment model
+    //         store.pushMany('comment',payload[i].comments);
 
-            // set comment id for every comment in post.comments
-            var commentLen = payload[i].comments.length;
-            for (var j = 0; j < commentLen; j++) {
-              payload[i].comments[j] = payload[i].comments[j].id;
-            }
-          }else{
-            continue;
-          }
-        }
-        return payload;
-      }else{
-        return payload;
-      }
-    },
-    extractDeleteRecord:function(store, type, payload) {
-      // TODO handle delete association feature
-      // console.warn(type,payload);
+    //         // set comment id for every comment in post.comments
+    //         var commentLen = payload[i].comments.length;
+    //         for (var j = 0; j < commentLen; j++) {
+    //           payload[i].comments[j] = payload[i].comments[j].id;
+    //         }
+    //       }else{
+    //         continue;
+    //       }
+    //     }
+    //     return payload;
+    //   }else{
+    //     return payload;
+    //   }
+    // },
+    // extractDeleteRecord:function(store, type, payload) {
+    //   // TODO handle delete association feature
+    //   // console.warn(type,payload);
 
-      return null;
-    },
-    extractFindHasMany: function(store, type, payload){
-      console.warn('extractFindHasMany',store, type, payload);
-    }
+    //   return null;
+    // },
+    // extractFindHasMany: function(store, type, payload){
+    //   console.warn('extractFindHasMany',store, type, payload);
+    // }
 
   });
 });
