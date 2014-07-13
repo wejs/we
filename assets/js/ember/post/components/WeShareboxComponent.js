@@ -1,7 +1,7 @@
 
 define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
-  App.WeShareboxComponent = Ember.Component.extend({
+  App.WeShareboxComponent = Ember.Component.extend(App.LoggedInMixin,{
     shareboxClass: 'small',
     postNew: {
       body: ''

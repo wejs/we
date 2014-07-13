@@ -1,6 +1,6 @@
 
 define(['we', 'ember'], function (we) {
-  App.WeCommentFormComponent = Ember.Component.extend({
+  App.WeCommentFormComponent = Ember.Component.extend(App.LoggedInMixin,{
     body: '',
     post: null,
     tagName: 'form',
