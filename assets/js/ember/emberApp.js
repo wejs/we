@@ -41,7 +41,36 @@ define('emberApp',[
   });
 
   // save current user in App.currentUser
-  App.currentUser = Ember.Object.create(we.authenticatedUser);
+  App.currentUser = Ember.Object.create(we.authenticatedUser,{
+    shareWithOptions: [],
+    init: function(){
+      this.loadShareWithOptions();
+    },
+    loadShareWithOptions: function(){
+      var _this = this;
+      var userId = this.get('id');
+      if(!userId){
+        return;
+      }
+
+      $.ajax({
+        type: 'GET',
+        url: '/user/'+userId+'/contacts-name',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json'
+      })
+      .done(function success(data){
+        if(data.length){
+          _this.set('shareWithOptions', data);
+        }
+      })
+      .fail(function error(data){
+        console.error('Error on get share with list', data);
+      });
+    }
+
+  });
 
   App.Router.reopen({
     location: 'history'
