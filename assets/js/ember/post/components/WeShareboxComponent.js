@@ -11,6 +11,8 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
     bodyPlaceholder: we.i18n("What is happening?"),
 
+    shareImages: false,
+
     group: null,
     enableShareInput: true,
 
@@ -23,66 +25,10 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
       if(!store) console.error('Store is required for WeShareboxComponent');
 
-    },
-    didInsertElement: function didInsertElement() {
-      var _this = this;
-      var group = this.get('group');
-
-      if(group){
+      if(this.get('group')){
         this.set('enableShareInput', false);
         return;
       }
-
-      var element = this.$(_this.get('toIdtagsManagerElement'));
-      var userId = we.authenticatedUser.id;
-
-      if(!userId){
-        return console.error('authenticatedUser user id not found',userId);
-      }
-      if(!element.select2){
-        return console.error('jquery.select2 Not found on element', element);
-      }
-
-      // we.getShareWithOptions
-      // get share with options
-      $.ajax({
-        type: 'GET',
-        url: '/user/'+userId+'/contacts-name',
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(data){
-          element.select2({
-            placeholder: "Share with ...",
-            minimumInputLength: 3,
-            multiple: true,
-            data: data,
-            formatResult: function(item){
-              return item.text;
-            },
-            formatSelection: function(item){
-              return item.text;
-            },
-            formatSelectionCssClass: function (item) {
-              switch(item.model) {
-                case 'user':
-                  return 'model-user';
-                  break;
-                case 'group':
-                  return 'model-group';
-                  break;
-              }
-              return "";
-            },
-            dropdownCssClass: "sharebox-dropdown",
-            escapeMarkup: function (m) { return m; }
-          });
-        },
-        error: function(data){
-          console.error('Error on get share with list', data);
-        }
-      });
-
     },
     willDestroyElement: function willDestroyElement(){
 
@@ -92,7 +38,15 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
       var files = _this.get('filesNew');
       _this.get('files').pushObject(files[0]);
     }).observes('filesNew'),
-
+    emptyData: function(){
+      this.setProperties({
+        'postNew.body': '',
+        'isOpen': false,
+        'shareboxClass': 'small',
+        'shareImages': false,
+        'files': []
+      });
+    },
     actions: {
       openBox: function openBox(){
         this.setProperties({
@@ -106,10 +60,13 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
           'shareboxClass': 'small'
         });
       },
+      openShareImage: function openShareImage(){
+        this.set('shareImages', true);
+      },
       submit: function submit(){
         var _this = this;
         var postNew = this.get('postNew');
-        var element = this.$(this.get('toIdtagsManagerElement')) ;
+        var element = this.$(".select2-element");
         var store = this.get('store');
 
         var sharedIn = [];
@@ -140,11 +97,6 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
           Ember.RSVP.all(promises).then(function(shareWithUsers){
           Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
-
-
-            //store.find('user',{id: sharedWith} )
-            //.then(function(shareWithUsers){
-
               // create new post on store
               var post = store.createRecord('post', postNew);
 
@@ -162,16 +114,9 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
                 // empty selectd tags
                 element.select2('data', null);
                 // close and clear sharebox form inputs
-                _this.setProperties({
-                  'postNew.body': '',
-                  'isOpen': false,
-                  'shareboxClass': 'small'
-                });
+                _this.emptyData();
 
               });
-
-            //});
-
           });
           });
 

@@ -1,16 +1,24 @@
 <div {{bind-attr class='shareboxClass'}}>
+<form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
 <div class="panel panel-default">
   <div class="panel-body">
-    <form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
+    <div class="form-group">
+      {{#if isOpen}}
+        {{we-wysiwyg-editor name="body" value=postNew.body}}
+      {{else}}
+        <div {{action "openBox"}} class="post-placeholder form-control post-content"> {{t 'What is happening?'}}</div>
+      {{/if}}
+    </div>
+
+    <div class="form-group attach-options">
+      <button {{action 'openShareImage'}} type="button" class="btn btn-xs btn-default">
+        <i class="glyphicon glyphicon-picture"></i> {{t "Image"}}
+      </button>
+    </div>
+
+    {{#if shareImages}}
       <div class="form-group">
-        {{#if isOpen}}
-          {{we-wysiwyg-editor name="body" value=postNew.body}}
-        {{else}}
-          <div {{action "openBox"}} class="post-placeholder form-control post-content"> {{t 'What is happening?'}}</div>
-        {{/if}}
-      </div>
-      {{#if shareImages}}
-        <div class="form-group add-images">
+        <div class="form-group row add-images">
           <label for="addImages" class="col-sm-2 control-label">{{t "Attach images"}}</label>
           <div class="col-sm-10">
             {{file-upload files=filesNew}}
@@ -21,28 +29,30 @@
           {{we-image-preview file=this}}
         {{/each}}
         </div>
-      {{/if}}
+      </div>
+    {{/if}}
 
-        <div class="footer">
-          {{#if enableShareInput}}
-            <div class="form-group">
-              <div class="input-group">
-                <label for="toId" class="input-group-addon">{{t "To"}}:</label>
-                <input name="toIds" class="form-control input-md tm-input tm-input-success" type="text">
-              </div>
-              <input type="hidden" class="toIdsSelectedDisplay">
-            </div>
-          {{/if}}
-
-          <div class="actions">
-            <button type="submit" class="btn btn-primary">
-              <span class="glyphicon glyphicon-ok"></span> {{t "Share"}}
-            </button>
-            <button type="button" {{action 'closeBox'}} class="btn btn-default cancel"> {{t "Cancel"}}</button>
+    <div class="footer">
+      {{#if enableShareInput}}
+        <div class="form-group">
+          <div class="input-group">
+            <label for="toId" class="input-group-addon">{{t "To"}}:</label>
+            {{we-select2 shareWithOptions=App.currentUser.shareWithOptions}}
+            <input name="toIds" class="" type="text">
           </div>
         </div>
-
-    </form>
+      {{/if}}
+    </div>
   </div>
+  <div class="panel-footer">
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> {{t "Share"}}
+      </button>
+      <button type="button" {{action 'closeBox'}} class="btn btn-default cancel"> {{t "Cancel"}}</button>
+    </div>
+  </div>
+
 </div>
+</form>
 </div>
