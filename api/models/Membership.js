@@ -9,7 +9,7 @@ module.exports = {
   schema: true,
   attributes: {
 
-    // requested | member | blocked
+    // requested | member | administrator | blocked
     status: {
       type: 'string',
       defaultsTo: 'requested'
@@ -24,10 +24,10 @@ module.exports = {
     },
 
     // member | moderator | administrator
-    role: {
-      type: 'string',
-      defaultsTo: 'member'
-    }
+    // role: {
+    //   type: 'string',
+    //   defaultsTo: 'member'
+    // }
   }
 
 };
