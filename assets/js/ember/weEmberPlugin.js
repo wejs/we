@@ -59,8 +59,6 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
       App.deferReadiness();
 
-      App.Store = DS.Store.extend();
-
       // TODO move this mixn to one mixins file
       App.LoggedInMixin = Ember.Mixin.create({
         isVisible: function(){
