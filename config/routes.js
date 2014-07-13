@@ -328,7 +328,30 @@ module.exports.routes = {
   'delete /admin/roles/:id': {
       controller    : 'roles',
       action        : 'delete'
-  }
+  },
+
+
+  // group routes
+  'get /api/v1/group': {
+      controller    : 'group',
+      action        : 'index'
+  },
+  'get /api/v1/group/:id?': {
+      controller    : 'group',
+      action        : 'findOne'
+  },
+  'post /api/v1/group': {
+      controller    : 'group',
+      action        : 'create'
+  },
+  'put /api/v1/group/:id?': {
+      controller    : 'group',
+      action        : 'update'
+  },
+  'delete /api/v1/group/:id?': {
+      controller    : 'group',
+      action        : 'destroy'
+  },
 
   /*
   // But what if you want your home page to display
