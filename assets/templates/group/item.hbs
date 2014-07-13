@@ -8,10 +8,23 @@
         {{/link-to}}
       </div>
 
+      {{partial 'group/groupActionsBlock'}}
+
       <div class="group-logo">
         {{#link-to 'group' id}}
           <img width="100%" src="/imgs/logos/group2.jpg">
         {{/link-to}}
+      </div>
+
+      <div class="search-in-group">
+        <form {{action 'search' on="submit"}}>
+          <div class="input-group">
+            <div class="input-group-btn">
+            <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            <input type="text" class="form-control" placeholder="Search here ...">
+          </div>
+        </form>
       </div>
 
     </div>

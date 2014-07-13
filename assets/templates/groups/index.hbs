@@ -3,9 +3,11 @@
     <h2>{{t 'Groups'}}</h2>
   </div>
   <div class="col-md-12">
+  {{#if App.currentUser.id}}
     {{#link-to 'groups.create' classNames="btn btn-primary"}}
       {{t 'Create group'}}
     {{/link-to}}
+  {{/if}}
   </div>
   {{#each controller}}
     {{render 'group/teaser' this}}
