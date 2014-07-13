@@ -1,13 +1,13 @@
 <div class="groups row">
   <div class="col-md-12">
-    <h2>{{t 'Groups'}}</h2>
-  </div>
-  <div class="col-md-12">
-  {{#if App.currentUser.id}}
-    {{#link-to 'groups.create' classNames="btn btn-primary"}}
-      {{t 'Create group'}}
-    {{/link-to}}
-  {{/if}}
+    <h2>{{t 'Groups'}}
+      {{#if App.currentUser.id}}
+        {{#link-to 'groups.create' classNames="btn btn-primary"}}
+          {{t 'Create group'}}
+        {{/link-to}}
+        <hr>
+      {{/if}}
+    </h2>
   </div>
   {{#each controller}}
     {{render 'group/teaser' this}}
