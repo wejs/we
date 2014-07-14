@@ -14,7 +14,64 @@ var util = require('util');
 
 module.exports = {
 
+  findOne: function findOneRecord (req, res) {
 
+    var Model = actionUtil.parseModel(req);
+    var pk = actionUtil.requirePk(req);
+    var modelName = req.options.model || req.options.controller;
+
+    var query = Model.findOne(pk);
+    //query = actionUtil.populateEach(query, req.options);
+    query.exec(function found(err, matchingRecord) {
+      if (err) return res.serverError(err);
+      if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
+
+      var resultObject = {};
+
+      resultObject[modelName] = matchingRecord;
+      res.send(resultObject);
+    });
+
+  },
+
+  find: function findRecords (req, res) {
+
+    // Look up the model
+    var Model = actionUtil.parseModel(req);
+
+    var modelName = req.options.model || req.options.controller;
+
+    // Lookup for records that match the specified criteria
+    var query = Model.find()
+    .where( actionUtil.parseCriteria(req) )
+    .limit( actionUtil.parseLimit(req) )
+    .skip( actionUtil.parseSkip(req) )
+    .sort( actionUtil.parseSort(req) );
+    // TODO: .populateEach(req.options);
+    //query = actionUtil.populateEach(query, req.options);
+    query.exec(function found(err, matchingRecords) {
+      if (err) return res.serverError(err);
+
+      // Only `.watch()` for new instances of the model if
+      // `autoWatch` is enabled.
+      if (req._sails.hooks.pubsub && req.isSocket) {
+        Model.subscribe(req, matchingRecords);
+        if (req.options.autoWatch) {
+          Model.watch(req);
+        }
+        // Also subscribe to instances of all associated models
+        _.each(matchingRecords, function (record) {
+          actionUtil.subscribeDeep(req, record);
+        });
+      }
+
+      var resultObject = {};
+
+      resultObject[modelName] = matchingRecords;
+      res.send(resultObject);
+
+    });
+  },
 
   update: function(req, res, next) {
     // Look up the model

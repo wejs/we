@@ -60,7 +60,9 @@ module.exports = {
         actionUtil.subscribeDeep(req, matchingRecord);
       }
       */
-      res.ok(matchingRecord);
+      res.ok({
+        group: matchingRecord
+      });
     });
   },
 

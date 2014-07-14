@@ -103,8 +103,12 @@ define(['we','ember'], function (we) {
       @param {DS.Model} record
       @param {Object} options
     */
+    serializeIntoHash: function(hash, type, record, options) {
+      Ember.merge(hash, this.serialize(record, options));
+    },
+
     // serializeIntoHash: function(hash, type, record, options) {
-    //   Ember.merge(hash, this.serialize(record, options));
+    //   hash[type.typeKey] = this.serialize(record, options);
     // },
 
     // extract relationship objects

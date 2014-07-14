@@ -23,10 +23,11 @@ module.exports = function createRecord (req, res) {
 
   var Model = actionUtil.parseModel(req);
 
+  var modelName = req.options.model || req.options.controller;
+
   // Create data object (monolithic combination of all parameters)
   // Omit the blacklisted params (like JSONP callback param, etc.)
   var data = actionUtil.parseValues(req);
-
 
   // Create new instance of model using data from params
   Model.create(data).exec(function created (err, newInstance) {
@@ -48,7 +49,12 @@ module.exports = function createRecord (req, res) {
 
     // Send JSONP-friendly response if it's supported
     // (HTTP 201: Created)
+
+    var resultObject = {};
+
+    resultObject[modelName] = newInstance.toJSON();
+
     res.status(201);
-    res.ok(newInstance.toJSON());
+    res.ok(resultObject);
   });
 };

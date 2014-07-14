@@ -42,7 +42,6 @@ module.exports = function findOneRecord (req, res) {
     var resultObject = {};
 
     resultObject[modelName] = matchingRecord;
-
     res.send(resultObject);
   });
 

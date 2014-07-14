@@ -94,7 +94,14 @@ module.exports = function updateOneRecord (req, res) {
       }); // </foundAgain>
       */
 
-      res.ok(updatedRecord);
+
+      var modelName = req.options.model || req.options.controller;
+
+      var resultObject = {};
+
+      resultObject[modelName] = updatedRecord;
+
+      res.ok(resultObject);
     });// </updated>
   }); // </found>
 };
