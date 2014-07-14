@@ -5,6 +5,7 @@
  * @description :: Model comentary
  *
  */
+var defaultCommentLimit = 4;
 
 module.exports = {
   schema: true,
@@ -28,8 +29,7 @@ module.exports = {
     },
 
     post: {
-      model: 'post',
-      via: 'comments'
+      model: 'post'
     },
 
     activities: {
@@ -54,6 +54,8 @@ module.exports = {
     toJSON: function() {
       // remove password
       var obj = this.toObject();
+
+      sails.log.info('obj',obj);
 
       // set default objectType
       obj.objectType = "comment";
@@ -88,6 +90,26 @@ module.exports = {
 
       next();
     });
-  }
+  },
 
+  // methods
+  getCommentsAndCount: function(postId, callback){
+    Comment.count()
+    .where({
+      post: postId
+    }).exec(function(err, commentCount){
+      if (err) return callback(err);
+
+      Comment.find()
+      .sort('updatedAt DESC')
+      .limit(defaultCommentLimit)
+      .where({
+        post: postId
+      }).exec(function(err, comments){
+        if (err) return callback(err);
+
+        return callback(null, comments, commentCount);
+      });
+    });
+  }
 };
