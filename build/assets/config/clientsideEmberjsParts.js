@@ -38,6 +38,7 @@ module.exports.clientsideEmberjsParts = {
     ],
     "components": [
       "js/ember/application/components/WeConnectionStatusComponent",
+      "js/ember/application/components/WeSelect2Component",
       "js/ember/application/components/WeWysiwygEditorComponent",
       "js/ember/auth/components/WeAuthModalLoginComponent",
       "js/ember/avatar/components/WeAvatarComponent",
