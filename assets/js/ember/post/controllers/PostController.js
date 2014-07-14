@@ -7,6 +7,7 @@ define(['we','ember'], function (we) {
     actions: {
       edit: function() {
         this.set('isEditing', true);
+        window.teste = this;
       },
       cancel: function() {
         this.set('isEditing', false);

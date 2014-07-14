@@ -2,7 +2,22 @@
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
+ *
  */
+
+/*
+Hooks Avaible in this plugin ordered by call order:
+emberjs-load-ember-libs
+emberjs-create-app
+emberjs-configure-app
+emberjs-load-mixins
+emberjs-load-adapters
+emberjs-load-models
+emberjs-load-resources
+emberjs-load-routes
+emberjs-init-app
+*/
+
 define('weEmberPlugin',['we','async'], function (we, async) {
 
   var plugin = {};
@@ -13,14 +28,66 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
   plugin.enable = function(we) {
 
-    loadUtils(we);
+    //loadUtils(we);
     // start build emberJS after bootstrap we.js
     we.hooks.on("we-bootstrap-end-after-success", function(data, next){
 
-      buildEmber();
+      we.hooks.trigger("emberjs-load-ember-libs");
 
       next();
     });
+
+    //
+    // -- register this plugin hook chain
+    //
+    we.hooks.on("emberjs-load-ember-libs-after-success",function(data, next){
+      require(['emberApp'],function(){
+        we.hooks.trigger("emberjs-create-app");
+        next();
+      });
+    });
+
+    we.hooks.on("emberjs-create-app-after-success",function(data, next){
+      we.hooks.trigger("emberjs-configure-app");
+      next();
+    });
+
+    we.hooks.on("emberjs-configure-app-after-success",function(data, next){
+      we.hooks.trigger("emberjs-load-mixins");
+      next();
+    });
+
+    we.hooks.on("emberjs-load-mixins-after-success",function(data, next){
+      we.hooks.trigger("emberjs-load-adapters");
+      next();
+    });
+
+    we.hooks.on("emberjs-load-adapters-after-success",function(data, next){
+      we.hooks.trigger("emberjs-load-models");
+      next();
+    });
+
+    we.hooks.on("emberjs-load-models-after-success",function(data, next){
+      we.hooks.trigger("emberjs-load-resources");
+      next();
+    });
+
+    we.hooks.on("emberjs-load-resources-after-success",function(data, next){
+      we.hooks.trigger("emberjs-load-routes");
+      next();
+    });
+
+    we.hooks.on("emberjs-load-routes-after-success",function(data, next){
+      we.hooks.trigger("emberjs-init-app");
+      next();
+    });
+
+    // All loaded the init the app
+    // we.hooks.on("emberjs-init-app-after-success",function(data, next){
+    //   // require emberApp file
+
+    //   next();
+    // });
 
   };
 
@@ -30,94 +97,6 @@ define('weEmberPlugin',['we','async'], function (we, async) {
 
   // register the plugin
   we.plugins.register(plugin);
-
-  // -- private functions
-
-  var buildEmber = function buildEmber(){
-    console.warn('Start build emberJS: ');
-
-    we.emberApp = {};
-    we.emberApp.models = {};
-
-    // load ember and ember-data
-    require([
-      'handlebars',
-      'ember',
-      'ember-data',
-      'ember-data-sails-adapter',
-      'emberTemplates',
-      'ember-uploader'
-    ],function(){
-
-      // start app after
-      window.App = Ember.Application.create({
-        locale: we.config.language,
-        LOG_TRANSITIONS: true, // basic logging of successful transitions
-        LOG_TRANSITIONS_INTERNAL: true, // detailed logging of all routing steps
-        LOG_VIEW_LOOKUPS: true
-      });
-
-      App.deferReadiness();
-
-      // TODO move this mixn to one mixins file
-      App.LoggedInMixin = Ember.Mixin.create({
-        isVisible: function(){
-          if(App.currentUser.get('id')){
-            return true;
-          }else{
-            return false;
-          }
-        }.property('App.currentUser.id')
-      });
-
-
-        // get emberjs adapters
-      var emberAdaptersModules = [];
-      if(we.configs.client.emberjsParts.parts.adapters){
-        emberAdaptersModules = we.configs.client.emberjsParts.parts.adapters;
-        delete we.configs.client.emberjsParts.parts.adapters;
-      }
-
-      var emberRequireModules = [];
-
-      // ember routes load after application route map
-      var emberRouteModules = [];
-      if(we.configs.client.emberjsParts.parts.routes){
-        emberRouteModules = we.configs.client.emberjsParts.parts.routes;
-        delete we.configs.client.emberjsParts.parts.routes;
-      }
-
-      // get emberjs models
-      var emberModelModules = [];
-      if(we.configs.client.emberjsParts.parts.models){
-        emberModelModules = we.configs.client.emberjsParts.parts.models;
-        delete we.configs.client.emberjsParts.parts.models;
-      }
-
-      // get emberjs modules
-      for(var emberjsPart in we.configs.client.emberjsParts.parts){
-          emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
-      }
-
-      // sails adapter: js/ember/application/adapters/sailsAdapter
-
-      // require emberjs adapter
-      require(['js/ember/application/adapters/sailsAdapter'],function(){
-        // load ember js models
-        require(emberModelModules,function(){
-          // then load other resources
-          require(emberRequireModules,function(){
-            // load requirejs custom routes
-            require(emberRouteModules,function(){
-              // require emberApp file
-              require(['emberApp']);
-            });
-          });
-        });
-      });
-
-    });
-  };
 
   var loadUtils = function(we){
 
@@ -135,6 +114,95 @@ define('weEmberPlugin',['we','async'], function (we, async) {
       return false;
     }
   }
+
+  we.hooks.on("emberjs-load-ember-libs", function(data, next){
+    // load default emberjs libs
+    require([
+      'handlebars',
+      'ember',
+      'ember-data',
+      'ember-data-sails-adapter',
+      'emberTemplates',
+      'ember-uploader'
+    ],function(){
+      next();
+    });
+  });
+
+  we.hooks.on("emberjs-create-app",function(data, next){
+    // start app after
+    window.App = Ember.Application.create({
+      locale: we.config.language,
+      LOG_TRANSITIONS: true, // basic logging of successful transitions
+      LOG_TRANSITIONS_INTERNAL: true, // detailed logging of all routing steps
+      LOG_VIEW_LOOKUPS: true
+    });
+
+    App.deferReadiness();
+
+    // add getMetaData function on model
+    DS.Model.reopen({
+      getMetaData: function(){
+        return this.get('_data.meta');
+      }
+    });
+
+    next();
+  });
+
+  we.hooks.on("emberjs-load-mixins",function(data, next){
+    // require emberjs adapters
+        // TODO move this mixn to one mixins file
+    App.LoggedInMixin = Ember.Mixin.create({
+      isVisible: function(){
+        if(App.currentUser.get('id')){
+          return true;
+        }else{
+          return false;
+        }
+      }.property('App.currentUser.id')
+    });
+
+    next();
+  });
+
+  we.hooks.on("emberjs-load-adapters",function(data, next){
+    // require emberjs adapters
+    require(we.configs.client.emberjsParts.parts.adapters,function(){
+      delete we.configs.client.emberjsParts.parts.adapters;
+      next();
+    });
+  });
+
+  we.hooks.on("emberjs-load-models",function(data, next){
+    // require emberjs models
+    require(we.configs.client.emberjsParts.parts.models,function(){
+      delete we.configs.client.emberjsParts.parts.models;
+      next();
+    });
+  });
+
+  we.hooks.on("emberjs-load-routes",function(data, next){
+    // require emberjs resources
+    require(we.configs.client.emberjsParts.parts.routes,function(){
+      delete we.configs.client.emberjsParts.parts.routes;
+      next();
+    });
+  });
+
+  we.hooks.on("emberjs-load-resources",function(data, next){
+
+    var emberRequireModules = [];
+    // get emberjs modules
+    for(var emberjsPart in we.configs.client.emberjsParts.parts){
+      emberRequireModules = emberRequireModules.concat( we.configs.client.emberjsParts.parts[emberjsPart] );
+    }
+
+    // require emberjs resources
+    require(emberRequireModules,function(){
+      next();
+    });
+  });
 
   return plugin;
 });
