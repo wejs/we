@@ -128,16 +128,17 @@ define(['we','ember'], function (we) {
   });
 
   function fetchPayloadObjectAssociations(store, type, payload){
-      var models = Object.keys(payload);
-      for (var modelName in payload) {
-        for (var i = 0; i < payload[modelName].length; i++) {
-          payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
-        };
-      }
-      return payload[type.typeKey];
+    var models = Object.keys(payload);
+    for (var modelName in payload) {
+      for (var i = 0; i < payload[modelName].length; i++) {
+        payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
+      };
+    }
+
+    return payload[type.typeKey];
   }
 
-  function fetchPayloadObjectAssociations(obj, type, store){
+  function fetchObjectAssociations(obj, type, store){
     for(var attributeName in obj){
       // get relationship model
       relationshipModel = type.typeForRelationship(attributeName);
