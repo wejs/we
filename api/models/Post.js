@@ -55,7 +55,6 @@ module.exports = {
     toJSON: function() {
 
       var obj = this.toObject();
-
       // set default objectType
       obj.objectType = "post";
 
@@ -63,6 +62,11 @@ module.exports = {
         obj.creator_id = obj.creator;
       } else if(_.isObject(obj.creator) && obj.creator.id) {
         obj.creator_id = obj.creator.id;
+      }
+
+      if( obj._comments ){
+        obj.comments = obj._comments;
+        delete obj._comments;
       }
 
       // set url for this content
