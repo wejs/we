@@ -1,6 +1,17 @@
 
 define(['we','ember'], function (we) {
 
+
+  App.Router.map(function(match) {
+    // groups route map
+    this.resource('groups',{path: '/g'}, function(){
+      this.route('create',{path: '/c'});
+      // item route
+      this.resource('group',{ path: '/:group_id' }, function(){
+      });
+    });
+  });
+
   // route list
   App.GroupsRoute = Ember.Route.extend({
     renderTemplate: function() {

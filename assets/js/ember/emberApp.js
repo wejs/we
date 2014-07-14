@@ -14,7 +14,8 @@ define('emberApp',[
   'weEmberPlugin',
   'sails.io'
 ], function (we, moment) {
-
+  var get = Ember.get;
+  var set = Ember.set;
 
   we.hooks.on("emberjs-configure-app",function(data, next){
 
@@ -62,10 +63,7 @@ define('emberApp',[
     next();
   });
 
-  we.hooks.on("emberjs-init-app",function(data, next){
-    var get = Ember.get;
-    var set = Ember.set;
-
+  we.hooks.on("emberjs-map-routes",function(data, next){
     // Map app routers
     App.Router.map(function(match) {
       var thisPointer = this;
@@ -73,42 +71,9 @@ define('emberApp',[
       // auth
       this.route('authForgotPassword',{path: '/auth/forgot-password'});
       this.route('authResetPassword',{path: '/auth/reset-password'});
-      // user route map
-      this.resource('users',{path: '/user'}, function(){
-        // item route
-        this.resource('user',{ path: '/:user_id' }, function(){
-
-          // edit item route
-          this.route('contacts');
-          // edit item route
-          this.route('edit');
-        });
-      });
-
-      // groups route map
-      this.resource('groups',{path: '/g'}, function(){
-        this.route('create',{path: '/c'});
-        // item route
-        this.resource('group',{ path: '/:group_id' }, function(){
-        });
-      });
-
-      // post route map
-      this.resource('postList',{path: '/post'});
-      // item route
-      this.resource('post', { path: '/post/:post_id' }, function(){
-        // edit item route
-        this.route('edit');
-      });
-
       // 404 pages
       this.route("unknown", { path: "*path"});
-
-      App.advanceReadiness();
-
     });
-
     next();
-
   });
 });

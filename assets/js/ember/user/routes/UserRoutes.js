@@ -1,6 +1,21 @@
 
 define(['we','ember'], function (we) {
 
+  // Map user routers
+  App.Router.map(function(match) {
+    // user route map
+    this.resource('users',{path: '/user'}, function(){
+      // item route
+      this.resource('user',{ path: '/:user_id' }, function(){
+
+        // edit item route
+        this.route('contacts');
+        // edit item route
+        this.route('edit');
+      });
+    });
+  });
+
   // route list
   App.UsersRoute = Ember.Route.extend({
     renderTemplate: function() {

@@ -78,16 +78,21 @@ define('weEmberPlugin',['we','async'], function (we, async) {
     });
 
     we.hooks.on("emberjs-load-routes-after-success",function(data, next){
+      we.hooks.trigger("emberjs-map-routes");
+      next();
+    });
+
+    we.hooks.on("emberjs-map-routes-after-success",function(data, next){
       we.hooks.trigger("emberjs-init-app");
       next();
     });
 
     // All loaded the init the app
-    // we.hooks.on("emberjs-init-app-after-success",function(data, next){
-    //   // require emberApp file
-
-    //   next();
-    // });
+    we.hooks.on("emberjs-init-app-after-success",function(data, next){
+      // advanceReadiness
+      App.advanceReadiness();
+      next();
+    });
 
   };
 
