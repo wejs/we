@@ -32,6 +32,8 @@ define('weEmberPlugin',['we','async'], function (we, async) {
     // start build emberJS after bootstrap we.js
     we.hooks.on("we-bootstrap-end-after-success", function(data, next){
 
+      loadUtils(we);
+
       we.hooks.trigger("emberjs-load-ember-libs");
 
       next();
