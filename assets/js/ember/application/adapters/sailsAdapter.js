@@ -107,64 +107,15 @@ define(['we','ember'], function (we) {
       Ember.merge(hash, this.serialize(record, options));
     },
 
-    // serializeIntoHash: function(hash, type, record, options) {
-    //   hash[type.typeKey] = this.serialize(record, options);
-    // },
 
     // extract relationship objects
-    // extractFindQuery: function(store, type, payload){
-    //   var keys = Object.keys(payload);
-    //   for (var prop in obj) {
-    //     for (var i = obj.length - 1; i >= 0; i--) {
-    //       // get attribute names
-    //       for(var attributeName in obj[i]){
-    //         // get relationship model
-    //         relationshipModel = type.typeForRelationship(attributeName);
-    //         if(relationshipModel){
-    //           if(!obj[i][attributeName].length){
-    //             // dont has one array or the array is empty
-    //             // ...
-    //           }else if(typeof obj[i][attributeName][0] == 'string'){
-    //             // if are a array of strings ids
-    //             // ...
-    //           }else{
-    //           // store this resources if are a array of objects
-    //             store.pushMany(relationshipModel.typeKey, obj[i][attributeName]);
-    //             // change resource object to id
-    //             for (var j = 0; j < obj[i][attributeName].length; j++) {
-    //               obj[i][attributeName][j] = obj[i][attributeName][j].id;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-
-    //   return payload;
-    // },
+    extractFindQuery: function(store, type, payload){
+      return fetchPayloadObjectAssociations(store, type, payload);
+    },
     // use extracFindAll to pushMany relations prepopulated
-    // extractFindAll: function(store, type, payload){
-    //   if(type == 'App.Post'){
-    //     for (var i = payload.length - 1; i >= 0; i--) {
-    //       if(payload[i].comments.length > 0){
-
-    //         // push comments into store comment model
-    //         store.pushMany('comment',payload[i].comments);
-
-    //         // set comment id for every comment in post.comments
-    //         var commentLen = payload[i].comments.length;
-    //         for (var j = 0; j < commentLen; j++) {
-    //           payload[i].comments[j] = payload[i].comments[j].id;
-    //         }
-    //       }else{
-    //         continue;
-    //       }
-    //     }
-    //     return payload;
-    //   }else{
-    //     return payload;
-    //   }
-    // },
+    extractFindAll: function(store, type, payload){
+      return fetchPayloadObjectAssociations(store, type, payload);
+    },
     // extractDeleteRecord:function(store, type, payload) {
     //   // TODO handle delete association feature
     //   // console.warn(type,payload);
@@ -174,6 +125,41 @@ define(['we','ember'], function (we) {
     // extractFindHasMany: function(store, type, payload){
     //   console.warn('extractFindHasMany',store, type, payload);
     // }
-
   });
+
+  function fetchPayloadObjectAssociations(store, type, payload){
+      var models = Object.keys(payload);
+      for (var modelName in payload) {
+        for (var i = 0; i < payload[modelName].length; i++) {
+          payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
+        };
+      }
+      return payload[type.typeKey];
+  }
+
+  function fetchPayloadObjectAssociations(obj, type, store){
+    for(var attributeName in obj){
+      // get relationship model
+      relationshipModel = type.typeForRelationship(attributeName);
+      if(relationshipModel){
+        //console.warn('relationship', obj[attributeName].length);
+        if(!obj[attributeName] || !obj[attributeName].length){
+          // dont has one array or the array is empty
+          // ...
+        }else if(typeof obj[attributeName][0] == 'string'){
+          // if are a array of strings ids
+          // ...
+        }else{
+        // store this resources if are a array of objects
+          store.pushMany(relationshipModel.typeKey, obj[attributeName]);
+          // change resource object to id
+          for (var j = 0; j < obj[attributeName].length; j++) {
+            obj[attributeName][j] = obj[attributeName][j].id;
+          }
+        }
+      }
+    }
+
+    return obj;
+  }
 });
