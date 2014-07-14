@@ -20,7 +20,7 @@ define(['we','ember','ember-data'], function (we) {
     }),
     sharedIn: DS.hasMany('group'),
 
-    comments: DS.hasMany('comment'),
+    comments: attr(),
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')
 

@@ -109,13 +109,13 @@ define(['we','ember'], function (we) {
 
 
     // extract relationship objects
-    extractFindQuery: function(store, type, payload){
-      return fetchPayloadObjectAssociations(store, type, payload);
-    },
-    // use extracFindAll to pushMany relations prepopulated
-    extractFindAll: function(store, type, payload){
-      return fetchPayloadObjectAssociations(store, type, payload);
-    },
+    // extractFindQuery: function(store, type, payload){
+    //   return fetchPayloadObjectAssociations(store, type, payload);
+    // },
+    // // use extracFindAll to pushMany relations prepopulated
+    // extractFindAll: function(store, type, payload){
+    //   return fetchPayloadObjectAssociations(store, type, payload);
+    // },
     // extractDeleteRecord:function(store, type, payload) {
     //   // TODO handle delete association feature
     //   // console.warn(type,payload);
@@ -131,7 +131,11 @@ define(['we','ember'], function (we) {
     var models = Object.keys(payload);
     for (var modelName in payload) {
       for (var i = 0; i < payload[modelName].length; i++) {
-        payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
+        if(store.hasRecordForId(type, payload[modelName].id)){
+          payload[modelName].removeAt(i);
+        }else{
+          payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
+        }
       };
     }
 
@@ -152,9 +156,13 @@ define(['we','ember'], function (we) {
           // ...
         }else{
         // store this resources if are a array of objects
-          store.pushMany(relationshipModel.typeKey, obj[attributeName]);
+
           // change resource object to id
           for (var j = 0; j < obj[attributeName].length; j++) {
+            subModel = obj[attributeName][j];
+            if(!store.hasRecordForId(relationshipModel, obj[attributeName][j].id)){
+              store.push(relationshipModel.typeKey, obj[attributeName][j]);
+            }
             obj[attributeName][j] = obj[attributeName][j].id;
           }
         }

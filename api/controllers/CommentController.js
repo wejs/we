@@ -57,7 +57,7 @@ module.exports = {
       // to notify all subscribers about the created item
       Comment.publishCreate(newInstance);
 
-      res.send(newInstance);
+      res.send({ comment: newInstance});
     });
   }
 

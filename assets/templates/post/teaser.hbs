@@ -68,8 +68,16 @@
   </div>
 
   <div class="panel-footer">
+    {{#if hasMoreComments}}
+      <div class="comments-header">
+        <span>Total de {{commentCount}} comentarios.</span>
 
+        <a {{action 'loadAllComments'}} href="#mostrar-comment" class="btn btn-default btn-xs">Mostrar todos</a>
+      </div>
+      <hr>
+    {{/if}}
     <div class="comments">
+
       {{#each comments}}
         {{render 'comment/item' this}}
       {{/each}}
@@ -77,6 +85,5 @@
     {{we-comment-form creatorId=creator.id post=model store=store}}
 
   </div>
-
 </div>
 </div>

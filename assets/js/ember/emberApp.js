@@ -19,6 +19,10 @@ define('emberApp',[
 
   we.hooks.on("emberjs-configure-app",function(data, next){
 
+    // hide ember mandaory erros
+    Ember.MANDATORY_SETTER_FUNCTION = function(){};
+
+
     // configure moment.js
     moment.lang(we.config.language);
 

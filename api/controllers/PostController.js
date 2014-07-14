@@ -30,7 +30,9 @@ module.exports = {
 
             post.meta = {};
             post.meta.commentCount = commentCount;
-            post._comments = comments;
+            post._comments = [];
+
+            post._comments = comments.reverse();
 
             nextPost();
           });
