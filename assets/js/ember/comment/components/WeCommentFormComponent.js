@@ -1,6 +1,9 @@
 
 define(['we', 'ember'], function (we) {
   App.WeCommentFormComponent = Ember.Component.extend(App.LoggedInMixin,{
+    // fix to component event string name
+    newCommentCreated: 'newCommentCreated',
+    //vars
     body: '',
     post: null,
     tagName: 'form',
@@ -43,6 +46,7 @@ define(['we', 'ember'], function (we) {
 
           // save comment
           comment.save();
+          _this.sendAction('newCommentCreated',comment);
 
         });
       },

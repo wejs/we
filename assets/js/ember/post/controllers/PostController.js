@@ -5,8 +5,9 @@ define(['we','ember'], function (we) {
  App.PostController = Ember.ObjectController.extend({
     isEditing: false,
     loadedComments: 4,
-    metadata: null,
-
+    metadata: {
+      commentCount: 0
+    },
     hasMoreComments: function(){
       if(this.get('metadata.commentCount') > this.loadedComments){
         return true;
@@ -71,8 +72,17 @@ define(['we','ember'], function (we) {
             });
           }
         });
+      },
+
+      newCommentCreated: function(comment){
+        this.get('comments').pushObject(comment);
+
+        var commentCount = this.get('metadata.commentCount');
+        commentCount++;
+        this.set('metadata.commentCount',commentCount);
       }
-    }
+    },
+
   });
 
 });
