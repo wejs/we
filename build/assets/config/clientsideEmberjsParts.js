@@ -1,6 +1,9 @@
 /* Automatic generated file - dont edit!*/
 module.exports.clientsideEmberjsParts = {
   "parts": {
+    "adapters": [
+      "js/ember/application/adapters/sailsAdapter"
+    ],
     "controllers": [
       "js/ember/application/controllers/ApplicationController",
       "js/ember/application/controllers/HomeController",
@@ -66,6 +69,7 @@ module.exports.clientsideEmberjsParts = {
     ]
   },
   "types": [
+    "adapters",
     "controllers",
     "models",
     "views",
