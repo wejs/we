@@ -127,48 +127,48 @@ define(['we','ember'], function (we) {
     // }
   });
 
-  function fetchPayloadObjectAssociations(store, type, payload){
-    var models = Object.keys(payload);
-    for (var modelName in payload) {
-      for (var i = 0; i < payload[modelName].length; i++) {
-        if(store.hasRecordForId(type, payload[modelName].id)){
-          payload[modelName].removeAt(i);
-        }else{
-          payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
-        }
-      };
-    }
+  // function fetchPayloadObjectAssociations(store, type, payload){
+  //   var models = Object.keys(payload);
+  //   for (var modelName in payload) {
+  //     for (var i = 0; i < payload[modelName].length; i++) {
+  //       if(store.hasRecordForId(type, payload[modelName].id)){
+  //         payload[modelName].removeAt(i);
+  //       }else{
+  //         payload[modelName][i] = fetchObjectAssociations(payload[modelName][i], type, store);
+  //       }
+  //     };
+  //   }
 
-    return payload[type.typeKey];
-  }
+  //   return payload[type.typeKey];
+  // }
 
-  function fetchObjectAssociations(obj, type, store){
-    for(var attributeName in obj){
-      // get relationship model
-      relationshipModel = type.typeForRelationship(attributeName);
-      if(relationshipModel){
-        //console.warn('relationship', obj[attributeName].length);
-        if(!obj[attributeName] || !obj[attributeName].length){
-          // dont has one array or the array is empty
-          // ...
-        }else if(typeof obj[attributeName][0] == 'string'){
-          // if are a array of strings ids
-          // ...
-        }else{
-        // store this resources if are a array of objects
+  // function fetchObjectAssociations(obj, type, store){
+  //   for(var attributeName in obj){
+  //     // get relationship model
+  //     relationshipModel = type.typeForRelationship(attributeName);
+  //     if(relationshipModel){
+  //       //console.warn('relationship', obj[attributeName].length);
+  //       if(!obj[attributeName] || !obj[attributeName].length){
+  //         // dont has one array or the array is empty
+  //         // ...
+  //       }else if(typeof obj[attributeName][0] == 'string'){
+  //         // if are a array of strings ids
+  //         // ...
+  //       }else{
+  //       // store this resources if are a array of objects
 
-          // change resource object to id
-          for (var j = 0; j < obj[attributeName].length; j++) {
-            subModel = obj[attributeName][j];
-            if(!store.hasRecordForId(relationshipModel, obj[attributeName][j].id)){
-              store.push(relationshipModel.typeKey, obj[attributeName][j]);
-            }
-            obj[attributeName][j] = obj[attributeName][j].id;
-          }
-        }
-      }
-    }
+  //         // change resource object to id
+  //         for (var j = 0; j < obj[attributeName].length; j++) {
+  //           subModel = obj[attributeName][j];
+  //           if(!store.hasRecordForId(relationshipModel, obj[attributeName][j].id)){
+  //             store.push(relationshipModel.typeKey, obj[attributeName][j]);
+  //           }
+  //           obj[attributeName][j] = obj[attributeName][j].id;
+  //         }
+  //       }
+  //     }
+  //   }
 
-    return obj;
-  }
+  //   return obj;
+  // }
 });

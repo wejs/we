@@ -5,27 +5,32 @@ define(['we','ember'], function (we) {
  App.PostController = Ember.ObjectController.extend({
     isEditing: false,
     loadedComments: 4,
+    metadata: null,
+
     hasMoreComments: function(){
-      console.warn(this.get('content._data.meta.commentCount'), this.loadedComments)
-      if(this.get('content._data.meta.commentCount') > this.loadedComments){
+      if(this.get('metadata.commentCount') > this.loadedComments){
         return true;
       }else{
         return false;
       }
-    }.property('content._data.meta.commentCount', 'loadedComments'),
+    }.property('metadata.commentCount', 'loadedComments'),
     commentCount: function(){
-      return this.get('content._data.meta.commentCount');
-    }.property('content._data.meta.commentCount'),
+      return this.get('metadata.commentCount');
+    }.property('metadata.commentCount'),
+
+
     init: function(){
       this._super();
-
-      var comments = this.get('model.comments');
+      var comments = this.get('comments');
+      if(!comments){
+        this.set('comments',[]);
+        return;
+      }
       if(comments.length){
         var commentModels = this.get('store').pushMany('comment',comments);
         this.set('comments', commentModels);
       }
-
-
+      this.set('metadata',this.get('content._data.meta'));
     },
     actions: {
       edit: function() {
@@ -54,17 +59,15 @@ define(['we','ember'], function (we) {
       },
       loadAllComments: function(){
         var _this = this;
-
         this.store.find('comment',{
           post: this.get('id'),
           limit: 1000
         }).then(function(comments){
-          console.warn('comments',comments)
           if(comments){
             _this.setProperties({
               'comments': comments,
               'loadedComments': comments.get('length'),
-              'content._data.meta.commentCount': comments.get('length')
+              'metadata.commentCount': comments.get('length')
             });
           }
         });
