@@ -44,6 +44,7 @@ Before install and start:
 * MongoDB http://www.mongodb.org/
 * Node.js http://nodejs.org/
 * npm https://npmjs.org/
+* Bower http://bower.io/
 
 Then in terminal tip:
 
