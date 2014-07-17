@@ -78,48 +78,38 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         }else{
           var sharedWithObjects = element.select2('data');
           for (var i = 0; i < sharedWithObjects.length; i++) {
-            sharedWith.push(sharedWithObjects[i].id );
+            console.warn(sharedWithObjects[i]);
+            if(sharedWithObjects[i].model == 'user'){
+              sharedWith.push(sharedWithObjects[i].id );
+            }else if(sharedWithObjects[i].model == 'group'){
+              sharedIn.push(sharedWithObjects[i].id );
+            }
           }
         }
 
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
 
-          // TODO change this findMany function to something better
-          var map = Ember.ArrayPolyfills.map;
-          var promises = map.call(sharedWith, function(id) {
-            return store.find('user', id);
-          }, this);
+          // create new post on store
+          var post = store.createRecord('post', postNew);
 
-          var promisesGroup = map.call(sharedIn, function(id) {
-            return store.find('group', id);
-          }, this);
-
-          Ember.RSVP.all(promises).then(function(shareWithUsers){
-          Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
-              // create new post on store
-              var post = store.createRecord('post', postNew);
-
-              post.setProperties({
-                'creator': user,
-                'createdAt': new Date(),
-                'updatedAt': new Date()
-              });
-
-              post.get('sharedWith').pushObjects(shareWithUsers);
-              post.get('sharedIn').pushObjects(shareInGroups);
-
-              // save post
-              post.save().then(function(){
-                // empty selectd tags
-                element.select2('data', null);
-                // close and clear sharebox form inputs
-                _this.emptyData();
-
-              });
-          });
+          post.setProperties({
+            'creator': user,
+            'createdAt': new Date(),
+            'updatedAt': new Date()
           });
 
+          post.set('sharedWith', sharedWith);
+          post.set('sharedIn', sharedIn);
+
+          // save post
+          post.save().then(function(){
+            // empty selectd tags
+            element.select2('data', null);
+            // close and clear sharebox form inputs
+            _this.emptyData();
+
+          });
         });
       }
     }
