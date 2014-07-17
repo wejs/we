@@ -11,7 +11,7 @@ var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUt
 
 module.exports = {
 
-  list: function (req,res) {
+  list: function list(req,res) {
 
     Post.find()
     .where( actionUtil.parseCriteria(req) )
@@ -46,6 +46,5 @@ module.exports = {
     });
 
     //res.view('home/index.ejs');
-  },
-
+  }
 };

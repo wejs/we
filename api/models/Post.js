@@ -78,6 +78,13 @@ module.exports = {
 
   //-- Lifecycle Callbacks
 
+  beforeUpdate: function(post, next) {
+    // dont update post.comments in post.update
+    delete post.comments;
+
+    next();
+  },
+
   // After register one create activity
   afterCreate: function(post, next) {
     Activity.create({

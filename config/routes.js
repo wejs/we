@@ -283,7 +283,6 @@ module.exports.routes = {
     action        : 'list'
   },
 
-
   // -- FILES
 
   'get /files': {
