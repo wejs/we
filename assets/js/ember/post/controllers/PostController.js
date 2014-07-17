@@ -5,6 +5,7 @@ define(['we','ember'], function (we) {
  App.PostController = Ember.ObjectController.extend({
     isEditing: false,
     loadedComments: 4,
+
     metadata: {
       commentCount: 0
     },
@@ -23,7 +24,9 @@ define(['we','ember'], function (we) {
     init: function(){
       this._super();
       var comments = this.get('comments');
+
       if(!comments){
+
         this.set('comments',[]);
         return;
       }
@@ -36,15 +39,17 @@ define(['we','ember'], function (we) {
     actions: {
       edit: function() {
         this.set('isEditing', true);
-        window.teste = this;
       },
       cancel: function() {
         this.set('isEditing', false);
+        // rollback changes
+        this.get('model').rollback();
       },
       save: function(){
         var _this = this;
         var model = _this.get('model');
-        // save the model
+
+        // // save the model
         _this.get('model').save().then(function(post){
           // updated!
           _this.set('isEditing', false);
