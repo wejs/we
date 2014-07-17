@@ -81,13 +81,18 @@ define(['we','ember'], function (we) {
     model: function() {
       var group_id = this.modelFor('group').get('id')
       return Ember.RSVP.hash({
+        // set current group
         group: this.modelFor('group'),
+        // load initial post data
         loadData: this.loadPosts(group_id),
+        // set one post filter for auto update
         posts: this.get('store').filter('post', function(post) {
+
           var sharedIn = post.get('sharedIn');
           if(sharedIn){
             return we.utils.ember.arrayObjsHas(sharedIn.content,'id', group_id);
           }else{
+            window.tt = post;
             return false;
           }
 

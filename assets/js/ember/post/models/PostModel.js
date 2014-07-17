@@ -15,15 +15,26 @@ define(['we','ember','ember-data'], function (we) {
 
     // relationship s
     creator:  DS.belongsTo('user'),
-    sharedWith: DS.hasMany('user',{
-      inverse: 'sharedWithMe'
-    }),
-    sharedIn: DS.hasMany('group'),
+    sharedWith: attr(),
+
+    sharedIn: attr(),
 
     comments: attr(),
+
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')
 
   });
+
+ App.PostSerializer = App.ApplicationSerializer.extend({
+    serialize: function(record, options) {
+      var json = this._super(record, options);
+      // dont send comments on post save or update
+      delete json.comments;
+
+      return json;
+    },
+ });
+
 
 });
