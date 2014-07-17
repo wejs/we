@@ -48,7 +48,7 @@ Before install and start:
 Then in terminal tip:
 
 ```sh
-$ git clone git@github.com:wejs/we.git we
+$ git clone https://github.com/wejs/we.git we
 $ cd we
 $ npm install && bower install
 ```
