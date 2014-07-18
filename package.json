@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.62",
+  "version": "0.0.63",
   "description": "A system for make real time social networks written with Sails.js",
   "keywords": [],
   "dependencies": {
@@ -23,10 +23,10 @@
     "lodash": "~2.4.1",
     "grunt-we-sails-ember-tasks": "~0.0.5",
     "connect-mongo": "~0.4.1",
-    "wejs-theme-default": "~0.0.1"
+    "wejs-theme-default": "~0.0.1",
+    "sanitize-html": "~1.2.1"
   },
   "devDependencies": {
-
     "grunt-sync": "0.0.7",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
