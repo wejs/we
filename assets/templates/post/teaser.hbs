@@ -22,6 +22,14 @@
           <div class="form-group">
             {{we-wysiwyg-editor name="body" value=body}}
           </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <label for="toId" class="input-group-addon">{{t "To"}}:</label>
+              {{we-select2 shareWithOptions=App.currentUser.shareWithOptions shareWithUsers=shareWithUsers shareInGroups=shareInGroups}}
+            </div>
+          </div>
+
           <div class="actions form-group">
             <button type="button" class="btn btn-primary" {{action 'save'}} >
               <span class="glyphicon glyphicon-ok"> {{t 'Save'}} </span>

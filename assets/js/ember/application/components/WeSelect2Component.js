@@ -1,5 +1,5 @@
 
-define(['we','ember'], function (we) {
+define(['we','async', 'ember'], function (we,async) {
   App.WeSelect2Component = Ember.Component.extend({
     tagName: 'input',
     type: 'text',
@@ -38,6 +38,12 @@ define(['we','ember'], function (we) {
         dropdownCssClass: "sharebox-dropdown",
         escapeMarkup: function (m) { return m; }
       });
+
+      // fetch and set preselected values
+      getSelectedItemsFromSharedWith(this.get('shareWithUsers'), this.get('shareInGroups'), function(selectedItems){
+        element.select2('data', selectedItems);
+      });
+
     },
     willDestroyElement: function(){
       this.$().select2("destroy");
@@ -51,4 +57,44 @@ define(['we','ember'], function (we) {
       this.$().select2('data', null);
     }
   });
+
+  /**
+   *  Format shared with fields to use in share with mecanism
+   */
+  function getSelectedItemsFromSharedWith(shareWithUsers, shareInGroups, callback){
+
+      if(!shareWithUsers && !shareInGroups){
+        return callback([]);
+      }
+
+      if(!shareWithUsers){
+        shareWithUsers = [];
+      }
+
+      if(!shareInGroups){
+        shareInGroups = [];
+      }
+
+      var selectedItems = [];
+
+      async.each(shareWithUsers, function(user, nextUser){
+        selectedItems.push({
+          id: user.get('id'),
+          text: user.get('username'),
+          model: 'user'
+        });
+        nextUser();
+      },function(){
+        async.each(shareInGroups, function(group, nextGroup){
+          selectedItems.push({
+            id: group.get('id'),
+            text: group.get('name'),
+            model: 'group'
+          });
+          nextGroup();
+        },function(){
+          callback(selectedItems);
+        });
+      });
+  }
 });

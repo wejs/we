@@ -6,6 +6,9 @@ define(['we','ember'], function (we) {
     isEditing: false,
     loadedComments: 4,
 
+    shareInGroups: null,
+    shareWithUsers: null,
+
     metadata: {
       commentCount: 0
     },
@@ -20,13 +23,20 @@ define(['we','ember'], function (we) {
       return this.get('metadata.commentCount');
     }.property('metadata.commentCount'),
 
+    // preSelectedValues: function(){
+    //   var sharedWith = this.get('sharedWith');
+
+    //   return ;
+    // }.property('sharedIn','sharedWith'),
+
 
     init: function(){
       this._super();
+      var _this = this;
       var comments = this.get('comments');
+      var store = this.get('store');
 
       if(!comments){
-
         this.set('comments',[]);
         return;
       }
@@ -35,6 +45,35 @@ define(['we','ember'], function (we) {
         this.set('comments', commentModels);
       }
       this.set('metadata',this.get('content._data.meta'));
+
+      var sharedWith = this.get('sharedWith');
+      var sharedIn = this.get('sharedIn');
+
+      if(!sharedWith){
+        sharedWith = [];
+      }
+      if(!sharedIn){
+        sharedIn = [];
+      }
+
+      // TODO change this findMany function to something better
+      var map = Ember.ArrayPolyfills.map;
+      var promises = map.call(sharedWith, function(id) {
+        return store.find('user', id);
+      }, this);
+
+      var promisesGroup = map.call(sharedIn, function(id) {
+        return store.find('group', id);
+      }, this);
+
+
+      Ember.RSVP.all(promises).then(function(shareWithUsers){
+        Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
+          _this.set('shareWithUsers',shareWithUsers);
+          _this.set('shareInGroups',shareInGroups);
+        });
+      });
+
     },
     actions: {
       edit: function() {
