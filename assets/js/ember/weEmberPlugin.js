@@ -113,6 +113,10 @@ define('weEmberPlugin',['we','async'], function (we, async) {
      *  Check if a emberjs array of object has te value atrib
      */
     we.utils.ember.arrayObjsHas = function(items, attrib, value){
+      if(!items){
+        return false;
+      }
+
       for (i = 0; i < items.length; i++) {
         if(items[i].get(attrib) === value){
           return true;
