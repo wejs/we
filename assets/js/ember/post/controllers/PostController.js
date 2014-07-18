@@ -29,6 +29,14 @@ define(['we','ember'], function (we) {
     //   return ;
     // }.property('sharedIn','sharedWith'),
 
+    isFlipped: false,
+    flipClass: function(){
+      if(this.get('isFlipped')){
+        return 'isFlipped';
+      }else{
+        return ' ';
+      }
+    }.property('isFlipped'),
 
     init: function(){
       this._super();
@@ -124,6 +132,10 @@ define(['we','ember'], function (we) {
         var commentCount = this.get('metadata.commentCount');
         commentCount++;
         this.set('metadata.commentCount',commentCount);
+      },
+
+      showSharedWith: function(){
+        console.warn('TODO! show shared with ...', this.get('shareWithUsers'), this.get('shareInGroups'));
       }
     },
 

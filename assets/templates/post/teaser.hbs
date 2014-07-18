@@ -11,68 +11,70 @@
         </span>
       {{/link-to}}
     </span>
+    <a {{action 'showSharedWith'}} href="#" class="shared-with text-mute">
+      <span class="glyphicon glyphicon-globe"></span>
+    </a>
     <span class="createdAt post-created-at">{{format-date createdAt}}</span>
   </div>
 
   <div class="panel-body">
-
-    <div class="content">
-      {{#if isEditing}}
-        <form class="edit-post" role="form">
-          <div class="form-group">
-            {{we-wysiwyg-editor name="body" value=body}}
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <label for="toId" class="input-group-addon">{{t "To"}}:</label>
-              {{we-select2 shareWithOptions=App.currentUser.shareWithOptions shareWithUsers=shareWithUsers shareInGroups=shareInGroups}}
-            </div>
-          </div>
-
-          <div class="actions form-group">
-            <button type="button" class="btn btn-primary" {{action 'save'}} >
-              <span class="glyphicon glyphicon-ok"> {{t 'Save'}} </span>
-            </button>
-            <button type="button" class="btn btn-default" {{action 'cancel'}} >
-              <span class="glyphicon glyphicon-remove"> {{t 'Cancel'}} </span>
-            </button>
-          </div>
-        </form>
-      {{else}}
-        <div class="post-text">{{{body}}}</div>
-      {{/if}}
-
-    </div>
-
-    <div class="footer">
-        <div class="actions">
-            <span class="social pull-left">
-                <button type="button" class="btn btn-xs btn-default" data-ng-click="up($event)">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </button>
-                <button type="button" class="btn btn-xs btn-default" data-ng-click="down($event)">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button>
-            </span>
-
-            <button type="button" class="btn btn-xs btn-default">
-              <span class="glyphicon glyphicon-share-alt"></span> {{t 'Share'}}
-            </button>
-
-            {{#can editPost model}}
-              <button type="button" class="btn btn-xs btn-default" {{action 'edit'}}>
-                <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
-              </button>
-            {{/can}}
-
-            {{#can deletePost model}}
-              <button class="btn btn-xs btn-danger" {{action 'deleteItem'}}>
-                <span class="glyphicon glyphicon-remove"></span> {{t 'Delete'}}
-              </button>
-            {{/can}}
+    {{#if isEditing}}
+      <form class="edit-post" role="form">
+        <div class="form-group">
+          {{we-wysiwyg-editor name="body" value=body}}
         </div>
-    </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <label for="toId" class="input-group-addon">{{t "To"}}:</label>
+            {{we-select2 shareWithOptions=App.currentUser.shareWithOptions shareWithUsers=shareWithUsers shareInGroups=shareInGroups}}
+          </div>
+        </div>
+
+        <div class="actions form-group">
+          <button type="button" class="btn btn-primary" {{action 'save'}} >
+            <span class="glyphicon glyphicon-ok"> {{t 'Save'}} </span>
+          </button>
+          <button type="button" class="btn btn-default" {{action 'cancel'}} >
+            <span class="glyphicon glyphicon-remove"> {{t 'Cancel'}} </span>
+          </button>
+        </div>
+      </form>
+    {{else}}
+
+      <div class="content">
+        <div class="post-text">{{{body}}}</div>
+      </div>
+
+      <div class="footer">
+          <div class="actions">
+              <span class="social">
+                  <button type="button" class="btn btn-xs btn-default" data-ng-click="up($event)">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                  </button>
+                  <button type="button" class="btn btn-xs btn-default" data-ng-click="down($event)">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                  </button>
+              </span>
+
+              <button type="button" class="btn btn-xs btn-default">
+                <span class="glyphicon glyphicon-share-alt"></span> {{t 'Share'}}
+              </button>
+
+              {{#can editPost model}}
+                <button type="button" class="btn btn-xs btn-default" {{action 'edit'}}>
+                  <span class="glyphicon glyphicon-edit"></span> {{t 'Edit'}}
+                </button>
+              {{/can}}
+
+              {{#can deletePost model}}
+                <button class="btn btn-xs btn-danger" {{action 'deleteItem'}}>
+                  <span class="glyphicon glyphicon-remove"></span> {{t 'Delete'}}
+                </button>
+              {{/can}}
+          </div>
+      </div>
+    {{/if}}
   </div>
 
   <div class="panel-footer">
