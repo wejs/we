@@ -35,42 +35,7 @@ define(['we','ember'], function (we) {
 
   // route /groups/:uid/
   App.GroupRoute = Ember.Route.extend({
-    // model: function(params) {
-    //   var store = this.store;
-    //   // get the user
-    //   var hash = {
-    //     user: this.store.find('user', params['user_id'])
-    //   };
 
-    //   // get contact relation
-    //   var currentUserID = App.currentUser.get('id');
-    //   if(currentUserID){
-    //     hash.contact = new Ember.RSVP.Promise(function(resolve) {
-    //      // //api/v1/user/:uid/contact/:contact_id
-    //       Ember.$.ajax({
-    //         type: 'GET',
-    //         url: '/api/v1/user/'+currentUserID+'/contact/'+params['user_id'],
-    //         dataType: 'json',
-    //         contentType: 'application/json'
-    //       }).done(function(contact){
-    //         if(contact.id){
-    //           resolve( store.push('contact',contact) );
-    //         }else{
-    //           resolve({});
-    //         }
-
-    //       }).fail(function(){
-    //         resolve({});
-    //       });
-    //     });
-
-    //   }else{
-    //     hash.contact = {};
-    //   }
-
-    //   return Ember.RSVP.hash(hash);
-
-    // },
     renderTemplate: function() {
       this.render('group/item');
     }
@@ -79,7 +44,9 @@ define(['we','ember'], function (we) {
   // route /user/:uid/index
   App.GroupIndexRoute = Ember.Route.extend({
     model: function() {
-      var group_id = this.modelFor('group').get('id')
+      var group_id = this.modelFor('group').get('id');
+      var sharedIn = null;
+
       return Ember.RSVP.hash({
         // set current group
         group: this.modelFor('group'),
@@ -87,15 +54,16 @@ define(['we','ember'], function (we) {
         loadData: this.loadPosts(group_id),
         // set one post filter for auto update
         posts: this.get('store').filter('post', function(post) {
-
-          var sharedIn = post.get('sharedIn');
+          sharedIn = post.get('sharedIn');
           if(sharedIn){
-            return we.utils.ember.arrayObjsHas(sharedIn.content,'id', group_id);
+            if(sharedIn.contains(group_id) ){
+              return true;
+            }else{
+              return false;
+            }
           }else{
-            window.tt = post;
             return false;
           }
-
         })
       })
     },
