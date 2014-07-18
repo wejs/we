@@ -138,8 +138,12 @@ module.exports = {
     },
   },
 
+
   // Lifecycle Callbacks
   beforeCreate: function(user, next) {
+
+    // sanitize
+    user = SanitizeHtmlService.sanitizeAllAttr(user);
 
     // Create new user password before create
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -155,6 +159,8 @@ module.exports = {
     });
   },
   beforeUpdate: function(user, next) {
+    // sanitize
+    user = SanitizeHtmlService.sanitizeAllAttr(user);
 
     // if has user.newPassword generate the new password
     if(user.newPassword){

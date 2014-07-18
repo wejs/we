@@ -74,6 +74,20 @@ module.exports = {
     }
   },
 
+  //-- Lifecycle Callbacks
+
+  beforeCreate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
+  beforeUpdate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
   // After create, register one activity
   afterCreate: function(comment, next) {
     // register one activity on create

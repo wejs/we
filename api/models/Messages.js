@@ -34,6 +34,19 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false
     }
+  },
+ //-- Lifecycle Callbacks
+
+  beforeCreate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
+  beforeUpdate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
   }
 
 };

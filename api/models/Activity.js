@@ -49,6 +49,22 @@ module.exports = {
     }
 
 	},
+
+
+  //-- Lifecycle Callbacks
+
+  beforeCreate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
+  beforeUpdate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
   // After register one activity
   afterCreate: function(activity, next) {
     // TODO change to friends only

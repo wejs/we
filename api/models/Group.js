@@ -40,6 +40,20 @@ module.exports = {
     },
 	},
 
+  //-- Lifecycle Callbacks
+
+  beforeCreate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
+  beforeUpdate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
   // After register one create activity
   afterCreate: function(group, next) {
     // save creator membership

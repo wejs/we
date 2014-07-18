@@ -78,9 +78,19 @@ module.exports = {
 
   //-- Lifecycle Callbacks
 
+  beforeCreate: function(post, next) {
+    // sanitize
+    post = SanitizeHtmlService.sanitizeAllAttr(post);
+
+    next();
+  },
+
   beforeUpdate: function(post, next) {
     // dont update post.comments in post.update
     delete post.comments;
+
+    // sanitize
+    post = SanitizeHtmlService.sanitizeAllAttr(post);
 
     next();
   },

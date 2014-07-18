@@ -56,6 +56,21 @@ module.exports = {
 
   },
 
+
+  //-- Lifecycle Callbacks
+
+  beforeCreate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
+  beforeUpdate: function(record, next) {
+    // sanitize
+    record = SanitizeHtmlService.sanitizeAllAttr(record);
+    next();
+  },
+
   // Upload the files
   upload: function(file, callback) {
 
