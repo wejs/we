@@ -21,14 +21,18 @@ define(['we','summernote','ember'], function (we, summernote) {
           // ['fontname', ['fontname']],
           // ['fontsize', ['fontsize']], Still buggy
           ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
+          ['para', [
+            'ul',
+            'ol',
+            //'paragraph'
+          ]],
           ['height', ['height']],
           //['table', ['table']],
-          ['insert', [
-            'link',
+          // ['insert', [
+          //  'link',
           //  'picture',
           //  'video'
-          ]],
+          // ]],
           ['view', [
             'fullscreen',
             //'codeview'
