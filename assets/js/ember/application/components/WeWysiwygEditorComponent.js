@@ -14,6 +14,7 @@ define(['we','summernote','ember'], function (we, summernote) {
       // create the editor
       var editor =  _this.$('.summernote').summernote({
         focus: true,
+        styleWithSpan: false,
         toolbar: [
           ['style', ['style']],
           ['font', ['bold', 'italic', 'underline', 'clear']],
