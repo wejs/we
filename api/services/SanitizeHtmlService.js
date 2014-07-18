@@ -6,7 +6,7 @@ var sanitizeConfig = {
     // text blocks
     'p', 'pre', 'blockquote', 'br',
     // text format
-    //'b', 'i', 'em', 'strong',  'u',
+    'b', 'i', 'em', 'strong',  'u',
     'h1', 'h2', 'h3', 'h4', 'h5','h5',
     // list
     'ul', 'ol', 'nl', 'li'
