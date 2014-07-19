@@ -4,7 +4,8 @@ define(['we','ember'], function (we) {
     //onRemove : 'onRemoveVideo',
     tagName: 'img',
     src: '',
-    attributeBindings: ['src'],
+    width: '100%',
+    attributeBindings: ['src', 'width'],
 
     willInsertElement: function(){
       this._super();

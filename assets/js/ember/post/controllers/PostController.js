@@ -2,7 +2,9 @@
 
 define(['we','ember'], function (we) {
 
- App.PostController = Ember.ObjectController.extend({
+ App.PostController = Ember.ObjectController.extend(
+  App.PostMecanismMixin,
+  {
     isEditing: false,
     loadedComments: 4,
 
@@ -22,21 +24,6 @@ define(['we','ember'], function (we) {
     commentCount: function(){
       return this.get('metadata.commentCount');
     }.property('metadata.commentCount'),
-
-    // preSelectedValues: function(){
-    //   var sharedWith = this.get('sharedWith');
-
-    //   return ;
-    // }.property('sharedIn','sharedWith'),
-
-    isFlipped: false,
-    flipClass: function(){
-      if(this.get('isFlipped')){
-        return 'isFlipped';
-      }else{
-        return ' ';
-      }
-    }.property('isFlipped'),
 
     init: function(){
       this._super();
@@ -137,49 +124,6 @@ define(['we','ember'], function (we) {
 
       showSharedWith: function(){
         console.warn('TODO! show shared with ...', this.get('shareWithUsers'), this.get('shareInGroups'));
-      },
-      onChangeSelect2Data: function(e){
-        if(e.removed){
-          switch(e.removed.model) {
-            case 'user':
-              this.get('sharedWith').removeObject(e.removed.id);
-              break;
-            case 'group':
-              this.get('sharedIn').removeObject(e.removed.id);
-              break;
-          }
-        }
-        if(e.added){
-          switch(e.added.model) {
-            case 'user':
-              this.get('sharedWith').pushObject(e.added.id);
-              break;
-            case 'group':
-              this.get('sharedIn').pushObject(e.added.id);
-              break;
-          }
-        }
-      },
-      onPasteInBody: function(e){
-        var model = this.get('model');
-        var data = e.originalEvent.clipboardData.getData('text/plain');
-        if(we.utils.isValidUrl(data)){
-          // video url
-          if(we.utils.isVideoUrl(data)){
-            // dont add duplicated links
-            if(!model.get('videos').contains(data)){
-              model.get('videos').pushObject(data);
-            }
-          }else{
-            //other url
-            if(!model.get('videos').contains(data)){
-              model.get('links').pushObject(data);
-            }
-          }
-        }
-      },
-      onRemoveVideo: function(videoUrl, element){
-        this.get('videos').removeObject(videoUrl);
       }
     }
   });

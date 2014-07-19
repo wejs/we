@@ -17,6 +17,59 @@ define('emberApp',[
   var get = Ember.get;
   var set = Ember.set;
 
+
+  we.hooks.on("emberjs-load-mixins",function(data, next){
+    // TODO move this mixn to one mixins file
+    App.PostMecanismMixin = Ember.Mixin.create({
+      actions: {
+        onChangeSelect2Data: function(e){
+          if(e.removed){
+            switch(e.removed.model) {
+              case 'user':
+                this.get('sharedWith').removeObject(e.removed.id);
+                break;
+              case 'group':
+                this.get('sharedIn').removeObject(e.removed.id);
+                break;
+            }
+          }
+          if(e.added){
+            switch(e.added.model) {
+              case 'user':
+                this.get('sharedWith').pushObject(e.added.id);
+                break;
+              case 'group':
+                this.get('sharedIn').pushObject(e.added.id);
+                break;
+            }
+          }
+        },
+        onPasteInBody: function(e){
+          var data = e.originalEvent.clipboardData.getData('text/plain');
+          if(we.utils.isValidUrl(data)){
+            // video url
+            if(we.utils.isVideoUrl(data)){
+              // dont add duplicated links
+              if(!this.get('videos').contains(data)){
+                this.get('videos').pushObject(data);
+              }
+            }else{
+              //other url
+              if(!this.get('videos').contains(data)){
+                this.get('links').pushObject(data);
+              }
+            }
+          }
+        },
+        onRemoveVideo: function(videoUrl, element){
+          this.get('videos').removeObject(videoUrl);
+        }
+      }
+    });
+
+    next();
+  });
+
   we.hooks.on("emberjs-configure-app",function(data, next){
 
     // configure moment.js

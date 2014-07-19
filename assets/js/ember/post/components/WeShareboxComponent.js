@@ -1,7 +1,10 @@
 
 define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
-  App.WeShareboxComponent = Ember.Component.extend(App.LoggedInMixin,{
+  App.WeShareboxComponent = Ember.Component.extend(
+    App.LoggedInMixin,
+    App.PostMecanismMixin,
+  {
     shareboxClass: 'small',
     postNew: {
       body: ''
@@ -14,6 +17,12 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     imageUploadUrl: '/api/v1/images',
 
     shareImages: false,
+
+    sharedWith: [],
+    sharedIn: [],
+
+    videos: [],
+    links: [],
 
     group: null,
     enableShareInput: true,
@@ -46,7 +55,12 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         'isOpen': false,
         'shareboxClass': 'small',
         'shareImages': false,
-        'files': []
+        'files': [],
+        'sharedIn': [],
+        'sharedWith': [],
+        'images': [],
+        'videos': [],
+        'links':[]
       });
     },
     actions: {
@@ -71,23 +85,21 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         var element = this.$(".select2-element");
         var store = this.get('store');
 
-        var sharedIn = [];
-        var sharedWith = [];
+        var sharedIn = this.get('sharedIn');
+        var sharedWith = this.get('sharedWith');
 
         var group = this.get('group');
+
         if(group){
           sharedIn.push(group.id);
-        }else{
-          var sharedWithObjects = element.select2('data');
-          for (var i = 0; i < sharedWithObjects.length; i++) {
-            console.warn(sharedWithObjects[i]);
-            if(sharedWithObjects[i].model == 'user'){
-              sharedWith.push(sharedWithObjects[i].id );
-            }else if(sharedWithObjects[i].model == 'group'){
-              sharedIn.push(sharedWithObjects[i].id );
-            }
-          }
         }
+
+        postNew.createdAt = new Date();
+        postNew.updatedAt = new Date();
+        postNew.videos = _this.get('videos');
+        postNew.links = _this.get('links');
+        postNew.sharedWith = sharedWith;
+        postNew.sharedIn = sharedIn;
 
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
@@ -96,13 +108,8 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
           var post = store.createRecord('post', postNew);
 
           post.setProperties({
-            'creator': user,
-            'createdAt': new Date(),
-            'updatedAt': new Date()
+            'creator': user
           });
-
-          post.set('sharedWith', sharedWith);
-          post.set('sharedIn', sharedIn);
 
           var files = _this.get('files');
           var uploadUrl = _this.get('imageUploadUrl');
@@ -140,6 +147,8 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         // Handle failure
         callback(error,null);
       });
+    }else{
+      callback(null,[]);
     }
   }
 

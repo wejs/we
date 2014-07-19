@@ -10,12 +10,6 @@ define(['we','ember'], function (we) {
       var _this = this;
       var url = this.get('url');
 
-      window.testeUrl = url;
-
-      window.teste = this;
-
-      var videoProvider = we.utils.isVideoUrl(url);
-
       var video = we.utils.parseVideoUrl(url);
 
       if(video){
@@ -43,11 +37,3 @@ define(['we','ember'], function (we) {
     }
   });
 });
-
-/*
-vimeo:
-<iframe src="//player.vimeo.com/video/VIDEO_ID" width="WIDTH" height="HEIGHT" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-youtube:
-<iframe class="video-iframe" id="wow-video-<%= video.vid %>" type="text/html" width="560" height="315" src="http://www.youtube.com/embed/<%= video.vid %>?enablejsapi=1" frameborder="0"></iframe>
-*/
