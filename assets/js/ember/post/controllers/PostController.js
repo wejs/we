@@ -54,34 +54,36 @@ define(['we','ember'], function (we) {
       }
       this.set('metadata',this.get('content._data.meta'));
 
+      this.loadAndFetchSharedWithObjects();
+    },
+    loadAndFetchSharedWithObjects: function(){
       var sharedWith = this.get('sharedWith');
       var sharedIn = this.get('sharedIn');
+      var store = this.get('store');
+      var _this = this;
 
       if(!sharedWith){
+        this.set('sharedWith',[]);
         sharedWith = [];
       }
       if(!sharedIn){
+        this.set('sharedIn',[]);
         sharedIn = [];
       }
-
       // TODO change this findMany function to something better
       var map = Ember.ArrayPolyfills.map;
       var promises = map.call(sharedWith, function(id) {
         return store.find('user', id);
       }, this);
-
       var promisesGroup = map.call(sharedIn, function(id) {
         return store.find('group', id);
       }, this);
-
-
       Ember.RSVP.all(promises).then(function(shareWithUsers){
         Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
           _this.set('shareWithUsers',shareWithUsers);
           _this.set('shareInGroups',shareInGroups);
         });
       });
-
     },
     actions: {
       edit: function() {
@@ -94,12 +96,11 @@ define(['we','ember'], function (we) {
       },
       save: function(){
         var _this = this;
-        var model = _this.get('model');
-
         // // save the model
         _this.get('model').save().then(function(post){
           // updated!
           _this.set('isEditing', false);
+          _this.loadAndFetchSharedWithObjects();
         });
       },
       deleteItem: function(){
@@ -136,9 +137,30 @@ define(['we','ember'], function (we) {
 
       showSharedWith: function(){
         console.warn('TODO! show shared with ...', this.get('shareWithUsers'), this.get('shareInGroups'));
+      },
+      onChangeSelect2Data: function(e){
+        if(e.removed){
+          switch(e.removed.model) {
+            case 'user':
+              this.get('sharedWith').removeObject(e.removed.id);
+              break;
+            case 'group':
+              this.get('sharedIn').removeObject(e.removed.id);
+              break;
+          }
+        }
+        if(e.added){
+          switch(e.added.model) {
+            case 'user':
+              this.get('sharedWith').push(e.added.id);
+              break;
+            case 'group':
+              this.get('sharedIn').push(e.added.id);
+              break;
+          }
+        }
       }
-    },
-
+    }
   });
 
 });

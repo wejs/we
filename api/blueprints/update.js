@@ -38,6 +38,9 @@ module.exports = function updateOneRecord (req, res) {
   delete values.createdAt;
   delete values.updatedAt;
 
+  sails.log.warn('before:',  values);
+
+
   // Find and update the targeted record.
   //
   // (Note: this could be achieved in a single query, but a separate `findOne`

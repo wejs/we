@@ -55,7 +55,7 @@ define(['we','ember'], function (we) {
         // set one post filter for auto update
         posts: this.get('store').filter('post', function(post) {
           sharedIn = post.get('sharedIn');
-          if(sharedIn){
+          if(we.utils.isArray(sharedIn)){
             if(sharedIn.contains(group_id) ){
               return true;
             }else{
@@ -65,7 +65,7 @@ define(['we','ember'], function (we) {
             return false;
           }
         })
-      })
+      });
     },
     loadPosts: function(group_id){
       return this.store.find('post',{

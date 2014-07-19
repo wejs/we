@@ -6,8 +6,11 @@ define(['we','async', 'ember'], function (we,async) {
     classNames: ["select2-element","form-control","input-md","tm-input","tm-input-success"],
     placeholder: "Share with ...",
     shareWithOptions: [],
+    chageEventName: 'onChangeSelect2Data',
+    // component events
     didInsertElement:function(){
       var element = this.$();
+      var _this = this;
 
       if(!element.select2){
         return console.error('jquery.select2 Not found on element', element);
@@ -28,15 +31,17 @@ define(['we','async', 'ember'], function (we,async) {
           switch(item.model) {
             case 'user':
               return 'model-user';
-              break;
             case 'group':
               return 'model-group';
-              break;
           }
           return "";
         },
         dropdownCssClass: "sharebox-dropdown",
         escapeMarkup: function (m) { return m; }
+      });
+
+      element.on("change", function(e) {
+        _this.sendAction('chageEventName', e);
       });
 
       // fetch and set preselected values
