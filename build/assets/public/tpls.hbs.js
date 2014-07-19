@@ -627,103 +627,6 @@ function program6(depth0,data) {
   data.buffer.push("\n\n</div>\n");
   return buffer;
   
-});Ember.TEMPLATES['components/we-sharebox'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n        ");
-  data.buffer.push(escapeExpression((helper = helpers['we-wysiwyg-editor'] || (depth0 && depth0['we-wysiwyg-editor']),options={hash:{
-    'name': ("body"),
-    'value': ("postNew.body")
-  },hashTypes:{'name': "STRING",'value': "ID"},hashContexts:{'name': depth0,'value': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-wysiwyg-editor", options))));
-  data.buffer.push("\n      ");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n        <div ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "openBox", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"post-placeholder form-control post-content\"> ");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "What is happening?", options) : helperMissing.call(depth0, "t", "What is happening?", options))));
-  data.buffer.push("</div>\n      ");
-  return buffer;
-  }
-
-function program5(depth0,data) {
-  
-  var buffer = '', stack1, helper, options;
-  data.buffer.push("\n      <div class=\"form-group\">\n        <div class=\"form-group row add-images\">\n          <label for=\"addImages\" class=\"col-sm-2 control-label\">");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Attach images", options) : helperMissing.call(depth0, "t", "Attach images", options))));
-  data.buffer.push("</label>\n          <div class=\"col-sm-10\">\n            ");
-  data.buffer.push(escapeExpression((helper = helpers['file-upload'] || (depth0 && depth0['file-upload']),options={hash:{
-    'files': ("filesNew")
-  },hashTypes:{'files': "ID"},hashContexts:{'files': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "file-upload", options))));
-  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group images-preview\">\n        ");
-  stack1 = helpers.each.call(depth0, "files", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n        </div>\n      </div>\n    ");
-  return buffer;
-  }
-function program6(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n          ");
-  data.buffer.push(escapeExpression((helper = helpers['we-image-preview'] || (depth0 && depth0['we-image-preview']),options={hash:{
-    'file': ("")
-  },hashTypes:{'file': "ID"},hashContexts:{'file': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-image-preview", options))));
-  data.buffer.push("\n        ");
-  return buffer;
-  }
-
-function program8(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <label for=\"toId\" class=\"input-group-addon\">");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "To", options) : helperMissing.call(depth0, "t", "To", options))));
-  data.buffer.push(":</label>\n            ");
-  data.buffer.push(escapeExpression((helper = helpers['we-select2'] || (depth0 && depth0['we-select2']),options={hash:{
-    'shareWithOptions': ("App.currentUser.shareWithOptions")
-  },hashTypes:{'shareWithOptions': "ID"},hashContexts:{'shareWithOptions': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-select2", options))));
-  data.buffer.push("\n          </div>\n        </div>\n      ");
-  return buffer;
-  }
-
-  data.buffer.push("<div ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("shareboxClass")
-  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">\n<form action=\"/post\" method=\"POST\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "submit", {hash:{
-    'on': ("submit")
-  },hashTypes:{'on': "STRING"},hashContexts:{'on': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"sharebox\">\n<div class=\"panel panel-default\">\n  <div class=\"panel-body\">\n    <div class=\"form-group\">\n      ");
-  stack1 = helpers['if'].call(depth0, "isOpen", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    </div>\n\n    <div class=\"form-group attach-options\">\n      <button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "openShareImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" type=\"button\" class=\"btn btn-xs btn-default\">\n        <i class=\"glyphicon glyphicon-picture\"></i> ");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Image", options) : helperMissing.call(depth0, "t", "Image", options))));
-  data.buffer.push("\n      </button>\n    </div>\n\n    ");
-  stack1 = helpers['if'].call(depth0, "shareImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n    <div class=\"footer\">\n      ");
-  stack1 = helpers['if'].call(depth0, "enableShareInput", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"panel-footer\">\n    <div class=\"actions\">\n      <button type=\"submit\" class=\"btn btn-primary\">\n        <span class=\"glyphicon glyphicon-ok\"></span> ");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Share", options) : helperMissing.call(depth0, "t", "Share", options))));
-  data.buffer.push("\n      </button>\n      <button type=\"button\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeBox", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"btn btn-default cancel\"> ");
-  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Cancel", options) : helperMissing.call(depth0, "t", "Cancel", options))));
-  data.buffer.push("</button>\n    </div>\n  </div>\n\n</div>\n</form>\n</div>\n");
-  return buffer;
-  
 });Ember.TEMPLATES['components/we-sys-messages'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -875,15 +778,12 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push("<div class=\"sharebox-area\">\n  ");
-  data.buffer.push(escapeExpression((helper = helpers['we-sharebox'] || (depth0 && depth0['we-sharebox']),options={hash:{
-    'store': ("store"),
-    'group': ("group")
-  },hashTypes:{'store': "ID",'group': "ID"},hashContexts:{'store': depth0,'group': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-sharebox", options))));
+  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "post/sharebox", "postNew", options) : helperMissing.call(depth0, "render", "post/sharebox", "postNew", options))));
   data.buffer.push("\n</div>\n\n<h3>");
   data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Activity", options) : helperMissing.call(depth0, "t", "Activity", options))));
   data.buffer.push("</h3>\n");
   data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{
-    'controller': ("Home")
+    'controller': ("Posts")
   },hashTypes:{'controller': "STRING"},hashContexts:{'controller': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "post/list", "posts", options) : helperMissing.call(depth0, "render", "post/list", "posts", options))));
   data.buffer.push("\n");
   return buffer;
@@ -1019,15 +919,13 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1, helper, options;
+  var buffer = '', helper, options;
   data.buffer.push("\n  <div id=\"posts\" class=\"posts \">\n      <div class=\"sharebox-area masonry-brick  content-block\">\n        ");
-  data.buffer.push(escapeExpression((helper = helpers['we-sharebox'] || (depth0 && depth0['we-sharebox']),options={hash:{
-    'post': ("post"),
-    'store': ("store")
-  },hashTypes:{'post': "ID",'store': "ID"},hashContexts:{'post': depth0,'store': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-sharebox", options))));
-  data.buffer.push("\n      </div>\n    <div class=\"new-posts-notification alert alert-info\">\n      TODO show new post notifications here\n    </div>\n    ");
-  stack1 = helpers.each.call(depth0, {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[],types:[],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "post/sharebox", "postNew", options) : helperMissing.call(depth0, "render", "post/sharebox", "postNew", options))));
+  data.buffer.push("\n      </div>\n    <div class=\"new-posts-notification alert alert-info\">\n      TODO show new post notifications here\n    </div>\n\n    ");
+  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{
+    'controller': ("Posts")
+  },hashTypes:{'controller': "STRING"},hashContexts:{'controller': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "posts/list", "posts", options) : helperMissing.call(depth0, "render", "posts/list", "posts", options))));
   data.buffer.push("\n\n    ");
   data.buffer.push(escapeExpression((helper = helpers['we-timeline-loading'] || (depth0 && depth0['we-timeline-loading']),options={hash:{
     'loadingMore': ("loadingMore"),
@@ -1036,18 +934,8 @@ function program1(depth0,data) {
   data.buffer.push("\n\n  </div>\n");
   return buffer;
   }
-function program2(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n      ");
-  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{
-    'controller': ("Post")
-  },hashTypes:{'controller': "STRING"},hashContexts:{'controller': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "post/teaser", "", options) : helperMissing.call(depth0, "render", "post/teaser", "", options))));
-  data.buffer.push("\n    ");
-  return buffer;
-  }
 
-function program4(depth0,data) {
+function program3(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n  <div class=\"highlighted\">\n    ");
@@ -1058,7 +946,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-  stack1 = helpers['if'].call(depth0, "isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -1260,6 +1148,128 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
   
+});Ember.TEMPLATES['post/sharebox'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n        ");
+  data.buffer.push(escapeExpression((helper = helpers['we-wysiwyg-editor'] || (depth0 && depth0['we-wysiwyg-editor']),options={hash:{
+    'name': ("body"),
+    'value': ("body"),
+    'onPaste': ("onPasteInBody")
+  },hashTypes:{'name': "STRING",'value': "ID",'onPaste': "STRING"},hashContexts:{'name': depth0,'value': depth0,'onPaste': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-wysiwyg-editor", options))));
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n        <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "openBox", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"post-placeholder form-control post-content\"> ");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "What is happening?", options) : helperMissing.call(depth0, "t", "What is happening?", options))));
+  data.buffer.push("</div>\n      ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n        <div class='col-md-6'>\n          ");
+  data.buffer.push(escapeExpression((helper = helpers['we-video-preview'] || (depth0 && depth0['we-video-preview']),options={hash:{
+    'url': (""),
+    'onRemove': ("onRemoveVideo")
+  },hashTypes:{'url': "ID",'onRemove': "STRING"},hashContexts:{'url': depth0,'onRemove': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-video-preview", options))));
+  data.buffer.push("\n        </div>\n      ");
+  return buffer;
+  }
+
+function program7(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n      <div class=\"form-group\">\n        <div class=\"form-group row add-images\">\n          <label for=\"addImages\" class=\"col-sm-2 control-label\">");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Attach images", options) : helperMissing.call(depth0, "t", "Attach images", options))));
+  data.buffer.push("</label>\n          <div class=\"col-sm-10\">\n            ");
+  data.buffer.push(escapeExpression((helper = helpers['file-upload'] || (depth0 && depth0['file-upload']),options={hash:{
+    'files': ("filesNew")
+  },hashTypes:{'files': "ID"},hashContexts:{'files': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "file-upload", options))));
+  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group images-preview\">\n          <div class=\"row\">\n            ");
+  stack1 = helpers.each.call(depth0, "files", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n          </div>\n        </div>\n      </div>\n    ");
+  return buffer;
+  }
+function program8(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n              <div class=\"col-xs-6 col-md-3\">\n                ");
+  data.buffer.push(escapeExpression((helper = helpers['we-image-preview'] || (depth0 && depth0['we-image-preview']),options={hash:{
+    'file': ("")
+  },hashTypes:{'file': "ID"},hashContexts:{'file': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-image-preview", options))));
+  data.buffer.push("\n              </div>\n            ");
+  return buffer;
+  }
+
+function program10(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n      ");
+  stack1 = helpers['if'].call(depth0, "isOpen", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+function program11(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <label for=\"toId\" class=\"input-group-addon\">");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "To", options) : helperMissing.call(depth0, "t", "To", options))));
+  data.buffer.push(":</label>\n            ");
+  data.buffer.push(escapeExpression((helper = helpers['we-select2'] || (depth0 && depth0['we-select2']),options={hash:{
+    'shareWithOptions': ("App.currentUser.shareWithOptions")
+  },hashTypes:{'shareWithOptions': "ID"},hashContexts:{'shareWithOptions': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-select2", options))));
+  data.buffer.push("\n          </div>\n        </div>\n      ");
+  return buffer;
+  }
+
+  data.buffer.push("<div ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("shareboxClass")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(">\n<form action=\"/post\" method=\"POST\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "submit", {hash:{
+    'on': ("submit")
+  },hashTypes:{'on': "STRING"},hashContexts:{'on': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"sharebox\">\n<div class=\"panel panel-default\">\n  <div class=\"panel-body\">\n    <div class=\"form-group\">\n      ");
+  stack1 = helpers['if'].call(depth0, "isOpen", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </div>\n\n    <div class=\"form-group attach-options\">\n      <button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "openShareImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" type=\"button\" class=\"btn btn-xs btn-default\">\n        <i class=\"glyphicon glyphicon-picture\"></i> ");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Image", options) : helperMissing.call(depth0, "t", "Image", options))));
+  data.buffer.push("\n      </button>\n    </div>\n\n    <div class=\"form-group\">\n      <div class='row'>\n      ");
+  stack1 = helpers.each.call(depth0, "videos", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </div>\n\n    ");
+  stack1 = helpers['if'].call(depth0, "shareImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n    <div class=\"footer\">\n      ");
+  stack1 = helpers['if'].call(depth0, "enableShareInput", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"panel-footer\">\n    <div class=\"actions\">\n      <button type=\"submit\" class=\"btn btn-primary\">\n        <span class=\"glyphicon glyphicon-ok\"></span> ");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Share", options) : helperMissing.call(depth0, "t", "Share", options))));
+  data.buffer.push("\n      </button>\n      <button type=\"button\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeBox", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"btn btn-default cancel\"> ");
+  data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Cancel", options) : helperMissing.call(depth0, "t", "Cancel", options))));
+  data.buffer.push("</button>\n    </div>\n  </div>\n\n</div>\n</form>\n</div>\n");
+  return buffer;
+  
 });Ember.TEMPLATES['post/teaser'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -1281,13 +1291,17 @@ function program1(depth0,data) {
 
 function program3(depth0,data) {
   
-  var buffer = '', helper, options;
+  var buffer = '', stack1, helper, options;
   data.buffer.push("\n      <form class=\"edit-post\" role=\"form\">\n        <div class=\"form-group\">\n          ");
   data.buffer.push(escapeExpression((helper = helpers['we-wysiwyg-editor'] || (depth0 && depth0['we-wysiwyg-editor']),options={hash:{
     'name': ("body"),
-    'value': ("body")
-  },hashTypes:{'name': "STRING",'value': "ID"},hashContexts:{'name': depth0,'value': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-wysiwyg-editor", options))));
-  data.buffer.push("\n        </div>\n\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <label for=\"toId\" class=\"input-group-addon\">");
+    'value': ("body"),
+    'onPaste': ("onPasteInBody")
+  },hashTypes:{'name': "STRING",'value': "ID",'onPaste': "STRING"},hashContexts:{'name': depth0,'value': depth0,'onPaste': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-wysiwyg-editor", options))));
+  data.buffer.push("\n        </div>\n\n        <div class=\"form-group\">\n          <div class='row'>\n            ");
+  stack1 = helpers.each.call(depth0, "videos", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n          </div>\n        </div>\n\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <label for=\"toId\" class=\"input-group-addon\">");
   data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "To", options) : helperMissing.call(depth0, "t", "To", options))));
   data.buffer.push(":</label>\n            ");
   data.buffer.push(escapeExpression((helper = helpers['we-select2'] || (depth0 && depth0['we-select2']),options={hash:{
@@ -1306,26 +1320,51 @@ function program3(depth0,data) {
   data.buffer.push(" </span>\n          </button>\n        </div>\n      </form>\n    ");
   return buffer;
   }
+function program4(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n              <div class='col-md-6'>\n                ");
+  data.buffer.push(escapeExpression((helper = helpers['we-video-preview'] || (depth0 && depth0['we-video-preview']),options={hash:{
+    'url': (""),
+    'onRemove': ("onRemoveVideo")
+  },hashTypes:{'url': "ID",'onRemove': "STRING"},hashContexts:{'url': depth0,'onRemove': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-video-preview", options))));
+  data.buffer.push("\n              </div>\n            ");
+  return buffer;
+  }
 
-function program5(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n\n      <div class=\"content\">\n        <div class=\"post-text\">");
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "body", {hash:{
     'unescaped': ("true")
   },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("</div>\n      </div>\n\n      <div class=\"footer\">\n          <div class=\"actions\">\n              <span class=\"social\">\n                  <button type=\"button\" class=\"btn btn-xs btn-default\" data-ng-click=\"up($event)\">\n                    <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n                  </button>\n                  <button type=\"button\" class=\"btn btn-xs btn-default\" data-ng-click=\"down($event)\">\n                    <span class=\"glyphicon glyphicon-thumbs-down\"></span>\n                  </button>\n              </span>\n\n              <button type=\"button\" class=\"btn btn-xs btn-default\">\n                <span class=\"glyphicon glyphicon-share-alt\"></span> ");
+  data.buffer.push("</div>\n\n        <div class=\"videos\">\n          ");
+  stack1 = helpers.each.call(depth0, "videos", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        </div>\n\n      </div>\n\n      <div class=\"footer\">\n          <div class=\"actions\">\n              <span class=\"social\">\n                  <button type=\"button\" class=\"btn btn-xs btn-default\" data-ng-click=\"up($event)\">\n                    <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n                  </button>\n                  <button type=\"button\" class=\"btn btn-xs btn-default\" data-ng-click=\"down($event)\">\n                    <span class=\"glyphicon glyphicon-thumbs-down\"></span>\n                  </button>\n              </span>\n\n              <button type=\"button\" class=\"btn btn-xs btn-default\">\n                <span class=\"glyphicon glyphicon-share-alt\"></span> ");
   data.buffer.push(escapeExpression((helper = helpers.t || (depth0 && depth0.t),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "Share", options) : helperMissing.call(depth0, "t", "Share", options))));
   data.buffer.push("\n              </button>\n\n              ");
-  stack1 = (helper = helpers.can || (depth0 && depth0.can),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["ID","ID"],data:data},helper ? helper.call(depth0, "editPost", "model", options) : helperMissing.call(depth0, "can", "editPost", "model", options));
+  stack1 = (helper = helpers.can || (depth0 && depth0.can),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0,depth0],types:["ID","ID"],data:data},helper ? helper.call(depth0, "editPost", "model", options) : helperMissing.call(depth0, "can", "editPost", "model", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n              ");
-  stack1 = (helper = helpers.can || (depth0 && depth0.can),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0,depth0],types:["ID","ID"],data:data},helper ? helper.call(depth0, "deletePost", "model", options) : helperMissing.call(depth0, "can", "deletePost", "model", options));
+  stack1 = (helper = helpers.can || (depth0 && depth0.can),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0,depth0],types:["ID","ID"],data:data},helper ? helper.call(depth0, "deletePost", "model", options) : helperMissing.call(depth0, "can", "deletePost", "model", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n          </div>\n      </div>\n    ");
   return buffer;
   }
-function program6(depth0,data) {
+function program7(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n            ");
+  data.buffer.push(escapeExpression((helper = helpers['we-video'] || (depth0 && depth0['we-video']),options={hash:{
+    'url': ("")
+  },hashTypes:{'url': "ID"},hashContexts:{'url': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-video", options))));
+  data.buffer.push("\n          ");
+  return buffer;
+  }
+
+function program9(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n                <button type=\"button\" class=\"btn btn-xs btn-default\" ");
@@ -1336,7 +1375,7 @@ function program6(depth0,data) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n                <button class=\"btn btn-xs btn-danger\" ");
@@ -1347,7 +1386,7 @@ function program8(depth0,data) {
   return buffer;
   }
 
-function program10(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n      <div class=\"comments-header\">\n        <span>Total de ");
@@ -1359,7 +1398,7 @@ function program10(depth0,data) {
   return buffer;
   }
 
-function program12(depth0,data) {
+function program15(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n        ");
@@ -1376,13 +1415,13 @@ function program12(depth0,data) {
   data.buffer.push(" href=\"#\" class=\"shared-with text-mute\">\n      <span class=\"glyphicon glyphicon-globe\"></span>\n    </a>\n    <span class=\"createdAt post-created-at\">");
   data.buffer.push(escapeExpression((helper = helpers['format-date'] || (depth0 && depth0['format-date']),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "createdAt", options) : helperMissing.call(depth0, "format-date", "createdAt", options))));
   data.buffer.push("</span>\n  </div>\n\n  <div class=\"panel-body\">\n    ");
-  stack1 = helpers['if'].call(depth0, "isEditing", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isEditing", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  </div>\n\n  <div class=\"panel-footer\">\n    ");
-  stack1 = helpers['if'].call(depth0, "hasMoreComments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasMoreComments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    <div class=\"comments\">\n\n      ");
-  stack1 = helpers.each.call(depth0, "comments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "comments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n    ");
   data.buffer.push(escapeExpression((helper = helpers['we-comment-form'] || (depth0 && depth0['we-comment-form']),options={hash:{
@@ -1424,6 +1463,26 @@ function program1(depth0,data) {
   },hashTypes:{'loadingMore': "ID",'getMore': "ID"},hashContexts:{'loadingMore': depth0,'getMore': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "we-timeline-loading", options))));
   data.buffer.push("\n\n</div>");
   return buffer;
+  
+});Ember.TEMPLATES['posts/list'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{
+    'controller': ("Post")
+  },hashTypes:{'controller': "STRING"},hashContexts:{'controller': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "post/teaser", "", options) : helperMissing.call(depth0, "render", "post/teaser", "", options))));
+  data.buffer.push("\n");
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[],types:[],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
   
 });Ember.TEMPLATES['user/contacts'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];

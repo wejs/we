@@ -20,6 +20,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/messenger/controllers/MessengerContactListController",
       "js/ember/messenger/controllers/MessengerMessageController",
       "js/ember/post/controllers/PostController",
+      "js/ember/post/controllers/PostsController",
       "js/ember/user/controllers/UserController",
       "js/ember/user/controllers/UserMenuController"
     ],
@@ -49,10 +50,11 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/comment/components/WeCommentFormComponent",
       "js/ember/file/components/FileUploadComponent",
       "js/ember/file/components/WeImagePreviewComponent",
+      "js/ember/file/components/WeVideoComponent",
+      "js/ember/file/components/WeVideoPreviewComponent",
       "js/ember/messenger/components/WeMessengerBoxComponent",
       "js/ember/messenger/components/WeMessengerComponent",
-      "js/ember/messenger/components/WeMessengerPublicBoxComponent",
-      "js/ember/post/components/WeShareboxComponent"
+      "js/ember/messenger/components/WeMessengerPublicBoxComponent"
     ],
     "routes": [
       "js/ember/application/routes/ApplicationRoute",
