@@ -152,13 +152,34 @@ define(['we','ember'], function (we) {
         if(e.added){
           switch(e.added.model) {
             case 'user':
-              this.get('sharedWith').push(e.added.id);
+              this.get('sharedWith').pushObject(e.added.id);
               break;
             case 'group':
-              this.get('sharedIn').push(e.added.id);
+              this.get('sharedIn').pushObject(e.added.id);
               break;
           }
         }
+      },
+      onPasteInBody: function(e){
+        var model = this.get('model');
+        var data = e.originalEvent.clipboardData.getData('text/plain');
+        if(we.utils.isValidUrl(data)){
+          // video url
+          if(we.utils.isVideoUrl(data)){
+            // dont add duplicated links
+            if(!model.get('videos').contains(data)){
+              model.get('videos').pushObject(data);
+            }
+          }else{
+            //other url
+            if(!model.get('videos').contains(data)){
+              model.get('links').pushObject(data);
+            }
+          }
+        }
+      },
+      onRemoveVideo: function(videoUrl, element){
+        this.get('videos').removeObject(videoUrl);
       }
     }
   });

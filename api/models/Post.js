@@ -51,6 +51,14 @@ module.exports = {
       via: 'post'
     },
 
+    videos: {
+      type: 'array'
+    },
+
+    links: {
+      type: 'array'
+    },
+
     // Override toJSON instance method
     toJSON: function() {
 

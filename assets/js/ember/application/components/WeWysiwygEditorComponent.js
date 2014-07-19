@@ -5,6 +5,7 @@ define(['we','summernote','ember'], function (we, summernote) {
 
   App.WeWysiwygEditorComponent = Ember.Component.extend({
     editor: {},
+    //onPaste: 'onPaste',
     tagName: 'div',
     didInsertElement: function() {
       this._super();
@@ -45,6 +46,12 @@ define(['we','summernote','ember'], function (we, summernote) {
         },
         onblur: function(e) {
           _this.set('value',editor.code());
+        },
+        onpaste: function(e,i) {
+          //var data = e.originalEvent.clipboardData.getData('text/plain');
+          if(_this.get('onPaste')){
+            _this.sendAction('onPaste', e);
+          }
         }
       });
       // salve editor on ember component variable
