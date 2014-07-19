@@ -1,14 +1,12 @@
 
 define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
-  App.WeShareboxComponent = Ember.Component.extend(
+  App.PostShareboxController = Ember.ObjectController.extend(
     App.LoggedInMixin,
     App.PostMecanismMixin,
   {
     shareboxClass: 'small',
-    postNew: {
-      body: ''
-    },
+    enableShareInput: true,
     isOpen: false,
     toIdtagsManagerElement: 'input[name="toIds"]',
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
@@ -18,30 +16,16 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
     shareImages: false,
 
-    sharedWith: [],
-    sharedIn: [],
-
-    videos: [],
-    links: [],
-
-    group: null,
-    enableShareInput: true,
-
-    files: [],
     filesNew: {},
-    init: function init(){
-      this._super();
-      var _this = this;
-      var store = this.get('store');
-
-      if(!store) console.error('Store is required for WeShareboxComponent');
-
-      if(this.get('group')){
-        this.set('enableShareInput', false);
-        return;
-      }
-    },
     willDestroyElement: function willDestroyElement(){
+
+    },
+    init: function(){
+      this._super();
+
+      if(this.parentController.get('group')){
+        this.set('enableShareInput', false);
+      }
 
     },
     filesDidChange: (function() {
@@ -50,18 +34,7 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
       _this.get('files').pushObject(files[0]);
     }).observes('filesNew'),
     emptyData: function(){
-      this.setProperties({
-        'postNew.body': '',
-        'isOpen': false,
-        'shareboxClass': 'small',
-        'shareImages': false,
-        'files': [],
-        'sharedIn': [],
-        'sharedWith': [],
-        'images': [],
-        'videos': [],
-        'links':[]
-      });
+      this.setProperties(App.postClean());
     },
     actions: {
       openBox: function openBox(){
@@ -71,35 +44,22 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
         });
       },
       closeBox: function closeBox(){
-        this.setProperties({
-          'isOpen': false,
-          'shareboxClass': 'small'
-        });
+        this.emptyData();
       },
       openShareImage: function openShareImage(){
         this.set('shareImages', true);
       },
       submit: function submit(){
         var _this = this;
-        var postNew = this.get('postNew');
-        var element = this.$(".select2-element");
+        var postNew = this.get('model');
+
         var store = this.get('store');
 
-        var sharedIn = this.get('sharedIn');
-        var sharedWith = this.get('sharedWith');
-
-        var group = this.get('group');
+        var group = this.parentController.get('group');
 
         if(group){
-          sharedIn.push(group.id);
+          postNew.sharedIn = [group.id];
         }
-
-        postNew.createdAt = new Date();
-        postNew.updatedAt = new Date();
-        postNew.videos = _this.get('videos');
-        postNew.links = _this.get('links');
-        postNew.sharedWith = sharedWith;
-        postNew.sharedIn = sharedIn;
 
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
@@ -121,7 +81,7 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
 
             post.save().then(function(){
               // empty selectd tags
-              element.select2('data', null);
+              //element.select2('data', null);
               // close and clear sharebox form inputs
               _this.emptyData();
             });

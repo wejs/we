@@ -19,6 +19,21 @@ define('emberApp',[
 
 
   we.hooks.on("emberjs-load-mixins",function(data, next){
+    App.postClean = function(){
+      return  {
+      body: '',
+      'isOpen': false,
+      'shareboxClass': 'small',
+      'shareImages': false,
+      'files': [],
+      'sharedIn': [],
+      'sharedWith': [],
+      'images': [],
+      'videos': [],
+      'links':[]
+      };
+    };
+
     // TODO move this mixn to one mixins file
     App.PostMecanismMixin = Ember.Mixin.create({
       actions: {

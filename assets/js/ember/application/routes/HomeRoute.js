@@ -7,9 +7,12 @@ define(['we','ember'], function (we) {
     },
     model: function(params) {
       if(we.isAuthenticated()){
-        return this.store.find('post');
+        return Ember.RSVP.hash({
+          posts: this.store.find('post'),
+          postNew: App.postClean()
+        });
       }else{
-        return null;
+        return {};
       }
     }
   });

@@ -1,14 +1,13 @@
 {{#if isAuthenticated}}
   <div id="posts" class="posts ">
       <div class="sharebox-area masonry-brick  content-block">
-        {{we-sharebox post=post store=store}}
+        {{render 'post/sharebox' postNew}}
       </div>
     <div class="new-posts-notification alert alert-info">
       TODO show new post notifications here
     </div>
-    {{#each }}
-      {{render 'post/teaser' this controller='Post'}}
-    {{/each}}
+
+    {{render 'posts/list' posts controller='Posts'}}
 
     {{we-timeline-loading loadingMore=loadingMore getMore=getMore}}
 

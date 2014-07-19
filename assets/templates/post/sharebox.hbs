@@ -1,0 +1,72 @@
+<div {{bind-attr class='shareboxClass'}}>
+<form action="/post" method="POST" {{action "submit" on="submit"}} class="sharebox">
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group">
+      {{#if isOpen}}
+        {{we-wysiwyg-editor name="body" value=body onPaste="onPasteInBody"}}
+      {{else}}
+        <div {{action "openBox"}} class="post-placeholder form-control post-content"> {{t 'What is happening?'}}</div>
+      {{/if}}
+    </div>
+
+    <div class="form-group attach-options">
+      <button {{action 'openShareImage'}} type="button" class="btn btn-xs btn-default">
+        <i class="glyphicon glyphicon-picture"></i> {{t "Image"}}
+      </button>
+    </div>
+
+    <div class="form-group">
+      <div class='row'>
+      {{#each videos}}
+        <div class='col-md-6'>
+          {{we-video-preview url=this onRemove="onRemoveVideo"}}
+        </div>
+      {{/each}}
+    </div>
+
+    {{#if shareImages}}
+      <div class="form-group">
+        <div class="form-group row add-images">
+          <label for="addImages" class="col-sm-2 control-label">{{t "Attach images"}}</label>
+          <div class="col-sm-10">
+            {{file-upload files=filesNew}}
+          </div>
+        </div>
+        <div class="form-group images-preview">
+          <div class="row">
+            {{#each files}}
+              <div class="col-xs-6 col-md-3">
+                {{we-image-preview file=this}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+
+    <div class="footer">
+      {{#if enableShareInput}}
+      {{#if isOpen}}
+        <div class="form-group">
+          <div class="input-group">
+            <label for="toId" class="input-group-addon">{{t "To"}}:</label>
+            {{we-select2 shareWithOptions=App.currentUser.shareWithOptions}}
+          </div>
+        </div>
+      {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> {{t "Share"}}
+      </button>
+      <button type="button" {{action 'closeBox'}} class="btn btn-default cancel"> {{t "Cancel"}}</button>
+    </div>
+  </div>
+
+</div>
+</form>
+</div>

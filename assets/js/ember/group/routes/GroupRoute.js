@@ -22,7 +22,7 @@ define(['we','ember'], function (we) {
   // route list
   App.GroupsIndexRoute = Ember.Route.extend({
     model: function() {
-      return this.store.find('group')
+      return this.store.find('group');
     }
   });
 
@@ -35,7 +35,6 @@ define(['we','ember'], function (we) {
 
   // route /groups/:uid/
   App.GroupRoute = Ember.Route.extend({
-
     renderTemplate: function() {
       this.render('group/item');
     }
@@ -46,8 +45,11 @@ define(['we','ember'], function (we) {
     model: function() {
       var group_id = this.modelFor('group').get('id');
       var sharedIn = null;
+      var postNew = App.postClean();
 
       return Ember.RSVP.hash({
+        // post for sharebox create new post
+        postNew: postNew,
         // set current group
         group: this.modelFor('group'),
         // load initial post data
