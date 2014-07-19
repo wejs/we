@@ -91,14 +91,40 @@ module.exports = {
         console.log('arquivo movido para:',newFilePath);
       }
 
-      callback(err);
+      file.newFilePath = newFilePath;
+
+      callback(err, file);
     });
-
   },
-  // Before create Callback
-  beforeCreate: function(file, next) {
 
-    next();
+  uploadMultiple: function(files, creatorId, callback){
+    var uploadedFiles = [];
+    var fileUp;
+
+    async.each(files, function(file, next){
+      file.path = '.tmp/uploads/' + file.filename;
+
+      Images.upload(file, function(err){
+        if(err){
+          next(err);
+        } else {
+          fileUp = file;
+          fileUp.name = file.newName;
+          fileUp.originalFilename = file.originalFilename;
+          fileUp.size = file.size;
+          fileUp.extension = file.extension;
+          fileUp.creator = creatorId;
+          uploadedFiles.push(fileUp);
+          next();
+        }
+      });
+    },function(err){
+      if(err){
+        callback(err, null);
+      }else{
+        callback(null, uploadedFiles);
+      }
+    });
   }
 
 };

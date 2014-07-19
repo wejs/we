@@ -11,6 +11,8 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     toIdtagsManagerContainer: '.toIdsSelectedDisplay',
     bodyPlaceholder: we.i18n("What is happening?"),
 
+    imageUploadUrl: '/api/v1/images',
+
     shareImages: false,
 
     group: null,
@@ -102,18 +104,53 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
           post.set('sharedWith', sharedWith);
           post.set('sharedIn', sharedIn);
 
-          // save post
-          post.save().then(function(){
-            // empty selectd tags
-            element.select2('data', null);
-            // close and clear sharebox form inputs
-            _this.emptyData();
+          var files = _this.get('files');
+          var uploadUrl = _this.get('imageUploadUrl');
 
+          // upload the images
+          uploadFiles(files, uploadUrl, function(err, data){
+            // TODO
+            console.warn('TODO! add image to post',data);
+
+            post.save().then(function(){
+              // empty selectd tags
+              element.select2('data', null);
+              // close and clear sharebox form inputs
+              _this.emptyData();
+            });
           });
         });
       }
     }
   });
 
+  function uploadFiles(files, uploadUrl, callback){
+    var uploader = Ember.Uploader.create({
+      url: uploadUrl,
+      type: 'POST',
+      paramName: 'files'
+    });
+
+    if (!Ember.isEmpty(files)) {
+      var promisseUpload = uploader.upload(files);
+      promisseUpload.then(function(data) {
+        // Handle success
+        callback(null, data);
+      }, function(error) {
+        // Handle failure
+        callback(error,null);
+      });
+    }
+  }
+
+  // function storeAndGetImageIds(store, images){
+  //   var imagesIds = [];
+  //   for (var i = 0; i < images.length; i++) {
+  //     store.push('images',images[i]);
+  //     imagesIds.push(images[i].id);
+  //   }
+
+  //   return imagesIds;
+  // }
 
 });

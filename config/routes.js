@@ -170,19 +170,19 @@ module.exports.routes = {
     action        : 'changeAvatar'
   },
 
-  'get /images': {
+  'get /api/v1/images': {
     controller    : 'images',
-    action        : 'index'
+    action        : 'list'
   },
 
-  'get /images/:id': {
+  'get /api/v1/images/:id': {
     controller    : 'images',
-    action        : 'find'
+    action        : 'findOne'
   },
 
-  'post /images': {
+  'post /api/v1/images': {
     controller    : 'images',
-    action        : 'create'
+    action        : 'createRecord'
   },
 
   //  -- MESSENGER

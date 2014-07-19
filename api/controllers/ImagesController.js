@@ -9,13 +9,13 @@ var fs = require('fs');
 
 module.exports = {
 
-  index : function (req, res, next){
+  list : function (req, res){
     res.send(
       {"files":[]}
     );
   },
 
-  find : function (req, res, next){
+  findOne : function (req, res){
 
     var fileId = req.param('id');
 
@@ -53,57 +53,39 @@ module.exports = {
   /**
    * Upload file to upload dir and save metadata on database
    */
-  create : function (req, res, next){
+  createRecord : function (req, res){
    // console.log('files:',req.files);
    // console.log('file:',req.files.files[0]);
 
-    var newFiles = [];
-    var newFile = {};
+    if(!req.user || !req.user.id){
+      return res.forbidden('Logged in user not found');
+    }
 
-    async.each(req.files.files, Files.upload , saveFiles);
+    var creatorId = req.user.id;
 
-    //Files.upload(req.files.files, saveFile, complete);
+    req.file('files').upload(function (err, files) {
+      if (err) return res.serverError(err);
 
-    function saveFiles(err){
-      if(err){
-        console.log('Error on file upload',err);
-      }else{
+      sails.log.warn('files uploaded:',files);
 
-        async.each(req.files.files, function(file, affterSave){
-          newFile = {
-            'name': file.newName,
-            'size': file.size,
-            'originalFilename': file.name,
-            //'mime': file.mime
-          };
-
-          Files.create(newFile).exec(function(error, salvedFile) {
-              if (error) {
-                console.log(error);
-               // res.send(500, {error: res.i18n("DB Error") });
-              } else {
-                //console.log('salved File:',salvedFile);
-                salvedFile.thumbnailUrl = 'http://localhost:1333/imgs/avatars/user-avatar.png';
-                salvedFile.url = 'http://localhost:1333/imgs/avatars/user-avatar.png';
-                salvedFile.deleteUrl = '/files/' + salvedFile.id;
-                salvedFile.deleteType = 'DELETE';
-
-                newFiles.push(salvedFile);
-                affterSave();
-              }
+      Images.uploadMultiple(files, creatorId, function(err, uploadedFiles){
+        if(err){
+          res.send(
+            {
+              "files":[],
+              "error": err
+            }
+          );
+        } else {
+          Images.create(uploadedFiles).exec(function(error, salvedFiles) {
+            if (err) return res.serverError(err);
+            sails.log.warn('salvedFiles',salvedFiles);
+            res.send({
+              images: salvedFiles
+            });
           });
-        }, complete);
-      }
-    }
-
-    function complete(err){
-      console.log('end file salved');
-      console.log(newFiles);
-      res.send({
-        "files": newFiles
+        }
       });
-    }
-
+    });
   }
-
 };

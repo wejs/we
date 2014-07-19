@@ -25,9 +25,13 @@
           </div>
         </div>
         <div class="form-group images-preview">
-        {{#each files}}
-          {{we-image-preview file=this}}
-        {{/each}}
+          <div class="row">
+            {{#each files}}
+              <div class="col-xs-6 col-md-3">
+                {{we-image-preview file=this}}
+              </div>
+            {{/each}}
+          </div>
         </div>
       </div>
     {{/if}}

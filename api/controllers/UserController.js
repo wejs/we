@@ -228,6 +228,7 @@ module.exports = {
       if (err) return res.serverError(err);
 
       avatarFile = files[0];
+      //temporary file folder
       avatarFile.path = '.tmp/uploads/' + files[0].filename;
 
       Images.upload(files[0], function(err){
