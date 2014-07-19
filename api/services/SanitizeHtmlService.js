@@ -29,7 +29,7 @@ exports.sanitizeAllAttr = function(obj){
 
   for (var prop in obj) {
     if(prop !== 'id'){
-      if(typeof prop == 'string'){
+      if(typeof obj[prop] == 'string'){
         obj[prop] = SanitizeHtmlService.sanitize(obj[prop]);
       }
     }
