@@ -15,11 +15,11 @@ define(['we','ember','ember-data'], function (we) {
 
     // relationship s
     creator:  DS.belongsTo('user'),
-    sharedWith: attr(),
+    sharedWith: attr('array'),
 
-    sharedIn: attr(),
+    sharedIn: attr('array'),
 
-    comments: attr(),
+    comments: attr('array'),
 
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')
