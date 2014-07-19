@@ -112,14 +112,4 @@ define(['we', 'ember', 'select2', 'jquery'], function (we) {
     }
   }
 
-  // function storeAndGetImageIds(store, images){
-  //   var imagesIds = [];
-  //   for (var i = 0; i < images.length; i++) {
-  //     store.push('images',images[i]);
-  //     imagesIds.push(images[i].id);
-  //   }
-
-  //   return imagesIds;
-  // }
-
 });
