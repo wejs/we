@@ -20,6 +20,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/messenger/controllers/MessengerContactListController",
       "js/ember/messenger/controllers/MessengerMessageController",
       "js/ember/post/controllers/PostController",
+      "js/ember/post/controllers/PostShareboxController",
       "js/ember/post/controllers/PostsController",
       "js/ember/user/controllers/UserController",
       "js/ember/user/controllers/UserMenuController"
