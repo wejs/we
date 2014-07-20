@@ -49,11 +49,16 @@ define(['we','ember'], function (we) {
 
       // refresh avatar on user avatar change
       // TODO remove on element destroy
-      we.events.on('userAvatarChange',function(event, data){
-        if(data.user.id === self.userId){
-          self.changeAvatarUrl(true);
-        }
-      });
+      we.events.on('userAvatarChange',this.onUserAvatarChange.bind(this));
+    },
+    onUserAvatarChange: function(event, data){
+      if(data.user.id === self.userId){
+        self.changeAvatarUrl(true);
+      }
+    },
+    willDestroyElement: function(){
+      // remove event on element destroy
+      we.events.off('userAvatarChange',this.onUserAvatarChange);
     },
     changeAvatarUrl: function(refresh) {
       var userId = this.get('userId');

@@ -4,16 +4,17 @@ define(['we','ember'], function (we) {
   App.WeAvatarModalComponent = Ember.Component.extend({
     url: "/avatar/",
     attributeBindings: ['user'],
-
     init: function(){
       this._super();
-
-      var self = this;
-      we.events.on('showAvatarChangeModal',function( event, data){
-        self.set('user', data.user);
-        console.warn('data',data);
-        $('#avatarChangeModal').modal('show');
-      });
+      we.events.on('showAvatarChangeModal',this.onShowAvatarChangeModal.bind(this));
+    },
+    onShowAvatarChangeModal: function(event, data){
+      this.set('user', data.user);
+      console.warn('data',data);
+      $('#avatarChangeModal').modal('show');
+    },
+    willDestroyElement: function(){
+      we.events.off('showAvatarChangeModal',this.onShowAvatarChangeModal);
     },
     actions: {
       show: function(){
