@@ -30,6 +30,7 @@ module.exports = function notFound() {
   }
 
   // if dont wantsJSON send ember.js index page and let app show the 404 page
+  res.status(200);
   return res.view('home/index.ejs');
 
   // // default sails js 404 logic
