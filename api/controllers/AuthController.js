@@ -125,46 +125,63 @@ module.exports = {
   },
 
   login: function (req, res, next) {
-      var email = req.param("email");
-      var password = req.param("password");
+    var email = req.param("email");
+    var password = req.param("password");
 
-      if(!email || !password){
-        return  res.forbidden('Password and email is required');
+    if(!email || !password){
+      sails.log.debug("AuthController:login:Password and email is required", password, email);
+      return res.send(401,{
+        error: [{
+            status: '401',
+            message: res.i18n('Password and email is required')
+          }]
+      });
+    }
+
+    User.findOneByEmail(email).exec(function(err, usr) {
+      if (err) {
+        sails.log.error('AuthController:login:Error on get user ', err, email);
+        return res.send(500, { error: res.i18n("DB Error") });
       }
 
-      User.findOneByEmail(email).exec(function(err, usr) {
-        if (err) {
-          res.send(500, { error: res.i18n("DB Error") });
-        } else {
-          if(usr) {
-            if (usr.verifyPassword(password)) {
-              passport.authenticate('local', function(err, usr, info) {
+      if(!usr){
+        sails.log.debug("AuthController:login:User not found", email);
+        return res.send(401,{
+          error: [{
+              status: '401',
+              message: res.i18n("User not found")
+            }]
+          });
+      }
 
-                if (err){
-                  return res.serverError(err);
-                }
-                if (!usr) return res.redirect('/login');
+      if (!usr.verifyPassword(password)) {
+        sails.log.debug("AuthController:login:Wrong Password", email);
+        return res.send(401,{ error: [{
+            status: '401',
+            message: res.i18n("Wrong Password")
+          }]
+        });
+      }
 
-                req.logIn(usr, function(err){
-                  if(err){
-                    return res.serverError(err);
-                  }
+      passport.authenticate('local', function(err, usr, info) {
 
-                  res.send(usr);
-                  // TODO add suport to oauth tokens
-                  //res.redirect('/');
-                });
-
-              })(req, res, next);
-
-            } else {
-              res.forbidden("Wrong Password");
-            }
-          } else {
-            res.forbidden("User not found");
-          }
+        if (err){
+          return res.serverError(err);
         }
-      });
+        if (!usr) return res.redirect('/login');
+
+        req.logIn(usr, function(err){
+          if(err){
+            return res.serverError(err);
+          }
+
+          res.send(usr);
+          // TODO add suport to oauth tokens
+          //res.redirect('/');
+        });
+
+      })(req, res, next);
+    });
   },
 
   /**

@@ -40,7 +40,7 @@ define(['we','ember'], function (we) {
       //Submit the modal
       login: function() {
         var _this = this;
-        jQuery.post('/auth/login',{
+        $.post('/auth/login',{
           email: this.get("email"),
           password: this.get("password")
         })
@@ -55,15 +55,15 @@ define(['we','ember'], function (we) {
           }
         })
         .fail(function(data) {
-          if(data.responseJSON && data.responseJSON.message){
+          if(data.responseText){
+            var responseJSON = jQuery.parseJSON(data.responseText);
             _this.set('messages', [{
               status: 'danger',
-              message: data.responseJSON.message
+              message: responseJSON.error[0].message
             }]);
           }else{
-            console.error( "Error on login" );
+            console.error( "Error on login",data);
           }
-
         });
       },
 
