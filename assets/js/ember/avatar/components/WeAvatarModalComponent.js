@@ -11,6 +11,7 @@ define(['we','ember'], function (we) {
       var self = this;
       we.events.on('showAvatarChangeModal',function( event, data){
         self.set('user', data.user);
+        console.warn('data',data);
         $('#avatarChangeModal').modal('show');
       });
     },

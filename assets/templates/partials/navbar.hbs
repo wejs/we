@@ -51,7 +51,7 @@
           {{/if}}
         </li>
         <li>
-          {{render 'user/usermenu' controller='UserMenu'}}
+          {{render 'user/usermenu' App.currentUser controller='UserMenu'}}
         </li>
         <li>
           {{we-auth-modal-login}}

@@ -19,9 +19,8 @@ define(['we','ember'], function (we) {
     },
     actions: {
       showAvatarChangeModal: function(){
-        console.warn('change modal',this.get('store'));
         we.events.trigger('showAvatarChangeModal', {
-          user: this.get('user')
+          user: this.get('model')
         });
       }
     }

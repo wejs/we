@@ -2,6 +2,14 @@
 define(['we','ember'], function (we) {
 
   App.ApplicationRoute = Ember.Route.extend({
+    // model: function(params) {
+    //   console.warn('rodou o aplication router');
+
+    //   return Ember.RSVP.hash({
+    //     user: App.currentUser
+    //   });
+
+    // },
     actions: {
       // error: function(error, transition){
       //   console.warn(error,transition);
