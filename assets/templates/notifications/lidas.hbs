@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Notificação</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each controller}}
+      {{render 'notifications/item' this}}
+    {{else}}
+      <tr >
+        <td colspan="3">
+          <div class="jumbotron text-center">
+            Nenhuma notificação lida.
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
