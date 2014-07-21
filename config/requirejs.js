@@ -1,7 +1,7 @@
 module.exports.requirejs = {
   paths: {
     domReady: 'js/libs/requirejs/domReady',
-    jquery: 'bower_components/jquery/jquery',
+    jquery: 'bower_components/jquery/dist/jquery',
     io: 'js/libs/socket.io',
     'sails.io': 'js/sails.io',
     app: 'js/app',
@@ -39,7 +39,10 @@ module.exports.requirejs = {
     codemirror: 'bower_components/codemirror/lib/codemirror',
 
     // typeahead and autocomplete select field
-    select2: 'bower_components/select2/select2'
+    select2: 'bower_components/select2/select2',
+
+    // image cropper lib
+    cropper: 'bower_components/cropper/dist/cropper'
 
   },
   shim: {
