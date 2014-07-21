@@ -24,7 +24,8 @@
     "grunt-we-sails-ember-tasks": "~0.0.5",
     "connect-mongo": "~0.4.1",
     "wejs-theme-default": "~0.0.1",
-    "sanitize-html": "~1.2.1"
+    "sanitize-html": "~1.2.1",
+    "gm": "~1.16.0"
   },
   "devDependencies": {
     "grunt-sync": "0.0.7",
