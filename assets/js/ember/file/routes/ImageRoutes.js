@@ -25,15 +25,23 @@ define(['we','ember'], function (we) {
   // route //:uid/index
   App.ImageIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
+      var isCreator = (this.modelFor('image').get('creator.id') == App.currentUser.get('id'));
       return Ember.RSVP.hash({
         creator: this.store.find('user', this.modelFor('image').get('creator.id')),
-        image: this.modelFor('image')
+        image: this.modelFor('image'),
+        isCreator: isCreator
       });
     }
   });
 
   // route //:uid/crop
   App.ImageCropRoute = Ember.Route.extend(App.ResetScrollMixin,{
+    beforeModel: function() {
+      // redirect to forbiden page
+      if(this.modelFor('image').get('creator.id') != App.currentUser.get('id')){
+        this.transitionTo('forbiden');
+      }
+    },
     model: function() {
       return Ember.RSVP.hash({
         image: this.modelFor('image')
