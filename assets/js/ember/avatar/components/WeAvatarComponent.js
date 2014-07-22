@@ -10,6 +10,7 @@ define(['we','ember'], function (we) {
     attributeBindings: [
       'heigth', 'width','userId', 'avatarUrl:src'
     ],
+    imageStyle: 'thumbnail',
     userId: null,
     // init function
     init: function init(){
@@ -23,18 +24,21 @@ define(['we','ember'], function (we) {
           this.setProperties({
             heigth: 250,
             width: 250,
+            imageStyle: 'large'
           });
           break;
         case 'medium':
           this.setProperties({
             heigth: 100,
             width: 100,
+            imageStyle: 'medium'
           });
           break;
         case 'responsive':
           this.setProperties({
             heigth: 'auto',
             width: '100%',
+            imageStyle: 'large'
           });
           break;
         default:
@@ -42,6 +46,7 @@ define(['we','ember'], function (we) {
           this.setProperties({
             heigth: 35,
             width: 35,
+            imageStyle: 'thumbnail'
           });
         }
       }
@@ -61,13 +66,15 @@ define(['we','ember'], function (we) {
     },
     changeAvatarUrl: function(refresh) {
       var userId = this.get('userId');
+      var style = (this.get('imageStyle') || '');
+
       if(userId){
         if(refresh){
           // get current time to set as refresh query param
           var refreshTime = new Date().getTime();
-          this.set('avatarUrl', '/avatar/' + userId + '?r=' + refreshTime);
+          this.set('avatarUrl', '/avatar/' + userId + '?r=' + refreshTime + '&style='+style);
         }else{
-          this.set('avatarUrl', '/avatar/' + userId);
+          this.set('avatarUrl', '/avatar/' + userId +'?style=' + style);
         }
       }else{
         this.set('avatarUrl', this.get('defaultAvatarUrl'));

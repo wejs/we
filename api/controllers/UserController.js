@@ -171,8 +171,15 @@ module.exports = {
     }
   },
 
-  getAvatar: function (req, res, next) {
+  getAvatar: function (req, res) {
     var id = req.param('id');
+    var style = req.param('style');
+    if(style == 'responsive'){
+      style = 'large';
+    }else if(!style){
+      style = 'thumbnail';
+    }
+
     var defaultAvatarPath = 'assets/imgs/avatars/user-avatar.png';
 
     if(!id) return res.forbidden();
@@ -184,7 +191,7 @@ module.exports = {
         Images.findOneById(user.avatarId).exec(function(err, image) {
           if (err) return res.negotiate(err);
 
-          FileImageService.getFileOrResize(image.name,'thumbnail' ,function(err, contents){
+          FileImageService.getFileOrResize(image.name,style ,function(err, contents){
             if(err){
               sails.log.debug('Error on get avatar',err);
               return res.send(404);
