@@ -1,0 +1,9 @@
+Id: {{image.id}} <br>
+Name: {{image.name}} <br>
+
+{{log this}}
+<img {{bind-attr src=image.urls.thumbnail}}>
+
+{{#link-to 'image.crop' image.name}}
+  Redimencionar
+{{/link-to}}

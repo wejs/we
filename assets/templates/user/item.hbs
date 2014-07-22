@@ -72,9 +72,11 @@
         {{t 'Contacts'}}
       {{/link-to}}
       </li>
-      <li><a>Perfil</a></li>
-      <li><a>Grupos</a></li>
-      <li><a>Imagens</a></li>
+      <li>
+      {{#link-to 'user.images' user.id}}
+        {{t 'Images'}}
+      {{/link-to}}
+      </li>
     </ul>
   </div>
 

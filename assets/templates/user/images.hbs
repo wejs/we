@@ -1,0 +1,9 @@
+<div class="row">
+{{#each images}}
+  <div class="col-md-3">
+    {{#link-to 'image' name}}
+      <img {{bind-attr src=urls.thumbnail}}>
+    {{/link-to}}
+  </div>
+{{/each}}
+</div>

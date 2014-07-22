@@ -7,6 +7,8 @@
  */
 var mv = require('mv');
 var uuid = require('node-uuid');
+// image converter
+var gm = require('gm');
 
 module.exports = {
 
@@ -20,10 +22,6 @@ module.exports = {
 
     size: {
       type: 'integer'
-    },
-
-    url: {
-        type: 'url'
     },
 
     active: {
@@ -52,8 +50,17 @@ module.exports = {
 
     height: {
       type: 'string'
-    }
+    },
 
+    // Override toJSON instance method
+    // to remove password value
+    toJSON: function() {
+      var obj = this.toObject();
+      obj.urls = Images.getStyleUrlFromImage(obj);
+      // set default objectType
+      obj.objectType = "image";
+      return obj;
+    }
   },
 
 
@@ -73,28 +80,43 @@ module.exports = {
 
   // Upload the files
   upload: function(file, callback) {
-
     file.extension = file.filename.split('.').pop();
+
+    // TODO add suport to files withouth extension
+    if(!file.extension){
+      sails.log.error('File extension not found', file);
+      return callback('File extension not found', null);
+    }
 
     file.newName =  uuid.v1() + '.' + file.extension;
 
-    //console.log('config:',sails.config.express.bodyParser);
-    // UPLOAD
-    //console.log(sails.config.appPath);
-    var newFilePath = sails.config.appPath + '/uploads/' + file.newName;
-    //console.log(newFilePath);
+    var newFilePath = sails.config.appPath + '/' + sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
 
     mv(file.path, newFilePath,{mkdirp: true}, function(err){
-      if(err){
-        console.log('error in MV:',err);
-      }else{
-        console.log('arquivo movido para:',newFilePath);
-      }
+      if(err) return callback(err, null);
 
-      file.newFilePath = newFilePath;
+      console.log('arquivo movido para:',newFilePath);
+      // get image size
+      gm(newFilePath)
+      .size(function (err, size) {
+        if (err) return callback(err);
 
-      callback(err, file);
+        file.width = size.width;
+        file.height = size.height;
+
+        callback(null, file);
+      });
+
     });
+  },
+  getStyleUrlFromImage: function(image){
+    return {
+      original: '/api/v1/images/original/' + image.name,
+      thumbnail: '/api/v1/images/thumbnail/' + image.name,
+      mini: '/api/v1/images/mini/' + image.name,
+      medium: '/api/v1/images/medium/' + image.name,
+      large: '/api/v1/images/large/' + image.name
+    };
   },
 
   uploadMultiple: function(files, creatorId, callback){

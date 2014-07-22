@@ -7,9 +7,10 @@ define(['we','ember'], function (we) {
     this.resource('users',{path: '/user'}, function(){
       // item route
       this.resource('user',{ path: '/:user_id' }, function(){
-
         // edit item route
         this.route('contacts');
+        // edit item route
+        this.route('images');
         // edit item route
         this.route('edit');
       });
@@ -22,11 +23,10 @@ define(['we','ember'], function (we) {
       this.render('user/feature');
     }
   });
-
   // route list
   App.UsersIndexRoute = Ember.Route.extend({
     model: function() {
-      return this.store.find('user')
+      return this.store.find('user');
     },
     renderTemplate: function() {
       this.render('user/list');
@@ -88,42 +88,38 @@ define(['we','ember'], function (we) {
     },
   });
 
+  // route /user/:uid/images
+  App.UserImagesRoute = Ember.Route.extend({
+    model: function() {
+      var user_id = this.modelFor('user').user.get('id');
+      return {
+        user: this.modelFor('user'),
+        // images load data filter
+        loadData: this.load(user_id),
+        // images dinamic filter
+        images: this.get('store').filter('image', function(image) {
+          if(image.get('creator.id') == user_id){
+            return true;
+          }else{
+            return false;
+          }
+        })
+      };
+    },
+    load: function(user_id){
+      return this.store.find('image',{
+        creator: user_id
+      });
+    }
+  });
+
   // route /user/:uid/contact
   App.UserContactRoute = Ember.Route.extend({
     model: function() {
       var user_id = this.modelFor('user').get('id');
       return {
-        // contacts:
-        //   Ember.$.ajax({
-        //     type: 'GET',
-        //     url: '/user/'+userId+'/contacts-name',
-        //     cache: false,
-        //     dataType: 'json',
-        //     contentType: 'application/json',
-        //     success: function(data){
-        //       element.select2({
-        //         placeholder: "Share with ...",
-        //         minimumInputLength: 3,
-        //         multiple: true,
-        //         data: data,
-        //         formatResult: function(item){
-        //           //console.warn('formatResult',item);
-
-        //           return item.text;
-        //         }, // omitted for brevity, see the source of this page
-        //         formatSelection: function(item){
-        //           //console.warn('formatSelection',item);
-        //           return item.text;
-        //         }, // omitted for brevity, see the source of this page
-        //         dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
-        //         escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
-        //       });
-        //     },
-        //     error: function(data){
-        //       console.error('Error on get share with list', data);
-        //     }
-        //   });
-      }
+        user: this.modelFor('user')
+      };
     },
   });
 

@@ -3,48 +3,36 @@
   <div class="modal-dialog">
     <div class="modal-content">
 
-
-
-<form id="avatar-upload" action="user/avatar/"  class="form-upload-avatar" name="uploadAvatarForm" method="post" enctype="multipart/form-data">
+<form id="avatar-upload" class="form-upload-avatar" name="uploadAvatarForm" >
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title">Change avatar</h4>
   </div>
   <div class="modal-body">
     <div class="row"><div class=" col-lg-offset-2 col-lg-8">
-      <div class="form-group">
-      <br><br>
-
-        <div class="form-controll file-uploader">
-          <div class="col-md-8">
-            {{file-upload files=files}}
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-primary" type="buttom" {{action 'submit' files}}>Upload and save</button>
+      {{#if imageSelected}}
+        {{we-image-crop src=salvedImage.urls.original file=salvedImage data=cropImageData}}
+      {{else}}
+        <div class="form-group">
+        <br><br>
+          <div class="form-controll file-uploader">
+            <div class="col-md-8">
+              {{image-upload multiple="false" files=files}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <img class="preview">
-      </div>
-      <div class="form-group">
-
-        <div class=" form-controll file-upload-progress">
-          </div>
-      </div>
+      {{/if}}
     </div></div>
-
   </div>
   <div class="modal-footer">
-    <button type="button"  data-ng-click="modalClose()" class="btn btn-default" data-dismiss="modal">Close</button>
+    {{#if imageSelected}}
+      <button class="btn btn-primary" type="buttom" {{action 'saveAvatar'}}>Salvar foto</button>
+    {{else}}
+      <button class="btn btn-primary" type="buttom" {{action 'selectFile'}}>Selecionar imagem</button>
+    {{/if}}
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
   </div>
 </form>
-
-
-
-
-
-
     </div>
   </div>
 </div>

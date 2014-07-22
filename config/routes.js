@@ -175,9 +175,25 @@ module.exports.routes = {
     action        : 'list'
   },
 
-  'get /api/v1/images/:id': {
+  'get /api/v1/images/:name?': {
     controller    : 'images',
     action        : 'findOne'
+  },
+
+  // Image style thumbnail | medium | large
+  'get /api/v1/images/:style(original|mini|thumbnail|medium|large)/:name': {
+    controller    : 'images',
+    action        : 'findOne'
+  },
+
+  'get /api/v1/images/:name?/data': {
+    controller    : 'images',
+    action        : 'findOneReturnData'
+  },
+
+  'get /api/v1/images-crop/:id': {
+    controller    : 'images',
+    action        : 'cropImage'
   },
 
   'post /api/v1/images': {
