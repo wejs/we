@@ -1,9 +1,12 @@
-Id: {{image.id}} <br>
-Name: {{image.name}} <br>
-
-{{log this}}
-<img {{bind-attr src=image.urls.thumbnail}}>
-
-{{#link-to 'image.crop' image.name}}
-  Redimencionar
-{{/link-to}}
+<div class="row">
+<div class="col-md-12">
+{{t 'Send by'}} {{view App.UserNameView user=creator}}
+</div>
+<div class="col-md-12">
+  <img {{bind-attr src=image.urls.large}}>
+</div>
+<div class="col-md-12">
+  {{#link-to 'image.crop' image.name}}
+    Redimencionar
+  {{/link-to}}
+</div>
