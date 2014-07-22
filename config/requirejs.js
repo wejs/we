@@ -57,6 +57,11 @@ module.exports.requirejs = {
         'jquery'
       ]
     },
+    jcrop: {
+      deps: [
+        'jquery'
+      ]
+    },
     app: {
       deps: [
         'io',
