@@ -153,7 +153,7 @@ module.exports = {
 
     if(!fileId ) return res.send(400,'File id param is required');
 
-    if(!cords.width || !cords.height || cords.x === null || cods.y === null){
+    if(!cords.width || !cords.height || cords.x === null || cords.y === null){
       return res.send(400,'Width, height, x and y params is required');
     }
 
@@ -177,12 +177,21 @@ module.exports = {
 
       var originalFile = FileImageService.getImagePath(image.name, 'original');
 
+
+      sails.log.debug('Filename:', image.name);
+
       FileImageService.resizeImageAndReturnSize(originalFile, cords, function(err, size){
 
         image.width = size.width;
         image.height = size.height;
         // save the new width and height on db
         image.save();
+
+        sails.log.debug('resize image to:', cords);
+
+        sails.log.debug('result:',size.width, size.width);
+
+
 
         // delete old auto generated image styles
         FileImageService.deleteImageStylesWithImageName(image.name, function(err){

@@ -6,7 +6,7 @@ define(['we','ember'], function (we) {
         this.transitionToRoute('image', this.get('image.name'));
       },
       saveCrop: function(){
-        var _this = this;
+        var self = this;
         var cords = this.get('cropImageData');
         var image = this.get('image');
 
@@ -16,8 +16,8 @@ define(['we','ember'], function (we) {
           data: cords,
           contentType: 'application/json'
         }).done(function(newImage){
-          _this.get('store').push('image', newImage.image);
-          _this.transitionToRoute('image', newImage.image.name);
+          self.get('store').push('image', newImage.image);
+          self.transitionToRoute('image', newImage.image.name);
         }).fail(function(e){
           console.error('Error on image crop',e);
         });

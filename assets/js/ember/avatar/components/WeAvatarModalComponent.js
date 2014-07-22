@@ -1,3 +1,7 @@
+/**
+ * @file Manages modal Avatar change feature, has upload, crop and setNew avatar
+ * @author Alberto Souza
+ */
 
 define(['we','ember'], function (we) {
 
@@ -9,6 +13,7 @@ define(['we','ember'], function (we) {
     salvedImage: {},
     imageSelected: false,
     cropImageData: {},
+    isLoading: false,
     init: function(){
       this._super();
       we.events.on('showAvatarChangeModal',this.onShowAvatarChangeModal.bind(this));
@@ -31,7 +36,7 @@ define(['we','ember'], function (we) {
         $('#avatarChangeModal').modal('hide');
       },
       selectFile: function(){
-        var _this = this;
+        var self = this;
         var uploadUrl = this.get('url');
         var file = this.get('file');
 
@@ -42,20 +47,41 @@ define(['we','ember'], function (we) {
         });
 
         if (!Ember.isEmpty(file)) {
+
+          self.set('isLoading',true);
+
           var promisseUpload = uploader.upload(file);
           promisseUpload.then(function(data) {
-            _this.set('salvedImage',data.images[0]);
-            _this.set('imageSelected', true);
+            self.set('salvedImage',data.images[0]);
+            self.set('imageSelected', true);
+
+            self.set('isLoading',false);
           }, function(error) {
             // Handle failure
             console.error('error on upload avatar', error);
           });
         }
       },
-
-      saveAvatar: function(files){
-        var _this = this;
+      cropAndSave: function(){
+        var self = this;
         var cords = this.get('cropImageData');
+        var imageId = this.get('salvedImage.id');
+
+        Ember.$.ajax({
+          type: 'get',
+          url: '/api/v1/images-crop/'+ imageId ,
+          data: cords,
+          contentType: 'application/json'
+        }).done(function(newImage){
+          self.get('store').push('image', newImage.image);
+          self.send('saveAvatar');
+        }).fail(function(e){
+          console.error('Error on image crop',e);
+        });
+      },
+
+      saveAvatar: function(){
+        var self = this;
         var image = this.get('salvedImage');
         var userId = App.currentUser.get('id');
 
@@ -67,23 +93,21 @@ define(['we','ember'], function (we) {
           }),
           contentType: 'application/json'
         }).done(function(data){
-
+          self.set('isLoading',false);
           var avatar = data.avatar;
+          // set current user avatarId
           App.currentUser.set('avatarId',avatar.id);
-          _this.get('store').push('image', avatar);
-          _this.get('store').push('user',App.currentUser);
+          // update user and image on store
+          self.get('store').push('image', avatar);
+          self.get('store').push('user',App.currentUser);
           // close modal
           $('#avatarChangeModal').modal('hide');
-
           // triger event change modal
           we.events.trigger('userAvatarChange', data);
-
         }).fail(function(e){
+          /* @TODO handle set avatar errors */
           console.error('Error on image crop',e);
         });
-
-        // Handle success
-
       }
     }
   });

@@ -34,7 +34,6 @@ exports.getFileOrResize = function getFileOrResize(fileName,imageStyle ,callback
     .noProfile()
     .write(fullFilePath, function (err) {
       if (err) return callback(err);
-      sails.log.warn('ii',ii);
       fs.readFile(path,function (err, contents) {
         callback(null, contents);
       });

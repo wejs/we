@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Modal avatarChangeModal -->
 <div class="modal" id="avatarChangeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -6,7 +6,7 @@
 <form id="avatar-upload" class="form-upload-avatar" name="uploadAvatarForm" >
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Change avatar</h4>
+    <h4 class="modal-title">{{t 'Change avatar'}}</h4>
   </div>
   <div class="modal-body">
     <div class="row"><div class=" col-lg-offset-2 col-lg-8">
@@ -26,11 +26,11 @@
   </div>
   <div class="modal-footer">
     {{#if imageSelected}}
-      <button class="btn btn-primary" type="buttom" {{action 'saveAvatar'}}>Salvar foto</button>
+      <button class="btn btn-primary" type="buttom" {{action 'cropAndSave'}}>Salvar foto</button>
     {{else}}
       <button class="btn btn-primary" type="buttom" {{action 'selectFile'}}>Selecionar imagem</button>
     {{/if}}
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{t 'Close'}}</button>
   </div>
 </form>
     </div>
