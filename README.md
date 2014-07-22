@@ -45,6 +45,7 @@ Before install and start:
 * Node.js http://nodejs.org/
 * npm https://npmjs.org/
 * Bower http://bower.io/
+* graphicsmagick http://www.graphicsmagick.org/
 
 Then in terminal tip:
 
