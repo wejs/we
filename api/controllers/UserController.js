@@ -141,7 +141,7 @@ module.exports = {
         }); // </foundAgain>
         */
 
-        res.ok(updatedRecord);
+        res.ok({user: updatedRecord});
       });// </updated>
     }); // </found>
   },
