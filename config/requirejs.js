@@ -42,7 +42,7 @@ module.exports.requirejs = {
     select2: 'bower_components/select2/select2',
 
     // image cropper lib
-    cropper: 'bower_components/cropper/dist/cropper'
+    jcrop: 'bower_components/Jcrop/js/jquery.Jcrop'
 
   },
   shim: {
