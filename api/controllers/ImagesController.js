@@ -46,47 +46,35 @@ module.exports = {
       return res.send(400,'Image style invalid');
     }
 
-    // TODO change to image upload path
-    var path = sails.config.imageUploadPath + '/' + imageStyle + '/' + fileName;
+    Images.findOne()
+    .where({name: fileName})
+    .exec(function(err, image) {
+      if (err) return res.negotiate(err);
 
-    fs.readFile(path,function (err, contents) {
-      if (err){
-        if(err.code != 'ENOENT' || imageStyle == 'original' ){
+      if(!image){
+        sails.log.debug('Image:findOne:Image not found:',fileName);
+        return res.send(404);
+      }
+
+      FileImageService.getFileOrResize(fileName, imageStyle ,function(err, contents){
+        if(err){
           sails.log.error('Image:findOne:Error on get image:',err);
+          return res.send(500);
+        }
+
+        if(!contents){
           return res.send(404);
         }
 
-        var originalFile = sails.config.appPath + '/'+ sails.config.imageUploadPath + '/' + 'original' + '/' + fileName;
+        if(image.mime){
+          res.contentType(image.mime);
+        }else{
+          res.contentType('image/png');
+        }
 
-        var fullFilePath = sails.config.appPath + '/' + path;
-
-        var width = sails.config.upload.image.styles[imageStyle].width;
-        var heigth = sails.config.upload.image.styles[imageStyle].heigth;
-
-        // resize and remove EXIF profile data
-        gm(originalFile)
-        .resize(width, heigth)
-        .noProfile()
-        .write(fullFilePath, function (err) {
-          if (err){
-            sails.log.error('Error on generate new file:',imageStyle,fullFilePath, err);
-            return res.send(500);
-          }
-
-          fs.readFile(path,function (err, contents) {
-            if (err){
-              sails.log.error('error on findOne image after generate new image:',err);
-              return res.send(404);
-            }
-            res.contentType('image/png');
-            res.send(contents);
-          });
-        });
-
-      }else{
-        res.contentType('image/png');
         res.send(contents);
-      }
+      });
+
     });
   },
 

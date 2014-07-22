@@ -175,49 +175,44 @@ module.exports = {
     var id = req.param('id');
     var defaultAvatarPath = 'assets/imgs/avatars/user-avatar.png';
 
-    if(id){
-      User.findOneById(id).exec(function(err, user){
-        if(err){
-          sails.error(err);
-          return res.send(500,{'error':err});
-        }else if(user && user.avatarId){
-          Images.findOneById(user.avatarId).exec(function(err, image) {
-            if (err) {
-                console.log('Error on get image from BD: ',err );
-                res.send(404);
-            } else {
+    if(!id) return res.forbidden();
 
-              // TODO change to image upload path
-              var path = 'uploads/' + image.name;
+    User.findOneById(id).exec(function(err, user){
+      if (err) return res.negotiate(err);
 
-              fs.readFile(path,function (err, contents) {
+      if(user && user.avatarId){
+        Images.findOneById(user.avatarId).exec(function(err, image) {
+          if (err) return res.negotiate(err);
 
-                if (err){
-                  sails.log.error(err);
-                  return res.send(404);
-                }else{
-                  res.contentType('image/png');
-                  res.send(contents);
-                }
-
-              });
-            }
-          });
-        }else{
-          fs.readFile(defaultAvatarPath,function (err, contents) {
+          FileImageService.getFileOrResize(image.name,'thumbnail' ,function(err, contents){
             if(err){
-              sails.log.error('Error on get avatar',err);
+              sails.log.debug('Error on get avatar',err);
               return res.send(404);
             }
 
-            res.contentType('image/png');
+            if(image.mime){
+              res.contentType(image.mime);
+            }else{
+              res.contentType('image/png');
+            }
+
             res.send(contents);
           });
-        }
-      });
-    } else {
-      return next();
-    }
+
+        });
+      }else{
+        fs.readFile(defaultAvatarPath,function (err, contents) {
+          if(err){
+            sails.log.error('Error on get avatar',err);
+            return res.send(404);
+          }
+
+          res.contentType('image/png');
+          res.send(contents);
+        });
+      }
+    });
+
   },
 
   changeAvatar: function (req, res) {

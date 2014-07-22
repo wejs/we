@@ -10,6 +10,8 @@ var uuid = require('node-uuid');
 // image converter
 var gm = require('gm');
 
+var mime = require('mime');
+
 module.exports = {
 
 //  adapter: 'sails-local-fs'
@@ -94,6 +96,8 @@ module.exports = {
 
     mv(file.path, newFilePath,{mkdirp: true}, function(err){
       if(err) return callback(err, null);
+
+      file.mime = mime.lookup(newFilePath);
 
       console.log('arquivo movido para:',newFilePath);
       // get image size
