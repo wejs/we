@@ -28,19 +28,10 @@ module.exports = {
     query.exec(function found(err, matchingRecords) {
       if (err) return res.serverError(err);
 
-      async.each(matchingRecords, function(matchingRecord, done){
-
-        sails.log.warn('matchingRecords',matchingRecord);
-
-        done();
-      }, function(err){
-        if(err) return res.send(500,err);
-
-        res.send({
-          group: matchingRecords
-        });
-
+      res.send({
+        group: matchingRecords
       });
+
     });
   },
 
