@@ -6,7 +6,7 @@ define(['we','ember'], function (we) {
     },
     init: function () {
       this._super();
-      console.log('404 :: redirection to index');
+      console.log('404 :: 404 page');
     }
   });
 

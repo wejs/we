@@ -150,6 +150,8 @@ define('emberApp',[
       this.route('authForgotPassword',{path: '/auth/forgot-password'});
       this.route('authResetPassword',{path: '/auth/reset-password'});
       // 404 pages
+      this.route("forbiden", { path: "forbiden"});
+      // 404 pages
       this.route("unknown", { path: "*path"});
     });
     next();
