@@ -14,12 +14,10 @@ define(['we','ember'], function (we) {
       we.events.on('showAvatarChangeModal',this.onShowAvatarChangeModal.bind(this));
     },
     filesDidChange: function() {
-      console.warn('mudo');
       this.set('file',this.get('files').item(0));
     }.observes('files'),
     onShowAvatarChangeModal: function(event, data){
       this.set('user', data.user);
-      console.warn('data',data);
       $('#avatarChangeModal').modal('show');
     },
     willDestroyElement: function(){
@@ -30,7 +28,7 @@ define(['we','ember'], function (we) {
         $('#avatarChangeModal').modal('show');
       },
       close: function(){
-        $('#avatarChangeModal').modal('close');
+        $('#avatarChangeModal').modal('hide');
       },
       selectFile: function(){
         var _this = this;
@@ -56,9 +54,34 @@ define(['we','ember'], function (we) {
       },
 
       saveAvatar: function(files){
-        var self = this;
-        var cropImageData = this.get('cropImageData');
-        console.warn('cropImageData',cropImageData);
+        var _this = this;
+        var cords = this.get('cropImageData');
+        var image = this.get('salvedImage');
+        var userId = App.currentUser.get('id');
+
+        Ember.$.ajax({
+          type: 'put',
+          url: '/api/v1/user/'+userId+'/avatar',
+          data: JSON.stringify({
+            imageId: image.id
+          }),
+          contentType: 'application/json'
+        }).done(function(data){
+
+          var avatar = data.avatar;
+          App.currentUser.set('avatarId',avatar.id);
+          _this.get('store').push('image', avatar);
+          _this.get('store').push('user',App.currentUser);
+          // close modal
+          $('#avatarChangeModal').modal('hide');
+
+          // triger event change modal
+          we.events.trigger('userAvatarChange', data);
+
+        }).fail(function(e){
+          console.error('Error on image crop',e);
+        });
+
         // Handle success
 
       }

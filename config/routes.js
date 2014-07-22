@@ -165,7 +165,7 @@ module.exports.routes = {
     action        : 'getAvatar'
   },
 
-  'post /avatar': {
+  'put /api/v1/user/:id/avatar': {
     controller    : 'user',
     action        : 'changeAvatar'
   },

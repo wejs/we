@@ -220,87 +220,41 @@ module.exports = {
     }
   },
 
-  changeAvatar: function (req, res, next) {
+  changeAvatar: function (req, res) {
     // TODO validate req.files.files
     var avatarFile = {};
+    var imageId = req.param('imageId');
 
-    req.file('file').upload(function (err, files) {
-      if (err) return res.serverError(err);
-
-      avatarFile = files[0];
-      //temporary file folder
-      avatarFile.path = '.tmp/uploads/' + files[0].filename;
-
-      Images.upload(files[0], function(err){
-        if(err){
-          res.send(
-            {
-              "files":[],
-              "error": err
-            }
-          );
-        } else {
-          saveImage();
-        }
-
-      });
-    });
-
-    function saveImage(file){
-
-      var uploadedFile = {};
-
-      uploadedFile.name = avatarFile.newName;
-      uploadedFile.originalFilename = avatarFile.originalFilename;
-      uploadedFile.size = avatarFile.size;
-      uploadedFile.extension = avatarFile.extension;
-
-      // TODO check if are better get mime direct from file
-      //uploadedFile.mime = req.files.files.headers['content-type'];
-      uploadedFile.creator = req.user.id;
-
-      Images.create(uploadedFile).exec(function(error, salvedFile) {
-        if (error) {
-          // TODO delete file if ocurs errror here
-          console.log(error);
-          res.send(500, {error: res.i18n("DB Error") });
-        } else {
-          //console.log('salved File:',salvedFile);
-          salvedFile.thumbnailUrl = 'http://localhost:1333/images/avatars/user-avatar.png';
-          salvedFile.url = 'http://localhost:1333/images/avatars/user-avatar.png';
-          salvedFile.deleteUrl = '/files/' + salvedFile.id;
-          salvedFile.deleteType = 'DELETE';
-          console.log(salvedFile);
-          saveAvatar(salvedFile);
-
-        }
-      });
+    if(!req.user && req.user.id){
+      return res.forbidden();
     }
 
-    function saveAvatar(salvedFile){
-      // Lookup a user
+    Images.findOne()
+    .where({id: imageId})
+    .exec(function(err, image){
+      if (err) return res.negotiate(err);
 
-      console.log('New avatar to user:',req.user, salvedFile.id);
+      if(!image || req.user.id != image.creator){
+        sails.log.debug('User:avatarChange:User dont are image woner or image not found',req.user, image);
+        return res.forbidden();
+      }
 
-      req.user.avatarId = salvedFile.id;
+      // set current user vars
+      req.user.avatarId = image.id;
+      req.user.avatarId = image.id;
 
+      // update db user
       User.update(
         {id: req.user.id},
-        {avatarId: salvedFile.id}
+        {avatarId: image.id}
       ).exec(function afterwards(err,updated){
-
-        if(err){
-          return res.send(500, {err: res.i18n("Error on user avatar save") });
-        }
-
+        if (err) return res.negotiate(err);
         res.send({
           "user": req.user,
-          "avatar": salvedFile
+          "avatar": image
         });
-
       });
-
-    }
+    });
   },
 
   forgotPasswordForm: function (req, res, next) {
