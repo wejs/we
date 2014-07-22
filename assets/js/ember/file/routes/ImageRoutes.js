@@ -23,16 +23,17 @@ define(['we','ember'], function (we) {
   });
 
   // route //:uid/index
-  App.ImageIndexRoute = Ember.Route.extend({
+  App.ImageIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       return Ember.RSVP.hash({
+        creator: this.store.find('user', this.modelFor('image').get('creator.id')),
         image: this.modelFor('image')
       });
     }
   });
 
   // route //:uid/crop
-  App.ImageCropRoute = Ember.Route.extend({
+  App.ImageCropRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       return Ember.RSVP.hash({
         image: this.modelFor('image')

@@ -14,7 +14,6 @@ var gm = require('gm');
 module.exports = {
 
   list : function (req, res){
-
     Images.find()
     .where( actionUtil.parseCriteria(req) )
     .limit( actionUtil.parseLimit(req) )

@@ -8,15 +8,7 @@ define(['we','ember', 'jcrop'], function (we) {
     attributeBindings: ['src','width'],
     webp: 'auto',
     classNames: ['jcrop'],
-    template: '',
     data: {},
-    init: function(){
-      this._super();
-      var file = this.get('file');
-
-      //this.set('src', '/api/v1/images/original/'+file.name);
-
-    },
     didInsertElement: function(){
       var _this = this;
       var file = this.get('file');
@@ -32,7 +24,6 @@ define(['we','ember', 'jcrop'], function (we) {
         bgColor: 'black',
         bgOpacity: '0.4',
         onSelect: function(coords) {
-          console.warn(coords);
           _this.set('data', coords);
         },
         // trueSize: [
@@ -44,6 +35,7 @@ define(['we','ember', 'jcrop'], function (we) {
 
     },
     willDestroyElement: function(){
+      // disable crop on element destroy
       this.$().Jcrop("disable");
     },
 

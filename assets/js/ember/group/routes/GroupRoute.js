@@ -20,14 +20,14 @@ define(['we','ember'], function (we) {
   });
 
   // route list
-  App.GroupsIndexRoute = Ember.Route.extend({
+  App.GroupsIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       return this.store.find('group');
     }
   });
 
   // route list
-  App.GroupsCreateRoute = Ember.Route.extend({
+  App.GroupsCreateRoute = Ember.Route.extend(App.ResetScrollMixin,{
     renderTemplate: function() {
       this.render('group/create');
     }
@@ -41,7 +41,7 @@ define(['we','ember'], function (we) {
   });
 
   // route /user/:uid/index
-  App.GroupIndexRoute = Ember.Route.extend({
+  App.GroupIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       var group_id = this.modelFor('group').get('id');
       var sharedIn = null;

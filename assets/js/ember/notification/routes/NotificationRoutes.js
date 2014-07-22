@@ -14,7 +14,7 @@ define(['we','ember'], function (we) {
     // });
   });
 
-  App.NotificationsIndexRoute = Ember.Route.extend({
+  App.NotificationsIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     renderTemplate: function() {
       this.render('notifications/notifications');
     },
@@ -23,7 +23,7 @@ define(['we','ember'], function (we) {
     // }
   });
 
-  App.NotificationsLidasRoute = Ember.Route.extend({
+  App.NotificationsLidasRoute = Ember.Route.extend(App.ResetScrollMixin,{
     renderTemplate: function() {
       this.render('notifications/lidas');
     },

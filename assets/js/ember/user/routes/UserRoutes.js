@@ -24,7 +24,7 @@ define(['we','ember'], function (we) {
     }
   });
   // route list
-  App.UsersIndexRoute = Ember.Route.extend({
+  App.UsersIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       return this.store.find('user');
     },
@@ -77,14 +77,14 @@ define(['we','ember'], function (we) {
   });
 
   // route /user/:uid/index
-  App.UserIndexRoute = Ember.Route.extend({
+  App.UserIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       var user_id = this.modelFor('user').user.get('id');
       return {
         posts: this.store.find('post',{
           creator: user_id
         })
-      }
+      };
     },
   });
 
