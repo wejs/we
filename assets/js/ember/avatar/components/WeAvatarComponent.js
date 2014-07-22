@@ -48,12 +48,11 @@ define(['we','ember'], function (we) {
       this.changeAvatarUrl();
 
       // refresh avatar on user avatar change
-      // TODO remove on element destroy
       we.events.on('userAvatarChange',this.onUserAvatarChange.bind(this));
     },
     onUserAvatarChange: function(event, data){
-      if(data.user.id === self.userId){
-        self.changeAvatarUrl(true);
+      if(data.user.id === this.userId){
+        this.changeAvatarUrl(true);
       }
     },
     willDestroyElement: function(){
