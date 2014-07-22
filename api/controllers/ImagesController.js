@@ -152,7 +152,9 @@ module.exports = {
     });
   },
 
-
+  /**
+   * Crop one file by file id
+   */
   cropImage : function (req, res){
 
     var fileId = req.param('id');
@@ -162,8 +164,10 @@ module.exports = {
     cords.x = req.param('x');
     cords.y = req.param('y');
 
-    if(!fileId ){
-      return res.send(404);
+    if(!fileId ) return res.send(400,'File id param is required');
+
+    if(!cords.width || !cords.height || cords.x === null || cods.y === null){
+      return res.send(400,'Width, height, x and y params is required');
     }
 
     if(!req.user || !req.user.id){
@@ -193,6 +197,7 @@ module.exports = {
         // save the new width and height on db
         image.save();
 
+        // delete old auto generated image styles
         FileImageService.deleteImageStylesWithImageName(image.name, function(err){
           if (err){
             sails.log.error('Error on delete old image styles:',image, err);
