@@ -87,6 +87,10 @@ module.exports = {
         obj.name = obj.username;
       }
 
+      if(!obj.displayName){
+        obj.displayName = obj.username;
+      }
+
       // remove password hash from view
       delete obj.password;
 
