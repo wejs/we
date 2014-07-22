@@ -13,12 +13,16 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/avatar/controllers/AvatarChangeModalController",
       "js/ember/avatar/controllers/AvatarImageController",
       "js/ember/avatar/controllers/AvatarLinkImageController",
+      "js/ember/file/controllers/imageCropController",
       "js/ember/group/controllers/GroupController",
       "js/ember/group/controllers/GroupsCreateController",
       "js/ember/group/controllers/GroupsIndexController",
       "js/ember/messenger/controllers/MessengerContactController",
       "js/ember/messenger/controllers/MessengerContactListController",
       "js/ember/messenger/controllers/MessengerMessageController",
+      "js/ember/notification/controllers/NotificationsIndexController",
+      "js/ember/notification/controllers/NotificationsItemController",
+      "js/ember/notification/controllers/NotificationsLidasController",
       "js/ember/post/controllers/PostController",
       "js/ember/post/controllers/PostShareboxController",
       "js/ember/post/controllers/PostsController",
@@ -30,6 +34,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/comment/models/CommentModel",
       "js/ember/file/models/ImageModel",
       "js/ember/group/models/GroupModel",
+      "js/ember/notification/models/NotificationModel",
       "js/ember/post/models/PostModel",
       "js/ember/user/models/ContactModel",
       "js/ember/user/models/UserModel"
@@ -39,7 +44,8 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/avatar/views/AvatarChangeModalView",
       "js/ember/avatar/views/AvatarView",
       "js/ember/messenger/views/MessengereBoxContainerView",
-      "js/ember/user/views/ContactButtomView"
+      "js/ember/user/views/ContactButtomView",
+      "js/ember/user/views/UserNameView"
     ],
     "components": [
       "js/ember/application/components/WeConnectionStatusComponent",
@@ -50,6 +56,8 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/avatar/components/WeAvatarModalComponent",
       "js/ember/comment/components/WeCommentFormComponent",
       "js/ember/file/components/FileUploadComponent",
+      "js/ember/file/components/ImageUploadComponent",
+      "js/ember/file/components/WeImageCropComponent",
       "js/ember/file/components/WeImagePreviewComponent",
       "js/ember/file/components/WeVideoComponent",
       "js/ember/file/components/WeVideoPreviewComponent",
@@ -62,7 +70,9 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/application/routes/HomeRoute",
       "js/ember/application/routes/UnknownRoute",
       "js/ember/auth/routes/AuthForgotPasswordRoute",
+      "js/ember/file/routes/ImageRoutes",
       "js/ember/group/routes/GroupRoute",
+      "js/ember/notification/routes/NotificationRoutes",
       "js/ember/post/routes/PostRoute",
       "js/ember/user/routes/UserRoutes"
     ],
