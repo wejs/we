@@ -163,7 +163,7 @@ module.exports = {
           }]
         });
       }
-console.log('passport',require('we-passport'));
+
       passport.authenticate('local', function(err, usr, info) {
 
         if (err){
