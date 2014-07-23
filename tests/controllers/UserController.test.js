@@ -28,18 +28,19 @@ describe('UsersController', function() {
   describe('JSON Requests', function() {
     describe('GET', function() {
 
-      it('/user without users in database return 200 and a empty array', function (done) {
+      it('/api/v1/user without users in database return 200 and a empty array', function (done) {
 
         request(sails.hooks.http.app)
-        .get('/user')
+        .get('/api/v1/user')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function (err, res) {
           if(err) return done(err);
 
-          res.body.should.be.an.Array;
-          res.body.should.have.lengthOf( 0 );
+          should.exist(res.body.user);
+          res.body.user.should.be.an.Array;
+          res.body.user.should.have.lengthOf( 0 );
 
           done();
         });
@@ -59,16 +60,17 @@ describe('UsersController', function() {
           if(err) return done(err);
 
           request(sails.hooks.http.app)
-          .get('/user')
+          .get('/api/v1/user')
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function (err, res) {
             if(err) return done(err);
 
-            res.body.should.be.an.Array;
-            res.body[0].should.be.an.Object;
-            res.body.should.have.lengthOf( users.length );
+            should.exist(res.body.user);
+            res.body.user.should.be.an.Array;
+            res.body.user[0].should.be.an.Object;
+            res.body.user.should.have.lengthOf( users.length );
             done();
           });
 
@@ -82,7 +84,7 @@ describe('UsersController', function() {
           if(err) return done(err);
 
           request(sails.hooks.http.app)
-          .get('/user/' + newUser.id)
+          .get('/api/v1/user/' + newUser.id)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -90,7 +92,8 @@ describe('UsersController', function() {
             if(err) return done(err);
 
             should(err).not.be.ok;
-            should(res.body).have.properties({
+            should.exist(res.body.user);
+            should(res.body.user).have.properties({
               'id': newUser.id
             });
 

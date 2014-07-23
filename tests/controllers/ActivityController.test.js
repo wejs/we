@@ -65,10 +65,10 @@ describe('Activity', function() {
   describe('JSON Requests', function() {
     describe('GET', function() {
 
-      it('/activity should return 200 and activities array', function (done) {
+      it('/api/v1/activity should return 200 and activities array', function (done) {
 
         request(sails.hooks.http.app)
-        .get('/activity')
+        .get('/api/v1/activity')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
