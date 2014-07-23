@@ -103,23 +103,6 @@ module.exports = {
       return obj;
     },
 
-    // Password functions
-    setPassword: function (password, done) {
-        var _this = this;
-        // generate a salt
-        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-            if (err) return done(err);
-
-            // hash the password along with our new salt
-            bcrypt.hash(password, salt, function(err, crypted) {
-                if(err) return next(err);
-
-                _this.cryptedPassword = crypted;
-                done();
-            });
-        });
-    },
-
     verifyPassword: function (password) {
       // if user dont have a password
       if(!this.password){
@@ -142,26 +125,17 @@ module.exports = {
     },
   },
 
-
   // Lifecycle Callbacks
   beforeCreate: function(user, next) {
-
     // sanitize
     user = SanitizeHtmlService.sanitizeAllAttr(user);
 
-    // Create new user password before create
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-      if (err) return next(err);
-
-      // hash the password along with our new salt
-      bcrypt.hash(user.password, salt, function(err, crypted) {
-        if(err) return next(err);
-
-        user.password = crypted;
-        next();
-      });
+    bcrypt.hash(user.password, SALT_WORK_FACTOR, function (err, hash) {
+      user.password = hash;
+      next(err);
     });
   },
+
   beforeUpdate: function(user, next) {
     // sanitize
     user = SanitizeHtmlService.sanitizeAllAttr(user);
