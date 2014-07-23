@@ -109,7 +109,7 @@
         {{render 'comment/item' this}}
       {{/each}}
     </div>
-    {{we-comment-form creatorId=creator.id post=model store=store}}
+    {{we-comment-form creatorId=App.currentUser.id post=model store=store}}
 
   </div>
 </div>
