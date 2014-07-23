@@ -1,6 +1,6 @@
 // api/controllers/AuthController.js
 
-var passport = require('passport');
+var passport = require('we-passport').getPassport();
 
 module.exports = {
 
@@ -162,7 +162,7 @@ module.exports = {
           }]
         });
       }
-
+console.log('passport',require('we-passport'));
       passport.authenticate('local', function(err, usr, info) {
 
         if (err){

@@ -5,7 +5,8 @@
  * @description	:: Contains logic for handling requests.
  */
 
-var passport = require('passport');
+var passport = require('we-passport').getPassport();
+
 var fs = require('fs');
 // sails controller utils
 var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
