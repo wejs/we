@@ -14,8 +14,6 @@
     "mv": "~1.0.0",
     "node-uuid": "~1.4.1",
     "nodemailer": "0.6.0",
-    "passport": "0.2.0",
-    "passport-local": "0.1.6",
     "rc": "~0.3.5",
     "sails": "0.10.0-rc8",
     "sails-disk": "~0.10.0-rc5",
@@ -27,7 +25,8 @@
     "sanitize-html": "~1.2.1",
     "gm": "~1.16.0",
     "mkdirp": "~0.5.0",
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "we-passport": "0.0.1"
   },
   "devDependencies": {
     "grunt-sync": "0.0.7",
