@@ -1,9 +1,11 @@
 /**
  * Theme system
+ * Hook to load views from one npm package
  */
 
 module.exports = function(sails) {
-
+  // set theme in sails start
+  /** @TODO move to one sails.js hook */
   setTheme();
 
   return {
@@ -13,7 +15,6 @@ module.exports = function(sails) {
      *
      * @api public
      */
-
     initialize: function(cb) {
       cb();
     },
