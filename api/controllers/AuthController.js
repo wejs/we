@@ -1,6 +1,7 @@
 // api/controllers/AuthController.js
 
 var passport = require('we-passport').getPassport();
+var weSendEmail = require('we-send-email');
 
 module.exports = {
 
@@ -350,7 +351,7 @@ console.log('passport',require('we-passport'));
             resetPasswordUrl: req.baseUrl + '/auth/'+ user.id +'/reset-password/' + token.token
           };
 
-          EmailService.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err, responseStatus){
+          weSendEmail.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err, responseStatus){
             if(err){
               sails.log.error(err);
             }

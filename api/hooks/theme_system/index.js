@@ -48,6 +48,7 @@ module.exports = function(sails) {
     sails.config.paths.layout = templates_path + '/' + theme_enabled.configs.views.path;
     express.set('views', templates_path);
 
+    sails.config.themes.themeEnabled = theme_enabled;
 
     if(theme_enabled.initialize && typeof  theme_enabled.initialize == "function"){
       theme_enabled.initialize(sails);
