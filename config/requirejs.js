@@ -8,6 +8,7 @@ module.exports.requirejs = {
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
     moment: 'bower_components/moment/min/moment-with-langs.min',
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
+    /** @todo remove async from client side */
     async: 'bower_components/async/lib/async',
     handlebars: 'js/libs/handlebars',
     // ember
@@ -16,34 +17,27 @@ module.exports.requirejs = {
     'ember-data-sails-adapter': 'bower_components/ember-data-sails-adapter/ember-data-sails-adapter',
     'ember-i18n': 'bower_components/ember-i18n/lib/i18n',
     'ember-auth': 'bower_components/ember-auth/dist/ember-auth',
-
-    // bootstrap for ember
-    //'bs-core': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max',
-    //'bs-modal': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max',
-    //'bs-modal': 'js/libs/bs-modal',
-    //'bs-button': 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max',
-
+    // showdown for show markup
     'showdown': 'bower_components/showdown/src/showdown',
-
     // precompiled ember templates
     emberTemplates: 'tpls.hbs',
-
     // wejs files
     we: 'bower_components/we/dist/we',
     weEmberPlugin: 'js/ember/weEmberPlugin',
     emberApp: 'js/ember/emberApp',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
-
     // wysiwyg editor
     summernote: 'wysiwyg/summernote/dist/summernote',
     codemirror: 'bower_components/codemirror/lib/codemirror',
-
     // typeahead and autocomplete select field
     select2: 'bower_components/select2/select2',
-
     // image cropper lib
-    jcrop: 'bower_components/Jcrop/js/jquery.Jcrop'
-
+    jcrop: 'bower_components/Jcrop/js/jquery.Jcrop',
+    // mention libs
+    typeahead: 'js/libs/bootstrap-typeahead',
+    caretPosition: 'js/libs/caret-position',
+    rangy: 'js/libs/rangy-core',
+    tagautocomplete: 'js/libs/bootstrap-tagautocomplete'
   },
   shim: {
     bootstrap: {
@@ -54,6 +48,11 @@ module.exports.requirejs = {
     select2: {
       deps: [
         'bootstrap',
+        'jquery'
+      ]
+    },
+    rangy: {
+      deps: [
         'jquery'
       ]
     },

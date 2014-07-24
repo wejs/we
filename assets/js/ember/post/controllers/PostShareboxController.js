@@ -1,5 +1,5 @@
 
-define(['we', 'ember', 'select2', 'jquery'], function (we) {
+define(['we', 'ember', 'select2', 'tagautocomplete'], function (we) {
 
   App.PostShareboxController = Ember.ObjectController.extend(
     App.LoggedInMixin,

@@ -54,6 +54,14 @@ define(['we','summernote','ember'], function (we, summernote) {
           }
         }
       });
+
+      /** @todo Add this feature as summeredit plugin */
+      // bind mention feature on summer edit editor area
+      editor.next().find('div.note-editable').tagautocomplete({
+        source: ['@ann', '@bill', '@casey', '#work', '#finance', '#home', '@Alberto'],
+        character: '@#', //accept both @ and #
+      });
+
       // salve editor on ember component variable
       this.set('editor', editor);
     },
