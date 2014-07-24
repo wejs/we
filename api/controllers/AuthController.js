@@ -403,7 +403,7 @@ module.exports = {
         if(req.wantsJSON){
           res.send('200',user);
         }else{
-          res.redirect('/auth/reset-password');
+          res.redirect( '/auth/reset-password/' + authToken.id);
         }
 
       });
@@ -415,7 +415,107 @@ module.exports = {
     res.view('home/index');
   },
 
-  resetPassword: function(req, res){
+  changePassword: function(req, res){
+
+    sails.log.warn(req.params);
+    sails.log.info(req.body);
+
+    var oldPassword = req.body.oldPassword;
+    var newPassword = req.body.newPassword;
+    var rNewPassword = req.body.rNewPassword;
+    var userId = req.param('id');
+    
+    if(!req.user || !req.user.email || req.user.id != userId){
+      return res.send(403, {
+        responseMessage: {
+          errors: [
+            {
+              type: 'authentication',
+              message: res.i18n("Forbiden")
+            }
+          ]
+        }
+      });
+    }
+    
+    var errors = {};
+
+    if(!oldPassword){
+      errors.password = [];
+      errors.password.push({
+        type: 'validation',
+        field: 'oldPassword',
+        rule: 'required',
+        message: res.i18n("Field <strong>password</strong> is required")
+      });
+    }
+
+    sails.log.info('newPassword:' , newPassword , '| rNewPassword:' , rNewPassword);
+
+    if( _.isEmpty(newPassword) || _.isEmpty(rNewPassword) ){
+      errors.password = [];
+      errors.password.push({
+        type: 'validation',
+        field: 'rNewPassword',
+        rule: 'required',
+        message: res.i18n("Field <strong>Confirm new password</strong> and <strong>New Password</strong> is required")
+      });
+    }
+
+    if(newPassword != rNewPassword){
+      errors.password = [];
+      errors.password.push({
+        type: 'validation',
+        field: 'newPassword',
+        rule: 'required',
+        message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
+      });
+    }
+
+    if( ! _.isEmpty(errors) ){
+      // error on data or confirm password
+      return res.send('400',{
+        "error": "E_VALIDATION",
+        "status": 400,
+        "summary": "Validation errors",
+        "model": "User",
+        "invalidAttributes": errors
+      });
+    }
+
+    User.findOneById(userId)
+    .exec(function(error, user){
+      if(error){
+        sails.log.error('resetPassword: Error on get user', user);
+        return res.negotiate(error);
+      }
+
+      if(!user){
+        sails.log.info('resetPassword: User not found', user);
+        return res.negotiate(error);
+      }
+
+      var passwordOk = user.verifyPassword(oldPassword);
+
+      if(passwordOk){
+
+        user.newPassword = newPassword;
+        user.save();
+
+        return res.send('200',{
+          success: [
+            {
+              status: '200',
+              message: res.i18n('Password changed successfully.')
+            }
+          ]
+        });
+
+
+      }
+
+    });
+
 
   }
 
@@ -478,6 +578,7 @@ var validSignup = function(user, confirmPassword, res){
     });
   }
 
+  // check if password exist
   if(!user.password){
     errors.password = [];
     errors.password.push({
@@ -510,3 +611,41 @@ var validSignup = function(user, confirmPassword, res){
 
   return errors;
 };
+/*
+var validPassword = function(password, confirmPassword, res){
+  var errors = {};
+
+  // check if password exist
+  if(!user.password){
+    errors.password = [];
+    errors.password.push({
+      type: 'validation',
+      field: 'password',
+      rule: 'required',
+      message: res.i18n("Field <strong>password</strong> is required")
+    });
+  }
+
+  if(!confirmPassword){
+    errors.confirmPassword = [];
+    errors.confirmPassword.push({
+      type: 'validation',
+      field: 'confirmPassword',
+      rule: 'required',
+      message: res.i18n("Field <strong>Confirm new password</strong> is required")
+    });
+  }
+
+  if(confirmPassword != user.password){
+    if(!errors.password) errors.password = [];
+    errors.password.push({
+      type: 'validation',
+      field: 'password',
+      rule: 'required',
+      message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
+    });
+  }
+
+  return errors;
+};
+*/

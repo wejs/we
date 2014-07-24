@@ -4,19 +4,30 @@ define(['we','ember'], function (we) {
   App.Router.map(function(match) {
     // auth
     this.route('authForgotPassword',{path: '/auth/forgot-password'});
-    this.route('authResetPassword',{path: '/auth/reset-password'});
-    this.route('authRegister',{path: '/auth/register'});    
+    this.route('authResetPasswordToken',{path: '/auth/reset-password/:token_id'});
+    this.route('authChangePassword',{path: '/auth/change-password/'});
+    this.route('authRegister',{path: '/auth/register'});
   });  
 
-  App.AuthResetPasswordRoute = Ember.Route.extend({
+  App.AuthResetPasswordTokenRoute = Ember.Route.extend({
     renderTemplate: function() {
-      this.render('auth/ResetPassword');
+      this.render('auth/ResetPasswordToken');
+    },
+    model: function(params) {
+      return {
+        user: App.currentUser,
+        tokenid: params['token_id']
+      };
+    }
+  });
+
+  App.AuthChangePasswordRoute = Ember.Route.extend({
+    renderTemplate: function() {
+      this.render('auth/ChangePassword');
     },
     model: function() {
       return {
-        password: '',
-        repeatPassword: '',
-        messages: [],
+        user: { 'password':'', 'oldpassword':'', 'repeatpassword':'' }
       };
     }
   });

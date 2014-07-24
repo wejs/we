@@ -143,9 +143,9 @@ module.exports.routes = {
     action        : 'resetPasswordPage'
   },
 
-  'post /auth/reset-password':{
+  'put /auth/:id/change-password':{
     controller    : 'auth',
-    action        : 'resetPassword'
+    action        : 'changePassword'
   },
 
   // register  form
