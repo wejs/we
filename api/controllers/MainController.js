@@ -56,6 +56,8 @@ module.exports = {
       configs.plugins.enabled = sails.config.clientside.pluginsDefaultEnabled;
     }
 
+    configs.client.log = sails.config.clientside.log;
+
     fs.exists('.tmp/config/clientsideEmberjsParts.js', function(exists) {
       if (exists) {
         configs.client.emberjsParts = require('../../.tmp/config/clientsideEmberjsParts.js').clientsideEmberjsParts;
