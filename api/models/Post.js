@@ -57,7 +57,7 @@ module.exports = {
 
     images: {
       collection: 'images',
-      via: 'inPosts'
+      via: 'inPost'
     },
 
     links: {
