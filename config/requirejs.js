@@ -32,12 +32,7 @@ module.exports.requirejs = {
     // typeahead and autocomplete select field
     select2: 'bower_components/select2/select2',
     // image cropper lib
-    jcrop: 'bower_components/Jcrop/js/jquery.Jcrop',
-    // mention libs
-    typeahead: 'js/libs/bootstrap-typeahead',
-    caretPosition: 'js/libs/caret-position',
-    rangy: 'js/libs/rangy-core',
-    tagautocomplete: 'js/libs/bootstrap-tagautocomplete'
+    jcrop: 'bower_components/Jcrop/js/jquery.Jcrop'
   },
   shim: {
     bootstrap: {
@@ -48,11 +43,6 @@ module.exports.requirejs = {
     select2: {
       deps: [
         'bootstrap',
-        'jquery'
-      ]
-    },
-    rangy: {
-      deps: [
         'jquery'
       ]
     },

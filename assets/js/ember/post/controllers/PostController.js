@@ -81,7 +81,7 @@ define(['we','ember'], function (we) {
         // rollback changes
         this.get('model').rollback();
       },
-      save: function(){
+      submit: function(){
         var _this = this;
         // // save the model
         _this.get('model').save().then(function(post){

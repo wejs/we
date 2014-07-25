@@ -25,6 +25,8 @@ define(['we','ember','ember-data'], function (we) {
 
     links: attr('array'),
 
+    images: attr('array'),
+
     activities: DS.hasMany('activity'),
     // sharedIn: DS.hasMany('group')
 

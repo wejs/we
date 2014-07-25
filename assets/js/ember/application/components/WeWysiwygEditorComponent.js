@@ -9,6 +9,7 @@ define(['we','summernote','ember'], function (we, summernote) {
     tagName: 'div',
     didInsertElement: function() {
       this._super();
+      var user_id = App.currentUser.get('id');
       var _this = this;
       // append summernote div tag for create the editor in it
       _this.$().append('<div class="summernote">'+_this.get('value')+'</div>');
@@ -55,12 +56,17 @@ define(['we','summernote','ember'], function (we, summernote) {
         }
       });
 
-      /** @todo Add this feature as summeredit plugin */
-      // bind mention feature on summer edit editor area
-      editor.next().find('div.note-editable').tagautocomplete({
-        source: ['@ann', '@bill', '@casey', '#work', '#finance', '#home', '@Alberto'],
-        character: '@#', //accept both @ and #
-      });
+      // only load mention feature is user is logged in
+      // if(user_id){
+      //   /** @todo Add this feature as summeredit plugin */
+      //   // bind mention feature on summer edit editor area
+      //   editor.next().find('div.note-editable').tagautocomplete({
+      //     source: App.currentUser.get('mentionOptions'),
+      //     //accept both @ and #
+      //     // @ for user and # for hastag
+      //     character: '@#',
+      //   });
+      // }
 
       // salve editor on ember component variable
       this.set('editor', editor);

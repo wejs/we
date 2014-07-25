@@ -4,6 +4,7 @@ define(['we','ember'], function (we) {
   App.WeImagePreviewComponent = Ember.Component.extend({
     tagName: 'img',
     width: '100%',
+    //onRemove : 'onRemoveImage',
     attributeBindings: ['src','width'],
     webp: 'auto',
     classNames: ['thumbnail'],
@@ -20,6 +21,12 @@ define(['we','ember'], function (we) {
       };
       reader.readAsDataURL(file);
     },
+    click: function(){
+      teste = this;
+      if(this.get('onRemove')){
+        this.sendAction('onRemove', this.get('file'), this);
+      }
+    }
   });
 
 });

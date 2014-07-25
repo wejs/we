@@ -34,9 +34,12 @@ define('emberApp',[
       };
     };
 
-    // TODO move this mixn to one mixins file
+    // TODO move this mixin to one mixins file
     App.PostMecanismMixin = Ember.Mixin.create({
       actions: {
+        openShareImage: function openShareImage(){
+          this.set('shareImages', true);
+        },
         onChangeSelect2Data: function(e){
           if(e.removed){
             switch(e.removed.model) {
@@ -78,6 +81,54 @@ define('emberApp',[
         },
         onRemoveVideo: function(videoUrl, element){
           this.get('videos').removeObject(videoUrl);
+        },
+        /**
+         * Remove one image from imagesToSave array
+         * @param  {[type]} imageObj upload image object
+         */
+        onRemoveImage: function onRemoveImage(imageObj){
+          this.get('files').removeObject(imageObj);
+        },
+        /**
+         * Upload images to server
+         * @param  {array}   files     Array with files to upload
+         * @param  {string}   uploadUrl url to upload the files
+         * @param  {Function} callback  function to callback with callback(error)
+         */
+        uploadImages: function uploadImages(files, uploadUrl, callback){
+          var _this = this;
+          var uploader = Ember.Uploader.create({
+            url: uploadUrl,
+            type: 'POST',
+            paramName: 'images'
+          });
+          if (!Ember.isEmpty(files)) {
+            /** @todo add suport to send multiples file, fix sails bug. */
+            var promisseUpload = uploader.upload(files[0]);
+            promisseUpload.then(function(data) {
+              // Handle success
+              if(data.images){
+                // store new images on ember data
+                salvedImages = _this.get('store').pushMany('image',data.images);
+                salvedImagesIds = [];
+                // get image ids
+                for (var i = salvedImages.length - 1; i >= 0; i--) {
+                  salvedImagesIds.push(salvedImages[i].id);
+                }
+                // set image ids to save in model
+                _this.set('model.images',salvedImagesIds);
+                callback(null);
+              }else{
+                _this.set('model.images',[]);
+                callback(null);
+              }
+            }, function(error) {
+              // Handle failure
+              callback(error);
+            });
+          }else{
+            callback(null);
+          }
         }
       }
     });
@@ -110,6 +161,7 @@ define('emberApp',[
     // save current user in App.currentUser
     App.currentUser = Ember.Object.create(we.authenticatedUser,{
       shareWithOptions: [],
+      mentionOptions: [],
       init: function(){
         this.loadShareWithOptions();
       },
@@ -129,7 +181,16 @@ define('emberApp',[
         })
         .done(function success(data){
           if(data.length){
-            _this.set('shareWithOptions', data);
+
+            var mentions = data.map(function(option){
+              return option.text;
+            });
+
+            _this.setProperties({
+              'shareWithOptions': data,
+              'mentionOptions': mentions
+            });
+
           }
         })
         .fail(function error(data){

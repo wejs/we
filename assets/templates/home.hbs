@@ -1,10 +1,7 @@
 {{#if isAuthenticated}}
   <div id="posts" class="posts ">
-      <div class="sharebox-area masonry-brick  content-block">
-        {{render 'post/sharebox' postNew}}
-      </div>
-    <div class="new-posts-notification alert alert-info">
-      TODO show new post notifications here
+    <div class="sharebox-area masonry-brick  content-block">
+      {{render 'post/sharebox' postNew}}
     </div>
 
     {{render 'posts/list' posts controller='Posts'}}

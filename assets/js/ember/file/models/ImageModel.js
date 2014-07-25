@@ -22,6 +22,9 @@ define(['we','ember','ember-data'], function (we) {
 
     creator: DS.belongsTo('user'),
 
+    // post association
+    inPost: attr('string'),
+
     createdAt: attr('date'),
     updatedAt: attr('date')
   });

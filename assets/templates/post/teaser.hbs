@@ -18,51 +18,18 @@
   </div>
 
   <div class="panel-body">
-    {{#if isEditing}}
-      <form class="edit-post" role="form">
-        <div class="form-group">
-          {{we-wysiwyg-editor name="body" value=body onPaste="onPasteInBody"}}
-        </div>
 
-        <div class="form-group">
-          <div class='row'>
-            {{#each videos}}
-              <div class='col-md-6'>
-                {{we-video-preview url=this onRemove="onRemoveVideo"}}
-              </div>
-            {{/each}}
-          </div>
-        </div>
+    {{view App.postEditFormView isVisible=isEditing}}
 
-        <div class="form-group">
-          <div class="input-group">
-            <label for="toId" class="input-group-addon">{{t "To"}}:</label>
-            {{we-select2 shareWithOptions=App.currentUser.shareWithOptions shareWithUsers=shareWithUsers shareInGroups=shareInGroups}}
-          </div>
-        </div>
-
-        <div class="actions form-group">
-          <button type="button" class="btn btn-primary" {{action 'save'}} >
-            <span class="glyphicon glyphicon-ok"> {{t 'Save'}} </span>
-          </button>
-          <button type="button" class="btn btn-default" {{action 'cancel'}} >
-            <span class="glyphicon glyphicon-remove"> {{t 'Cancel'}} </span>
-          </button>
-        </div>
-      </form>
-    {{else}}
-
+    {{#unless isEditing}}
       <div class="content">
         <div class="post-text">{{{body}}}</div>
-
         <div class="videos">
           {{#each videos}}
             {{we-video url=this}}
           {{/each}}
         </div>
-
       </div>
-
       <div class="footer">
           <div class="actions">
               <span class="social">
@@ -91,7 +58,7 @@
               {{/can}}
           </div>
       </div>
-    {{/if}}
+    {{/unless}}
   </div>
 
   <div class="panel-footer">

@@ -104,8 +104,8 @@ module.exports = {
    * Upload file to upload dir and save metadata on database
    */
   createRecord : function (req, res){
-   // console.log('files:',req.files);
-   // console.log('file:',req.files.files[0]);
+   sails.log.debug('files:',req.files);
+   sails.log.debug('file:',req.body.images);
 
     if(!req.user || !req.user.id){
       return res.forbidden('Logged in user not found');
@@ -115,7 +115,7 @@ module.exports = {
 
     req.file('images').upload(function (err, files) {
       if (err) return res.serverError(err);
-
+      sails.log.debug('salved files:', files);
       Images.uploadMultiple(files, creatorId, function(err, uploadedFiles){
         if(err){
           res.send(
