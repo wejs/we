@@ -205,11 +205,7 @@ define('emberApp',[
   we.hooks.on("emberjs-map-routes",function(data, next){
     // Map app routers
     App.Router.map(function(match) {
-      var thisPointer = this;
       this.resource('home',{path: '/'});
-      // auth
-      this.route('authForgotPassword',{path: '/auth/forgot-password'});
-      this.route('authResetPassword',{path: '/auth/reset-password'});
       // 404 pages
       this.route("forbiden", { path: "forbiden"});
       // 404 pages
