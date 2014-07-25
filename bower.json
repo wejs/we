@@ -29,7 +29,8 @@
     "summernote": "~0.5.1",
     "codemirror": "~4.2.0",
     "select2": "~3.5.0",
-    "Jcrop": "~0.9.12"
+    "Jcrop": "~0.9.12",
+    "font-awesome": "4.1.0"
   },
   "license": "MIT",
   "author": [
