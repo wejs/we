@@ -7,6 +7,7 @@ module.exports.clientsideEmberjsParts = {
     "controllers": [
       "js/ember/application/controllers/ApplicationController",
       "js/ember/application/controllers/HomeController",
+      "js/ember/auth/controllers/AuthChangePasswordController",
       "js/ember/auth/controllers/AuthControllerLogin",
       "js/ember/auth/controllers/AuthForgotPasswordController",
       "js/ember/auth/controllers/AuthRegisterController",
@@ -44,6 +45,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/avatar/views/AvatarChangeModalView",
       "js/ember/avatar/views/AvatarView",
       "js/ember/messenger/views/MessengereBoxContainerView",
+      "js/ember/post/views/postEditFormView",
       "js/ember/user/views/ContactButtomView",
       "js/ember/user/views/UserNameView"
     ],
@@ -69,7 +71,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/application/routes/ApplicationRoute",
       "js/ember/application/routes/HomeRoute",
       "js/ember/application/routes/UnknownRoute",
-      "js/ember/auth/routes/AuthForgotPasswordRoute",
+      "js/ember/auth/routes/AuthRoute",
       "js/ember/file/routes/ImageRoutes",
       "js/ember/group/routes/GroupRoute",
       "js/ember/notification/routes/NotificationRoutes",
