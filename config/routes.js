@@ -299,6 +299,11 @@ module.exports.routes = {
     action        : 'list'
   },
 
+  'post /api/v1/post': {
+    controller    : 'post',
+    action        : 'createRecord'
+  },
+
   // -- FILES
 
   'get /files': {
