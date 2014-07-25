@@ -54,6 +54,10 @@ module.exports = {
       type: 'string'
     },
 
+    inPost: {
+      model: 'post'
+    },
+
     // Override toJSON instance method
     // to remove password value
     toJSON: function() {

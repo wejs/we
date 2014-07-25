@@ -55,6 +55,11 @@ module.exports = {
       type: 'array'
     },
 
+    images: {
+      collection: 'images',
+      via: 'inPosts'
+    },
+
     links: {
       type: 'array'
     },
