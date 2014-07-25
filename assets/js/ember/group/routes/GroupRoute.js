@@ -13,11 +13,9 @@ define(['we','ember'], function (we) {
   });
 
   // route list
-  App.GroupsRoute = Ember.Route.extend({
-    renderTemplate: function() {
-      this.render('group/feature');
-    }
-  });
+  // App.GroupsRoute = Ember.Route.extend({
+
+  // });
 
   // route list
   App.GroupsIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
@@ -34,11 +32,9 @@ define(['we','ember'], function (we) {
   });
 
   // route /groups/:uid/
-  App.GroupRoute = Ember.Route.extend({
-    renderTemplate: function() {
-      this.render('group/item');
-    }
-  });
+  // App.GroupRoute = Ember.Route.extend({
+
+  // });
 
   // route /user/:uid/index
   App.GroupIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
@@ -73,9 +69,6 @@ define(['we','ember'], function (we) {
       return this.store.find('post',{
         sharedIn: group_id
       });
-    },
-    renderTemplate: function() {
-      this.render('group/index');
     }
   });
 

@@ -19,17 +19,14 @@ define(['we','ember'], function (we) {
 
   // route list
   App.UsersRoute = Ember.Route.extend({
-    renderTemplate: function() {
-      this.render('user/feature');
-    }
+    // renderTemplate: function() {
+    //   this.render('user/feature');
+    // }
   });
   // route list
   App.UsersIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
       return this.store.find('user');
-    },
-    renderTemplate: function() {
-      this.render('user/list');
     }
   });
 
@@ -70,9 +67,6 @@ define(['we','ember'], function (we) {
 
       return Ember.RSVP.hash(hash);
 
-    },
-    renderTemplate: function() {
-      this.render('user/item');
     }
   });
 

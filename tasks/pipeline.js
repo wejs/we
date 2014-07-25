@@ -131,7 +131,8 @@ if(requirejsConfigs.paths){
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
 var templateFilesToInject = [
-  'templates/**/*.hbs'
+  'js/ember/*/templates/*.hbs',
+  'js/ember/*/templates/*/*.hbs'
 ];
 
 

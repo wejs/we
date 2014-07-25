@@ -26,6 +26,8 @@ define(['we','ember'], function (we) {
     },
     actions: {
       getMore: function() {
+
+        console.warn('get more');
         var _this = this;
         // if dont have more skip this feature
         // in one timeline new contents go to timeline start and are added with push
@@ -80,12 +82,14 @@ define(['we','ember'], function (we) {
     },
 
     willDestroyElement: function(){
+      console.warn(' willDestroyElement off');
       // have to use the same argument to `off` that we did to `on`
       $(window).off('scroll', $.proxy(this.didScroll, this));
     },
 
     // this is called every time we scroll
     didScroll: function(){
+      console.warn('didScroll');
       if (this.isScrolledToBottom()) {
         this.get('controller').send('getMore');
       }
@@ -93,6 +97,7 @@ define(['we','ember'], function (we) {
 
     // we check if we are at the bottom of the page
     isScrolledToBottom: function(){
+      console.warn('isScrolledToBottom');
       var distanceToViewportTop = (
         $(document).height() - $(window).height());
       var viewPortTop = $(document).scrollTop();
@@ -102,7 +107,7 @@ define(['we','ember'], function (we) {
         // the infinite scroll thing
         return false;
       }
-
+console.warn('isScrolledToBottom',viewPortTop, distanceToViewportTop);
       return (viewPortTop - distanceToViewportTop === 0);
     }
   });
