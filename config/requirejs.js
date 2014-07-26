@@ -23,8 +23,11 @@ module.exports.requirejs = {
     emberTemplates: 'tpls.hbs',
     // wejs files
     we: 'bower_components/we/dist/we',
+    //we.js plugin integration
     weEmberPlugin: 'js/ember/weEmberPlugin',
     emberApp: 'js/ember/emberApp',
+    // starter script
+    starter: 'js/ember/starter',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
     // wysiwyg editor
     summernote: 'wysiwyg/summernote/dist/summernote',
@@ -114,6 +117,6 @@ module.exports.requirejs = {
   urlArgs: 'v=0.0.606',
   waitSeconds: 15,
   deps: [
-    'we'
+    'starter'
   ],
 };
