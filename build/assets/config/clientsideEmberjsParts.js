@@ -45,6 +45,7 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/avatar/views/AvatarChangeModalView",
       "js/ember/avatar/views/AvatarView",
       "js/ember/messenger/views/MessengereBoxContainerView",
+      "js/ember/post/views/PostsListView",
       "js/ember/post/views/postEditFormView",
       "js/ember/user/views/ContactButtomView",
       "js/ember/user/views/UserNameView"
@@ -59,13 +60,15 @@ module.exports.clientsideEmberjsParts = {
       "js/ember/comment/components/WeCommentFormComponent",
       "js/ember/file/components/FileUploadComponent",
       "js/ember/file/components/ImageUploadComponent",
+      "js/ember/file/components/WeImageComponent",
       "js/ember/file/components/WeImageCropComponent",
       "js/ember/file/components/WeImagePreviewComponent",
       "js/ember/file/components/WeVideoComponent",
       "js/ember/file/components/WeVideoPreviewComponent",
       "js/ember/messenger/components/WeMessengerBoxComponent",
       "js/ember/messenger/components/WeMessengerComponent",
-      "js/ember/messenger/components/WeMessengerPublicBoxComponent"
+      "js/ember/messenger/components/WeMessengerPublicBoxComponent",
+      "js/ember/post/components/WeShareboxComponent"
     ],
     "routes": [
       "js/ember/application/routes/ApplicationRoute",
