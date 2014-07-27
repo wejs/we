@@ -5,33 +5,44 @@ define(['we', 'ember', 'select2'], function (we) {
     App.LoggedInMixin,
     App.PostMecanismMixin,
   {
-    shareboxClass: 'small',
-    enableShareInput: true,
+    shareboxClass: function(){
+      if(this.get('isOpen')) return 'small';
+      return 'small';
+    }.property('isOpen'),
+
     isOpen: false,
-    toIdtagsManagerElement: 'input[name="toIds"]',
-    toIdtagsManagerContainer: '.toIdsSelectedDisplay',
+
     bodyPlaceholder: we.i18n("What is happening?"),
+
     imageUploadUrl: '/api/v1/images',
-    shareImages: false,
+    // if are selection attach options
+    // used to show or hide attach options buttons selector
+    selectingAttachOption: function(){
+      if(this.get('files.length') || this.get('videos.length') ) return false;
+      return true;
+    }.property('files.length','videos.length'),
+
     images: [],
+    // new files object watcher
     filesNew: {},
     isSending: true,
-    willDestroyElement: function willDestroyElement(){
-    },
     init: function(){
       this._super();
       if(this.parentController.get('group')){
         this.set('enableShareInput', false);
       }
     },
+
     filesDidChange: (function() {
-      var _this = this;
-      var files = _this.get('filesNew');
-      _this.get('files').pushObject(files[0]);
+      var files = this.get('filesNew');
+      this.get('files').pushObject(files[0]);
+      x = files;
     }).observes('filesNew'),
+
     emptyData: function(){
       this.setProperties(App.postClean());
     },
+
     actions: {
       openBox: function openBox(){
         this.setProperties({
@@ -67,6 +78,7 @@ define(['we', 'ember', 'select2'], function (we) {
         if(group){
           postNew.sharedIn = [group.id];
         }
+
         store.find('user', we.authenticatedUser.id)
         .then(function(user){
           // create new post on store
@@ -74,7 +86,11 @@ define(['we', 'ember', 'select2'], function (we) {
           post.setProperties({
             'creator': user
           });
+
           post.save().then(function(){
+            // reset images because on create dont are populating associatins
+            post.set('images', postNew.images);
+
             // empty selectd tags
             //element.select2('data', null);
             // close and clear sharebox form inputs

@@ -14,6 +14,15 @@ define(['we','ember'], function (we) {
     metadata: {
       commentCount: 0
     },
+    /**
+     * Image upload
+     * @todo rename vars to image
+     */
+    filesDidChange: (function() {
+      var _this = this;
+      var files = _this.get('filesNew');
+      _this.get('files').pushObject(files[0]);
+    }).observes('filesNew'),
     hasMoreComments: function(){
       if(this.get('metadata.commentCount') > this.loadedComments){
         return true;
@@ -39,9 +48,10 @@ define(['we','ember'], function (we) {
         var commentModels = this.get('store').pushMany('comment',comments);
         this.set('comments', commentModels);
       }
-      this.set('metadata',this.get('content._data.meta'));
 
-      this.loadAndFetchSharedWithObjects();
+      this.setProperties({
+        'metadata': this.get('content._data.meta')
+      });
     },
     loadAndFetchSharedWithObjects: function(){
       var sharedWith = this.get('sharedWith');
@@ -124,6 +134,9 @@ define(['we','ember'], function (we) {
 
       showSharedWith: function(){
         console.warn('TODO! show shared with ...', this.get('shareWithUsers'), this.get('shareInGroups'));
+      },
+      onRemoveSalvedImage: function(){
+        console.warn('onRemoveSalvedImage');
       }
     }
   });

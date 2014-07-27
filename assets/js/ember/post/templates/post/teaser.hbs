@@ -1,5 +1,4 @@
-<div class="masonry-brick content-block post">
-
+<div class="content-block post">
 <div class="post-teaser teaser panel panel-default">
 
   <div class="header panel-heading">
@@ -27,6 +26,11 @@
         <div class="videos">
           {{#each videos}}
             {{we-video url=this}}
+          {{/each}}
+        </div>
+        <div class="images">
+          {{#each images}}
+            <img {{bind-attr src=this.urls.large}}>
           {{/each}}
         </div>
       </div>
