@@ -7,6 +7,9 @@ module.exports.requirejs = {
     app: 'js/app',
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
     moment: 'bower_components/moment/min/moment-with-langs.min',
+
+    nprogress: 'bower_components/nprogress/nprogress',
+
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     /** @todo remove async from client side */
     async: 'bower_components/async/lib/async',
