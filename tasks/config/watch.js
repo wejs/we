@@ -16,17 +16,15 @@ module.exports = function(grunt) {
 		assets: {
 			// Assets to watch:
 			files: [
-				'assets/fonts/**',
-				'assets/imgs/**',
-				'assets/langs/**',
-				'assets/styles/**',
-				'assets/wysiwyg/**'
+				'assets/fonts/**/*',
+				'assets/imgs/**/*',
+				'assets/langs/**/*',
+				'assets/styles/**/*',
+				'assets/wysiwyg/**/*'
 			],
-
 			// When assets are changed:
 			tasks: [
-				'syncAssets' ,
-				'emberhandlebars:dev'
+				'syncAssets'
     	]
 		},
 		templates: {
@@ -42,6 +40,7 @@ module.exports = function(grunt) {
 				'assets/js/**/*.js',
 			],
 			tasks: [
+				'sync:devJs',
 				'we_sails_ember_tasks:dev'
     	]
 		}
