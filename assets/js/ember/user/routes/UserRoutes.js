@@ -18,11 +18,9 @@ define(['we','ember'], function (we) {
   });
 
   // route list
-  App.UsersRoute = Ember.Route.extend({
-    // renderTemplate: function() {
-    //   this.render('user/feature');
-    // }
-  });
+  // App.UsersRoute = Ember.Route.extend({
+  //   // after change route
+  // });
   // route list
   App.UsersIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
     model: function() {
