@@ -28,7 +28,7 @@
     "mime": "~1.2.11",
     "we-passport": "0.0.3",
     "we-send-email": "0.0.0",
-    "we-theme-engine": "0.0.2"
+    "we-theme-engine": "0.0.3"
   },
   "devDependencies": {
     "grunt-sync": "0.0.7",
