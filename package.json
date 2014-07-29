@@ -46,7 +46,8 @@
     "sinon": "~1.8.1",
     "supertest": ">= 0",
     "grunt-ember-template-compiler": "~1.5.0",
-    "grunt-contrib-requirejs": "~0.4.4"
+    "grunt-contrib-requirejs": "~0.4.4",
+    "grunt-we-ember-template": "0.0.1"
   },
   "scripts": {
     "start": "node app.js",
