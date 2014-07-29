@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 		'assets/styles/**/*',
 		'assets/wysiwyg/**/*'
 	];
-console.log(themeEngine.getThemeFilesToWatch());
+
 	// push fonts folder
 	if(themeEngine.fontsFolder)
 		assetsFiles.push(themeEngine.fontsFolder);
@@ -59,6 +59,12 @@ console.log(themeEngine.getThemeFilesToWatch());
 			files: themeEngine.getThemeFilesToWatch(),
 			tasks: [
 				'sync:themeFiles'
+    	]
+		},
+		themeEmberTemplates: {
+			files: themeEngine.getThemeTemplatesToWatch(),
+			tasks: [
+				'weThemeEmberHandlebars:dev'
     	]
 		}
 	});

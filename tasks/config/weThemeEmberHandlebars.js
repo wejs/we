@@ -1,16 +1,20 @@
+
+var themeEngine = require('we-theme-engine');
+
 module.exports = function(grunt) {
 
   // @todo move this logic to one npm module
-  var themeConfigs = require('../../config/theme.js');
-  var currentTheme = require(themeConfigs.themes.enabled);
-  var emberTemplatesPath = currentTheme.configs.emberTemplates;
-  var themeFolders = 'node_modules/';
+  // var themeConfigs = require('../../config/theme.js');
+  // var currentTheme = require(themeConfigs.themes.enabled);
+  // var emberTemplatesPath = currentTheme.configs.emberTemplates;
+  // var themeFolders = 'node_modules/';
+
 
   grunt.config.set('weThemeEmberHandlebars', {
     dev: {
       options: {
         // theme template folder to override templates
-        themeTemplatesFolder: themeFolders+ emberTemplatesPath
+        themeTemplatesFolder: themeEngine.getThemeTemplatesToProcess()
       },
       // local files
       files: [
