@@ -11,6 +11,9 @@
  * 		https://github.com/tomusdrw/grunt-sync
  *
  */
+
+var themeEngine = require('we-theme-engine');
+
 module.exports = function(grunt) {
 
 	grunt.config.set('sync', {
@@ -26,6 +29,13 @@ module.exports = function(grunt) {
 				cwd: './assets/js',
 				src: ['**/*.js'],
 				dest: '.tmp/public/js'
+			}]
+		},
+		themeFiles: {
+			files: [{
+				cwd:  themeEngine.getassetsCwdFolder(),
+				src: themeEngine.getThemeFilesToSync(),
+				dest: themeEngine.defaultPublicThemeAssetsFolder
 			}]
 		}
 	});

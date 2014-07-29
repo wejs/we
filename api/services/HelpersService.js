@@ -1,4 +1,8 @@
 
+
+// we.js theme engine
+var themeEngine = require('we-theme-engine');
+
 exports.getModelsAttributes = function(){
 
   var models = {};
@@ -33,29 +37,28 @@ exports.getRequirejsPreloadConfig = function(){
  * @return {string} script tag with requirejs configs
  */
 exports.getRequireJsScriptTag = function(){
-  return '<script data-main="/main" src="/js/libs/require.js"></script>';
+  var tags = '<script data-main="/main" src="/js/libs/require.js"></script>';
+
+  if(themeEngine.javascript)
+      tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';
+
+  return tags;
 };
 
 // TODO make this config dinamic
 exports.getlinkCssTags = function(){
-  var pipeline = require('../../tasks/pipeline.js');
-  var theme_name = sails.config.themes.enabled;
-  var theme = require(theme_name);
   var tags = '';
 
   if(sails.config.environment == 'production'){
     tags += '<link rel="stylesheet" href="/min/production.css">';
   }else{
-
-    tags += '<link rel="stylesheet" href="/styles/bootstrap.min.css">'
-    tags += '<link rel="stylesheet" href="/styles/importer.css">';
     tags += '<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">';
     tags += '<link rel="stylesheet" href="/wysiwyg/summernote/dist/summernote.css">';
     tags += '<link rel="stylesheet" href="/bower_components/select2/select2.css">';
     tags += '<link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">';
-    tags += '<link rel="stylesheet" href="/styles/theme/style.css">';
 
-
+    if(themeEngine.stylesheet)
+      tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+'">';
   }
 
   return tags;
