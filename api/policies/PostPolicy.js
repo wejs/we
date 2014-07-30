@@ -8,29 +8,9 @@ module.exports = function (req, res, next) {
       isAllowed = true;
       break;
     case 'POST':
-      if(!user.id){
-        return res.send("You Must Be Logged In", 403);
-      }
-
-
-      isAllowed = true;
-
-      break;
     case 'PUT':
-      if(!user.id){
-        return res.send("You Must Be Logged In", 403);
-      }
-
-      isAllowed = true;
-
-      break;
     case 'DELETE':
-      if(!user.id){
-        return res.send("You Must Be Logged In", 403);
-      }
-
-      isAllowed = true;
-
+      isAllowed = !(!user.id);
       break;
   }
 
