@@ -1,7 +1,7 @@
 {
   "name": "we",
   "version": "0.0.65",
-  "description": "A system for make real time social networks written with Sails.js",
+  "description": "A system for make real time social networks written with javascript - Sails.js PowereD!",
   "keywords": [],
   "dependencies": {
     "bcrypt": "~0.7.8",
@@ -62,7 +62,6 @@
   },
   "author": "Alberto Souza",
   "license": "MIT",
-  "subdomain": "albertosouza-we-up",
   "engines": {
     "node": "0.10.x"
   }
