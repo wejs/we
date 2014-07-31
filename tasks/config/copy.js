@@ -13,12 +13,21 @@
  * For usage docs see:
  * 		https://github.com/gruntjs/grunt-contrib-copy
  */
+
+var themeEngine = require('we-theme-engine');
+
 module.exports = function(grunt) {
 	var devfiles = [
 		'fonts/**',
 		'imgs/**',
 		'langs/**'
 	];
+
+  // @todo move this logic to one npm module
+ //  var themeConfigs = require('../../config/theme.js');
+ //  var currentTheme = require(themeConfigs.themes.enabled);
+ //  var emberTemplatesPath = currentTheme.configs.emberTemplates;
+ //  var themeFolders = 'node_modules/';
 
 	var pipelineConfig = require('../pipeline');
 
@@ -28,22 +37,21 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: './assets',
 				src: 	devfiles
-								.concat(pipelineConfig.jsFilesToInjectOriginal)
-								.concat(pipelineConfig.cssFilesToInjectOriginal)
-								// TODO change this url to assets/fonts folder
-								.concat('bower_components/font-awesome/fonts/**')
-								.concat('bower_components/select2/*.png')
-								.concat('bower_components/select2/*.gif'),
+					.concat(pipelineConfig.jsFilesToInjectOriginal)
+					.concat(pipelineConfig.cssFilesToInjectOriginal)
+					// TODO change this url to assets/fonts folder
+					.concat('bower_components/font-awesome/fonts/**')
+					.concat('bower_components/select2/*.png')
+					.concat('bower_components/select2/*.gif'),
 				dest: '.tmp/public'
 			}]
 		},
 		theme_dev: {
 			files: [{
 				expand: true,
-				cwd: '.',
-				flatten: true,
-				src: 	pipelineConfig.themeCss,
-				dest: '.tmp/public/styles/theme'
+				cwd: themeEngine.getassetsCwdFolder(),
+				src: 	themeEngine.getThemeFilesToCopy(),
+				dest: themeEngine.defaultPublicThemeAssetsFolder
 			}]
 		},
 		build: {

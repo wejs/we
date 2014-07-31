@@ -5,6 +5,11 @@ define(['we','ember'], function (we) {
     renderTemplate: function() {
       this.render('home');
     },
+    beforeModel: function(){
+      // reset posts and comments in store
+      this.store.unloadAll('post');
+      this.store.unloadAll('comment');
+    },
     model: function(params) {
       if(we.isAuthenticated()){
         return Ember.RSVP.hash({

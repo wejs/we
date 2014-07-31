@@ -1,5 +1,4 @@
-<div class="masonry-brick content-block post">
-
+<div class="content-block post">
 <div class="post-teaser teaser panel panel-default">
 
   <div class="header panel-heading">
@@ -19,14 +18,19 @@
 
   <div class="panel-body">
 
-    {{view App.postEditFormView isVisible=isEditing}}
-
-    {{#unless isEditing}}
+    {{#if isEditing}}
+      {{view App.postEditFormView}}
+    {{else}}
       <div class="content">
         <div class="post-text">{{{body}}}</div>
         <div class="videos">
           {{#each videos}}
             {{we-video url=this}}
+          {{/each}}
+        </div>
+        <div class="images">
+          {{#each images}}
+            <img {{bind-attr src=this.urls.large}}>
           {{/each}}
         </div>
       </div>
@@ -58,9 +62,8 @@
               {{/can}}
           </div>
       </div>
-    {{/unless}}
+    {{/if}}
   </div>
-
   <div class="panel-footer">
     {{#if hasMoreComments}}
       <div class="comments-header">

@@ -1,0 +1,11 @@
+<div {{bind-attr class='shareboxClass'}}>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {{#if isOpen}}
+        {{view App.postEditFormView}}
+      {{else}}
+        <div {{action "openBox"}} class="post-placeholder form-control post-content"> {{t 'What is happening?'}}</div>
+      {{/if}}
+    </div>
+  </div>
+</div>

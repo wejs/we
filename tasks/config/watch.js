@@ -10,19 +10,61 @@
  * 		https://github.com/gruntjs/grunt-contrib-watch
  *
  */
+
+var themeEngine = require('we-theme-engine');
+
 module.exports = function(grunt) {
+
+	var assetsFiles = [
+		'assets/fonts/**/*',
+		'assets/imgs/**/*',
+		'assets/langs/**/*',
+		'assets/styles/**/*',
+		'assets/wysiwyg/**/*'
+	];
+
+	// push fonts folder
+	if(themeEngine.fontsFolder)
+		assetsFiles.push(themeEngine.fontsFolder);
+	if(themeEngine.imagesFolder)
+		assetsFiles.push(themeEngine.imagesFolder);
 
 	grunt.config.set('watch', {
 		assets: {
-
 			// Assets to watch:
-			files: ['assets/**/*'],
-
+			files: assetsFiles,
 			// When assets are changed:
 			tasks: [
-				'syncAssets' ,
-				'emberhandlebars:dev',
-	    	'we_sails_ember_tasks:dev'
+				'syncAssets'
+    	]
+		},
+		templates: {
+			files: [
+				'assets/js/**/*.hbs',
+			],
+			tasks: [
+				'weThemeEmberHandlebars:dev'
+    	]
+		},
+		emberScripts: {
+			files: [
+				'assets/js/**/*.js',
+			],
+			tasks: [
+				'sync:devJs',
+				'we_sails_ember_tasks:dev'
+    	]
+		},
+		themeFiles: {
+			files: themeEngine.getThemeFilesToWatch(),
+			tasks: [
+				'sync:themeFiles'
+    	]
+		},
+		themeEmberTemplates: {
+			files: themeEngine.getThemeTemplatesToWatch(),
+			tasks: [
+				'weThemeEmberHandlebars:dev'
     	]
 		}
 	});

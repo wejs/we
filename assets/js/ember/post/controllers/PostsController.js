@@ -15,20 +15,17 @@ define(['we','ember'], function (we) {
     // init
     init: function(){
       this._super();
-      _this = this;
+      self = this;
 
       if(we.isAuthenticated()){
-        _this.set('isAuthenticated', true);
-
+        self.set('isAuthenticated', true);
       }else{
-        _this.set('isAuthenticated', false);
+        self.set('isAuthenticated', false);
       }
     },
     actions: {
       getMore: function() {
-
-        console.warn('get more');
-        var _this = this;
+        var self = this;
         // if dont have more skip this feature
         // in one timeline new contents go to timeline start and are added with push
         if (!this.get('haveMore')) return ;
@@ -38,19 +35,19 @@ define(['we','ember'], function (we) {
         // add some delay after get more content from server
         Ember.run.later(function() {
           // set nextPage value
-          var nextPage = _this.get('page') + 1;
+          var nextPage = self.get('page') + 1;
           // get skip value
           // TODO change this to createdAt time
-          var skip = nextPage * _this.get('perPage');
+          var skip = nextPage * self.get('perPage');
           // get more content from store
-          _this.store.find( _this.get('modelType') ,{
-            limit: _this.get('perPage'),
+          self.store.find( self.get('modelType') ,{
+            limit: self.get('perPage'),
             skip: skip
           }).then(function(posts){
             if(posts.get('content').length > 0){
-              _this.send('gotMore');
+              self.send('gotMore');
             }else{
-              _this.send('dontHaveMore');
+              self.send('dontHaveMore');
             }
           });
         }, 500);
@@ -71,44 +68,6 @@ define(['we','ember'], function (we) {
           haveMore: false
         });
       }
-    }
-  });
-
-  App.PostsView = Ember.View.extend({
-    didInsertElement: function(){
-      // we want to make sure 'this' inside `didScroll` refers
-      // to the IndexView, so we use jquery's `proxy` method to bind it
-      $(window).on('scroll', $.proxy(this.didScroll, this));
-    },
-
-    willDestroyElement: function(){
-      console.warn(' willDestroyElement off');
-      // have to use the same argument to `off` that we did to `on`
-      $(window).off('scroll', $.proxy(this.didScroll, this));
-    },
-
-    // this is called every time we scroll
-    didScroll: function(){
-      console.warn('didScroll');
-      if (this.isScrolledToBottom()) {
-        this.get('controller').send('getMore');
-      }
-    },
-
-    // we check if we are at the bottom of the page
-    isScrolledToBottom: function(){
-      console.warn('isScrolledToBottom');
-      var distanceToViewportTop = (
-        $(document).height() - $(window).height());
-      var viewPortTop = $(document).scrollTop();
-
-      if (viewPortTop === 0) {
-        // if we are at the top of the page, don't do
-        // the infinite scroll thing
-        return false;
-      }
-console.warn('isScrolledToBottom',viewPortTop, distanceToViewportTop);
-      return (viewPortTop - distanceToViewportTop === 0);
     }
   });
 

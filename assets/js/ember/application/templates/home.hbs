@@ -1,16 +1,10 @@
 
 <div class="row"><div class="col-md-9">
   {{#if isAuthenticated}}
-    <div id="posts" class="posts ">
-      <div class="sharebox-area masonry-brick  content-block">
-        {{render 'post/sharebox' postNew}}
-      </div>
-
-      {{render 'posts/list' posts controller='Posts'}}
-
-      {{we-timeline-loading loadingMore=loadingMore getMore=getMore}}
-
+    <div class="sharebox-area masonry-brick  content-block">
+      {{render 'post/sharebox' postNew}}
     </div>
+    {{render 'posts/list' posts controller='Posts'}}
   {{else}}
     <div class="highlighted">
       {{render 'auth/RegisterForm' this controller='AuthRegister'}}
@@ -19,5 +13,4 @@
 </div>
 <div class="col-md-3">
 sidebar ... TODO
-
 </div></div>

@@ -1,21 +1,18 @@
-# We.js
-#### A system for create Social Networks written with [Sails.js](http://sailsjs.org).
+#We.js
+#### A system for create Social Networks written with javascript - [Sails.js](http://sailsjs.org) Powered!.
 
-**Status** - in development, dont use it for production
+**Status** - :construction: In development, dont use it for production :bangbang:
 
-**Have a question, found a fix or wants to help?**
->
-> * Give a star in Github: https://github.com/wejs/we
+**Have a question, found an error or wants to help?**
+
 > * Open a [issue](https://github.com/wejs/we/issues)
 > * Submit a pull request
-> * Test the live example in http://wejs.org/
+> * **Test** the live example in http://wejs.org/
+> * Give a **star** in Github: https://github.com/wejs/we
+> * **Hack it!** and give feedback, we fix and then we.js becomes more secure ;)
 > * Or spread to the world!
 
-For documentation, see [here](https://github.com/wejs/we/blob/master/DOCUMENTATION.md).
-
-This project started in https://github.com/albertosouza/we after some testes with node.js frameworks
-
-***If want see a We.js live example access: http://wejs.org/***
+***If want see or test a We.js live example access: http://wejs.org/*** :eyes:
 
 
 ## FEATURES
@@ -36,7 +33,7 @@ This project started in https://github.com/albertosouza/we after some testes wit
 * Events - TODO
 * Posts - TODO
 * Activity - TODO
-
+* :white_check_mark: Theme system - [Done!](https://github.com/wejs/we-theme-engine)
 
 ## Installation
 
@@ -56,7 +53,14 @@ $ npm install && bower install
 ```
 ## How to configure
 
-TODO
+We.js is a sails.js project then see [sails site](http://sailsjs.org/) for file configs
+
+#####Examples:
+
+* Email config: https://github.com/wejs/we/blob/master/config/email.js
+* Theme config: https://github.com/wejs/wejs-theme-default/blob/master/index.js
+
+TODO add others configs here ...
 
 ## How to Test
 
@@ -66,7 +70,7 @@ Inside project folder tip:
 $ npm test
 ```
 
-#### With cake in terminal:
+#### With cake / coffescript in terminal:
 Run all tests:
 ```sh
 $ cake 'NotificationService' test
@@ -77,20 +81,18 @@ Grep tests to run ( mocha grep ):
 $ cake --grep 'NotificationService' test
 ```
 
-## Build with love and:
+## Build with:
 * Sails.js - http://sailsjs.org
 * Node.js - http://nodejs.org/
 * require.js - http://requirejs.org/
 * Ember.js - http://emberjs.com/
+* [Love](http://www.lovecalculator.com/)
 
-## Team
+## Links
 
-**Alberto Souza** <https://github.com/albertosouza/>
-
-## Contributors
-
-Link: https://github.com/wejs/we/graphs/contributors
+> * Team: https://github.com/orgs/wejs/people
+> * Contributors: https://github.com/wejs/we/graphs/contributors
 
 ## Copyright and license
 
-Copyright 2013-2014 Alberto Souza <alberto.souza.99@gmail.com>, under [the MIT license](LICENSE).
+Copyright 2013-2014 Alberto Souza <alberto.souza.dev@gmail.com> and [contributors](https://github.com/wejs/we/graphs/contributors) , under [the MIT license](LICENSE).

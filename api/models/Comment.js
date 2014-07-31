@@ -55,8 +55,6 @@ module.exports = {
       // remove password
       var obj = this.toObject();
 
-      sails.log.info('obj',obj);
-
       // set default objectType
       obj.objectType = "comment";
 

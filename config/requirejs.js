@@ -7,6 +7,9 @@ module.exports.requirejs = {
     app: 'js/app',
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
     moment: 'bower_components/moment/min/moment-with-langs.min',
+
+    nprogress: 'bower_components/nprogress/nprogress',
+
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     /** @todo remove async from client side */
     async: 'bower_components/async/lib/async',
@@ -23,8 +26,11 @@ module.exports.requirejs = {
     emberTemplates: 'tpls.hbs',
     // wejs files
     we: 'bower_components/we/dist/we',
+    //we.js plugin integration
     weEmberPlugin: 'js/ember/weEmberPlugin',
     emberApp: 'js/ember/emberApp',
+    // starter script
+    starter: 'js/ember/starter',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
     // wysiwyg editor
     summernote: 'wysiwyg/summernote/dist/summernote',
@@ -111,9 +117,9 @@ module.exports.requirejs = {
     }
   },
   //baseUrl: '/',
-  urlArgs: 'v=0.0.606',
+  urlArgs: 'v=0.0.608',
   waitSeconds: 15,
   deps: [
-    'we'
+    'starter'
   ],
 };

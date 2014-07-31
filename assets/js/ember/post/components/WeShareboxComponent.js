@@ -1,7 +1,7 @@
 
-define(['we', 'ember', 'select2'], function (we) {
+define(['we', 'ember'], function (we) {
 
-  App.PostShareboxController = Ember.ObjectController.extend(
+  App.WeShareboxComponent = Ember.Component.extend(
     App.LoggedInMixin,
     App.PostMecanismMixin,
   {
@@ -18,9 +18,9 @@ define(['we', 'ember', 'select2'], function (we) {
     // if are selection attach options
     // used to show or hide attach options buttons selector
     selectingAttachOption: function(){
-      if(this.get('files.length') || this.get('videos.length') ) return false;
+      if(this.get('files') || this.get('videos')) return false;
       return true;
-    }.property('files.length','videos.length'),
+    }.property('files','videos'),
 
     images: [],
     // new files object watcher
@@ -28,15 +28,14 @@ define(['we', 'ember', 'select2'], function (we) {
     isSending: true,
     init: function(){
       this._super();
-      if(this.parentController.get('group')){
+      if(this.get('group')){
         this.set('enableShareInput', false);
       }
     },
 
     filesDidChange: (function() {
       var files = this.get('filesNew');
-      this.get('files').pushObject(files[0]);
-      x = files;
+      _this.get('files').pushObject(files[0]);
     }).observes('filesNew'),
 
     emptyData: function(){
@@ -86,11 +85,7 @@ define(['we', 'ember', 'select2'], function (we) {
           post.setProperties({
             'creator': user
           });
-
           post.save().then(function(){
-            // reset images because on create dont are populating associatins
-            post.set('images', postNew.images);
-
             // empty selectd tags
             //element.select2('data', null);
             // close and clear sharebox form inputs

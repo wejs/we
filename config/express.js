@@ -4,18 +4,8 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#documentation
  */
-// var passport = require('passport');
-
-var wePassport = require('we-passport');
-
-// var LocalStrategy = require('passport-local').Strategy;
-
 
 module.exports.express = {
-
-  customMiddleware : function(app){
-    app.use(wePassport.init());
-  }
 
 	// Completely override Express middleware loading.
 	// If you only want to override the bodyParser, cookieParser

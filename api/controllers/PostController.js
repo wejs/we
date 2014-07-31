@@ -15,7 +15,7 @@ module.exports = {
 
     Post.find()
     .where( actionUtil.parseCriteria(req) )
-    .limit( actionUtil.parseLimit(req) )
+    .limit( 10 )
     .skip( actionUtil.parseSkip(req) )
     .sort('updatedAt DESC')
     .populate('images')

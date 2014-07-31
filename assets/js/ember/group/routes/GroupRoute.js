@@ -19,6 +19,10 @@ define(['we','ember'], function (we) {
 
   // route list
   App.GroupsIndexRoute = Ember.Route.extend(App.ResetScrollMixin,{
+    beforeModel: function(){
+      // reset related data in store
+      this.store.unloadAll('group');
+    },
     model: function() {
       return this.store.find('group');
     }

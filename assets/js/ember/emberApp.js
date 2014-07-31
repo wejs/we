@@ -17,20 +17,19 @@ define('emberApp',[
   var get = Ember.get;
   var set = Ember.set;
 
-
   we.hooks.on("emberjs-load-mixins",function(data, next){
     App.postClean = function(){
       return  {
-      body: '',
-      'isOpen': false,
-      'shareboxClass': 'small',
-      'shareImages': false,
-      'files': [],
-      'sharedIn': [],
-      'sharedWith': [],
-      'images': [],
-      'videos': [],
-      'links':[]
+        body: '',
+        'isOpen': false,
+        'shareboxClass': 'small',
+        'shareImages': false,
+        'files': [],
+        'sharedIn': [],
+        'sharedWith': [],
+        'images': [],
+        'videos': [],
+        'links':[]
       };
     };
 
@@ -38,7 +37,9 @@ define('emberApp',[
     App.PostMecanismMixin = Ember.Mixin.create({
       actions: {
         openShareImage: function openShareImage(){
-          this.set('shareImages', true);
+          this.setProperties({
+            'shareImages': true
+          });
         },
         onChangeSelect2Data: function(e){
           if(e.removed){
@@ -88,6 +89,10 @@ define('emberApp',[
          */
         onRemoveImage: function onRemoveImage(imageObj){
           this.get('files').removeObject(imageObj);
+          // if removed last image from selected images hide the image selector
+          if(!this.get('files.length')){
+            this.set('shareImages', false);
+          }
         },
         /**
          * Upload images to server
@@ -110,13 +115,9 @@ define('emberApp',[
               if(data.images){
                 // store new images on ember data
                 salvedImages = _this.get('store').pushMany('image',data.images);
-                salvedImagesIds = [];
-                // get image ids
-                for (var i = salvedImages.length - 1; i >= 0; i--) {
-                  salvedImagesIds.push(salvedImages[i].id);
-                }
+
                 // set image ids to save in model
-                _this.set('model.images',salvedImagesIds);
+                _this.set('model.images',salvedImages);
                 callback(null);
               }else{
                 _this.set('model.images',[]);
