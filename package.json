@@ -47,7 +47,7 @@
     "supertest": ">= 0",
     "grunt-ember-template-compiler": "~1.5.0",
     "grunt-contrib-requirejs": "~0.4.4",
-    "grunt-we-ember-template": "0.0.1",
+    "grunt-we-ember-template": "0.0.2",
     "supervisor": "~0.6.0"
   },
   "scripts": {
