@@ -4,19 +4,13 @@
 var themeEngine = require('we-theme-engine');
 
 exports.getModelsAttributes = function(){
-
   var models = {};
-
   _.forEach(sails.models, function(model, i){
-
     if(!model.emberJsExcludeFromClient && i != 'permissions'){
       models[i] = model._attributes;
     }
-
   });
-
   return models;
-
 };
 
 
@@ -28,7 +22,6 @@ exports.getRequirejsPreloadConfig = function(){
   if(sails.config.requirejs && sails.config.requirejs.urlArgs){
     return "<script>var require = { urlArgs: '"+sails.config.requirejs.urlArgs+"'};</script>";
   }
-
   return '';
 };
 

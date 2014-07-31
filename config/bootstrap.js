@@ -11,6 +11,13 @@
 var mkdirp = require('mkdirp');
 
 module.exports.bootstrap = function (cb) {
+  // if forceBrowserCacheRefresh is true force browser refresh with require.js urlArgs ...
+  if(sails.config.forceBrowserCacheRefresh){
+    // get a randon number for force browser refresh assets
+    sails.config.requirejs.urlArgs = 'ar='+ Math.floor(Math.random() * 1000);
+  }
+
+
   // It's very important to trigger this callack method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
