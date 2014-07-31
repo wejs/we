@@ -38,6 +38,22 @@ define(['we','ember','ember-data'], function (we) {
       // dont send comments on post save or update
       delete json.comments;
 
+      var i;
+      // send only sharedWith ids
+      if(json.sharedWith)
+        for (i = json.sharedWith.length - 1; i >= 0; i--) {
+          if(json.sharedWith[i].id){
+            json.sharedWith[i] = json.sharedWith[i].id;
+          }
+        }
+      // send only sharedIn ids
+      if(json.sharedIn)
+        for (i = json.sharedIn.length - 1; i >= 0; i--) {
+          if(json.sharedIn[i].id){
+            json.sharedIn[i] = json.sharedIn[i].id;
+          }
+        }
+
       return json;
     },
  });
