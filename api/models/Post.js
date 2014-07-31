@@ -27,18 +27,17 @@ module.exports = {
     },
 
     // shared with users
-    //sharedWith: {
-    //  collection: 'user',
-    //  via: 'sharedWithMe'
-    //},
-    // TODO find a better way to do this join with ember js configs
     sharedWith: {
-      type: 'array'
+      collection: 'user'
     },
+    // TODO find a better way to do this join with ember js configs
+    // sharedWith: {
+    //   type: 'array'
+    // },
 
     // shared in groups
     sharedIn: {
-      type: 'array'
+      collection: 'group'
     },
 
     comments: {

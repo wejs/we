@@ -29,6 +29,7 @@ module.exports = function createRecord (req, res) {
   // Omit the blacklisted params (like JSONP callback param, etc.)
   var data = actionUtil.parseValues(req);
 
+
   // Create new instance of model using data from params
   Model.create(data).exec(function created (err, newInstance) {
 
@@ -39,17 +40,16 @@ module.exports = function createRecord (req, res) {
 
     // If we have the pubsub hook, use the model class's publish method
     // to notify all subscribers about the created item
-    // if (req._sails.hooks.pubsub) {
-    //   if (req.isSocket) {
-    //     Model.subscribe(req, newInstance);
-    //     Model.introduce(newInstance);
-    //   }
-    //   Model.publishCreate(newInstance, !req.options.mirror && req);
-    // }
+    if (req._sails.hooks.pubsub) {
+      if (req.isSocket) {
+        Model.subscribe(req, newInstance);
+        Model.introduce(newInstance);
+      }
+      Model.publishCreate(newInstance, !req.options.mirror && req);
+    }
 
     // Send JSONP-friendly response if it's supported
     // (HTTP 201: Created)
-
     var resultObject = {};
 
     resultObject[modelName] = newInstance.toJSON();

@@ -8,7 +8,7 @@
 
 module.exports = {
 
-  index: function (req,res) {
+  list: function (req,res) {
     var uid = req.param('uid');
 
     var query ;
@@ -210,7 +210,7 @@ module.exports = {
    * Create one message
    * @requires  User Logged in
    */
-  create: function (req, res, next) {
+  createRecord: function (req, res, next) {
     var message = {};
     message.content = req.param("content");
     message.fromId = req.user.id;

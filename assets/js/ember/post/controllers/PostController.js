@@ -53,35 +53,6 @@ define(['we','ember'], function (we) {
         'metadata': this.get('content._data.meta')
       });
     },
-    loadAndFetchSharedWithObjects: function(){
-      var sharedWith = this.get('sharedWith');
-      var sharedIn = this.get('sharedIn');
-      var store = this.get('store');
-      var _this = this;
-
-      if(!sharedWith){
-        this.set('sharedWith',[]);
-        sharedWith = [];
-      }
-      if(!sharedIn){
-        this.set('sharedIn',[]);
-        sharedIn = [];
-      }
-      // TODO change this findMany function to something better
-      var map = Ember.ArrayPolyfills.map;
-      var promises = map.call(sharedWith, function(id) {
-        return store.find('user', id);
-      }, this);
-      var promisesGroup = map.call(sharedIn, function(id) {
-        return store.find('group', id);
-      }, this);
-      Ember.RSVP.all(promises).then(function(shareWithUsers){
-        Ember.RSVP.all(promisesGroup).then(function(shareInGroups){
-          _this.set('shareWithUsers',shareWithUsers);
-          _this.set('shareInGroups',shareInGroups);
-        });
-      });
-    },
     actions: {
       edit: function() {
         this.set('isEditing', true);

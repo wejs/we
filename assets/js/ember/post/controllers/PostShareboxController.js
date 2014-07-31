@@ -10,8 +10,6 @@ define(['we', 'ember', 'select2'], function (we) {
       return 'small';
     }.property('isOpen'),
 
-    isOpen: false,
-
     bodyPlaceholder: we.i18n("What is happening?"),
 
     imageUploadUrl: '/api/v1/images',
@@ -26,17 +24,10 @@ define(['we', 'ember', 'select2'], function (we) {
     // new files object watcher
     filesNew: {},
     isSending: true,
-    init: function(){
-      this._super();
-      if(this.parentController.get('group')){
-        this.set('enableShareInput', false);
-      }
-    },
 
     filesDidChange: (function() {
       var files = this.get('filesNew');
       this.get('files').pushObject(files[0]);
-      x = files;
     }).observes('filesNew'),
 
     emptyData: function(){
@@ -88,11 +79,6 @@ define(['we', 'ember', 'select2'], function (we) {
           });
 
           post.save().then(function(){
-            // reset images because on create dont are populating associatins
-            post.set('images', postNew.images);
-
-            // empty selectd tags
-            //element.select2('data', null);
             // close and clear sharebox form inputs
             _this.emptyData();
             // post send!
