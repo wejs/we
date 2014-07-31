@@ -47,10 +47,11 @@
     "supertest": ">= 0",
     "grunt-ember-template-compiler": "~1.5.0",
     "grunt-contrib-requirejs": "~0.4.4",
-    "grunt-we-ember-template": "0.0.1"
+    "grunt-we-ember-template": "0.0.1",
+    "supervisor": "~0.6.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "supervisor -i .tmp/,.git/,node_modules/,views/,assets/ app.js",
     "debug": "node debug app.js",
     "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors"
   },
