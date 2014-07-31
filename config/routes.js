@@ -221,19 +221,11 @@ module.exports.routes = {
   // TODO use sails.js blueprint for set routes
   'get /messages/:id?': {
       controller    : 'messages',
-      action        : 'index'
+      action        : 'list'
   },
   'post /messages': {
       controller    : 'messages',
-      action        : 'create'
-  },
-  'put /messages/:id?': {
-      controller    : 'messages',
-      action        : 'update'
-  },
-  'delete /messages/:id?': {
-      controller    : 'messages',
-      action        : 'destroy'
+      action        : 'createRecord'
   },
 
   // Return a list of messages between authenticated user and :uid user
@@ -256,28 +248,28 @@ module.exports.routes = {
 
   // -- ROOMS
 
-  'get /rooms/:id?': {
-      controller    : 'rooms',
-      action        : 'index'
-  },
-  'post /rooms': {
-      controller    : 'rooms',
-      action        : 'create'
-  },
-  'put /rooms/:id?': {
-      controller    : 'rooms',
-      action        : 'update'
-  },
-  'delete /rooms/:id?': {
-      controller    : 'rooms',
-      action        : 'destroy'
-  },
+  // 'get /rooms/:id?': {
+  //     controller    : 'rooms',
+  //     action        : 'index'
+  // },
+  // 'post /rooms': {
+  //     controller    : 'rooms',
+  //     action        : 'create'
+  // },
+  // 'put /rooms/:id?': {
+  //     controller    : 'rooms',
+  //     action        : 'update'
+  // },
+  // 'delete /rooms/:id?': {
+  //     controller    : 'rooms',
+  //     action        : 'destroy'
+  // },
 
-  // get users in one room
-  'get /rooms/users/': {
-      controller    : 'rooms',
-      action        : 'usersGet'
-  },
+  // // get users in one room
+  // 'get /rooms/users/': {
+  //     controller    : 'rooms',
+  //     action        : 'usersGet'
+  // },
 
   // add user in room
   'post /rooms/users/:id?': {
@@ -354,82 +346,8 @@ module.exports.routes = {
   // group routes
   'get /api/v1/group': {
       controller    : 'group',
-      action        : 'index'
-  },
-  'get /api/v1/group/:id?': {
-      controller    : 'group',
-      action        : 'findOne'
-  },
-  'post /api/v1/group': {
-      controller    : 'group',
-      action        : 'create'
-  },
-  'put /api/v1/group/:id?': {
-      controller    : 'group',
-      action        : 'update'
-  },
-  'delete /api/v1/group/:id?': {
-      controller    : 'group',
-      action        : 'destroy'
-  },
-
-  /*
-  // But what if you want your home page to display
-  // a signup form located at `views/user/signup.ejs`?
-  '/': {
-    view: 'user/signup'
+      action        : 'list'
   }
-
-
-  // Let's say you're building an email client, like Gmail
-  // You might want your home route to serve an interface using custom logic.
-  // In this scenario, you have a custom controller `MessageController`
-  // with an `inbox` action.
-  '/': 'MessageController.inbox'
-
-
-  // Alternatively, you can use the more verbose syntax:
-  '/': {
-    controller: 'MessageController',
-    action: 'inbox'
-  }
-
-
-  // If you decided to call your action `index` instead of `inbox`,
-  // since the `index` action is the default, you can shortcut even further to:
-  '/': 'MessageController'
-
-
-  // Up until now, we haven't specified a specific HTTP method/verb
-  // The routes above will apply to ALL verbs!
-  // If you want to set up a route only for one in particular
-  // (GET, POST, PUT, DELETE, etc.), just specify the verb before the path.
-  // For example, if you have a `UserController` with a `signup` action,
-  // and somewhere else, you're serving a signup form looks like:
-  //
-  //    <form action="/signup">
-  //      <input name="username" type="text"/>
-  //      <input name="password" type="password"/>
-  //      <input type="submit"/>
-  //    </form>
-
-  // You would want to define the following route to handle your form:
-  'post /signup': 'UserController.signup'
-
-
-  // What about the ever-popular "vanity URLs" aka URL slugs?
-  // (you might remember doing this with `mod_rewrite` in Apache)
-  //
-  // This is where you want to set up root-relative dynamic routes like:
-  // http://yourwebsite.com/twinkletoez
-  //
-  // NOTE:
-  // You'll still want to allow requests through to the static assets,
-  // so we need to set up this route to ignore URLs that have a trailing ".":
-  // (e.g. your javascript, CSS, and image files)
-  'get /*(^.*)': 'UserController.profile'
-
-  */
 };
 
 
