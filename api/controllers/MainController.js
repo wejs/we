@@ -37,6 +37,7 @@ module.exports = {
     configs.version = '1';
     configs.server = {};
     configs.client = {};
+    configs.client.publicVars = {};
     configs.user = {};
     configs.authenticatedUser = {};
 
@@ -56,7 +57,11 @@ module.exports = {
       configs.plugins.enabled = sails.config.clientside.pluginsDefaultEnabled;
     }
 
+    // get log config
     configs.client.log = sails.config.clientside.log;
+
+    // get public vars
+    if(sails.config.clientside.publicVars) configs.client.publicVars = sails.config.clientside.publicVars;
 
     fs.exists('.tmp/config/clientsideEmberjsParts.js', function(exists) {
       if (exists) {
