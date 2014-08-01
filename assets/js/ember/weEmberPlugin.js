@@ -3,6 +3,8 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  *
+ * @todo  make this code simpler e easy do read
+ *
  */
 
 /*
@@ -116,15 +118,32 @@ define('weEmberPlugin',['we','async'], function (we, async) {
       if(!items){
         return false;
       }
-
       for (i = 0; i < items.length; i++) {
         if(items[i].get(attrib) === value){
           return true;
         }
       }
       return false;
-    }
-  }
+    };
+
+    /**
+     * Remove one item in array of objects by object id
+     * @param  {array} items       array
+     * @param  {string} idValue    id to search for
+     * @return {object|bool}       return the removed object or false if the object not is found
+     */
+    we.utils.ember.arrayRemoveById = function(items, idValue){
+      for (i = 0; i < items.length; i++) {
+        if(items[i].id === idValue){
+          //remove the item from array and
+          //return the value and stop the execution
+          return items.splice([i],1);
+        }
+      }
+      // item not found in array
+      return false;
+    }    ;
+  };
 
   we.hooks.on("emberjs-load-ember-libs", function(data, next){
     // load default emberjs libs
