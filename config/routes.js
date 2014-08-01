@@ -286,15 +286,22 @@ module.exports.routes = {
 
 
   // -- POSTS
+  // @todo check ir this route set is need
   'get /api/v1/post': {
     controller    : 'post',
     action        : 'list'
   },
-
+  // @todo check ir this route set is need
   'post /api/v1/post': {
     controller    : 'post',
     action        : 'createRecord'
   },
+
+  // 'put /api/v1/post': {
+  //   controller    : 'post',
+  //   action        : 'updateRecord'
+  // },
+
 
   // -- FILES
 

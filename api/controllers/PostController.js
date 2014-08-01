@@ -7,7 +7,7 @@
 
 var util = require('util');
 var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
-
+var _ = require('lodash');
 
 module.exports = {
 
@@ -26,8 +26,6 @@ module.exports = {
     .exec(function(err, posts) {
       if (err) return res.serverError(err);
         var meta = {};
-
-        sails.log.info('posts',posts);
 
         //fetch metadata and some comments for every post
         async.each(posts, function(post, nextPost){
@@ -99,5 +97,90 @@ module.exports = {
       });
 
     });
+  },
+
+  update: function updateOneRecord (req, res) {
+
+    // Look up the model
+    var Model = Post;
+
+    // Locate and validate the required `id` parameter.
+    var pk = actionUtil.requirePk(req);
+
+    // Create `values` object (monolithic combination of all parameters)
+    // But omit the blacklisted params (like JSONP callback param, etc.)
+    var values = actionUtil.parseValues(req);
+
+    // Omit the path parameter `id` from values, unless it was explicitly defined
+    // elsewhere (body/query):
+    var idParamExplicitlyIncluded = ((req.body && req.body.id) || req.query.id);
+    if (!idParamExplicitlyIncluded) delete values.id;
+
+    delete values.createdAt;
+    delete values.updatedAt;
+
+    // Find and update the targeted record.
+    //
+    // (Note: this could be achieved in a single query, but a separate `findOne`
+    //  is used first to provide a better experience for front-end developers
+    //  integrating with the blueprint API.)
+    Model.findOne(pk).populateAll().exec(function found(err, matchingRecord) {
+
+      if (err) return res.serverError(err);
+      if (!matchingRecord) return res.notFound();
+
+      Model.update(pk, values).exec(function updated(err, records) {
+
+        // Differentiate between waterline-originated validation errors
+        // and serious underlying issues. Respond with badRequest if a
+        // validation error is encountered, w/ validation info.
+        if (err) return res.negotiate(err);
+
+
+        // Because this should only update a single record and update
+        // returns an array, just use the first item.  If more than one
+        // record was returned, something is amiss.
+        if (!records || !records.length || records.length > 1) {
+          req._sails.log.warn(
+          util.format('Unexpected output from `%s.update`.', Model.globalId)
+          );
+        }
+
+        var updatedRecord = records[0];
+
+        // If we have the pubsub hook, use the Model's publish method
+        // to notify all subscribers about the update.
+
+        if (req._sails.hooks.pubsub) {
+          if (req.isSocket) { Model.subscribe(req, records); }
+          Model.publishUpdate(pk, _.cloneDeep(values), !req.options.mirror && req, {
+            previous: matchingRecord.toJSON()
+          });
+        }
+
+
+        // Do a final query to populate the associations of the record.
+        //
+        // (Note: again, this extra query could be eliminated, but it is
+        //  included by default to provide a better interface for integrating
+        //  front-end developers.)
+
+
+        Model.findOne(updatedRecord[Model.primaryKey])
+          .populate('images')
+          .populate('sharedIn')
+          .populate('sharedWith')
+        .exec(function found(err, populatedRecord) {
+          if (err) return res.serverError(err);
+          if (!populatedRecord) return res.serverError('Could not find record after updating!');
+
+          sails.log.warn('logTextHere>',populatedRecord);
+
+            res.ok({post: populatedRecord});
+
+        }); // </foundAgain>
+
+      });// </updated>
+    }); // </found>
   }
 };

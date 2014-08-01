@@ -19,9 +19,8 @@ define(['we','ember'], function (we) {
      * @todo rename vars to image
      */
     filesDidChange: (function() {
-      var _this = this;
-      var files = _this.get('filesNew');
-      _this.get('files').pushObject(files[0]);
+      var files = this.get('filesNew');
+      this.get('files').pushObject(files[0]);
     }).observes('filesNew'),
     hasMoreComments: function(){
       if(this.get('metadata.commentCount') > this.loadedComments){
@@ -68,7 +67,6 @@ define(['we','ember'], function (we) {
         _this.get('model').save().then(function(post){
           // updated!
           _this.set('isEditing', false);
-          _this.loadAndFetchSharedWithObjects();
         });
       },
       deleteItem: function(){

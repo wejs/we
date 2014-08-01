@@ -46,6 +46,7 @@ define(['we','ember'], function (we) {
       var group_id = this.modelFor('group').get('id');
       var sharedIn = null;
       var postNew = App.postClean();
+      postNew.enableShareInput = false;
 
       return Ember.RSVP.hash({
         // post for sharebox create new post

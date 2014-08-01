@@ -83,17 +83,18 @@ define(['we','async', 'ember'], function (we,async) {
       var selectedItems = [];
 
       async.each(shareWithUsers, function(user, nextUser){
+        console.warn('shareWithUser',user);
         selectedItems.push({
-          id: user.get('id'),
-          text: user.get('username'),
+          id: user.id,
+          text: user.username,
           model: 'user'
         });
         nextUser();
       },function(){
         async.each(shareInGroups, function(group, nextGroup){
           selectedItems.push({
-            id: group.get('id'),
-            text: group.get('name'),
+            id: group.id,
+            text: group.name,
             model: 'group'
           });
           nextGroup();

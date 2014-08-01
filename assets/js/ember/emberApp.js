@@ -45,10 +45,10 @@ define('emberApp',[
           if(e.removed){
             switch(e.removed.model) {
               case 'user':
-                this.get('sharedWith').removeObject(e.removed.id);
+                we.utils.ember.arrayRemoveById(this.get('sharedWith'), e.removed.id);
                 break;
               case 'group':
-                this.get('sharedIn').removeObject(e.removed.id);
+                we.utils.ember.arrayRemoveById(this.get('sharedWith'), e.removed.id);
                 break;
             }
           }
