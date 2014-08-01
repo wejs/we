@@ -44,6 +44,13 @@ exports.getRequireJsScriptTag = function(){
   if(themeEngine.javascript)
       tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';
 
+
+  // load live reload script tag
+  if(sails.config.clientside.enableLiveReload){
+    tags += '<script src="'+sails.config.clientside.liveReloadUrl+'"></script>';
+  }
+
+
   return tags;
 };
 

@@ -30,6 +30,12 @@ module.exports.clientside = {
   log: {
     events: false,
     hooks: false
-  }
-
+  },
+  // live reload configs
+  // enable live reload flag
+  // this only works with dev enviroment
+  enableLiveReload: true,
+  liveReloadUrl: 'http://localhost:12345/livereload.js',
+  // this vars is send to all users
+  publicVars: {}
 };
