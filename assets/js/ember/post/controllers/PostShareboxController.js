@@ -78,7 +78,12 @@ define(['we', 'ember', 'select2'], function (we) {
             'creator': user
           });
 
+          // delete unneed files variable
+          delete post.files;
+          delete post.filesNew;
+
           post.save().then(function(){
+
             // close and clear sharebox form inputs
             _this.emptyData();
             // post send!
