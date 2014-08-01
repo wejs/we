@@ -34,9 +34,8 @@ module.exports = function(grunt) {
 			// Assets to watch:
 			files: assetsFiles,
 			// When assets are changed:
-			tasks: [
-				'syncAssets'
-    	]
+			tasks: ['syncAssets'],
+			options: { livereload: 12345 }
 		},
 		templates: {
 			files: [
@@ -44,7 +43,8 @@ module.exports = function(grunt) {
 			],
 			tasks: [
 				'weThemeEmberHandlebars:dev'
-    	]
+    	],
+			options: { livereload: 12345 }
 		},
 		emberScripts: {
 			files: [
@@ -53,19 +53,22 @@ module.exports = function(grunt) {
 			tasks: [
 				'sync:devJs',
 				'we_sails_ember_tasks:dev'
-    	]
+    	],
+			options: { livereload: 12345 }
 		},
 		themeFiles: {
 			files: themeEngine.getThemeFilesToWatch(),
 			tasks: [
 				'sync:themeFiles'
-    	]
+    	],
+			options: { livereload: 12345 }
 		},
 		themeEmberTemplates: {
 			files: themeEngine.getThemeTemplatesToWatch(),
 			tasks: [
 				'weThemeEmberHandlebars:dev'
-    	]
+    	],
+			options: { livereload: 12345 }
 		}
 	});
 
