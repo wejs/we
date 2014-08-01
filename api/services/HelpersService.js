@@ -20,14 +20,16 @@ exports.getModelsAttributes = function(){
  */
 exports.getRequirejsPreloadConfig = function(){
   // if forceBrowserCacheRefresh is true force browser refresh with require.js urlArgs ...
+  var refreshString;
   if(sails.config.forceBrowserCacheRefresh){
     // get a randon number for force browser refresh assets
-    sails.config.requirejs.urlArgs = 'ar='+ Math.floor(Math.random() * 1000);
+    refreshString = 'ar='+ Math.floor(Math.random() * 1000);
+  }else{
+    refreshString = sails.config.requirejs.urlArgs;
   }
 
-
   if(sails.config.requirejs && sails.config.requirejs.urlArgs){
-    return "<script>var require = { urlArgs: '"+sails.config.requirejs.urlArgs+"'};</script>";
+    return "<script>var require = { urlArgs: '"+refreshString+"'};</script>";
   }
   return '';
 };
@@ -49,16 +51,23 @@ exports.getRequireJsScriptTag = function(){
 exports.getlinkCssTags = function(){
   var tags = '';
 
+  // if forceBrowserCacheRefresh is true force browser refresh
+  var refreshString = '';
+  if(sails.config.forceBrowserCacheRefresh){
+    // get a randon number for force browser refresh assets
+    refreshString = '?ar='+ Math.floor(Math.random() * 1000);
+  }
+
   if(sails.config.environment == 'production'){
-    tags += '<link rel="stylesheet" href="/min/production.css">';
+    tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
   }else{
-    tags += '<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">';
-    tags += '<link rel="stylesheet" href="/wysiwyg/summernote/dist/summernote.css">';
-    tags += '<link rel="stylesheet" href="/bower_components/select2/select2.css">';
-    tags += '<link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">';
+    tags += '<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css'+refreshString+'">';
+    tags += '<link rel="stylesheet" href="/wysiwyg/summernote/dist/summernote.css'+refreshString+'">';
+    tags += '<link rel="stylesheet" href="/bower_components/select2/select2.css'+refreshString+'">';
+    tags += '<link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css'+refreshString+'">';
 
     if(themeEngine.stylesheet)
-      tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+'">';
+      tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
   }
 
   return tags;
