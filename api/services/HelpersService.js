@@ -19,6 +19,13 @@ exports.getModelsAttributes = function(){
  * @return {string} urlArgs from config or a empty string
  */
 exports.getRequirejsPreloadConfig = function(){
+  // if forceBrowserCacheRefresh is true force browser refresh with require.js urlArgs ...
+  if(sails.config.forceBrowserCacheRefresh){
+    // get a randon number for force browser refresh assets
+    sails.config.requirejs.urlArgs = 'ar='+ Math.floor(Math.random() * 1000);
+  }
+
+
   if(sails.config.requirejs && sails.config.requirejs.urlArgs){
     return "<script>var require = { urlArgs: '"+sails.config.requirejs.urlArgs+"'};</script>";
   }
