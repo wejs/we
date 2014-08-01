@@ -2,54 +2,44 @@
 // Email config example
 /*
 module.exports.email = {
-  // site email
-  site_email: 'services@we-cms.org',
-  // default from email
-  from_email: 'We CMS',
-  from_name:  'services@we-cms.org',
+   email: {
+    site_email: 'no-reply@wejs.org',
+    from_email: 'WE',
+    from_name:  'no-reply@wejs.org',
+    defaultService: 'Mandrill',
 
-  // set default email service
-  defaultService: 'Live',
-
-  // set avaible email services configs
-  services: {
-    // See https://github.com/andris9/Nodemailer for others configs
-
-    // Mandrill example
-    Mandrill: {
-      service: 'Mandrill',
-      type: 'SMTP',
-      host: 'smtp.mandrillapp.com',
-      port: 587,
-      auth: {
-        user: 'mandrillemail@email.com',
-        pass: 'mandrillapikey'
-      }
-    },
-
-    // Windows live config
-    Live: {
-      service: "Live",
-      type: 'SMTP',
-      host: "smtp-mail.outlook.com", // hostname
-      secureConnection: false, // TLS requires secureConnection to be false
-      port: 587, // port for secure SMTP
-      auth: {
-          user: "email@outlook.com",
-          pass: "password"
+    services: {
+      Mandrill: {
+        service: 'Mandrill',
+        type: 'SMTP',
+        host: 'smtp.mandrillapp.com',
+        port: 587,
+        auth: {
+          user: 'email@gmail.com',
+          pass: 'yourpassword'
+        }
       },
-      tls: {
+      Live: {
+        service: "Live",
+        type: 'SMTP',
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: false, // TLS requires secureConnection to be false
+        port: 587, // port for secure SMTP
+        auth: {
+          user: "email@we-cms.org",
+          pass: "yourpassword"
+        },
+        tls: {
           ciphers:'SSLv3'
-      }
-    },
-
-    // gmail smtp configs
-    gmail: {
-      service: "Gmail",
-      type: 'SMTP',
-      auth: {
-        user: "email@gmail.com",
-        pass: "password"
+        }
+      },
+      gmail: {
+        service: "gmail",
+        type: 'SMTP',
+        auth: {
+          user: "email@gmail.com",
+          pass: "yourpassword"
+        }
       }
     }
   }
