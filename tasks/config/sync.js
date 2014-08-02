@@ -15,18 +15,18 @@
 var themeEngine = require('we-theme-engine');
 
 module.exports = function(grunt) {
-
+	// TODO add suport to sub project sync
 	grunt.config.set('sync', {
 		dev: {
 			files: [{
-				cwd: './assets',
+				cwd: './node_modules/we/assets',
 				src: ['**/*.!(coffee)'],
 				dest: '.tmp/public'
 			}]
 		},
 		devJs: {
 			files: [{
-				cwd: './assets/js',
+				cwd: './node_modules/we/assets/js',
 				src: ['**/*.js'],
 				dest: '.tmp/public/js'
 			}]

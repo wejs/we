@@ -5,6 +5,10 @@
  * @description	:: Contains logic for handling requests.
  */
 var fs = require('fs');
+// current process path
+var subProjectPath = process.cwd()+ '/';
+
+
 module.exports = {
   // require js main file
   requireJSmain: function (req, res) {
@@ -58,14 +62,16 @@ module.exports = {
     // get public vars
     if(sails.config.clientside.publicVars) configs.client.publicVars = sails.config.clientside.publicVars;
 
-    fs.exists('.tmp/config/clientsideEmberjsParts.js', function(exists) {
+
+
+    fs.exists(subProjectPath+'.tmp/config/clientsideEmberjsParts.js', function(exists) {
       if (exists) {
-        configs.client.emberjsParts = require('../../.tmp/config/clientsideEmberjsParts.js').clientsideEmberjsParts;
+        configs.client.emberjsParts = require(subProjectPath+'.tmp/config/clientsideEmberjsParts.js').clientsideEmberjsParts;
       }
       //model export logic disabled
       //configs.models = HelpersService.getModelsAttributes();
 
-      if(!req.user.id){
+      if(!req.isAuthenticated()){
         // send not logged in configs
         return res.send(configs);
       }

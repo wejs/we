@@ -181,7 +181,7 @@ module.exports = {
       style = 'thumbnail';
     }
 
-    var defaultAvatarPath = 'assets/imgs/avatars/user-avatar.png';
+    var defaultAvatarPath = sails.config.defaultUserAvatar;
 
     if(!id) return res.forbidden();
 

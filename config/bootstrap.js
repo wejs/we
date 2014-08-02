@@ -11,6 +11,8 @@
 var mkdirp = require('mkdirp');
 
 module.exports.bootstrap = function (cb) {
+  sails.log.info(sails.config.paths);
+
   // set default upload configs folder
   if(!sails.config.fileUploadPath){
     sails.log.info('sails.config.fileUploadPath not found usong the default folder uploads/files');

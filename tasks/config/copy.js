@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 		dev: {
 			files: [{
 				expand: true,
-				cwd: './assets',
+				cwd: './node_modules/we/assets',
 				src: 	devfiles
 					.concat(pipelineConfig.jsFilesToInjectOriginal)
 					.concat(pipelineConfig.cssFilesToInjectOriginal)
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 		build_for_prod: {
 			files: [{
 				expand: true,
-				cwd: './assets',
+				cwd: './node_modules/we/assets',
 				src: 	devfiles
 						.concat(['js/libs/*.js', 'js/libs/**/*.js'])
 						.concat(pipelineConfig.cssFilesToInjectOriginal)

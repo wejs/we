@@ -27,9 +27,7 @@ describe('UsersController', function() {
   // JSON REQUESTS //
   describe('JSON Requests', function() {
     describe('GET', function() {
-
       it('/api/v1/user without users in database return 200 and a empty array', function (done) {
-
         request(sails.hooks.http.app)
         .get('/api/v1/user')
         .set('Accept', 'application/json')

@@ -16,11 +16,18 @@ var themeEngine = require('we-theme-engine');
 module.exports = function(grunt) {
 
 	var assetsFiles = [
+		// user assets file
 		'assets/fonts/**/*',
 		'assets/imgs/**/*',
 		'assets/langs/**/*',
 		'assets/styles/**/*',
-		'assets/wysiwyg/**/*'
+		'assets/wysiwyg/**/*',
+		// we.js assets files
+		'node_modules/we/assets/fonts/**/*',
+		'node_modules/we/assets/imgs/**/*',
+		'node_modules/we/assets/langs/**/*',
+		'node_modules/we/assets/styles/**/*',
+		'node_modules/we/assets/wysiwyg/**/*'
 	];
 
 	// push fonts folder
@@ -39,7 +46,7 @@ module.exports = function(grunt) {
 		},
 		templates: {
 			files: [
-				'assets/js/**/*.hbs',
+				'node_modules/we/assets/js/**/*.hbs',
 			],
 			tasks: [
 				'weThemeEmberHandlebars:dev'
@@ -48,7 +55,7 @@ module.exports = function(grunt) {
 		},
 		emberScripts: {
 			files: [
-				'assets/js/**/*.js',
+				'node_modules/we/assets/js/**/*.js',
 			],
 			tasks: [
 				'sync:devJs',

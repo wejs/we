@@ -1,7 +1,8 @@
 
-var themeEngine = require('we-theme-engine');
-
 module.exports = function(grunt) {
+
+  var themeEngine = require('we-theme-engine');
+
   grunt.config.set('weThemeEmberHandlebars', {
     dev: {
       options: {
@@ -10,8 +11,8 @@ module.exports = function(grunt) {
       },
       // local files
       files: [
-        'assets/js/ember/*/templates/*.hbs',
-        'assets/js/ember/*/templates/*/*.hbs'
+        'node_modules/we/assets/js/ember/*/templates/*.hbs',
+        'node_modules/we/assets/js/ember/*/templates/*/*.hbs'
       ],
       dest: '.tmp/public/tpls.hbs.js'
     }

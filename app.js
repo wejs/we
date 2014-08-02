@@ -1,9 +1,45 @@
-/**
+
+
+// node.js configuration loader
+var rc = require('rc');
+// sails.js :)
+var Sails = require('sails');
+
+var buildDictionary = require('./node_modules/sails/node_modules/sails-build-dictionary');
+
+var includeAll = require('include-all');
+
+var we = {};
+// current process path
+var subProjectPath = process.cwd();
+
+// default configs
+var configs = {
+	// set app path to we.js node module
+	appPath: __dirname,
+  paths: {
+    'public': subProjectPath+'/.tmp/public',
+  },
+  defaultUserAvatar: __dirname + '/assets/imgs/avatars/user-avatar.png'
+};
+
+// TODO!
+we.configure = function(){
+
+};
+
+
+we.getIncludeAll = function(){
+ 	return includeAll;
+};
+
+// --- SAILS.js PART
+/** <- form default sails.js app.js
  * app.js
  *
  * Use `app.js` to run your app without `sails lift`.
  * To start the server, run: `node app.js`.
- * 
+ *
  * This is handy in situations where the sails CLI is not relevant or useful.
  *
  * For example:
@@ -12,42 +48,67 @@
  *   => `node debug app.js`
  *   => `modulus deploy`
  *   => `heroku scale`
- * 
+ *
  *
  * The same command-line arguments are supported, e.g.:
  * `node app.js --silent --port=80 --prod`
  */
 
-// Ensure a "sails" can be located:
-var sails;
-try {
-	sails = require('sails');
-} catch (e) {
-	console.error('To run an app using `node app.js`, you usually need to have a version of `sails` installed in the same directory as your app.');
-	console.error('To do that, run `npm install sails`');
-	console.error('');
-	console.error('Alternatively, if you have sails installed globally (i.e. you did `npm install -g sails`), you can use `sails lift`.');
-	console.error('When you run `sails lift`, your app will still use a local `./node_modules/sails` dependency if it exists,');
-	console.error('but if it doesn\'t, the app will run with the global sails instead!');
-	return;
-}
+/**
+ * Lift the sails.js server with we.js configs
+ * @return {[type]} [description]
+ */
+we.start = function(){
+	Sails.log.debug('Starting sails.js with We.js configs.');
 
-// Try to get `rc` dependency
-var rc;
-try {
-	rc = require('rc');
-} catch (e0) {
-	try {
-		rc = require('sails/node_modules/rc');
-	} catch (e1) {
-		console.error('Could not find dependency: `rc`.');
-		console.error('Your `.sailsrc` file(s) will be ignored.');
-		console.error('To resolve this, run:');
-		console.error('npm install rc --save');
-		rc = function () { return {}; };
-	}
-}
+  buildDictionary.aggregate({
+    dirname   :  subProjectPath + '/config',
+    filter    : /local\.(js|json)$/,
+    identity  : false
+  }, function(err, localConfig){
+    // merge the configs
+    Sails.util.merge(
+      configs,
+      localConfig
+    );
+
+    // Start server
+    Sails.lift(rc('sails',configs));
+  });
 
 
-// Start server
-sails.lift(rc('sails'));
+
+
+	//Sails.log.warn('sails.config>',sails.config);
+};
+
+we.stop = function stop(){
+	// Start server
+	return sails.lower();
+};
+
+// --- GRUNT PART
+we.grunt = {};
+
+we.grunt.loadTasks = function loadTasks(relPath, grunt) {
+  // in prod env only load config copy task
+  if(relPath === './tasks/config' && grunt.cli.tasks[0] == 'prod'){
+    return includeAll({
+      dirname: require('path').resolve(__dirname, relPath),
+      filter: 'copy.js'
+    }) || {};
+  }
+
+  //console.warn(grunt);
+  return includeAll({
+    dirname: require('path').resolve(__dirname, relPath),
+    filter: /(.+)\.js$/
+  }) || {};
+};
+
+
+
+
+
+// exports IT!
+module.exports = we;
