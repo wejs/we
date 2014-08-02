@@ -23,7 +23,7 @@ module.exports = {
       if (err) return res.serverError(err);
       if(!user) return res.notFound('No record found with the specified `id`.');
 
-      if(!req.user.id){
+      if(!req.isAuthenticated()){
         return res.send({ user: user });
       }
 
