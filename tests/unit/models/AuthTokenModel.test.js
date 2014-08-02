@@ -7,7 +7,7 @@ var assert = require('assert');
 var supertest = require('supertest');
 var uuid = require('node-uuid');
 
-var testUtils = require('../testUtils.js');
+var testUtils = require('../../testUtils.js');
 
 function UserStub () {
   return {

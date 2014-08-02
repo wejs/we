@@ -19,7 +19,7 @@ describe('UsersController', function() {
   afterEach(function(done){
     // remove all users after each test block
     User.destroy(function (err) {
-      if(err) return done(err);
+      // if(err) return done(err);
       done();
     } );
   });
@@ -78,7 +78,7 @@ describe('UsersController', function() {
         });
       });
 
-      it('/user/:uid should return 200 and one user', function (done) {
+      it('/api/v1/user/:uid should return 200 and one user', function (done) {
 
         User.create(UserStub(), function(err, newUser) {
           if(err) return done(err);

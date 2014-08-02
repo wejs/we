@@ -23,12 +23,11 @@ describe('UsersModel', function() {
     // remove all users after each test block
     User.destroy(function (err) {
       if(err) {
-        console.log('error:', err);
-        return done(err);
+        // console.log('error:', err);
+        // return done(err);
       }
       done();
-
-    } );
+    });
   });
 
   describe('Create', function() {

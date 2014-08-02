@@ -3,9 +3,9 @@ var should = require('should');
 var request = require('supertest');
 var sinon   = require('sinon');
 var uuid = require('node-uuid');
-var AuthController = require('../../api/controllers/AuthController.js');
+var AuthController = require('../../../api/controllers/AuthController.js');
 
-var testUtils = require('../testUtils.js');
+var testUtils = require('../../testUtils.js');
 
 function UserStub () {
   return {
@@ -37,7 +37,7 @@ describe('AuthController', function() {
     afterEach(function(done){
       // remove all users after each test block
       User.destroy(function (err) {
-        if(err) return done(err);
+        // if(err) return done(err);
         done();
       } );
     });
@@ -79,7 +79,7 @@ describe('AuthController', function() {
       });
 
       it('AuthController-changePassword test change password controller',function (done) {
-        
+
         //console.log('auth: ', AuthController);
         /*
         var req = {};

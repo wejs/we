@@ -3,74 +3,73 @@
  * to solve this problem we use only one before All and after All to start and
  * stop the server
  */
-
 var Sails = require('sails');
-var fs = require("fs");
+var fs = require('fs');
 
-/**
- * Before ALL the test bootstrap the server
- */
 before(function(done) {
 
   this.timeout(5000);
 
-  // TODO: Create the database
-  // Database.createDatabase.....
-  var config = gettestConfig();
-
-  // start sails server and for tests and user the global sails variable
-  Sails.lift( config, function(err, sails) {
-    done();
-    /*
-    // CSRF getter
-    getTestCsrfToken(function(err, csrf){
-      done();
-    });
-    */
+  Sails.lift({
+    log: {
+      level: 'error'
+    },
+    connections: {
+      memory: {
+        adapter   : 'sails-memory'
+      }
+    },
+    models: {
+      connection: 'memory'
+    },
+    port: 1330,
+    environment: 'test',
+    // @TODO needs suport to csrf token
+    csrf: false,
+    hooks: {
+      grunt: false,
+      pubsub: false
+    }
+  }, function(err, sails) {
+    if (err) return done(err);
+    // here you can load fixtures, etc.
+    done(err, sails);
   });
+});
 
+after(function(done) {
+  // here you can clear fixtures, etc.
+  sails.lower(done);
 });
 
 
 // load models test
-fs.readdirSync(__dirname + "/models").forEach(function(file) {
+fs.readdirSync(__dirname + "/unit/models").forEach(function(file) {
   if(file.indexOf('.test.js') > -1) {
-    require("./models/" + file);
+    require("./unit/models/" + file);
   }
 });
 
 // load controllers test
-fs.readdirSync( __dirname + "/controllers").forEach(function(file) {
+fs.readdirSync( __dirname + "/integration/controllers").forEach(function(file) {
   if(file.indexOf('.test.js') > -1) {
-    require("./controllers/" + file);
+    require("./integration/controllers/" + file);
   }
 
 });
 
 
-// load services tests
-fs.readdirSync( __dirname + "/services").forEach(function(file) {
-  if(file.indexOf('.test.js') > -1) {
-    require("./services/" + file);
-  }
+// // load services tests
+// fs.readdirSync( __dirname + "/unit/services").forEach(function(file) {
+//   if(file.indexOf('.test.js') > -1) {
+//     require("./unit/services/" + file);
+//   }
+// });
 
-});
-
-// Load views tests
-// ----------------------------
-fs.readdirSync(__dirname + "/views").forEach(function(file) {
-  if(file.indexOf('.test.js') > -1) {
-    require("./views/" + file);
-  }
-});
-
-
-/**
- * After ALL the tests, lower sails
- */
-after(function(done) {
-  // TODO: Clean up db
-  // Database.clean...
-  sails.lower(done);
-
-});
+// // Load views tests
+// // ----------------------------
+// fs.readdirSync(__dirname + "/unit/views").forEach(function(file) {
+//   if(file.indexOf('.test.js') > -1) {
+//     require("./unit/views/" + file);
+//   }
+// });

@@ -7,15 +7,8 @@ require('should');
 var request = require('supertest');
 
 // TODO move this database config to sails config/local.js
-global.gettestConfig= function(done) {
-
-  //var localConf = require('../config/local');
-
-  // TODO: Create the database
-  // Database.createDatabase.....
-
+global.gettestConfig = function(done) {
   return {
-
     log: {
       level: 'error'
     },
@@ -30,7 +23,11 @@ global.gettestConfig= function(done) {
     port: 1330,
     environment: 'test',
     // @TODO needs suport to csrf token
-    csrf: false
+    csrf: false,
+    hooks: {
+      grunt: false,
+      pubsub: false
+    }
   };
 
 };
