@@ -1,4 +1,5 @@
 
+
 define(['we','ember'], function (we) {
 
   App.UserController = Ember.ObjectController.extend({
@@ -6,6 +7,9 @@ define(['we','ember'], function (we) {
       'pt-br',
       'en-us'
     ],
+    contactStatus: function() {
+      return this.get('contact.status');
+    }.property('contact','contact.status'),
     showSocialActions: function(){
       if(this.get('user.id') == we.authenticatedUser.id){
         return false;
@@ -13,7 +17,6 @@ define(['we','ember'], function (we) {
         return true;
       }
     }.property('user.id'),
-
     actions: {
       edit: function edit(){
         this.setProperties({
@@ -25,17 +28,17 @@ define(['we','ember'], function (we) {
         this.set('isEditing', false);
       },
       save: function save(){
-        var _this = this;
+        var self = this;
 
         // do nothin if is already salved
-        if( _this.get('user.currentState.stateName') == 'root.loaded.saved' ){
+        if( self.get('user.currentState.stateName') == 'root.loaded.saved' ){
           return ;
         }
 
         // save the model
-        _this.get('user').save().then(function(){
+        self.get('user').save().then(function(){
           // updated!
-          _this.setProperties({
+          self.setProperties({
             'isEditing': false,
             'hasChangesToSave': false
           });
@@ -46,35 +49,97 @@ define(['we','ember'], function (we) {
         this.set('isEditing', false);
       },
 
+      contactButtomClicked: function() {
+        switch(this.get('contactStatus')){
+          case 'requested':
+            // TODO!
+            this.send('cancelContactRequest');
+            break;
+          case 'requestsToYou':
+            this.send('acceptAddInContactList');
+            break;
+          case 'accepted':
+            this.send('deleteContact');
+            break;
+          case 'ignored':
+            this.send('deleteContact');
+            break;
+          default:
+            this.send('requestAddInContactList');
+        }
+      },
       requestAddInContactList: function(){
-        var _this = this;
-        var store = this.get('store');
-        var to = this.get('user');
-        var contact = {};
-        var from = store.getById('user', App.currentUser.get('id'));
+        var self = this;
 
-        contact.from = from;
-
-        contact = store.createRecord('contact', {from: from});
-        contact.get('users').pushObject(from);
-        contact.get('users').pushObject(to);
-
-        contact.save()
-        .then(function(contact){
-          _this.set('contact',contact);
-          console.warn(contact);
+        Ember.$.post('/api/v1/user/'+this.get('user.id')+'/contact-request')
+        .done(function(data) {
+          console.warn('contact',data.contact);
+          self.set('contact',data.contact);
+        })
+        .fail(function(data) {
+           Ember.Logger.error('Error on requestAddInContactList contact:',data.contact);
         });
+
       },
       acceptAddInContactList: function(){
-        var contact = this.get('model.contact');
+        var self = this;
 
+        Ember.$.post('/api/v1/user/'+this.get('user.id')+'/contact-accept')
+        .done(function(data) {
+          console.warn('acceptAddInContactList',data.contact);
+          self.set('contact.status',data.contact.status);
+        })
+        .fail(function(data) {
+           Ember.Logger.error('Error on acceptAddInContactList contact:',data);
+        });
+      },
 
-        contact.set('status','accepted');
-        console.warn('contact',contact);
-        contact.save();
+      ignoreContact: function(){
+        var self = this;
 
+        Ember.$.post('/api/v1/user/'+this.get('user.id')+'/contact-ignore')
+        .done(function(data) {
+          console.warn('ignoreContact',data.contact);
+          self.set('contact.status',data.contact.status);
+        })
+        .fail(function(data) {
+           Ember.Logger.error('Error on ignoreContact contact:',data);
+        });
+
+      },
+      deleteContact: function(){
+        var self = this;
+
+        Ember.$.ajax({
+          url: '/api/v1/user/'+this.get('user.id')+'/contact/',
+          type: 'DELETE'
+        })
+        .done(function(data) {
+          console.warn('ignoreContact',data.contact);
+        })
+        .fail(function(data) {
+           Ember.Logger.error('Error on deleteContact:',data);
+        });
       }
     }
   });
 
 });
+
+/*
+
+
+  // ignore
+  'post /api/v1/user/:contactId/contact-ignore': {
+    controller    : 'contact',
+    action        : 'ignoreContact'
+  },
+  // delete contact relation
+  'delete /api/v1/user/:contactId/contact/': {
+    controller    : 'contact',
+    action        : 'deleteContact'
+  },
+
+
+
+ */

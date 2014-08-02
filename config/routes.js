@@ -78,9 +78,30 @@ module.exports.routes = {
     action        : 'current'
   },
 
-  'get /api/v1/user/:uid/contact/:contact_id': {
+  // find contact relationship status
+  'get /api/v1/user/:contactId/contact': {
     controller    : 'contact',
     action        : 'findOneUserContact'
+  },
+  // request
+  'post /api/v1/user/:contactId/contact-request': {
+    controller    : 'contact',
+    action        : 'requestContact'
+  },
+  // accept
+  'post /api/v1/user/:contactId/contact-accept': {
+    controller    : 'contact',
+    action        : 'acceptContact'
+  },
+  // ignore
+  'post /api/v1/user/:contactId/contact-ignore': {
+    controller    : 'contact',
+    action        : 'ignoreContact'
+  },
+  // delete contact relation
+  'delete /api/v1/user/:contactId/contact/': {
+    controller    : 'contact',
+    action        : 'deleteContact'
   },
 
   // USERS

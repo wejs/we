@@ -41,11 +41,6 @@ module.exports = {
     configs.user = {};
     configs.authenticatedUser = {};
 
-    if(req.user){
-      // todo check if need to use .toJson in this user
-      configs.authenticatedUser = req.user;
-    }
-
     // -- Plugin configs
     configs.plugins = {};
 
@@ -70,7 +65,20 @@ module.exports = {
       //model export logic disabled
       //configs.models = HelpersService.getModelsAttributes();
 
-      res.send(configs);
+      if(!req.user.id){
+        // send not logged in configs
+        return res.send(configs);
+      }
+
+      // get user configs
+      configs.authenticatedUser = req.user;
+      // get user logged in contacts
+      Contact.getUserContacts(req.user.id, function(err, contacts){
+        if (err) return res.negotiate(err);
+        configs.authenticatedUser.contacts = contacts;
+        res.send(configs);
+      });
+
     });
   },
 

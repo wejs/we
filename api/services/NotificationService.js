@@ -1,4 +1,42 @@
 
+exports.notify = function notify(type, user, data, callback) {
+  // make callback optional
+  if(!callback) callback = function(){};
+
+  switch(type){
+    case 'contact_requested':
+      // send one socket.io notification
+      sails.io.sockets.in('user_'+data.to).emit('contact:requested', data);
+      sails.log.debug('TODO! send contact_requested notification!',type,data);
+      break;
+    case 'contact_accepted':
+      // send one socket.io notification
+      sails.io.sockets.in('user_'+data.from).emit('contact:accepted', data);
+      sails.log.debug('TODO! send contact_accepted notification!',type,data);
+      break;
+    case 'contact_ignored':
+      // send one socket.io notification
+      sails.io.sockets.in('user_'+data.from).emit('contact:ignored', data);
+      sails.log.debug('TODO! send contact_ignored notification!',type,data);
+      break;
+    case 'contact_deleted':
+      // send one socket.io notification
+      sails.io.sockets.in('user_'+data.to).emit('contact:deleted', data);
+      sails.io.sockets.in('user_'+data.from).emit('contact:deleted', data);
+      sails.log.debug('TODO! send contact_deleted notification!',type,data);
+      break;
+    default:
+      sails.log.warn('notification type not found:',type);
+  }
+
+  sails.log.info('TODO! notify', type, data);
+
+};
+/*
+acceptContact
+ignoreContact
+deleteContact
+ */
 
 /**
  * Set notifications and salve on database

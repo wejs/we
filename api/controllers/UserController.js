@@ -16,23 +16,23 @@ var util = require('util');
 module.exports = {
 
   findOne: function findOneRecord (req, res) {
-
-    var Model = actionUtil.parseModel(req);
     var pk = actionUtil.requirePk(req);
-    var modelName = req.options.model || req.options.controller;
-
-    var query = Model.findOne(pk);
+    var query = User.findOne(pk);
     //query = actionUtil.populateEach(query, req.options);
-    query.exec(function found(err, matchingRecord) {
+    query.exec(function found(err, user) {
       if (err) return res.serverError(err);
-      if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
+      if(!user) return res.notFound('No record found with the specified `id`.');
 
-      var resultObject = {};
+      if(!req.user.id){
+        return res.send({ user: user });
+      }
 
-      resultObject[modelName] = matchingRecord;
-      res.send(resultObject);
+      Contact.getUsersRelationship(req.user.id, user.id, function(err, contact){
+        user.contact = contact;
+        res.send({ user: user });
+      });
+
     });
-
   },
 
   find: function findRecords (req, res) {

@@ -3,13 +3,14 @@ define(['we','ember'], function (we) {
     isAuthenticated: false,
     init: function(){
       this._super();
-      var _this = this;
+      var self = this;
+      var store = this.get('store');
 
       if(we.isAuthenticated()){
-        _this.isAuthenticated = true;
+        self.isAuthenticated = true;
 
       }else{
-        _this.isAuthenticated = false;
+        self.isAuthenticated = false;
       }
     }
   });

@@ -8,8 +8,8 @@ define(['we','ember','ember-data'], function (we) {
     }),
 
     // relationship
-    from: DS.belongsTo('user'),
-    users: DS.hasMany('user'),
+    from: attr(),
+    to: attr(),
 
     createdAt: attr('date'),
     updatedAt: attr('date')

@@ -38,33 +38,80 @@ define(['we','ember'], function (we) {
       };
 
       // get contact relation
-      var currentUserID = App.currentUser.get('id');
-      if(currentUserID){
+      if(App.currentUser.id === params['user_id']){
+        hash.contact = { status: 'currentUser' };
+      }else if(App.currentUser.id){
         hash.contact = new Ember.RSVP.Promise(function(resolve) {
-         // //api/v1/user/:uid/contact/:contact_id
           Ember.$.ajax({
             type: 'GET',
-            url: '/api/v1/user/'+currentUserID+'/contact/'+params['user_id'],
+            url: '/api/v1/user/'+params['user_id']+'/contact',
             dataType: 'json',
             contentType: 'application/json'
-          }).done(function(contact){
-            if(contact.id){
-              resolve( store.push('contact',contact) );
+          }).done(function(data){
+            if(data.contact){
+              resolve( store.push('contact',data.contact) );
             }else{
-              resolve({});
+              resolve( Ember.Object.create({status: ''}) );
             }
-
           }).fail(function(){
             resolve({});
           });
         });
-
       }else{
         hash.contact = {};
       }
-
       return Ember.RSVP.hash(hash);
+    },
+    init: function() {
+      this._super();
+      var self = this;
+      var store = this.get('store');
 
+      // socket.io events added here to work with store
+      we.io.socket.on('contact:requested',function(data) {
+        if(data.to === App.currentUser.id){
+          data.status = 'requestsToYou';
+        }
+        // save in store
+        var contact = store.push('contact',data);
+        //if is the current model in this route set the contact
+        if(
+          self.currentModel.user.id == data.to ||
+          self.currentModel.user.id == data.from
+        ){
+          self.set('currentModel.contact',contact);
+        }
+      });
+
+      we.io.socket.on('contact:accepted',function(data) {
+        // update in store
+        var contact = store.push('contact',data);
+        // if are in from or to page update the contact data
+        if(
+          self.currentModel.user.id == data.to ||
+          self.currentModel.user.id == data.from
+        ){
+          self.set('currentModel.contact',contact);
+        }
+      });
+
+      // TODO!
+      we.io.socket.on('contact:ignored',function(data) {
+        console.warn('TODO! contact:ignored',data);
+        store.push('contact',data);
+      });
+
+      we.io.socket.on('contact:deleted',function(data) {
+        //if is the current user in model set the contact
+        if(self.currentModel.user.id == data.to ||
+          self.currentModel.user.id == data.from
+        ){
+          self.set('currentModel.contact',{});
+        }
+        // remove record from store
+        var contact = store.getById('contact', data.id);
+        contact.unloadRecord();
+      });
     }
   });
 
