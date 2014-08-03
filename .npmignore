@@ -1,0 +1,8 @@
+test
+.gitignore
+.jshintrc
+Cakefile
+.travis.yml
+.editorconfig
+.bowerrc
+.jscs.json
