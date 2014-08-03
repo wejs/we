@@ -11,8 +11,7 @@ module.exports = function(grunt) {
       },
       // local files
       files: [
-        'node_modules/we/assets/js/ember/*/templates/*.hbs',
-        'node_modules/we/assets/js/ember/*/templates/*/*.hbs'
+        'bower_components/we-cs-core/ember/*/templates/**/*.hbs'
       ],
       dest: '.tmp/public/tpls.hbs.js'
     }

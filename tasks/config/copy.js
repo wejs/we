@@ -13,15 +13,20 @@
  * For usage docs see:
  * 		https://github.com/gruntjs/grunt-contrib-copy
  */
-
 var themeEngine = require('we-theme-engine');
 
 module.exports = function(grunt) {
+
 	var devfiles = [
 		'fonts/**',
 		'imgs/**',
 		'langs/**'
 	];
+
+	var pipelineConfig = require('../pipeline');
+
+	devfiles = devfiles.concat(themeEngine.getProjectAssetsFiles());
+	devfiles = devfiles.concat(pipelineConfig.jsFilesToInjectOriginal);
 
   // @todo move this logic to one npm module
  //  var themeConfigs = require('../../config/theme.js');
@@ -29,20 +34,34 @@ module.exports = function(grunt) {
  //  var emberTemplatesPath = currentTheme.configs.emberTemplates;
  //  var themeFolders = 'node_modules/';
 
-	var pipelineConfig = require('../pipeline');
-
 	grunt.config.set('copy', {
 		dev: {
 			files: [{
 				expand: true,
 				cwd: './node_modules/we/assets',
-				src: 	devfiles
-					.concat(pipelineConfig.jsFilesToInjectOriginal)
-					.concat(pipelineConfig.cssFilesToInjectOriginal)
-					// TODO change this url to assets/fonts folder
-					.concat('bower_components/font-awesome/fonts/**')
-					.concat('bower_components/select2/*.png')
-					.concat('bower_components/select2/*.gif'),
+				src: 	devfiles,
+				dest: '.tmp/public'
+			},{
+				expand: true,
+				cwd: '.',
+				src: 	[
+				  'bower_components/font-awesome/fonts/**',
+					'bower_components/select2/*.png',
+					'bower_components/select2/*.gif'
+				],
+				dest: '.tmp/public'
+			},{
+				expand: true,
+				cwd: '.',
+				src: 	devfiles,
+				dest: '.tmp/public'
+			}]
+		},
+		requireJsFiles: {
+			files: [{
+				expand: true,
+				cwd: '.',
+				src: 	'bower_components/*/ember/**/*.js',
 				dest: '.tmp/public'
 			}]
 		},
@@ -70,20 +89,6 @@ module.exports = function(grunt) {
 					'config/**'
 				],
 				dest: 'build/assets'
-			}]
-		},
-		build_for_prod: {
-			files: [{
-				expand: true,
-				cwd: './node_modules/we/assets',
-				src: 	devfiles
-						.concat(['js/libs/*.js', 'js/libs/**/*.js'])
-						.concat(pipelineConfig.cssFilesToInjectOriginal)
-						// TODO change this url to assets/fonts folder
-						.concat('bower_components/font-awesome/fonts/**')
-						.concat('bower_components/select2/*.png')
-						.concat('bower_components/select2/*.gif'),
-				dest: '.tmp/public'
 			}]
 		},
 		prod: {

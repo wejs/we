@@ -20,17 +20,15 @@ module.exports.requirejs = {
     'ember-data-sails-adapter': 'bower_components/ember-data-sails-adapter/ember-data-sails-adapter',
     'ember-i18n': 'bower_components/ember-i18n/lib/i18n',
     'ember-auth': 'bower_components/ember-auth/dist/ember-auth',
-    // showdown for show markup
-    'showdown': 'bower_components/showdown/src/showdown',
     // precompiled ember templates
     emberTemplates: 'tpls.hbs',
     // wejs files
     we: 'bower_components/we/dist/we',
     //we.js plugin integration
-    weEmberPlugin: 'js/ember/weEmberPlugin',
-    emberApp: 'js/ember/emberApp',
+    weEmberPlugin: 'bower_components/we-cs-core/ember/weEmberPlugin',
+    emberApp: 'bower_components/we-cs-core/ember/emberApp',
     // starter script
-    starter: 'js/ember/starter',
+    starter: 'bower_components/we-cs-core/ember/starter',
     'ember-uploader': 'bower_components/ember-uploader/dist/ember-uploader',
     // wysiwyg editor
     summernote: 'wysiwyg/summernote/dist/summernote',

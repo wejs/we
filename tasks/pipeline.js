@@ -1,22 +1,9 @@
 var _ = require('lodash');
 
-var cssFilesToInject = [
-  'styles/**/*.css',
-  'bower_components/font-awesome/css/font-awesome.css',
-  'wysiwyg/summernote/dist/summernote.css',
-
-  'bower_components/select2/select2.css',
-
-  'bower_components/codemirror/lib/codemirror.css'
-];
-
+var cssFilesToInject = [];
 
 var jsFilesToInject = [
-
-  'js/libs/**.js',
-
-  'js/ember/**/*.js'
-
+  'js/libs/**/*.js'
 ];
 
 // wejs theme config

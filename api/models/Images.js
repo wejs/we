@@ -96,7 +96,8 @@ module.exports = {
 
     file.newName =  uuid.v1() + '.' + file.extension;
 
-    var newFilePath = sails.config.appPath + '/' + sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
+    var newFilePath = sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
+    //var newFilePath = sails.config.appPath + '/' + sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
 
     mv(file.path, newFilePath,{mkdirp: true}, function(err){
       if(err) return callback(err, null);

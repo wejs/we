@@ -26,7 +26,7 @@ module.exports.bootstrap = function (cb) {
 
   // create the image style if not exist
   sails.config.upload.image.avaibleStyles.forEach(function(style){
-    var path = sails.config.appPath + '/'+ sails.config.imageUploadPath + '/' + style ;
+    var path = sails.config.subAppPath + '/'+ sails.config.imageUploadPath + '/' + style ;
     mkdirp(path,function(e){
       if(e){
         sails.log.error('Cant create image directory on sails bootstrap',style,e);

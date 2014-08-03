@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 		},
 		templates: {
 			files: [
-				'node_modules/we/assets/js/**/*.hbs',
+				'assets/js/**/*.hbs',
 			],
 			tasks: [
 				'weThemeEmberHandlebars:dev'
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 		},
 		emberScripts: {
 			files: [
-				'node_modules/we/assets/js/**/*.js',
+				'assets/js/**/*.js',
 			],
 			tasks: [
 				'sync:devJs',

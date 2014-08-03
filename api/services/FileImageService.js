@@ -7,41 +7,39 @@ exports.getImageStyles = function(){
 
 exports.getImagePath = function(imageName, imageStyle){
   if(!imageStyle) imageStyle = 'original';
-  return sails.config.appPath + '/'+ sails.config.imageUploadPath + '/' + imageStyle + '/' + imageName;
+  return sails.config.subAppPath + '/'+ sails.config.imageUploadPath + '/' + imageStyle + '/' + imageName;
 };
 
 exports.getFileOrResize = function getFileOrResize(fileName,imageStyle ,callback){
 
   // TODO change to image upload path
-  var path = sails.config.imageUploadPath + '/' + imageStyle + '/' + fileName;
+  var path = FileImageService.getImagePath(fileName, imageStyle);
 
   fs.readFile(path,function (err, contents) {
-  if (err){
-    if(err.code != 'ENOENT' || imageStyle == 'original' ){
-      return callback(err);
-    }
+    if (err){
+      if(err.code != 'ENOENT' || imageStyle == 'original' ){
+        return callback(err);
+      }
 
-    var originalFile = FileImageService.getImagePath(fileName, 'original');
+      var originalFile = FileImageService.getImagePath(fileName, 'original');
 
-    var fullFilePath = sails.config.appPath + '/' + path;
+      var width = sails.config.upload.image.styles[imageStyle].width;
+      var heigth = sails.config.upload.image.styles[imageStyle].heigth;
 
-    var width = sails.config.upload.image.styles[imageStyle].width;
-    var heigth = sails.config.upload.image.styles[imageStyle].heigth;
-
-    // resize and remove EXIF profile data
-    var ii = gm(originalFile)
-    .resize(width, heigth)
-    .noProfile()
-    .write(fullFilePath, function (err) {
-      if (err) return callback(err);
-      fs.readFile(path,function (err, contents) {
-        callback(null, contents);
+      // resize and remove EXIF profile data
+      var ii = gm(originalFile)
+      .resize(width, heigth)
+      .noProfile()
+      .write(path, function (err) {
+        if (err) return callback(err);
+        fs.readFile(path,function (err, contents) {
+          callback(null, contents);
+        });
       });
-    });
 
-  }else{
-    callback(null, contents);
-  }
+    }else{
+      callback(null, contents);
+    }
   });
 };
 

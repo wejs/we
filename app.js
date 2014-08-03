@@ -17,6 +17,7 @@ var subProjectPath = process.cwd();
 var configs = {
 	// set app path to we.js node module
 	appPath: __dirname,
+  subAppPath: subProjectPath,
   paths: {
     'public': subProjectPath+'/.tmp/public',
   },

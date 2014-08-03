@@ -68,10 +68,10 @@ exports.getlinkCssTags = function(){
   if(sails.config.environment == 'production'){
     tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
   }else{
-    tags += '<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css'+refreshString+'">';
-    tags += '<link rel="stylesheet" href="/wysiwyg/summernote/dist/summernote.css'+refreshString+'">';
-    tags += '<link rel="stylesheet" href="/bower_components/select2/select2.css'+refreshString+'">';
-    tags += '<link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css'+refreshString+'">';
+
+    sails.config.assets.css.forEach(function(src) {
+      tags += '<link rel="stylesheet" href="/'+src+refreshString+'">';
+    });
 
     if(themeEngine.stylesheet)
       tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
