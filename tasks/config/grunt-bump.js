@@ -6,11 +6,11 @@ module.exports = function(grunt) {
 
   grunt.config.set('bump', {
     options: {
-      files: ['package.json', 'bower.json'],
+      files: ['package.json'],
       updateConfigs: [],
       commit: true,
       commitMessage: 'Release v%VERSION%',
-      commitFiles: ['package.json', 'bower.json'], // '-a' for all files
+      commitFiles: ['package.json'], // '-a' for all files
       createTag: true,
       tagName: 'v%VERSION%',
       tagMessage: 'Version %VERSION%',
