@@ -18,5 +18,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-uglify/tasks');
+
 };

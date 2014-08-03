@@ -68,13 +68,13 @@ we.start = function(){
     identity  : false
   }, function(err, localConfig){
     // merge the configs
-    Sails.util.merge(
-      configs,
-      localConfig
+    var mergedConfig = Sails.util.merge(
+      localConfig,
+      configs
     );
 
     // Start server
-    Sails.lift(rc('sails',configs));
+    Sails.lift(rc('sails',mergedConfig));
   });
 
 };

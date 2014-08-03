@@ -20,17 +20,6 @@ exports.getModelsAttributes = function(){
  */
 exports.getRequirejsPreloadConfig = function(){
   // if forceBrowserCacheRefresh is true force browser refresh with require.js urlArgs ...
-  var refreshString;
-  if(sails.config.forceBrowserCacheRefresh){
-    // get a randon number for force browser refresh assets
-    refreshString = 'ar='+ Math.floor(Math.random() * 1000);
-  }else{
-    refreshString = sails.config.requirejs.urlArgs;
-  }
-
-  if(sails.config.requirejs && sails.config.requirejs.urlArgs){
-    return "<script>var require = { urlArgs: '"+refreshString+"'};</script>";
-  }
   return '';
 };
 
@@ -39,7 +28,23 @@ exports.getRequirejsPreloadConfig = function(){
  * @return {string} script tag with requirejs configs
  */
 exports.getRequireJsScriptTag = function(){
-  var tags = '<script data-main="/main" src="/js/libs/require.js"></script>';
+  return HelpersService.getJsScriptTag();
+};
+
+/**
+ * Get requireJs script tag
+ * @return {string} script tag with requirejs configs
+ */
+exports.getJsScriptTag = function(){
+  var tags = '';
+
+  var urls = themeEngine.getProjectJsAssetsFiles();
+
+  urls.forEach(function(url){
+    tags += '<script src="'+url+'"></script>';
+  });
+
+  tags += '<script src="tpls.hbs.js"></script>';
 
   if(themeEngine.javascript)
       tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';

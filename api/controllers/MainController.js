@@ -24,7 +24,7 @@ module.exports = {
     }
 
     if(sails.config.environment == 'production'){
-      requireJsConfig = 'require(["/min/production.js"],function(){' + requireJsConfig + '});';
+      requireJsConfig = 'require(["/concat/production.js"],function(){' + requireJsConfig + '});';
     }
 
     res.send(200,requireJsConfig );
@@ -63,37 +63,20 @@ module.exports = {
     if(sails.config.clientside.publicVars) configs.client.publicVars = sails.config.clientside.publicVars;
 
 
-    var clientsideEmberjsPartsPath = subProjectPath+'.tmp/config/clientsideEmberjsParts.json';
-    fs.exists(clientsideEmberjsPartsPath, function(exists) {
-      if (!exists) {
-        sails.log.error('getConfigsJS:ClientsideEmberjsParts.json file not found:', err);
-        return res.serverError('ClientsideEmberjsParts.json file not found:');
-      }
+    if(!req.isAuthenticated()){
+      // send not logged in configs
+      return res.send(configs);
+    }
 
-      fs.readFile(clientsideEmberjsPartsPath, 'utf8', function (err, data) {
-        if (err){
-          sails.log.error('Error on get clientsideEmberjsParts.json file:', err);
-          return res.serverError('Error on get clientsideEmberjsParts.json file');
-        }
-
-        configs.client.emberjsParts = JSON.parse(data);
-
-        if(!req.isAuthenticated()){
-          // send not logged in configs
-          return res.send(configs);
-        }
-
-
-        // get user configs
-        configs.authenticatedUser = req.user;
-        // get user logged in contacts
-        Contact.getUserContacts(req.user.id, function(err, contacts){
-          if (err) return res.negotiate(err);
-          configs.authenticatedUser.contacts = contacts;
-          res.send(configs);
-        });
-      });
+    // get user configs
+    configs.authenticatedUser = req.user;
+    // get user logged in contacts
+    Contact.getUserContacts(req.user.id, function(err, contacts){
+      if (err) return res.negotiate(err);
+      configs.authenticatedUser.contacts = contacts;
+      res.send(configs);
     });
+
   },
 
   index: function (req, res) {

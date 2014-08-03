@@ -13,7 +13,7 @@ module.exports.requirejs = {
     'moment-pt-br': 'bower_components/moment/lang/pt-br',
     /** @todo remove async from client side */
     async: 'bower_components/async/lib/async',
-    handlebars: 'js/libs/handlebars',
+    handlebars: 'bower_components/handlebars/handlebars',
     // ember
     ember: 'bower_components/ember/ember',
     'ember-data': 'bower_components/ember-data/ember-data',

@@ -16,6 +16,5 @@ module.exports = function(grunt) {
 			dest: '.tmp/public/min/production.css'
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-cssmin/tasks');
 };

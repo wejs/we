@@ -36,6 +36,9 @@ module.exports = function(grunt) {
 	if(themeEngine.imagesFolder)
 		assetsFiles.push(themeEngine.imagesFolder);
 
+
+	var allJsFiles = themeEngine.getProjectJsAssetsFilesSrcMap();
+
 	grunt.config.set('watch', {
 		assets: {
 			// Assets to watch:
@@ -44,22 +47,22 @@ module.exports = function(grunt) {
 			tasks: ['syncAssets'],
 			options: { livereload: 12345 }
 		},
+		jsFiles: {
+			// Assets to watch:
+			files: allJsFiles,
+			// When assets are changed:
+			tasks: [
+				'syncAssets'
+			],
+			options: { livereload: 12345 }
+		},
+
 		templates: {
 			files: [
 				'assets/js/**/*.hbs',
 			],
 			tasks: [
 				'weThemeEmberHandlebars:dev'
-    	],
-			options: { livereload: 12345 }
-		},
-		emberScripts: {
-			files: [
-				'assets/js/**/*.js',
-			],
-			tasks: [
-				'sync:devJs',
-				'we_sails_ember_tasks:dev'
     	],
 			options: { livereload: 12345 }
 		},
@@ -78,6 +81,5 @@ module.exports = function(grunt) {
 			options: { livereload: 12345 }
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-contrib-watch');
+ grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-watch/tasks');
 };

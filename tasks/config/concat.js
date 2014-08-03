@@ -16,8 +16,10 @@ module.exports = function(grunt) {
 
 	grunt.config.set('concat', {
 		js: {
-			src: require('../pipeline').jsFilesToInject
-			.concat('.tmp/tpls.hbs.js'),
+			src: [
+				'.tmp/rjsBuild.js',
+				'.tmp/rjsBuildLibs.js'
+			],
 			dest: '.tmp/public/concat/production.js'
 		},
 		css: {
@@ -27,5 +29,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-concat/tasks');
+
 };

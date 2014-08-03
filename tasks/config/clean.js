@@ -16,5 +16,5 @@ module.exports = function(grunt) {
 		build: ['build']
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-clean/tasks');
 };

@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     'copy:theme_dev',
     'copy:requireJsFiles',
     'weThemeEmberHandlebars:dev',
-    'emberjsPartsConfig:generate'
+    'fileindex:list'
     //'we_sails_ember_tasks:dev'
 	]);
 };

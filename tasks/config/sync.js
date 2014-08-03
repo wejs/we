@@ -15,12 +15,22 @@
 var themeEngine = require('we-theme-engine');
 
 module.exports = function(grunt) {
+
+	var allJsFiles = themeEngine.getProjectJsAssetsFilesSrcMap();
+
 	// TODO add suport to sub project sync
 	grunt.config.set('sync', {
 		dev: {
 			files: [{
 				cwd: './assets',
 				src: ['**/*.!(coffee)'],
+				dest: '.tmp/public'
+			}]
+		},
+		devJsFiles: {
+			files: [{
+				cwd: '.',
+				src: allJsFiles,
 				dest: '.tmp/public'
 			}]
 		},
@@ -40,5 +50,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-sync');
+	grunt.task.loadTasks('node_modules/we/node_modules/grunt-sync/tasks');
 };

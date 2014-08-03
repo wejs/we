@@ -37,19 +37,5 @@ module.exports = function(grunt) {
     }
   }
 
-  // // old filter
-  // function filterNameForAssetsTemplateFolder(sourceFile){
-  //   var name =  sourceFile.replace(/^assets\/templates\//, '').replace(/\.hbs$/, '');
-  //   var names = name.split("/");
-  //   var featureName = null;
-  //   if(names.length == 2){
-  //     if(names[0] == names[1]){
-  //       // like notifications/notifications will be notifications
-  //       return names[1];
-  //     }
-  //   }
-  //   return name;
-  // }
-
-  grunt.loadNpmTasks('grunt-ember-template-compiler');
+  grunt.task.loadTasks('node_modules/we/node_modules/grunt-ember-template-compiler/tasks');
 };
