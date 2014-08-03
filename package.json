@@ -51,11 +51,9 @@
     "supervisor": "~0.6.0"
   },
   "scripts": {
-    "start": "supervisor -i .tmp/,.git/,node_modules/,views/,assets/ app.js",
-    "debug": "node debug app.js",
     "test": "./node_modules/.bin/mocha --reporter spec --require tests/testHelper.js tests/index.js --colors"
   },
-  "main": "app.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:wejs/we.git"

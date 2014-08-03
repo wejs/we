@@ -77,15 +77,11 @@ we.start = function(){
     Sails.lift(rc('sails',configs));
   });
 
-
-
-
-	//Sails.log.warn('sails.config>',sails.config);
 };
 
 we.stop = function stop(){
 	// Start server
-	return sails.lower();
+	return Sails.lower();
 };
 
 // --- GRUNT PART
@@ -106,10 +102,6 @@ we.grunt.loadTasks = function loadTasks(relPath, grunt) {
     filter: /(.+)\.js$/
   }) || {};
 };
-
-
-
-
 
 // exports IT!
 module.exports = we;
