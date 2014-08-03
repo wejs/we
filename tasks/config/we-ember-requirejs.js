@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     dev: {
       options: {
         replaceStringUrl: 'node_modules/we/assets/',
+        bowerBegginpath: 'node_modules/we/assets/bower_components/',
         requireJsConfig: require('../../config/requirejs.js').requirejs
       },
       src: require('../pipeline').jsFilesToInjectOriginal.map(function(src){
@@ -16,6 +17,8 @@ module.exports = function(grunt) {
       options: {
         requireJsConfig: require('../../config/requirejs.js').requirejs,
         concat: true,
+        replaceStringUrl: 'node_modules/we/assets/',
+        bowerBegginpath: 'node_modules/we/assets/bower_components/',
         emberFilesPath: 'node_modules/we/assets/js/ember/',
         generateEmberPartsConfigFile: true
       },

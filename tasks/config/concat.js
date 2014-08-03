@@ -11,6 +11,8 @@
  * 		https://github.com/gruntjs/grunt-contrib-concat
  */
 module.exports = function(grunt) {
+	// we.js theme engine
+	var themeEngine = require('we-theme-engine');
 
 	grunt.config.set('concat', {
 		js: {
@@ -19,7 +21,8 @@ module.exports = function(grunt) {
 			dest: '.tmp/public/concat/production.js'
 		},
 		css: {
-			src: require('../pipeline').cssFilesToInject,
+			src: require('../pipeline').cssFilesToInject
+				.concat(themeEngine.getCssFile()),
 			dest: '.tmp/public/concat/production.css'
 		}
 	});
