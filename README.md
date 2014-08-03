@@ -1,5 +1,14 @@
 #We.js
-#### A system for create Social Networks written with javascript - [Sails.js](http://sailsjs.org) Powered!.
+#### A npm module for create Social Networks written with javascript - [Sails.js](http://sailsjs.org) Powered!.
+
+**We.js includes one theme system all server side features, grunt configs and sails.js default configs**
+
+========
+
+> **We.js project example and skeleton:** <br>
+> Link: https://github.com/wejs/we-example
+
+---------------
 
 **Status** - :construction: In development, dont use it for production :bangbang:
 
@@ -33,6 +42,7 @@
 * Events - TODO
 * Posts - TODO
 * Activity - TODO
+* :white_check_mark: Subproject suport - [Done!](https://github.com/wejs/we-example)
 * :white_check_mark: Theme system - [Done!](https://github.com/wejs/we-theme-engine)
 
 ## Installation
@@ -47,10 +57,14 @@ Before install and start:
 Then in terminal tip:
 
 ```sh
-$ git clone https://github.com/wejs/we.git we
-$ cd we
+// clone the skeleton
+$ git clone https://github.com/wejs/we-example.git we-project
+// enter in folder
+$ cd we-project
+// install depencencies
 $ npm install && bower install
 ```
+
 ## How to configure
 
 We.js is a sails.js project then see [sails site](http://sailsjs.org/) for file configs
