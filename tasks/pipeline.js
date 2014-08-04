@@ -19,7 +19,6 @@ var theme = themeEngine.geTheme();
 
 if(theme){
   var themeName = themeConfigs.themes.enabled;
-
   if(theme.configs.stylesheet.files){
     themeCss = theme.configs.stylesheet.files.map(function(path) {
       return 'node_modules/'+themeName+'/'+ path;

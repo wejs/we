@@ -28,7 +28,7 @@
     "sanitize-html": "~1.2.1",
     "we-passport": "0.0.3",
     "we-send-email": "0.0.0",
-    "we-theme-engine": "0.0.5"
+    "we-theme-engine": "0.0.6"
   },
   "devDependencies": {
     "grunt-bower-requirejs": "~0.8.1",
