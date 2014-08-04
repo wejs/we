@@ -27,7 +27,7 @@
     "sails-mongo": "^0.10.0-rc5",
     "sanitize-html": "~1.2.1",
     "we-passport": "0.0.3",
-    "we-send-email": "0.0.0",
+    "we-send-email": "0.0.2",
     "we-theme-engine": "0.0.6"
   },
   "devDependencies": {

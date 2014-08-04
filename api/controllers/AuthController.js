@@ -425,7 +425,7 @@ module.exports = {
     var newPassword = req.body.newPassword;
     var rNewPassword = req.body.rNewPassword;
     var userId = req.param('id');
-    
+
     if(!req.user || !req.user.email || req.user.id != userId){
       return res.send(403, {
         responseMessage: {
@@ -438,7 +438,7 @@ module.exports = {
         }
       });
     }
-    
+
     var errors = {};
 
     if(!oldPassword){

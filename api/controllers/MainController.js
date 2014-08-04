@@ -8,7 +8,6 @@ var fs = require('fs');
 // current process path
 var subProjectPath = process.cwd()+ '/';
 
-
 module.exports = {
   // require js main file
   requireJSmain: function (req, res) {

@@ -3,7 +3,7 @@
 //
 
 var weSendEmail = require('we-send-email');
-
+weSendEmail.setConfigs(sails.config.email);
 
 exports.sendInviteEmail = function(options) {
   var smtpTransport;
