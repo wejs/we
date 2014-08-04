@@ -6,12 +6,19 @@ var jsFilesToInject = [
   'js/libs/**/*.js'
 ];
 
+// we.js theme engine
+var themeEngine = require('we-theme-engine');
+
 // wejs theme config
 var themeConfigs = require('../config/theme.js');
+
+var cwd = process.cwd();
+
 var themeCss = [];
-if(themeConfigs.themes && themeConfigs.themes.enabled){
+var theme = themeEngine.geTheme();
+
+if(theme){
   var themeName = themeConfigs.themes.enabled;
-  var theme = require(themeName);
 
   if(theme.configs.stylesheet.files){
     themeCss = theme.configs.stylesheet.files.map(function(path) {

@@ -9,6 +9,8 @@ var buildDictionary = require('./node_modules/sails/node_modules/sails-build-dic
 
 var includeAll = require('include-all');
 
+var themeEngine = require('we-theme-engine');
+
 var we = {};
 // current process path
 var subProjectPath = process.cwd();
@@ -20,10 +22,12 @@ var configs = {
   subAppPath: subProjectPath,
   paths: {
     'public': subProjectPath+'/.tmp/public',
+    'views':  themeEngine.getThemeSailsTemplatesFolder(),
+    'layout': themeEngine.getThemeLayout()
   },
   defaultUserAvatar: __dirname + '/assets/imgs/avatars/user-avatar.png'
 };
-
+// themeEngine.getThemeLayout
 // TODO!
 we.configure = function(){
 
