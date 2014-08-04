@@ -86,7 +86,8 @@ module.exports = function(grunt) {
 					'public/wysiwyg/**',
 					'public/langs/**',
 					'public/tpls.hbs.js',
-					'config/**'
+					'config/**',
+					'public/theme/**/*'
 				],
 				dest: 'build/'
 			}]
