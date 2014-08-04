@@ -46,10 +46,10 @@ exports.getJsScriptTag = function(){
   var urls = themeEngine.getProjectJsAssetsFiles();
 
   urls.forEach(function(url){
-    tags += '<script src="'+url+'"></script>';
+    tags += '<script src="/'+url+'"></script>';
   });
 
-  tags += '<script src="tpls.hbs.js"></script>';
+  tags += '<script src="/tpls.hbs.js"></script>';
 
   if(themeEngine.javascript)
       tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';
@@ -88,4 +88,4 @@ exports.getlinkCssTags = function(){
     tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
 
   return tags;
-}
+};
