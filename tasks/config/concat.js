@@ -16,19 +16,15 @@ module.exports = function(grunt) {
 
 	grunt.config.set('concat', {
 		js: {
-			src: [
-				'.tmp/rjsBuild.js',
-				'.tmp/rjsBuildLibs.js'
-			],
+			src: themeEngine.getProjectJsAssetsFilesSrcMap()
+			.concat('.tmp/public/tpls.hbs.js'),
 			dest: '.tmp/public/concat/production.js'
 		},
 		css: {
-			src: require('../pipeline').cssFilesToInject
-				.concat(themeEngine.getCssFile()),
+			src: themeEngine.getProjectAssetsFiles(),
 			dest: '.tmp/public/concat/production.css'
 		}
 	});
 
   grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-concat/tasks');
-
 };

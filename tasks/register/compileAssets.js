@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 		'less:dev',
 		'copy:dev',
     'copy:theme_dev',
-    'copy:requireJsFiles',
+    'copy:emberJsFiles',
     'weThemeEmberHandlebars:dev',
     'fileindex:list'
     //'we_sails_ember_tasks:dev'

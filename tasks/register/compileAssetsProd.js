@@ -4,9 +4,9 @@ module.exports = function (grunt) {
     'less:dev',
     'copy:dev',
     'copy:theme_dev',
-    'copy:requireJsFiles',
-    'concat:js',
+    'copy:emberJsFiles',
     'weThemeEmberHandlebars:dev',
-    'fileindex:list'
+    'fileindex:list',
+    'concat:js'
   ]);
 };

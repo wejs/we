@@ -57,7 +57,7 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
-		requireJsFiles: {
+		emberJsFiles: {
 			files: [{
 				expand: true,
 				cwd: '.',
@@ -88,13 +88,13 @@ module.exports = function(grunt) {
 					'public/tpls.hbs.js',
 					'config/**'
 				],
-				dest: 'build/assets'
+				dest: 'build/'
 			}]
 		},
 		prod: {
 			files: [{
 				expand: true,
-				cwd: 'build/assets',
+				cwd: 'build/',
 				src: ['**/*'],
 				dest: '.tmp'
 			}]

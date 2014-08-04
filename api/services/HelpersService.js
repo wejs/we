@@ -38,6 +38,11 @@ exports.getRequireJsScriptTag = function(){
 exports.getJsScriptTag = function(){
   var tags = '';
 
+  if(sails.config.environment === 'production'){
+    return '<script src="/min/production.js"></script>';
+  }
+
+
   var urls = themeEngine.getProjectJsAssetsFiles();
 
   urls.forEach(function(url){
@@ -73,14 +78,14 @@ exports.getlinkCssTags = function(){
   if(sails.config.environment == 'production'){
     tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
   }else{
-
     sails.config.assets.css.forEach(function(src) {
       tags += '<link rel="stylesheet" href="/'+src+refreshString+'">';
     });
-
-    if(themeEngine.stylesheet)
-      tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
   }
+
+
+  if(themeEngine.stylesheet)
+    tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
 
   return tags;
 }
