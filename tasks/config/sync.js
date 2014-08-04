@@ -50,5 +50,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.task.loadTasks('node_modules/we/node_modules/grunt-sync/tasks');
+	grunt.loadNpmTasks('grunt-sync');
 };

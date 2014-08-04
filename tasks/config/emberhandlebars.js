@@ -37,5 +37,5 @@ module.exports = function(grunt) {
     }
   }
 
-  grunt.task.loadTasks('node_modules/we/node_modules/grunt-ember-template-compiler/tasks');
+  grunt.loadNpmTasks('grunt-ember-template-compiler');
 };

@@ -24,5 +24,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-less/tasks');
+	grunt.loadNpmTasks('grunt-contrib-less');
 };

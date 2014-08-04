@@ -102,5 +102,5 @@ module.exports = function(grunt) {
 		},
 	});
 
-  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-copy/tasks');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 };

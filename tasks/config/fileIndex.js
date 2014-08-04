@@ -19,5 +19,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.loadTasks('node_modules/we/node_modules/grunt-fileindex/tasks');
+  grunt.loadNpmTasks('grunt-fileindex');
 };

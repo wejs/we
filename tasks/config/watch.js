@@ -81,5 +81,5 @@ module.exports = function(grunt) {
 			options: { livereload: 12345 }
 		}
 	});
- grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-watch/tasks');
+ grunt.loadNpmTasks('grunt-contrib-watch');
 };

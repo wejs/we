@@ -26,5 +26,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-  grunt.task.loadTasks('node_modules/we/node_modules/grunt-contrib-concat/tasks');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 };

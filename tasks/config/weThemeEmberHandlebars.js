@@ -17,5 +17,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.loadTasks('node_modules/we/node_modules/grunt-we-ember-template/tasks');
+  grunt.loadNpmTasks('grunt-we-ember-template');
 };
