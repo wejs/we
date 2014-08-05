@@ -19,7 +19,7 @@ module.exports = {
 
       // Found multiple links!
       } else {
-        console.log("links found:", links);
+        console.log('links found:', links);
         return res.view({
           links: links
         });

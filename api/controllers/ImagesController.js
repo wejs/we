@@ -4,12 +4,7 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
-var util = require('util');
 var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
-
-var fs = require('fs');
-// image converter
-var gm = require('gm');
 
 module.exports = {
 
@@ -21,7 +16,7 @@ module.exports = {
     .sort('updatedAt DESC')
     //.populate('comments')
     .exec(function(err, images) {
-      if (err) return res.serverError(err);
+      if (err){ return res.serverError(err); }
       res.send({
         image: images
       });
@@ -49,7 +44,7 @@ module.exports = {
     Images.findOne()
     .where({name: fileName})
     .exec(function(err, image) {
-      if (err) return res.negotiate(err);
+      if (err){ return res.negotiate(err); }
 
       if(!image){
         sails.log.debug('Image:findOne:Image not found:',fileName);
@@ -78,17 +73,19 @@ module.exports = {
     });
   },
 
+  /**
+   * Find image by id and returm image model data
+   */
   findOneReturnData : function (req, res){
-    var query = {};
-    var fileName = req.param('name');
-    if(!fileName){
+    var fileId = req.param('id');
+    if(!fileId){
       return res.send(404);
     }
     Images.findOne()
-    .where({name: fileName})
+    .where({id: fileId})
     .exec(function(err, image) {
       if (err) {
-        sails.log.error('Error on get image from BD: ',err, fileName);
+        sails.log.error('Error on get image from BD: ',err, fileId);
         return res.send(404);
       }
       if(!image){
@@ -99,6 +96,7 @@ module.exports = {
       });
     });
   },
+
 
   /**
    * Upload file to upload dir and save metadata on database
@@ -111,20 +109,20 @@ module.exports = {
     var creatorId = req.user.id;
 
     req.file('images').upload(function (err, files) {
-      if (err) return res.serverError(err);
+      if (err){ return res.serverError(err); }
       Images.uploadMultiple(files, creatorId, function(err, uploadedFiles){
         if(err){
           res.send(
             {
-              "files":[],
-              "error": err
+              'files':[],
+              'error': err
             }
           );
         } else {
           Images.create(uploadedFiles).exec(function(error, salvedFiles) {
-            if (err) return res.serverError(err);
+            if (err) { return res.serverError(err); }
 
-            sails.log.warn('salvedFiles',salvedFiles);
+            sails.log.warn('> salvedFiles',salvedFiles);
             res.send({
               images: salvedFiles
             });
@@ -147,7 +145,7 @@ module.exports = {
     cords.x = req.param('x');
     cords.y = req.param('y');
 
-    if(!fileId ) return res.send(400,'File id param is required');
+    if(!fileId ) { return res.send(400,'File id param is required'); }
 
     if(!cords.width || !cords.height || cords.x === null || cords.y === null){
       return res.send(400,'Width, height, x and y params is required');
@@ -163,10 +161,10 @@ module.exports = {
     .where({id: fileId})
     .exec(function(err, image) {
       if (err) {
-        sails.log.error('Error on get image from BD: ',err, fileName);
+        sails.log.error('Error on get image from BD: ',err, fileId);
         return res.send(404);
       }
-      if(!image || user_id != image.creator){
+      if(!image || user_id !== image.creator){
         sails.log.error('Image crop forbiden');
         return res.send(404);
       }

@@ -20,7 +20,7 @@ module.exports = {
     },
 
     logo: {
-      type: 'images'
+      model: 'images'
     },
 
     creator: {

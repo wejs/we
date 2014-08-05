@@ -207,7 +207,7 @@ module.exports.routes = {
     action        : 'findOne'
   },
 
-  'get /api/v1/images/:name?/data': {
+  'get /api/v1/images/:id/data': {
     controller    : 'images',
     action        : 'findOneReturnData'
   },

@@ -17,26 +17,28 @@ module.exports = {
   },
 
   // Signup method POST function
-  signup: function (req, res, next) {
+  signup: function (req, res) {
     var requireAccountActivation = false;
     var user = {};
-    user.displayName = req.param("displayName");
-    user.username = req.param("username");
-    user.email = req.param("email");
-    user.password = req.param("password");
-    user.language = req.param("language");
+    user.displayName = req.param('displayName');
+    user.username = req.param('username');
+    user.email = req.param('email');
+    user.password = req.param('password');
+    user.language = req.param('language');
 
 
-    if( !_.isUndefined(sails.config.site) )
-      if( !sails.util.isUndefined( sails.config.site.requireAccountActivation ) ){
+    if( !_.isUndefined(sails.config.site) ){
+      if ( !sails.util.isUndefined( sails.config.site.requireAccountActivation ) ){
         requireAccountActivation = sails.config.site.requireAccountActivation;
       }
+    }
 
     // if dont need a account activation email then create a active user
-    if(!requireAccountActivation)
+    if(!requireAccountActivation){
       user.active = true;
+    }
 
-    var confirmPassword = req.param("confirmPassword");
+    var confirmPassword = req.param('confirmPassword');
     var errors;
 
     errors = validSignup(user, confirmPassword, res);
@@ -44,29 +46,29 @@ module.exports = {
     if( ! _.isEmpty(errors) ){
       // error on data or confirm password
       return res.send('400',{
-        "error": "E_VALIDATION",
-        "status": 400,
-        "summary": "Validation errors",
-        "model": "User",
-        "invalidAttributes": errors
+        'error': 'E_VALIDATION',
+        'status': 400,
+        'summary': 'Validation errors',
+        'model': 'User',
+        'invalidAttributes': errors
       });
     }
 
     User.findOneByEmail(user.email).exec(function(err, usr){
       if (err) {
           sails.log.error('Error on find user by email.',err);
-          return res.send(500, { error: res.i18n("Error") });
+          return res.send(500, { error: res.i18n('Error') });
       } else if ( usr ) {
         return res.send(400,{
-          "error": "E_VALIDATION",
-          "status": 400,
-          "summary": "The email address is already registered in the system",
-          "model": "User",
-          "invalidAttributes": {
-            "email": [
+          'error': 'E_VALIDATION',
+          'status': 400,
+          'summary': 'The email address is already registered in the system',
+          'model': 'User',
+          'invalidAttributes': {
+            'email': [
               {
-                "rule": "email",
-                "message": "The email address is already registered in the system"
+                'rule': 'email',
+                'message': 'The email address is already registered in the system'
               }
             ]
           }
@@ -82,13 +84,11 @@ module.exports = {
                 }
 
               }else {
-                return res.send(500, {error: res.i18n("DB Error") });
+                return res.send(500, {error: res.i18n('DB Error') });
               }
             } else {
               if(requireAccountActivation){
-                var options = {};
-
-                EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err, responseStatus){
+                EmailService.sendAccontActivationEmail(newUser, req.baseUrl , function(err){
                   if(err) {
                     sails.log.error('Action:Login sendAccontActivationEmail:',err);
                     return res.serverError('Error on send activation email for new user',newUser);
@@ -127,11 +127,11 @@ module.exports = {
   },
 
   login: function (req, res, next) {
-    var email = req.param("email");
-    var password = req.param("password");
+    var email = req.param('email');
+    var password = req.param('password');
 
     if(!email || !password){
-      sails.log.debug("AuthController:login:Password and email is required", password, email);
+      sails.log.debug('AuthController:login:Password and email is required', password, email);
       return res.send(401,{
         error: [{
             status: '401',
@@ -143,24 +143,24 @@ module.exports = {
     User.findOneByEmail(email).exec(function(err, usr) {
       if (err) {
         sails.log.error('AuthController:login:Error on get user ', err, email);
-        return res.send(500, { error: res.i18n("DB Error") });
+        return res.send(500, { error: res.i18n('DB Error') });
       }
 
       if(!usr){
-        sails.log.debug("AuthController:login:User not found", email);
+        sails.log.debug('AuthController:login:User not found', email);
         return res.send(401,{
           error: [{
               status: '401',
-              message: res.i18n("User not found")
+              message: res.i18n('User not found')
             }]
           });
       }
 
       if (!usr.verifyPassword(password)) {
-        sails.log.debug("AuthController:login:Wrong Password", email);
+        sails.log.debug('AuthController:login:Wrong Password', email);
         return res.send(401,{ error: [{
             status: '401',
-            message: res.i18n("Wrong Password")
+            message: res.i18n('Wrong Password')
           }]
         });
       }
@@ -170,7 +170,7 @@ module.exports = {
         if (err){
           return res.serverError(err);
         }
-        if (!usr) return res.redirect('/login');
+        if (!usr){ return res.redirect('/login'); }
 
         req.logIn(usr, function(err){
           if(err){
@@ -192,7 +192,8 @@ module.exports = {
   activate: function(req, res){
     console.log('Check token');
     console.log('activate Account');
-    user = {};
+    var user = {};
+
     user.id = req.param('id');
 
     token = req.param('token');
@@ -206,7 +207,7 @@ module.exports = {
           errors: [
             {
               type: 'authentication',
-              message: res.i18n("Forbiden")
+              message: res.i18n('Forbiden')
             }
           ]
         }
@@ -215,7 +216,7 @@ module.exports = {
 
     var validAuthTokenRespose = function (err, result, authToken){
       if (err) {
-        return res.send(500, { error: res.i18n("Error") });
+        return res.send(500, { error: res.i18n('Error') });
       }
 
       // token is invalid
@@ -226,7 +227,7 @@ module.exports = {
 	    // token is valid then get user form db
 	    User.findOneById(user.id).exec(function(err, usr) {
 	      if (err) {
-	        return res.send(500, { error: res.i18n("DB Error") });
+	        return res.send(500, { error: res.i18n('DB Error') });
 	      }
 
 	      // user found
@@ -236,13 +237,13 @@ module.exports = {
 					usr.active = true;
 					usr.save(function(err){
 			      if (err) {
-			        return res.send(500, { error: res.i18n("DB Error") });
+			        return res.send(500, { error: res.i18n('DB Error') });
 			      }
 
 					  // destroy auth token after use
 					  authToken.destroy(function(err) {
 				      if (err) {
-				        return res.send(500, { error: res.i18n("DB Error") });
+				        return res.send(500, { error: res.i18n('DB Error') });
 				      }
 
               req.logIn(usr, function(err){
@@ -292,7 +293,7 @@ module.exports = {
 
   forgotPasswordPage: function(req, res){
     // return home page and let emeberJs mount the page
-    res.view("home/index.ejs");
+    res.view('home/index.ejs');
   },
 
   forgotPassword: function(req, res){
@@ -319,7 +320,7 @@ module.exports = {
         });
       }
 
-      AuthToken.create( {user_id: user.id} ).exec(function(error, token) {
+      AuthToken.create( {'user_id': user.id} ).exec(function(error, token) {
         if(error){
           sails.log.error(error);
           return res.serverError(error);
@@ -352,7 +353,7 @@ module.exports = {
             resetPasswordUrl: req.baseUrl + '/auth/'+ user.id +'/reset-password/' + token.token
           };
 
-          weSendEmail.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err, responseStatus){
+          weSendEmail.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err){
             if(err){
               sails.log.error(err);
             }
@@ -417,19 +418,20 @@ module.exports = {
     res.view('home/index');
   },
 
-  changePassword: function(req, res){
+  changePassword: function (req, res){
     var oldPassword = req.body.oldPassword;
     var newPassword = req.body.newPassword;
     var rNewPassword = req.body.rNewPassword;
     var userId = req.param('id');
 
-    if(!req.user || !req.user.email || req.user.id != userId){
+    // TODO move this access check to one policy
+    if(!req.user || !req.user.email || req.user.id !== userId){
       return res.send(403, {
         responseMessage: {
           errors: [
             {
               type: 'authentication',
-              message: res.i18n("Forbiden")
+              message: res.i18n('Forbiden')
             }
           ]
         }
@@ -448,7 +450,7 @@ module.exports = {
       });
     }
 
-    sails.log.info('newPassword:' , newPassword , '| rNewPassword:' , rNewPassword);
+    //sails.log.info('newPassword:' , newPassword , '| rNewPassword:' , rNewPassword);
 
     if( _.isEmpty(newPassword) || _.isEmpty(rNewPassword) ){
       errors.password = [];
@@ -460,24 +462,24 @@ module.exports = {
       });
     }
 
-    if(newPassword != rNewPassword){
+    if(newPassword !== rNewPassword){
       errors.password = [];
       errors.password.push({
         type: 'validation',
         field: 'newPassword',
         rule: 'required',
-        message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
+        message: res.i18n('<strong>New password</strong> and <strong>Confirm new password</strong> are different')
       });
     }
 
     if( ! _.isEmpty(errors) ){
       // error on data or confirm password
       return res.send('400',{
-        "error": "E_VALIDATION",
-        "status": 400,
-        "summary": "Validation errors",
-        "model": "User",
-        "invalidAttributes": errors
+        'error': 'E_VALIDATION',
+        'status': 400,
+        'summary': 'Validation errors',
+        'model': 'User',
+        'invalidAttributes': errors
       });
     }
 
@@ -508,13 +510,23 @@ module.exports = {
             }
           ]
         });
-
-
+      } else {
+        errors.password = [];
+        errors.password.push({
+          type: 'validation',
+          field: 'password',
+          rule: 'required',
+          message: res.i18n('The <strong>current password</strong> is invalid.')
+        });
+        return res.send('400',{
+          'error': 'E_VALIDATION',
+          'status': 400,
+          'summary': 'Validation errors',
+          'model': 'User',
+          'invalidAttributes': errors
+        });
       }
-
     });
-
-
   }
 
 };
@@ -537,7 +549,7 @@ var loadUserAndAuthToken = function(uid, token, callback){
       AuthToken
       .findOneByToken(token)
       .where({
-        user_id: user.id,
+        'user_id': user.id,
         token: token,
         isValid: true
       })
@@ -572,7 +584,7 @@ var validSignup = function(user, confirmPassword, res){
       type: 'validation',
       field: 'email',
       rule: 'required',
-      message: res.i18n("Field <strong>email</strong> is required")
+      message: res.i18n('Field <strong>email</strong> is required')
     });
   }
 
@@ -583,7 +595,7 @@ var validSignup = function(user, confirmPassword, res){
       type: 'validation',
       field: 'password',
       rule: 'required',
-      message: res.i18n("Field <strong>password</strong> is required")
+      message: res.i18n('Field <strong>password</strong> is required')
     });
   }
 
@@ -593,17 +605,18 @@ var validSignup = function(user, confirmPassword, res){
       type: 'validation',
       field: 'confirmPassword',
       rule: 'required',
-      message: res.i18n("Field <strong>Confirm new password</strong> is required")
+      message: res.i18n('Field <strong>Confirm new password</strong> is required')
     });
   }
 
-  if(confirmPassword != user.password){
-    if(!errors.password) errors.password = [];
+  if(confirmPassword !== user.password){
+    if(!errors.password){ errors.password = []; }
+
     errors.password.push({
       type: 'validation',
       field: 'password',
       rule: 'required',
-      message: res.i18n("<strong>New password</strong> and <strong>Confirm new password</strong> are different")
+      message: res.i18n('<strong>New password</strong> and <strong>Confirm new password</strong> are different')
     });
   }
 
