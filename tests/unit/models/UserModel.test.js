@@ -2,18 +2,17 @@
  * Model tests
  */
 
-var should = require('should');
-var assert = require('assert');
-var supertest = require('supertest');
-var uuid = require('node-uuid');
+var should = require('should')
+ , assert = require('assert')
+ , uuid = require('node-uuid');
 
-function UserStub () {
+function userStub () {
   return {
-    username: 'GNU/Linux',
-    name: "linux",
-    email: "linux@albertosouza.net",
-    password: "321",
-    sharedWithMe: []
+    username: 'GNU/Linux'
+    , name: uuid.v1()+'linux'
+    , email: uuid.v1()+'@albertosouza.net'
+    , password: '321'
+    , sharedWithMe: []
   };
 }
 
@@ -33,20 +32,21 @@ describe('UsersModel', function() {
   describe('Create', function() {
 
 
-    it("Should be able to create a user", function(done) {
-      User.create(UserStub(), function(err, user) {
-        if(err) return done(err);
+    it('Should be able to create a user', function(done) {
+      User.create(userStub(), function(err, user) {
+        console.log('I>>>',err);
+        if(err){ return done(err); }
         assert.notEqual(user, undefined);
         done();
       });
     });
 
-    it("Should return error on create user with already registered email", function(done) {
-      var newUser = UserStub();
+    it('Should return error on create user with already registered email', function(done) {
+      var newUser = userStub();
 
       // first create one user
-      User.create(newUser, function(err, userCreated) {
-        if(err) return done(err);
+      User.create(newUser, function(err) {
+        if(err){ return done(err); }
 
         User.create(newUser, function(err, user) {
           err.should.not.be.empty;
@@ -64,7 +64,7 @@ describe('UsersModel', function() {
     var userSaved;
 
     before(function (done) {
-      var newUser = UserStub();
+      var newUser = userStub();
       // create one user
       User.create(newUser, function(err, user) {
         if(err) return done(err);
@@ -96,7 +96,7 @@ describe('UsersModel', function() {
     var userSaved;
 
     before(function (done) {
-      var newUser = UserStub();
+      var newUser = userStub();
       // create one user
       User.create(newUser, function(err, user) {
         if(err) return done(err);
@@ -140,7 +140,7 @@ describe('UsersModel', function() {
     var userSaved;
 
     before(function (done) {
-      var newUser = UserStub();
+      var newUser = userStub();
       // create one user
       User.create(newUser, function(err, user) {
         if(err) return done(err);

@@ -15,6 +15,28 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    jshint: {
+      api: [
+        'index.js',
+        'api/**/*.js'
+      ],
+      tests: [
+        'tests/**/*.js'
+      ]
+    },
+    'mocha_istanbul': {
+      coverage: {
+        src: 'tests', // the folder, not the files
+        options: {
+          coverageFolder: 'coverage',
+          mask: '/*/**/*.test.js',
+          root: 'api/',
+          mochaOptions: [
+            'tests/bootstrap.js'
+          ]
+        }
+      }
+    },
     bump: {
       options: {
         files: ['package.json'],
@@ -33,8 +55,20 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-mocha-istanbul');
+
+  // Adding test task enabling "grunt test" command
+  grunt.registerTask('test', [
+    'mocha_istanbul:coverage'
+  ]);
+
+
+  grunt.registerTask('default', [
+    'jshint'
+  ]);
 
   grunt.registerTask('up', [
+    'jshint',
     'bump'
   ]);
 };

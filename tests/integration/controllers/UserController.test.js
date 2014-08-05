@@ -1,16 +1,15 @@
 
-var should = require('should');
-var assert = require('assert');
-var request = require('supertest');
-var sinon   = require('sinon');
-var uuid = require('node-uuid');
+var should = require('should')
+  , request = require('supertest')
+  // , sinon   = require('sinon')
+  , uuid = require('node-uuid');
 
-function UserStub () {
+function userStub () {
     return {
-      username: uuid.v1(),
-      name: "Alberto",
-      email: uuid.v1() + "@albertosouza.net",
-      password: uuid.v1()
+      username: uuid.v1()
+      , name: "Alberto"
+      , email: uuid.v1() + "@albertosouza.net"
+      , password: uuid.v1()
     };
 }
 
@@ -49,9 +48,9 @@ describe('UsersController', function() {
         var user;
         // get 3 diferent users for salve in database
         var users = [
-          UserStub(),
-          UserStub(),
-          UserStub()
+          userStub(),
+          userStub(),
+          userStub()
         ];
 
         User.createEach(users, function(err, newUsers) {
@@ -78,7 +77,7 @@ describe('UsersController', function() {
 
       it('/api/v1/user/:uid should return 200 and one user', function (done) {
 
-        User.create(UserStub(), function(err, newUser) {
+        User.create(userStub(), function(err, newUser) {
           if(err) return done(err);
 
           request(sails.hooks.http.app)
@@ -110,7 +109,7 @@ describe('UsersController', function() {
       /*
       // TODO add a create function for create user method need in admin users page
       it('/users should return 201 and new user object', function (done) {
-        var user = UserStub();
+        var user = userStub();
         var jsonResponse;
 
         user.confirmPassword = user.password;

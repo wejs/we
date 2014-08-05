@@ -1,29 +1,18 @@
 
-var should = require('should');
-var request = require('supertest');
-var sinon   = require('sinon');
-var uuid = require('node-uuid');
-var AuthController = require('../../../api/controllers/AuthController.js');
-
-var testUtils = require('../../testUtils.js');
+var should = require('should')
+  , request = require('supertest')
+  // , sinon   = require('sinon')
+  , uuid = require('node-uuid')
+  , testUtils = require('../../testUtils.js');
 
 function UserStub () {
   return {
-    username: uuid.v1(),
-    name: "Alberto",
-    email: 'alberto.souza.99@gmail.com',
-    password: uuid.v1()
+    username: uuid.v1()
+    , name: 'Alberto'
+    , email: 'alberto.souza.99@gmail.com'
+    , password: uuid.v1()
   };
 }
-function dlog() {
-  var depth = arguments[2]
-  var label = arguments[0];
-  var real_args = arguments[1]
-  var ds = ''
-  for(var i = 0; i < depth; i++) ds += '  '
-  console.log(label+ds, real_args)
-}
-
 
 describe('AuthController', function() {
 
@@ -56,7 +45,6 @@ describe('AuthController', function() {
           request(sails.hooks.http.app)
           .post('/auth/login')
           .set('Accept', 'application/json')
-
           //.set('X-CSRF-Token', testCsrfToken)
           .send( authParams )
           .expect('Content-Type', /json/)
@@ -78,77 +66,7 @@ describe('AuthController', function() {
 
       });
 
-      it('AuthController-changePassword test change password controller',function (done) {
-
-        //console.log('auth: ', AuthController);
-        /*
-        var req = {};
-        req.body = {};
-
-        req.param = function(){
-          return '2';
-        };
-
-        req.body.oldPassword = '123456';
-        req.body.newPassword = '654321';
-        req.body.rNewPassword = '654321';
-        req.param.id = '2';
-
-        done();
-        */
-
-        var user  = UserStub();
-        var authParams = {
-          email: user.email,
-          password: user.password
-        };
-
-        User.create(user, function(err, newUser) {
-          if(err) return done(err);
-
-          request(sails.hooks.http.app)
-          .post('/auth/login')
-          .set('Accept', 'application/json')
-
-          //.set('X-CSRF-Token', testCsrfToken)
-          .send( authParams )
-          .expect('Content-Type', /json/)
-          .expect(200)
-          .end(function (err, res) {
-            if(err) return done(err);
-
-              request(sails.hooks.http.app)
-              .put('/auth/'+newUser.id+'/change-password')
-              .set('Accept', 'application/json')
-
-              //.set('X-CSRF-Token', testCsrfToken)
-              .send({
-                'oldPassword' : user.password,
-                'newPassword' : '654321',
-                'rNewPassword' : '654321'
-              })
-              .expect('Content-Type', /json/)
-              //.expect(200)
-              .end(function (err, res) {
-                if(err) return done(err);
-
-                  dlog('body: ' , res.body.responseMessage.errors);
-                  /*
-                  // check if new user is returned
-                  should.exist(res.body.id);
-
-                  // check if has a error message
-                  should.not.exist(res.body.error);
-                  should.not.exist(res.body.invalidAttributes);
-                  */
-                done();
-              });
-
-          });
-
-        });
-
-      });
+      it('AuthController-changePassword test should change user password');
 
       it('/signup when confirmPassword is diferent than password return 400 with error message',function (done) {
         var user  = UserStub();

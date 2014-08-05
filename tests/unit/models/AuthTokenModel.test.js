@@ -33,9 +33,9 @@ describe('AuthTokenModel', function() {
     });
   });
 
-  after(function(done){
-    testUtils.emptyDatabase(done);
-  });
+  // after(function(done){
+  //   testUtils.emptyDatabase(done);
+  // });
 
   afterEach(function(done){
     AuthToken.destroy(function (err) {
