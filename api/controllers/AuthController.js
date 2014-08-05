@@ -1,8 +1,8 @@
 // api/controllers/AuthController.js
 
-var passport = require('we-passport').getPassport()
-  , weSendEmail = require('we-send-email')
-  , _ = require('lodash');
+var weSendEmail = require('we-send-email')
+  , _ = require('lodash')
+  , passport = require('we-passport').getPassport();
 
 module.exports = {
 

@@ -6,14 +6,9 @@
   "node": true, // server | for node ..
   "camelcase": true,
   "couch": false, // globals exposed by CouchDB. CouchDB
-  "curly": true, // always put curly braces around blocks
+  "curly": false, // always put curly braces around blocks
   "debug": true, // suppresses warnings about the debugger statements in your code.
   "devel": true, // used for logging debugging: console, alert, etc
-  "jquery": false, // browser | globals exposed by the jQuery
-  "mootools": false, // browser |
-  "moz": false, // browser |
-  "yui": false, // browser | enable if use YUI JavaScript framework
-  "phantom": false, // Phantom.js, headless browser used for testing
   "eqeqeq": true, // prohibits the use of == and != in favor of === and !==
   "eqnull": true, // suppresses warnings about == null comparisons
   "esnext": false, // code uses ECMAScript 6 specific syntax.
@@ -69,7 +64,10 @@
     "AuthToken",
     "FileImageService",
     "SanitizeHtmlService",
-    "Membership"
+    "NotificationService",
+    "Configuration",
+    "Membership",
+    "Comment"
   ],
   "quotmark": "single",
   "maxcomplexity": 6,

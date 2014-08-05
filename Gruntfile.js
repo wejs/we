@@ -16,6 +16,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
+      options: {
+        'jshintrc': true
+      },
       api: [
         'index.js',
         'api/**/*.js'
@@ -65,11 +68,13 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('default', [
-    'jshint'
+    'jshint',
+    'mocha_istanbul:coverage'
   ]);
 
   grunt.registerTask('up', [
     'jshint',
+    'mocha_istanbul:coverage',
     'bump'
   ]);
 };

@@ -24,13 +24,13 @@ module.exports = {
     // TODO params in populate comment dont are working well, fix it!
     //.populate('comments', { limit: 2, sort: 'createdAt asc' })
     .exec(function(err, posts) {
-      if (err) return res.serverError(err);
+      if (err) { return res.serverError(err); }
         var meta = {};
 
         //fetch metadata and some comments for every post
         async.each(posts, function(post, nextPost){
           Comment.getCommentsAndCount(post.id, function(err, comments, commentCount){
-            if (err) return res.serverError(err);
+            if (err) { return res.serverError(err); }
 
             post.meta = {};
             post.meta.commentCount = commentCount;
@@ -88,12 +88,8 @@ module.exports = {
         // Send JSONP-friendly response if it's supported
         // (HTTP 201: Created)
 
-        var resultObject = {};
-
-        resultObject['post'] = newInstance;
-
         res.status(201);
-        res.ok(resultObject);
+        res.ok({ post: newInstance});
       });
 
     });
