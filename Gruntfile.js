@@ -56,6 +56,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-mocha-istanbul');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Adding test task enabling "grunt test" command
   grunt.registerTask('test', [
