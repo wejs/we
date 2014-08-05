@@ -38,6 +38,11 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true
     },
+
+    posts: {
+      collection: 'post',
+      via: 'sharedIn'
+    },
 	},
 
   //-- Lifecycle Callbacks

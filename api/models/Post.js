@@ -28,7 +28,9 @@ module.exports = {
 
     // shared with users
     sharedWith: {
-      collection: 'user'
+      collection: 'user',
+      via: 'SharedWithMe',
+      dominant: true
     },
     // TODO find a better way to do this join with ember js configs
     // sharedWith: {
@@ -37,7 +39,9 @@ module.exports = {
 
     // shared in groups
     sharedIn: {
-      collection: 'group'
+      collection: 'group',
+      via: 'posts',
+      dominant: true
     },
 
     comments: {
@@ -68,12 +72,12 @@ module.exports = {
 
       var obj = this.toObject();
       // set default objectType
-      obj.objectType = "post";
+      obj.objectType = 'post';
 
       if( _.isString(obj.creator) ){
-        obj.creator_id = obj.creator;
+        obj['creator_id'] = obj.creator;
       } else if(_.isObject(obj.creator) && obj.creator.id) {
-        obj.creator_id = obj.creator.id;
+        obj['creator_id'] = obj.creator.id;
       }
 
       if( obj._comments ){
@@ -82,7 +86,7 @@ module.exports = {
       }
 
       // set url for this content
-      obj.url = "/post/" + obj.id;
+      obj.url = '/post/' + obj.id;
 
       return obj;
     }

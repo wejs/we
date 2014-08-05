@@ -77,6 +77,12 @@ module.exports = {
       model: 'configuration'
     },
 
+    // shared with users
+    SharedWithMe: {
+      collection: 'post',
+      via: 'sharedWith'
+    },
+
     // Override toJSON instance method
     // to remove password value
     toJSON: function() {
@@ -98,7 +104,7 @@ module.exports = {
       delete obj.email;
 
       // set default objectType
-      obj.objectType = "person";
+      obj.objectType = 'person';
 
       return obj;
     },
@@ -143,11 +149,11 @@ module.exports = {
     // if has user.newPassword generate the new password
     if(user.newPassword){
       bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if (err) return next(err);
+        if (err) { return next(err); }
 
         // hash the password along with our new salt
         bcrypt.hash(user.newPassword, salt, function(err, crypted) {
-          if(err) return next(err);
+          if(err) { return next(err); }
 
           // delete newPassword variable
           delete user.newPassword;
