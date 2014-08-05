@@ -1,7 +1,8 @@
 // api/controllers/AuthController.js
 
-var passport = require('we-passport').getPassport();
-var weSendEmail = require('we-send-email');
+var passport = require('we-passport').getPassport()
+  , weSendEmail = require('we-send-email')
+  , _ = require('lodash');
 
 module.exports = {
 
@@ -26,7 +27,7 @@ module.exports = {
     user.language = req.param("language");
 
 
-    if( !sails.util.isUndefined(sails.config.site) )
+    if( !_.isUndefined(sails.config.site) )
       if( !sails.util.isUndefined( sails.config.site.requireAccountActivation ) ){
         requireAccountActivation = sails.config.site.requireAccountActivation;
       }
@@ -417,10 +418,6 @@ module.exports = {
   },
 
   changePassword: function(req, res){
-
-    sails.log.warn(req.params);
-    sails.log.info(req.body);
-
     var oldPassword = req.body.oldPassword;
     var newPassword = req.body.newPassword;
     var rNewPassword = req.body.rNewPassword;
