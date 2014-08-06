@@ -23,7 +23,8 @@ var configs = {
   paths: {
     'public': subProjectPath+'/.tmp/public',
     'views':  themeEngine.getThemeSailsTemplatesFolder(),
-    'layout': themeEngine.getThemeLayout()
+    'layout': themeEngine.getThemeLayout(),
+    'fallbackEmailTemplateFolder': __dirname + '/node_modules/wejs-theme-default/templates/email'
   },
   defaultUserAvatar: __dirname + '/assets/imgs/avatars/user-avatar.png'
 };
@@ -93,7 +94,7 @@ we.grunt = {};
 
 we.grunt.loadTasks = function loadTasks(relPath, grunt) {
   // in prod env only load config copy task
-  if(relPath === './tasks/config' && grunt.cli.tasks[0] == 'prod'){
+  if(relPath === './tasks/config' && grunt.cli.tasks[0] === 'prod'){
     return includeAll({
       dirname: require('path').resolve(__dirname, relPath),
       filter: 'copy.js'
