@@ -21,7 +21,6 @@ module.exports = function(grunt) {
 		'assets/imgs/**/*',
 		'assets/langs/**/*',
 		'assets/styles/**/*',
-		'assets/wysiwyg/**/*',
 		// we.js assets files
 		'node_modules/we/assets/fonts/**/*',
 		'node_modules/we/assets/imgs/**/*',

@@ -83,7 +83,6 @@ module.exports = function(grunt) {
 					'public/imgs/**',
 					'public/min/**',
 					'public/js/libs/require.js',
-					'public/wysiwyg/**',
 					'public/langs/**',
 					'public/tpls.hbs.js',
 					'config/**',
