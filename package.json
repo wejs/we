@@ -26,7 +26,8 @@
     "sanitize-html": "~1.2.1",
     "we-passport": "0.0.3",
     "we-send-email": "0.0.2",
-    "we-theme-engine": "0.0.6"
+    "we-theme-engine": "0.0.6",
+    "wejs-theme-default": "0.0.7"
   },
   "devDependencies": {
     "grunt-bump": "0.0.13",
@@ -48,8 +49,7 @@
     "supertest": ">= 0",
     "supervisor": "~0.6.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "main": "index.js",
   "repository": {
     "type": "git",
