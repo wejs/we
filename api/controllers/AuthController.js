@@ -353,7 +353,7 @@ module.exports = {
             resetPasswordUrl: req.baseUrl + '/auth/'+ user.id +'/reset-password/' + token.token
           };
 
-          weSendEmail.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err){
+          weSendEmail.sendEmail(options, 'AuthResetPasswordEmail', templateVariables, function(err , emailResp){
             if(err){
               sails.log.error(err);
             }

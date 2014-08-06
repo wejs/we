@@ -5,7 +5,6 @@
   "browser": true, // browser | for browsers ...
   "node": true, // server | for node ..
   "camelcase": true,
-  "couch": false, // globals exposed by CouchDB. CouchDB
   "curly": false, // always put curly braces around blocks
   "debug": true, // suppresses warnings about the debugger statements in your code.
   "devel": true, // used for logging debugging: console, alert, etc

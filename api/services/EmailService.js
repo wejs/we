@@ -5,39 +5,36 @@
 var weSendEmail = require('we-send-email');
 weSendEmail.setConfigs(sails.config.email);
 
-exports.sendInviteEmail = function(options) {
-  var smtpTransport;
+// exports.sendInviteEmail = function(options) {
+//   var smtpTransport;
 
-  smtpTransport = weSendEmail.getServerTransport(options);
+//   smtpTransport = weSendEmail.getServerTransport(options);
 
-  var opts = {"type":"messages","call":"send","message":
-    {
-      "subject": "We.js",
-      "from_email": "services@wejs.org",
-      "from_name": "we.js",
-      "to":[
-          {"email": options.email, "name": options.name}
-      ],
-      "text": "Dear "+options.name+",\nYou're in the Alfa! Click <insert link> to verify your account"
-    }
-  };
+//   var opts = {"type":"messages","call":"send","message":
+//     {
+//       "subject": "We.js",
+//       "from_email": "services@wejs.org",
+//       "from_name": "we.js",
+//       "to":[
+//           {"email": options.email, "name": options.name}
+//       ],
+//       "text": "Dear "+options.name+",\nYou're in the Alfa! Click <insert link> to verify your account"
+//     }
+//   };
 
-    // setup e-mail data with unicode symbols
-  var mailOptions = {
-    from: sails.config.appName + " <" + sails.config.siteEmail + ">", // sender address
-    to: options.email, // list of receivers
-    subject: "Hello", // Subject line
-    text: "Hello world", // plaintext body
-    html: "<b>Hello world</b>" // html body
-  };
+//     // setup e-mail data with unicode symbols
+//   var mailOptions = {
+//     from: sails.config.appName + " <" + sails.config.siteEmail + ">", // sender address
+//     to: options.email, // list of receivers
+//     subject: "Hello", // Subject line
+//     text: "Hello world", // plaintext body
+//     html: "<b>Hello world</b>" // html body
+//   };
 
-};
+// };
 
 exports.sendAccontActivationEmail = function(user, siteBaseUrl, cb){
-  var smtpTransport;
-
-
-  AuthToken.create( {user_id: user.id} ).exec(function(error, token) {
+  AuthToken.create( { 'user_id': user.id} ).exec(function(error, token) {
     if(error) return cb(error);
 
     var options = {};
