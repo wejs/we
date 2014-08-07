@@ -122,11 +122,11 @@ module.exports = {
 
           }, function donePopulatePost(err, postsPopulated){
             if(err) sails.log.error(err);
-            return res.sen(postsPopulated);
+            return res.send(postsPopulated);
           });
 
         } else {
-          return res.ok(matchingRecord[relation]);
+          return res.send(matchingRecord[relation]);
         }
 
       });
