@@ -128,14 +128,30 @@ module.exports = {
   loadPostImageAndComments: function (post, callback){
     Post.findOne({id: post.id})
     .populate('images')
-    .populate('creator')
-    .populate('comments', { limit: 2, sort: 'createdAt asc' })
+    //.populate('creator')
+    //.populate('comments', { limit: 2, sort: 'createdAt asc' })
     .exec( function( err, postPopulated){
       if(err){
         sails.log.error('erro on find and populate post', err, post);
         callback(err);
       }
-      callback(err, postPopulated);
+
+      //fetch metadata and some comments for every post
+      Comment.getCommentsAndCount(postPopulated.id, function(err, comments, commentCount){
+        if (err) {
+          sails.log.error('loadPostImageAndComments:error on Comment.getCommentsAndCount', err,postPopulated);
+          return callback(err, postPopulated);
+        }
+
+        postPopulated.meta = {};
+        postPopulated.meta.commentCount = commentCount;
+        postPopulated._comments = [];
+
+        postPopulated._comments = comments.reverse();
+
+        callback(err, postPopulated);
+
+      });
     })
   }
 };
