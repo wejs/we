@@ -20,7 +20,7 @@
     "mv": "~1.0.0",
     "node-uuid": "~1.4.1",
     "rc": "~0.3.5",
-    "sails": "^0.10.1",
+    "sails": "0.10.2",
     "sails-disk": "~0.10.0-rc5",
     "sails-mongo": "^0.10.2",
     "sanitize-html": "~1.2.1",
