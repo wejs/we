@@ -47,7 +47,7 @@ module.exports = function destroyOneRecord (req, res) {
 
       // resultObject[modelName] = record;
 
-      return res.ok();
+      return res.send();
     });
   });
 };
