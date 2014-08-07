@@ -75,7 +75,7 @@ exports.getlinkCssTags = function(){
     refreshString = '?ar='+ Math.floor(Math.random() * 1000);
   }
 
-  if(sails.config.environment == 'production'){
+  if(sails.config.environment === 'production'){
     tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
   }else{
     sails.config.assets.css.forEach(function(src) {

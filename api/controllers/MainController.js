@@ -4,9 +4,6 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
-var fs = require('fs');
-// current process path
-var subProjectPath = process.cwd()+ '/';
 
 module.exports = {
   // require js main file
@@ -22,7 +19,7 @@ module.exports = {
       requireJsConfig += 'require.config('+ JSON.stringify(sails.config.requirejs) +');';
     }
 
-    if(sails.config.environment == 'production'){
+    if(sails.config.environment === 'production'){
       requireJsConfig = 'require(["/concat/production.js"],function(){' + requireJsConfig + '});';
     }
 
@@ -34,7 +31,6 @@ module.exports = {
    * @param  {object} res
    */
   getConfigsJS: function (req, res) {
-    var authenticated = false;
     var configs = {};
 
     configs.version = '1';
@@ -61,12 +57,13 @@ module.exports = {
     // get public vars
     if(sails.config.clientside.publicVars) configs.client.publicVars = sails.config.clientside.publicVars;
 
+    configs.client.language = sails.config.i18n.defaultLocale;
+
 
     if(!req.isAuthenticated()){
       // send not logged in configs
       return res.send(configs);
     }
-
     // get user configs
     configs.authenticatedUser = req.user;
     // get user logged in contacts
@@ -79,6 +76,6 @@ module.exports = {
   },
 
   index: function (req, res) {
-    res.view("home/index.ejs");
+    res.view('home/index.ejs');
   }
 };

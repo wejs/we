@@ -1,0 +1,9 @@
+{
+  "values":{
+    "register.user.email.placeholder": "Digite o seu email",
+    "register.user.password.placeholder": "Digite a senha senha",
+    "register.user.confirmPassword.placeholder": "Digite a senha novamente",
+    "register.user.username.placeholder": "Digite um nome de usuário unico",
+    "register.user.displayName.placeholder": "Digite o nome que será exibido na rede"
+  }
+}
