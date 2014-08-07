@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
 		templates: {
 			files: [
-				'assets/js/**/*.hbs',
+				'bower_components/we-cs-core/ember/*/templates/**/*.hbs'
 			],
 			tasks: [
 				'weThemeEmberHandlebars:dev'
