@@ -1,7 +1,7 @@
 /**
  * Module dependencies
  */
-var util = require('util');
+
 var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
 
 /**
@@ -24,8 +24,6 @@ module.exports = function destroyOneRecord (req, res) {
   var Model = actionUtil.parseModel(req);
   var pk = actionUtil.requirePk(req);
 
-  var modelName = req.options.model || req.options.controller;
-
   var query = Model.findOne(pk);
   query = actionUtil.populateEach(query, req);
   query.exec(function foundRecord (err, record) {
@@ -43,11 +41,7 @@ module.exports = function destroyOneRecord (req, res) {
         }
       }
 
-      // var resultObject = {};
-
-      // resultObject[modelName] = record;
-
-      return res.send();
+      return res.send(200,{});
     });
   });
 };
