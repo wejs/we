@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 				dest: '.tmp/public'
 			}]
 		},
-		theme_dev: {
+		'theme_dev': {
 			files: [{
 				expand: true,
 				cwd: themeEngine.getassetsCwdFolder(),

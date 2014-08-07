@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
 	grunt.registerTask('prod', [
-		'copy:prod'
+		'clean:dev',
+    'copy:prod'
 	]);
 };
