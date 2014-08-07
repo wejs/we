@@ -66,9 +66,11 @@
     "NotificationService",
     "Configuration",
     "Membership",
-    "Comment"
+    "Comment",
+    "_",
+    "Activity"
   ],
   "quotmark": "single",
-  "maxcomplexity": 6,
+  "maxcomplexity": 10,
   "maxdepth": 6
 }

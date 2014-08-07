@@ -117,12 +117,25 @@ module.exports = {
     }).exec(function(error, activity) {
       // if has one error in activity creation, log it
       if (error) {
-        sails.log.error('PostModel:create: error on create Activity: ',error);
+        sails.log.error('PostModel:create: error on create Activity: ',error,activity);
       }
       next();
     });
 
     NotificationService.setPostNotifications('post_created', post);
-  }
+  },
 
+  loadPostImageAndComments: function (post, callback){
+    Post.findOne({id: post.id})
+    .populate('images')
+    .populate('creator')
+    .populate('comments', { limit: 2, sort: 'createdAt asc' })
+    .exec( function( err, postPopulated){
+      if(err){
+        sails.log.error('erro on find and populate post', err, post);
+        callback(err);
+      }
+      callback(err, postPopulated);
+    })
+  }
 };
