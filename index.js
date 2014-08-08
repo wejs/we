@@ -22,6 +22,7 @@ var configs = {
   subAppPath: subProjectPath,
   paths: {
     'public': subProjectPath+'/.tmp/public',
+    'temporaryFileUploadPath': subProjectPath+'/.tmp/public/uploads/',
     'views':  themeEngine.getThemeSailsTemplatesFolder(),
     'layout': themeEngine.getThemeLayout(),
     'fallbackEmailTemplateFolder': __dirname + '/node_modules/wejs-theme-default/templates/email'
