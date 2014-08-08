@@ -56,7 +56,9 @@ module.exports = {
       var obj = this.toObject();
 
       // set default objectType
-      obj.objectType = "comment";
+      obj.objectType = 'comment';
+      // ember data type
+      obj.type = 'comment';
 
       // set creator_id
       if(  _.isString(obj.creator) ){
@@ -66,7 +68,7 @@ module.exports = {
       }
 
       // set url for this content
-      obj.url = "/comment/" + obj.id;
+      obj.url = '/comment/' + obj.id;
 
       return obj;
     }

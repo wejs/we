@@ -105,6 +105,8 @@ module.exports = {
 
       // set default objectType
       obj.objectType = 'person';
+      // ember data type
+      obj.type = 'user';
 
       return obj;
     },

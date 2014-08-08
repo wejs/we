@@ -19,6 +19,7 @@ module.exports = {
     .skip( actionUtil.parseSkip(req) )
     .sort('updatedAt DESC')
     .populate('images')
+    .populate('wembed')
     .populate('sharedIn')
     .populate('sharedWith')
     // TODO params in populate comment dont are working well, fix it!

@@ -67,6 +67,10 @@ module.exports = {
       type: 'array'
     },
 
+    wembed: {
+      model: 'wembed'
+    },
+
     // Override toJSON instance method
     toJSON: function() {
 
