@@ -9,7 +9,7 @@ var mv = require('mv');
 var uuid = require('node-uuid');
 // image converter
 var gm = require('gm');
-
+var path = require('path');
 var mime = require('mime');
 
 module.exports = {
@@ -96,7 +96,7 @@ module.exports = {
 
     file.newName =  uuid.v1() + '.' + file.extension;
 
-    var newFilePath = sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
+    var newFilePath = path.resolve(sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName);
     //var newFilePath = sails.config.appPath + '/' + sails.config
     //.imageUploadPath + '/' + 'original' + '/' + file.newName;
 
