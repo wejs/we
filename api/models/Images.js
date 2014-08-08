@@ -38,7 +38,7 @@ module.exports = {
       type: 'string'
     },
 
-    user_id: {
+    'user_id': {
       type: 'string'
     },
 
@@ -64,7 +64,7 @@ module.exports = {
       var obj = this.toObject();
       obj.urls = Images.getStyleUrlFromImage(obj);
       // set default objectType
-      obj.objectType = "image";
+      obj.objectType = 'image';
       return obj;
     }
   },
@@ -97,7 +97,8 @@ module.exports = {
     file.newName =  uuid.v1() + '.' + file.extension;
 
     var newFilePath = sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
-    //var newFilePath = sails.config.appPath + '/' + sails.config.imageUploadPath + '/' + 'original' + '/' + file.newName;
+    //var newFilePath = sails.config.appPath + '/' + sails.config
+    //.imageUploadPath + '/' + 'original' + '/' + file.newName;
 
     mv(file.path, newFilePath,{mkdirp: true}, function(err){
       if(err) return callback(err, null);
@@ -133,7 +134,7 @@ module.exports = {
     var fileUp;
 
     async.each(files, function(file, next){
-      file.path = '.tmp/uploads/' + file.filename;
+      file.path =  file.fd;
 
       Images.upload(file, function(err){
         if(err){
@@ -150,6 +151,7 @@ module.exports = {
         }
       });
     },function(err){
+      sails.log.error('Error on upload image:',err,files);
       if(err){
         callback(err, null);
       }else{
