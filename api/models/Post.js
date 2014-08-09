@@ -8,7 +8,6 @@
 
 module.exports = {
   schema: true,
-  emberJsExcludeFromClient: true,
   attributes: {
 
     active:{
