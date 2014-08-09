@@ -43,6 +43,22 @@ module.exports = {
           });
 
         },function(){
+
+            // Only `.watch()` for new instances of the model if
+            // `autoWatch` is enabled.
+            if (req._sails.hooks.pubsub && req.isSocket) {
+              Post.subscribe(req, posts);
+              // if (req.options.autoWatch) {
+                Post.watch(req);
+                Comment.watch(req);
+              // }
+              // Also subscribe to instances of all associated models
+              _.each(posts, function (record) {
+                actionUtil.subscribeDeep(req, record);
+              });
+            }
+
+
             res.send({
               post: posts,
               meta: meta

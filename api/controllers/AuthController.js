@@ -121,6 +121,10 @@ module.exports = {
 
   },
 
+  /**
+   * Log out current user
+   * Beware! this dont run socket.io disconect
+   */
   logout: function (req, res) {
     req.logout();
     res.redirect('/');

@@ -5,7 +5,7 @@
  * @description	:: Contains logic for handling requests.
  */
 
-var passport = require('we-passport').getPassport();
+//var passport = require('we-passport').getPassport();
 
 var fs = require('fs');
 // sails controller utils
@@ -74,7 +74,7 @@ module.exports = {
     });
   },
 
-  update: function(req, res, next) {
+  update: function(req, res) {
     // Look up the model
     var Model = User;
 
@@ -148,7 +148,7 @@ module.exports = {
   },
 
   // getter for current logged in user
-  current: function (req, res, next) {
+  current: function (req, res) {
     if(req.isAuthenticated && req.isAuthenticated() ){
 
       // TODO change to join after waterline join suport is ready to use
@@ -175,7 +175,7 @@ module.exports = {
   getAvatar: function (req, res) {
     var id = req.param('id');
     var style = req.param('style');
-    if(style == 'responsive'){
+    if(style === 'responsive'){
       style = 'large';
     }else if(!style){
       style = 'thumbnail';
@@ -225,7 +225,6 @@ module.exports = {
 
   changeAvatar: function (req, res) {
     // TODO validate req.files.files
-    var avatarFile = {};
     var imageId = req.param('imageId');
 
     if(!req.user && req.user.id){
@@ -237,7 +236,7 @@ module.exports = {
     .exec(function(err, image){
       if (err) return res.negotiate(err);
 
-      if(!image || req.user.id != image.creator){
+      if(!image || req.user.id !== image.creator){
         sails.log.debug('User:avatarChange:User dont are image woner or image not found',req.user, image);
         return res.forbidden();
       }
@@ -250,17 +249,17 @@ module.exports = {
       User.update(
         {id: req.user.id},
         {avatarId: image.id}
-      ).exec(function afterwards(err,updated){
+      ).exec(function afterwards(err){
         if (err) return res.negotiate(err);
         res.send({
-          "user": req.user,
-          "avatar": image
+          'user': req.user,
+          'avatar': image
         });
       });
     });
   },
 
-  forgotPasswordForm: function (req, res, next) {
+  forgotPasswordForm: function (req, res) {
     res.view();
   },
 
@@ -269,8 +268,6 @@ module.exports = {
    * TODO add suport to contacts in we
    */
   getContactsName: function(req, res){
-
-    var userId = req.param('id');
 
     // TODO find only user id contacts
     User.find()
