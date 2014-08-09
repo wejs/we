@@ -97,7 +97,7 @@ module.exports = {
                   res.send('201',{
                     success: [
                       {
-                        status: '201',
+                        status: 'warning',
                         message: res.i18n('Account created but is need an email validation\n, One email was send to %s with instructions to validate your account', newUser.email)
                       }
                     ]
