@@ -43,8 +43,20 @@ module.exports = {
       type: 'string'
     },
 
-    image: {
-      model: 'images'
+    pageId: {
+      type: 'string'
+    },
+
+    pageType: {
+      type: 'string'
+    },
+
+    thumbnail: {
+      type: 'string'
+    },
+
+    thumbnailMime: {
+      type: 'string'
     },
 
     creator: {
@@ -61,5 +73,4 @@ module.exports = {
     // }
 
   }
-
 };

@@ -27,7 +27,8 @@
     "we-passport": "0.0.3",
     "we-send-email": "0.0.3",
     "we-theme-engine": "0.0.6",
-    "wejs-theme-default": "0.0.7"
+    "wejs-theme-default": "0.0.7",
+    "wembed-nodejs-consumer": "0.0.1"
   },
   "devDependencies": {
     "grunt-bump": "0.0.13",

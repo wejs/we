@@ -67,6 +67,10 @@ module.exports = {
       type: 'array'
     },
 
+    sharedUrl: {
+      type: 'string'
+    },
+
     wembed: {
       model: 'wembed'
     },

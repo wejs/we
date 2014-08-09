@@ -5,6 +5,7 @@
  */
 
 module.exports.upload = {
+  wembedImageFolder: 'files/uploads/wembeds',
   image: {
     avaibleStyles: [
       'mini',
