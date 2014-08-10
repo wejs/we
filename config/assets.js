@@ -16,8 +16,6 @@ module.exports.assets = {
   js: [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/async/lib/async.js',
-    'js/libs/socket.io.js',
-    'js/libs/sails.io.js',
     'js/libs/**/*.js',
 
     'bower_components/codemirror/lib/codemirror.js',
