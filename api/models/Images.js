@@ -19,7 +19,7 @@ module.exports = {
   attributes: {
 
     name: {
-        type: 'STRING'
+      type: 'STRING'
     },
 
     size: {
@@ -43,7 +43,7 @@ module.exports = {
     },
 
     creator: {
-      model:'user'
+      type: 'string'
     },
 
     width: {

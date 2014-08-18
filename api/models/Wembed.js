@@ -60,7 +60,7 @@ module.exports = {
     },
 
     creator: {
-      model: 'user',
+      type: 'string',
       required: true
     },
 

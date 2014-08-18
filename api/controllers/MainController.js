@@ -40,6 +40,8 @@ module.exports = {
     configs.user = {};
     configs.authenticatedUser = {};
 
+    configs.server.providers = sails.config.wejs.providers;
+
     // -- Plugin configs
     configs.plugins = {};
 

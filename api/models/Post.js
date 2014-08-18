@@ -21,15 +21,13 @@ module.exports = {
     },
 
     creator: {
-      model: 'user',
+      type: 'string',
       required: true
     },
 
     // shared with users
     sharedWith: {
-      collection: 'user',
-      via: 'SharedWithMe',
-      dominant: true
+      type: 'array'
     },
     // TODO find a better way to do this join with ember js configs
     // sharedWith: {

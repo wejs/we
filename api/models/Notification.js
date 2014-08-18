@@ -10,7 +10,7 @@ module.exports = {
   schema: true,
   attributes: {
     user: {
-      model: 'user'
+      type: 'string'
     },
 
     post: {

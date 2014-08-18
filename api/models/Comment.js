@@ -25,7 +25,7 @@ module.exports = {
 
     // comment creator
     creator: {
-      model:'user'
+      type: 'string'
     },
 
     post: {

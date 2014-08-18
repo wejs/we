@@ -11,12 +11,12 @@ module.exports = {
 
     // user how send the request
     from: {
-      model: 'user',
+      type: 'string',
       required: true
     },
 
     to: {
-      model: 'user',
+      type: 'string',
       required: true
     },
 

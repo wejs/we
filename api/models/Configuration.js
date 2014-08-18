@@ -12,7 +12,7 @@ module.exports = {
 
     // user how has this configuration
     user: {
-      model: 'user'
+      type: 'string'
     },
 
     // none | instant | daily | weekly

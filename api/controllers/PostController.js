@@ -21,7 +21,6 @@ module.exports = {
     .populate('images')
     .populate('wembed')
     .populate('sharedIn')
-    .populate('sharedWith')
     // TODO params in populate comment dont are working well, fix it!
     //.populate('comments', { limit: 2, sort: 'createdAt asc' })
     .exec(function(err, posts) {
@@ -86,7 +85,6 @@ module.exports = {
       Model.findOne(newRecord[Model.primaryKey])
         .populate('images')
         .populate('sharedIn')
-        .populate('sharedWith')
       .exec(function found(err, newInstance) {
 
         if (err) return res.serverError(err);
@@ -182,7 +180,6 @@ module.exports = {
         Model.findOne(updatedRecord[Model.primaryKey])
           .populate('images')
           .populate('sharedIn')
-          .populate('sharedWith')
         .exec(function found(err, populatedRecord) {
           if (err) return res.serverError(err);
           if (!populatedRecord) return res.serverError('Could not find record after updating!');
