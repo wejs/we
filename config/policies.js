@@ -17,35 +17,42 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   // (`true` allows public access)
   //'*':[true],
-  '*':['PassportPolicy'],
+  '*':['AuthTokenPolicy'],
   'messenger': [
-    'PassportPolicy',
+    'AuthTokenPolicy',
     'AllRoutesPolicy',
     'MessengerPolicy'
   ],
   //'main': 'MainPolicy',
   'activity': [
-    'PassportPolicy',
+    'AuthTokenPolicy',
     'AllRoutesPolicy'
   ],
-  'post': [
-    'PassportPolicy',
-    'AllRoutesPolicy',
-    'PostPolicy'
-  ],
   'roles': [
-    'PassportPolicy',
+    'AuthTokenPolicy',
     'AllRoutesPolicy',
     'RolesPolicy'
   ],
-  'user': [
-    'PassportPolicy',
-    'AllRoutesPolicy'
-  ],
-  'auth': [
-    'PassportPolicy',
-    true
-  ]
+
+  UserController: {
+    '*': [
+      'AuthTokenPolicy',
+    ],
+
+    create: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ],
+
+    destroy: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ],
+    update: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ]
+  }
 
 
   /*

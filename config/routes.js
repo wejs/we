@@ -71,13 +71,7 @@ module.exports.routes = {
   */
   // Standard RESTful routing
 
-  // If no id is given, an array of all users will be returned
-
-  'get /users/current': {
-    controller    : 'user',
-    action        : 'current'
-  },
-
+  // 
   // find contact relationship status
   'get /api/v1/user/:contactId/contact': {
     controller    : 'contact',
@@ -121,75 +115,65 @@ module.exports.routes = {
   // User Auth
   // TODO move to AuthController
 
-  'get /signup': {
-    controller: 'auth',
-    action: 'signupPage'
-  },
-
-  'post /signup': {
-    controller: 'auth',
-    action: 'signup'
-    //view: 'users/signup'
-  },
-
-  'post /auth/login': {
-    controller    : 'auth',
-    action        : 'login'
-  },
-
-  '/auth/logout': {
-    controller    : 'auth',
-    action        : 'logout'
-  },
-
-  // form to get one time login email
-  'get /auth/forgot-password': {
-    controller    : 'auth',
-    action        : 'forgotPasswordPage'
-  },
-
-  // post for get new password link
-  'post /auth/forgot-password': {
-    controller    : 'auth',
-    action        : 'forgotPassword'
-  },
-
-  '/auth/:uid/reset-password/:token': {
-    controller: 'auth',
-    action: 'consumeForgotPasswordToken'
-  },
-
-  'get /auth/reset-password':{
-    controller    : 'auth',
-    action        : 'resetPasswordPage'
-  },
-
-  'put /auth/:id/change-password':{
-    controller    : 'auth',
-    action        : 'changePassword'
-  },
-
-  // register  form
-  // 'get /auth/register': {
-  //   controller    : 'auth',
-  //   action        : 'registerForm'
+  // 'get /signup': {
+  //   controller: 'auth',
+  //   action: 'signupPage'
   // },
 
-  'get /user/:id/activate/:token': {
-    controller: 'auth',
-    action: 'activate'
-  },
+  // 'post /signup': {
+  //   controller: 'auth',
+  //   action: 'signup'
+  //   //view: 'users/signup'
+  // },
 
-  // get logged in user avatar
-  'get /avatar/:id': {
-    controller    : 'user',
-    action        : 'getAvatar'
-  },
+  // 'post /auth/login': {
+  //   controller    : 'auth',
+  //   action        : 'login'
+  // },
 
-  'put /api/v1/user/:id/avatar': {
-    controller    : 'user',
-    action        : 'changeAvatar'
-  },
+  // '/auth/logout': {
+  //   controller    : 'auth',
+  //   action        : 'logout'
+  // },
+
+  // // form to get one time login email
+  // 'get /auth/forgot-password': {
+  //   controller    : 'auth',
+  //   action        : 'forgotPasswordPage'
+  // },
+
+  // // post for get new password link
+  // 'post /auth/forgot-password': {
+  //   controller    : 'auth',
+  //   action        : 'forgotPassword'
+  // },
+
+  // '/auth/:uid/reset-password/:token': {
+  //   controller: 'auth',
+  //   action: 'consumeForgotPasswordToken'
+  // },
+
+  // 'get /auth/reset-password':{
+  //   controller    : 'auth',
+  //   action        : 'resetPasswordPage'
+  // },
+
+  // 'put /auth/:id/change-password':{
+  //   controller    : 'auth',
+  //   action        : 'changePassword'
+  // },
+
+  // // register  form
+  // // 'get /auth/register': {
+  // //   controller    : 'auth',
+  // //   action        : 'registerForm'
+  // // },
+
+  // 'get /user/:id/activate/:token': {
+  //   controller: 'auth',
+  //   action: 'activate'
+  // },
+
 
   'get /api/v1/images': {
     controller    : 'images',
@@ -234,10 +218,6 @@ module.exports.routes = {
       action        : 'getContactList'
   },
 
-  'get /user/:id?/contacts-name': {
-      controller    : 'user',
-      action        : 'getContactsName'
-  },
 
   // TODO use sails.js blueprint for set routes
   'get /messages/:id?': {
