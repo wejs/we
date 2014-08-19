@@ -5,19 +5,28 @@
  * @description :: Auth Token model for create login, password and activate account tokens
  *
  */
-var uuid = require('node-uuid');
 
 module.exports = {
   schema: true,
   attributes: {
 
-    user_id: {
+    userId: {
       type: 'string',
       required: true
     },
 
-    token: {
+    tokenProviderId: {
+      type: 'string',
+      required: true
+    },
+
+    tokenType: {
       type: 'string'
+    },
+
+    token: {
+      type: 'string',
+      defaultsTo: true
     },
 
     isValid: {
@@ -26,18 +35,18 @@ module.exports = {
     }
   },
 
-  beforeCreate: function(token, next) {
-    if(token.user_id){
-      // before invalid all user old tokens
-      AuthToken.invalidOldUserTokens(token.user_id, function(err, result){
-        // generete new token
-        token.token = uuid.v1();
-        next();
-      });
-    }else{
-      next();
-    }
-  },
+  // beforeCreate: function(token, next) {
+  //   if(token.user_id){
+  //     // before invalid all user old tokens
+  //     AuthToken.invalidOldUserTokens(token.user_id, function(err, result){
+  //       // generete new token
+  //       token.token = uuid.v1();
+  //       next();
+  //     });
+  //   }else{
+  //     next();
+  //   }
+  // },
 
   /**
    * Invalid old user tokens
@@ -45,7 +54,7 @@ module.exports = {
    * @param  {Function} next callback
    */
   invalidOldUserTokens: function(uid, next) {
-    AuthToken.update({ user_id: uid }, { isValid : false })
+    AuthToken.update({ userId: uid }, { isValid : false })
     .exec(function(err,results){
       if(err){
         sails.log.error(err);
@@ -71,7 +80,7 @@ module.exports = {
       if(authToken){
 
         // user id how wons the auth token is invalid then return false
-        if(authToken.user_id != userId || !authToken.isValid){
+        if(authToken.userId !== userId || !authToken.isValid){
           return cb(null, false,{
             result: 'invalid',
             message: 'Invalid token'

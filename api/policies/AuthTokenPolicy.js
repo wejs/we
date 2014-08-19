@@ -1,4 +1,4 @@
-// lets use we-passport for easy include
-var wePassport = require('we-passport');
-// initialize oauth 2 middleware
-module.exports = wePassport.init();
+// lets use oauth2 for easy include
+var oauth2Consumer = require('we-oauth2').consumer;
+// initialize oauth 2 consumer middleware
+module.exports = oauth2Consumer.init();
