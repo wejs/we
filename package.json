@@ -20,6 +20,7 @@
     "sails": "0.10.2",
     "sails-mongo": "^0.10.2",
     "sanitize-html": "~1.2.1",
+    "we-helpers": "0.0.1",
     "we-oauth2": "0.0.1",
     "we-send-email": "0.0.3",
     "we-theme-engine": "0.0.6",

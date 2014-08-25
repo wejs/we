@@ -11,6 +11,9 @@
 var mkdirp = require('mkdirp');
 
 module.exports.bootstrap = function (cb) {
+  // extend sails.js with extra helpers
+  require('we-helpers').extendSails(sails);
+
   // set default upload configs folder
   if(!sails.config.fileUploadPath){
     sails.log.info('sails.config.fileUploadPath not found in the default folder uploads/files');
