@@ -11,12 +11,12 @@ module.exports = {
   },
 
   findOneUserContact: function(req, res){
-    if(!req.user.id) return res.forbiden();
+    if(!req.isAuthenticated()) return res.forbidden();
 
     var uid = req.user.id;
-    var contact_id = req.param('contactId');
+    var contactId = req.param('contactId');
 
-    Contact.getUsersRelationship(uid, contact_id, function(err, contact){
+    Contact.getUsersRelationship(uid, contactId, function(err, contact){
       if (err) return res.negotiate(err);
 
       if(!contact){

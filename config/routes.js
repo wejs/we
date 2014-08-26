@@ -71,7 +71,7 @@ module.exports.routes = {
   */
   // Standard RESTful routing
 
-  // 
+  //
   // find contact relationship status
   'get /api/v1/user/:contactId/contact': {
     controller    : 'contact',
@@ -125,6 +125,11 @@ module.exports.routes = {
   //   action: 'signup'
   //   //view: 'users/signup'
   // },
+
+  'get /api/v1/auth/callback/:access_token': {
+    controller    : 'auth',
+    action        : 'oauth2Callback'
+  },
 
   // 'post /auth/login': {
   //   controller    : 'auth',
