@@ -21,7 +21,7 @@ module.exports.policies = {
   'messenger': [
     'AuthTokenPolicy',
     'AllRoutesPolicy',
-    'MessengerPolicy'
+    'isLoggedInPolicy'
   ],
   //'main': 'MainPolicy',
   'activity': [

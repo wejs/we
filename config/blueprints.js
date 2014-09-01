@@ -24,15 +24,9 @@
 
 module.exports.blueprints = {
 
-  criteria: {
-    blacklist: ['access_token','limit', 'skip', 'sort', 'populate']
-  },
-
   defaultLimit: 15,
 
-
   actions: false,
-
 
   rest: true,
 
