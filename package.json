@@ -21,8 +21,8 @@
     "sails": "^0.10.5",
     "sails-mongo": "^0.10.4",
     "sanitize-html": "~1.2.1",
-    "we-helpers": "0.0.1",
-    "we-oauth2": "0.0.4",
+    "we-helpers": "0.0.2",
+    "we-oauth2": "0.0.5",
     "we-send-email": "0.0.3",
     "we-theme-engine": "0.0.6",
     "wejs-theme-default": "0.0.7"
