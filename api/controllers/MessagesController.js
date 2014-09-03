@@ -173,12 +173,55 @@ module.exports = {
   // },
 
   /**
-   * Start messenger
+   * Start messenger / loggin in messenger
    */
   start: function(req, res){
-    if(!req.user) return res.forbidden('forbidden');
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
-    res.send(200, req.user.toJSON());
+    var userId = req.user.id;
+    var user = req.user;
+    var socket = req.socket;
+
+    if(typeof sails.onlineusers === 'undefined' )
+      sails.onlineusers = {};
+
+    // save user data in online users cache
+    if(typeof sails.onlineusers[userId] === 'undefined' ){
+      user.messengerStatus = 'online';
+
+      // save a the new socket connected on links users
+      sails.onlineusers[userId] = {
+        user: user.toJSON(),
+        sockets: []
+      };
+
+      sails.onlineusers[userId].sockets.push(socket.id);
+
+      // TODO change to send to friends
+      sails.io.sockets.in('global').emit('contact:connect', {
+        status: 'connected',
+        item: user
+      });
+
+    } else {
+      sails.onlineusers[userId].sockets.push(socket.id);
+    }
+
+    // join user exclusive room to allow others users send
+    // mesages to this user
+    // User.subscribe(socket , [userId] );
+    socket.join('user_' + userId);
+
+
+    // TODO change to userId friends room
+    socket.join('global');
+
+    // Public room
+    // TODO make this dynamic and per user configurable
+    socket.join('public');
+
+
+    res.send(200, req.user);
   },
 
   /**

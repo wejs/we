@@ -15,53 +15,7 @@ module.exports.sockets = {
   // Keep in mind that Sails' RESTful simulation for sockets
   // mixes in socket.io events for your routes and blueprints automatically.
   onConnect: function(session, socket) {
-    var userId;
 
-    if(session.passport)
-      userId = session.passport.user;
-
-    if(typeof sails.onlineusers === 'undefined' )
-      sails.onlineusers = {};
-
-    if(userId){
-      // save user data in online users cache
-      if(typeof sails.onlineusers[userId] === 'undefined' ){
-
-        User.findOneById(userId).exec(function(err, user){
-          user.messengerStatus = 'online';
-
-          // save a the new socket connected on links users
-          sails.onlineusers[userId] = {
-            user: user.toJSON(),
-            sockets: []
-          };
-
-          sails.onlineusers[userId].sockets.push(socket.id);
-
-          // TODO change to send to friends
-          sails.io.sockets.in('global').emit('contact:connect', {
-            status: 'connected',
-            item: user
-          });
-
-        });
-
-      } else {
-        sails.onlineusers[userId].sockets.push(socket.id);
-      }
-
-      // join user exclusive room to allow others users send
-      // mesages to this user
-      // User.subscribe(socket , [userId] );
-      socket.join('user_' + userId);
-
-    }
-    // TODO change to userId friends room
-    socket.join('global');
-
-    // Public room
-    // TODO make this dynamic and per user configurable
-    socket.join('public');
   },
 
   // This custom onDisconnect function will be run each time a socket disconnects

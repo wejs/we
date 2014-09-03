@@ -38,8 +38,7 @@ module.exports = {
   */
 
   create : function (req, res, next){
-    sails.log.warn('1>>',req.authToken)
-    sails.log.warn('2>>',req.user)
+    if(!req.isAuthenticated()) return req.forbidden();
 
     var comment = {};
     comment.body = req.param("body");
