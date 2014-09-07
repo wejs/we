@@ -48,7 +48,8 @@ module.exports = function(grunt) {
 				  'bower_components/font-awesome/fonts/**',
 				  'bower_components/bootstrap/dist/fonts/**/*',
 					'bower_components/select2/*.png',
-					'bower_components/select2/*.gif'
+					'bower_components/select2/*.gif',
+					'bower_components/lightbox/img/**/*'
 				],
 				dest: '.tmp/public'
 			},{

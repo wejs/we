@@ -9,7 +9,8 @@ module.exports.assets = {
     'bower_components/summernote/dist/summernote.css',
     'bower_components/select2/select2.css',
     'bower_components/codemirror/lib/codemirror.css',
-    'bower_components/Jcrop/css/jquery.Jcrop.css'
+    'bower_components/Jcrop/css/jquery.Jcrop.css',
+    'bower_components/lightbox/css/lightbox.css'
   ],
 
 
@@ -17,6 +18,8 @@ module.exports.assets = {
     'bower_components/jquery/dist/jquery.js',
     'bower_components/jquery.cookie/jquery.cookie.js',
     'bower_components/async/lib/async.js',
+    'bower_components/lightbox/js/lightbox.js',
+
     'js/libs/**/*.js',
 
     'bower_components/codemirror/lib/codemirror.js',
