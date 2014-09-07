@@ -38,8 +38,11 @@ module.exports.assets = {
     'bower_components/moment/min/moment-with-langs.min.js',
     'bower_components/bootstrap/dist/js/bootstrap.js',
     'bower_components/nprogress/nprogress.js',
-    'bower_components/we-cs-core/ember/emberApp.js',
 
+    'bower_components/*/ember/*/libs/**/*.js',
+    'bower_components/ember-i18n/lib/i18n.js',
+
+    'bower_components/*/ember/emberApp.js',
     'bower_components/*/ember/*/mixins/**/*.js',
     'bower_components/*/ember/*/helpers/**/*.js',
     'bower_components/*/ember/*/adapters/**/*.js',
@@ -48,7 +51,7 @@ module.exports.assets = {
     'bower_components/*/ember/*/models/**/*.js',
     'bower_components/*/ember/*/views/**/*.js',
     'bower_components/*/ember/*/components/**/*.js',
-    'bower_components/we-cs-core/ember/afterEmberFilesLoaded.js'
+    'bower_components/*/ember/afterEmberFilesLoaded.js'
   ]
 
 };

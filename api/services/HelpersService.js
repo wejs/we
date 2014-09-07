@@ -42,18 +42,18 @@ exports.getJsScriptTag = function(){
     return '<script src="/min/production.js"></script>';
   }
 
-
   var urls = themeEngine.getProjectJsAssetsFiles();
 
   urls.forEach(function(url){
     tags += '<script src="/'+url+'"></script>';
   });
 
+  tags += '<script src="/api/v1/translations.js"></script>';
+
   tags += '<script src="/tpls.hbs.js"></script>';
 
   if(themeEngine.javascript)
       tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';
-
 
   // load live reload script tag
   if(sails.config.clientside.enableLiveReload){

@@ -4,6 +4,7 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
+var fs = require('fs');
 
 module.exports = {
   // require js main file
@@ -77,7 +78,86 @@ module.exports = {
 
   },
 
+  getTranslations: function (req, res) {
+    var localeParam = req.param('locale');
+    var locale;
+
+    if (localeParam) {
+      // check if the locale are in avaible we.js locales
+      // TODO add suport to search in subprojects
+      for (var i = sails.config.i18n.locales.length - 1; i >= 0; i--) {
+        if(sails.config.i18n.locales[i] === localeParam){
+          locale = localeParam;
+        }
+      }
+    }
+
+    if(req.isAuthenticated()){
+      locale = req.user.language;
+    }
+
+    if(!locale){
+      locale = sails.config.i18n.defaultLocale;
+    }
+
+    var translationResponse = '';
+
+    translationResponse += 'if(!Ember.I18n.translations){' +
+      'Ember.I18n.translations = {};' +
+    '}\n';
+
+
+    getTranslationFilePath(locale , function(path){
+      if (path) {
+        fs.readFile(path, 'utf8', function (err, data) {
+          if (err) {
+            sails.log.error('Error: ' + err);
+            return res.serverError();
+          }
+
+          translationResponse += '$.extend(Ember.I18n.translations,';
+          translationResponse+= data;
+          translationResponse += ');';
+
+          res.contentType('application/javascript');
+          res.send(200, translationResponse );
+        });
+      } else {
+        sails.log.debug('getTranslations:Locale not found:', locale, localeParam);
+        res.contentType('application/javascript');
+        res.send(200, translationResponse );
+      }
+
+    });
+
+  },
+
   index: function (req, res) {
     res.view('home/index.ejs');
   }
 };
+
+function getTranslationFilePath (locale, callback){
+  var localePath = null;
+
+  if(sails.config.subAppPath){
+    // check if exists in sub app
+    localePath = sails.config.subAppPath + '/config/locales/' + locale + '.json';
+    fs.exists(localePath, function (exists) {
+      if(exists){
+        return callback(localePath);
+      }
+
+      // if dont have in subapp use we.js default translations
+      localePath = sails.config.appPath + '/config/locales/' + locale + '.json';
+      fs.exists(localePath, function (exists) {
+        if(exists){
+          return callback(localePath);
+        }
+        sails.log.info('Localization not found in project or sub-project for', locale);
+        callback();
+      });
+    });
+  }
+}
+

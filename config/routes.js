@@ -42,6 +42,11 @@ module.exports.routes = {
     action: 'getConfigsJS'
   },
 
+  '/api/v1/translations.js': {
+    controller: 'main',
+    action: 'getTranslations'
+  },
+
 
   '/': {
     controller: 'main',

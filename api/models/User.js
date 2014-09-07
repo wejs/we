@@ -39,7 +39,7 @@ module.exports = {
 
     language: {
       type: 'string',
-      defaultsTo: 'en-us',
+      defaultsTo: 'pt-br',
       maxLength: 6
     },
 
