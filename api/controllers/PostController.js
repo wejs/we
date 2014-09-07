@@ -184,10 +184,7 @@ module.exports = {
           if (err) return res.serverError(err);
           if (!populatedRecord) return res.serverError('Could not find record after updating!');
 
-          sails.log.warn('logTextHere>',populatedRecord);
-
             res.ok({post: populatedRecord});
-
         }); // </foundAgain>
 
       });// </updated>

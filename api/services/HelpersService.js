@@ -39,7 +39,8 @@ exports.getJsScriptTag = function(){
   var tags = '';
 
   if(sails.config.environment === 'production'){
-    return '<script src="/min/production.js"></script>';
+    return '<script src="/min/production.js"></script>' +
+      '<script src="/api/v1/translations.js"></script>';
   }
 
   var urls = themeEngine.getProjectJsAssetsFiles();

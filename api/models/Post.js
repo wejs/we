@@ -16,7 +16,7 @@ module.exports = {
     },
     // post content
     body: {
-      type: 'string',
+      type: 'text',
       required: true
     },
 
@@ -133,7 +133,7 @@ module.exports = {
   loadPostImageAndComments: function (post, callback){
     Post.findOne({id: post.id})
     .populate('images')
-    //.populate('creator')
+    .populate('sharedIn')
     //.populate('comments', { limit: 2, sort: 'createdAt asc' })
     .exec( function( err, postPopulated){
       if(err){
