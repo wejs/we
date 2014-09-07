@@ -45,6 +45,22 @@
   "Activity": "Atividades",
   "Contacts": "Contatos",
   "To": "Compartilhar com",
+  "Login": "Entrar",
+  "No more content": "Final da lista",
+  "Group name": "Nome do grupo",
+  "Privacity": "Privacidade",
+  "Group image": "Imagem do grupo",
   "Create group": "Criar comunidade",
-  "posts.search.string.label": "Filtrar conteúdos:"
+  "Sair": "Sair",
+  "Change password": "Mudar a senha",
+  "Change avatar": "Mudar foto",
+  "View / edit profile": "Ver / editar perfil",
+  "posts.search.string.label": "Buscar:",
+  "posts.search.string.placeholder": "Contendo o texto ...",
+  "posts.search.submit": "Enviar",
+  "posts.search.reset": "Resetar",
+  "sort.label.createdAt": "Data de criação",
+  "sort.label.updatedAt": "Data de atualização",
+  "sort.label.desc": "Maior",
+  "sort.label.asc": "Menor"
 }

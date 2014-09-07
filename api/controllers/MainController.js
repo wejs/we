@@ -102,6 +102,11 @@ module.exports = {
 
     var translationResponse = '';
 
+    translationResponse += 'if(typeof Ember === "undefined"){' +
+      'Ember = {};' +
+      'Ember.I18n = {};' +
+    '}\n';
+
     translationResponse += 'if(!Ember.I18n.translations){' +
       'Ember.I18n.translations = {};' +
     '}\n';
@@ -115,9 +120,9 @@ module.exports = {
             return res.serverError();
           }
 
-          translationResponse += '$.extend(Ember.I18n.translations,';
+          translationResponse += 'Ember.I18n.translations = ';
           translationResponse+= data;
-          translationResponse += ');';
+          translationResponse += ';';
 
           res.contentType('application/javascript');
           res.send(200, translationResponse );
