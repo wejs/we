@@ -35,7 +35,7 @@ module.exports = {
     if(!imageStyle){
       imageStyle = 'original';
     }else if(
-      imageStyle != 'original' &&
+      imageStyle !== 'original' &&
       avaibleImageStyles.indexOf(imageStyle) === -1)
     {
       return res.send(400,'Image style invalid');
@@ -108,7 +108,9 @@ module.exports = {
 
     var creatorId = req.user.id;
 
-    req.file('images').upload(function (err, files) {
+    req.file('images').upload({
+      maxBytes: 20000000
+    },function (err, files) {
       if (err){ return res.serverError(err); }
       Images.uploadMultiple(files, creatorId, function(err, uploadedFiles){
         if(err){
