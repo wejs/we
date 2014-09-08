@@ -21,6 +21,7 @@
     "sails": "^0.10.5",
     "sails-mongo": "^0.10.4",
     "sails-mysql": "^0.10.6",
+    "sails-disk": "^0.10.3",
     "sanitize-html": "~1.2.1",
     "we-helpers": "0.0.2",
     "we-oauth2": "0.0.5",

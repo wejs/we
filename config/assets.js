@@ -33,6 +33,7 @@ module.exports.assets = {
     'bower_components/ember/ember.js',
     'bower_components/ember-data/ember-data.js',
     'bower_components/ember-data-sails-adapter/ember-data-sails-adapter.js',
+    'bower_components/ember-breadcrumbs/dist/ember-breadcrumbs.js',
     'bower_components/ember-uploader/dist/ember-uploader.js',
 
     'bower_components/moment/min/moment-with-langs.min.js',
