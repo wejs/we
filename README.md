@@ -1,7 +1,8 @@
 #We.js
+
 #### A npm module for create Social Networks written with javascript - [Sails.js](http://sailsjs.org) Powered!.
 
-**We.js includes one theme system all server side features, grunt configs and sails.js default configs**
+**We.js includes theme system, all server side features api, grunt configs and sails.js default configs**
 
 ========
 
@@ -26,33 +27,35 @@
 
 ## FEATURES
 
-* User account - In work - good part ready
+* User account - In work on- good part ready
 * Roles and Permissions - TODO
 * Mail system - In work - good part ready
-* Friend notifications live update - TODO
+* Pubsub feature - TODO
 * Notifications - TODO
 * Groups - In work
-* Messenger - In work - working but need more work
-* Wysiwyg editor - working - for simple edits
+* Messenger - In work - Working but needs more love
+* :white_check_mark: Wysiwyg editor - With server side sanitization feature - [Done!](https://github.com/wejs/we-example)
 * Notifications - In work
-* Images - TODO
+* Images - Upload and resize done needs page for manage images
+* Attach files on posts - TODO
 * Vídeos - TODO
 * Galleries - TODO
 * Task mangement - TODO
 * Events - TODO
-* Posts - TODO
+* Posts / share content - In work: login and see in: wejs.org
 * Activity - TODO
+* Authentication - In work with Oauth in project - [In work here](https://github.com/wejs/we-accounts-rest-server)
 * :white_check_mark: Subproject suport - [Done!](https://github.com/wejs/we-example)
 * :white_check_mark: Theme system - [Done!](https://github.com/wejs/we-theme-engine)
 
 ## Installation
 
 Before install and start:
-* MongoDB http://www.mongodb.org/
+* MongoDB http://www.mongodb.org/ ( optional, we.js has sails-mongo, sails-mysql and a default sails-disk database options )
 * Node.js http://nodejs.org/
 * npm https://npmjs.org/
 * Bower http://bower.io/
-* graphicsmagick http://www.graphicsmagick.org/
+* graphicsmagick http://www.graphicsmagick.org/ ( used for image resize )
 
 Then in terminal tip:
 
