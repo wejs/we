@@ -87,12 +87,12 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: '.tmp',
 				src: [
-					'public/bower_components/**',
-					'public/fonts/**',
-					'public/imgs/**',
-					'public/min/**',
+					'public/bower_components/**/*',
+					'public/fonts/**/*',
+					'public/imgs/**/*',
+					'public/min/**/*',
 					'public/js/libs/require.js',
-					'public/langs/**',
+					'public/langs/**/*',
 					'public/tpls.hbs.js',
 					'config/**',
 					'public/theme/**/*'

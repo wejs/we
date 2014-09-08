@@ -25,17 +25,18 @@ module.exports.clientside = {
     //'i18njs-log-untranslated-texts',
     'weEmberPlugin'
   ],
-
   // we.js logs
   log: {
     events: false,
     hooks: false
   },
+  // adds one diferent version strig in every request
+  forceBrowserCacheRefresh: false,
   // live reload configs
   // enable live reload flag
   // this only works with dev enviroment
   enableLiveReload: true,
   liveReloadUrl: 'http://localhost:12345/livereload.js',
-  // this vars is send to all users
+  // this vars is send and avaible in api to all users
   publicVars: {}
 };

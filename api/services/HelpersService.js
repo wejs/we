@@ -13,7 +13,6 @@ exports.getModelsAttributes = function(){
   return models;
 };
 
-
 /**
  * Get requireJs preload config like urlArgs used for files refresh
  * @return {string} urlArgs from config or a empty string
@@ -32,61 +31,81 @@ exports.getRequireJsScriptTag = function(){
 };
 
 /**
- * Get requireJs script tag
- * @return {string} script tag with requirejs configs
+ * Get javascript assets tags to print in sails.js template
+ *
+ * @todo  move this logic to we-theme-engine
+ * @return {string} string with <link> tags and project js files based on enviroment
  */
 exports.getJsScriptTag = function(){
   var tags = '';
+  var refreshString;
+
+  // refresh string
+  if(sails.config.clientside.forceBrowserCacheRefresh) {
+    refreshString = Math.floor(Math.random() * 1000);
+    sails.log.info('config:clientside.forceBrowserCacheRefresh enabled '+
+      refreshString + 'will be added in all .js assets files.');
+  } else {
+    // by default get refresh string from package version
+    refreshString = require('../../package.json').version;
+  }
 
   if(sails.config.environment === 'production'){
-    return '<script src="/min/production.js"></script>' +
-      '<script src="/api/v1/translations.js"></script>';
+    return '<script src="/min/production.js?v='+refreshString+'"></script>' +
+      '<script src="/api/v1/translations.js?v='+refreshString+'"></script>';
   }
 
   var urls = themeEngine.getProjectJsAssetsFiles();
 
   urls.forEach(function(url){
-    tags += '<script src="/'+url+'"></script>';
+    tags += '<script src="/'+url+'?v='+refreshString+'"></script>';
   });
 
   tags += '<script src="/api/v1/translations.js"></script>';
 
-  tags += '<script src="/tpls.hbs.js"></script>';
+  tags += '<script src="/tpls.hbs.js?v='+refreshString+'"></script>';
 
   if(themeEngine.javascript)
-      tags += '<script src="/theme/'+themeEngine.javascript+'"></script>';
+      tags += '<script src="/theme/'+themeEngine.javascript+'?v='+refreshString+'"></script>';
 
   // load live reload script tag
   if(sails.config.clientside.enableLiveReload){
     tags += '<script src="'+sails.config.clientside.liveReloadUrl+'"></script>';
   }
 
-
   return tags;
 };
 
-// TODO make this config dinamic
-exports.getlinkCssTags = function(){
+/**
+ * Get css assets tags to print in sails.js template
+ *
+ * @todo  move this logic to we-theme-engine
+ * @return {string} string with <link> tags and project css files based on enviroment
+ */
+exports.getlinkCssTags = function() {
   var tags = '';
 
   // if forceBrowserCacheRefresh is true force browser refresh
   var refreshString = '';
-  if(sails.config.forceBrowserCacheRefresh){
+  if (sails.config.forceBrowserCacheRefresh) {
     // get a randon number for force browser refresh assets
     refreshString = '?ar='+ Math.floor(Math.random() * 1000);
+  } else {
+    // by default get refresh string from package version
+    refreshString = require('../../package.json').version;
   }
 
-  if(sails.config.environment === 'production'){
+  if(sails.config.environment == 'production'){
     tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
-  }else{
+  } else {
     sails.config.assets.css.forEach(function(src) {
       tags += '<link rel="stylesheet" href="/'+src+refreshString+'">';
     });
   }
 
-
-  if(themeEngine.stylesheet)
+  if (themeEngine.stylesheet) {
     tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
+  }
 
   return tags;
 };
