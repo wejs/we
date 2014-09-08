@@ -41,12 +41,13 @@ module.exports = function(grunt) {
 				cwd: './node_modules/we/assets',
 				src: 	devfiles,
 				dest: '.tmp/public'
-			},{
-				expand: true,
-				cwd: 'assets',
-				src: 	'**/*',
-				dest: '.tmp/public'
 			},
+			// {
+			// 	expand: true,
+			// 	cwd: 'assets',
+			// 	src: 	'**/*',
+			// 	dest: '.tmp/public'
+			// },
 			{
 				expand: true,
 				cwd: '.',
