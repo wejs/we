@@ -11,7 +11,6 @@ module.exports.wejs = {
   providers: {
     wembed: 'http://wembed.wejs.org',
     accounts: 'http://accounts.wejs.org',
-    api: 'http://wejs.dev',
-    cookieDomain: '.wejs.dev'
+    api: 'http://wejs.dev'
   }
 };

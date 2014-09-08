@@ -104,86 +104,18 @@ module.exports.routes = {
   },
 
   // USERS
-  /*
-  'get /user': {
-    controller: 'user',
-    action: 'index'
-  },
-  */
-  /*
-  'get /user/:id': {
-    controller: 'user',
-    action: 'find'
-  },
-  */
 
   // User Auth
-  // TODO move to AuthController
-
-  // 'get /signup': {
-  //   controller: 'auth',
-  //   action: 'signupPage'
-  // },
-
-  // 'post /signup': {
-  //   controller: 'auth',
-  //   action: 'signup'
-  //   //view: 'users/signup'
-  // },
 
   'get /api/v1/auth/callback/:access_token': {
     controller    : 'auth',
     action        : 'oauth2Callback'
   },
 
-  // 'post /auth/login': {
-  //   controller    : 'auth',
-  //   action        : 'login'
-  // },
-
-  // '/auth/logout': {
-  //   controller    : 'auth',
-  //   action        : 'logout'
-  // },
-
-  // // form to get one time login email
-  // 'get /auth/forgot-password': {
-  //   controller    : 'auth',
-  //   action        : 'forgotPasswordPage'
-  // },
-
-  // // post for get new password link
-  // 'post /auth/forgot-password': {
-  //   controller    : 'auth',
-  //   action        : 'forgotPassword'
-  // },
-
-  // '/auth/:uid/reset-password/:token': {
-  //   controller: 'auth',
-  //   action: 'consumeForgotPasswordToken'
-  // },
-
-  // 'get /auth/reset-password':{
-  //   controller    : 'auth',
-  //   action        : 'resetPasswordPage'
-  // },
-
-  // 'put /auth/:id/change-password':{
-  //   controller    : 'auth',
-  //   action        : 'changePassword'
-  // },
-
-  // // register  form
-  // // 'get /auth/register': {
-  // //   controller    : 'auth',
-  // //   action        : 'registerForm'
-  // // },
-
-  // 'get /user/:id/activate/:token': {
-  //   controller: 'auth',
-  //   action: 'activate'
-  // },
-
+  '/auth/logout': {
+    controller    : 'auth',
+    action        : 'logOut'
+  },
 
   'get /api/v1/images': {
     controller    : 'images',

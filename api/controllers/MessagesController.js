@@ -229,24 +229,24 @@ module.exports = {
    * TODO add suport to friends and roons
    */
   getContactList: function (req, res, next){
-    if(!req.user){
+    if(!req.isAuthenticated()){
       return res.forbidden('forbidden');
     }
 
-    var friendList = [];
+    var contactList = [];
 
     // get contact/friend list from online users
     // TODO implement contact list
     _.forEach(sails.onlineusers, function(onlineuser){
       if(onlineuser.sockets.length){
-        if(req.user.id != onlineuser.user.id){
-          friendList.push(onlineuser.user);
+        if(req.user.id != onlineuser.user.idInProvider){
+          contactList.push(onlineuser.user);
         }
       }
     });
 
     // TODO change this response to array
-    res.send(friendList);
+    res.send(contactList);
   },
 
   /**

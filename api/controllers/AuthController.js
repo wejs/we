@@ -16,12 +16,22 @@ module.exports = {
       return res.redirect('/');
     }
 
+    // logIn user
+    weOauth2.logIn(req.accessToken, req, res);
+
     var redirectSubUrl = req.param('redirectTo');
     if(redirectSubUrl){
       res.redirect('/' + redirectSubUrl);
     }
-    sails.log.warn('locando')
-    res.redirect('/');
 
+    res.redirect('/');
+  },
+
+  /**
+   * Log out user and redirect to home
+   */
+  logOut: function(req, res){
+    weOauth2.logOut(req, res);
+    res.redirect('/');
   }
 };

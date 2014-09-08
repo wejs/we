@@ -15,6 +15,11 @@ module.exports = {
       required: true
     },
 
+    providerUserId: {
+      type: 'string',
+      required: true
+    },
+
     tokenProviderId: {
       type: 'string',
       required: true

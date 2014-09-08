@@ -15,7 +15,64 @@ module.exports.sockets = {
   // Keep in mind that Sails' RESTful simulation for sockets
   // mixes in socket.io events for your routes and blueprints automatically.
   onConnect: function(session, socket) {
+    var userId;
 
+    // we-oauth2 user id
+    userId = session.userId;
+
+    // if dont have user user id from we-oauth2 try to get it from passport user id
+    if(!userId) {
+      if(session.passport)
+        userId = session.passport.user;
+    }
+
+    if(typeof sails.onlineusers === 'undefined' )
+      sails.onlineusers = {};
+    if(userId){
+      // save user data in online users cache
+      if(typeof sails.onlineusers[userId] === 'undefined' ){
+
+        User.findOneByIdInProvider(userId).exec(function(err, user){
+          if (err) return sails.log.error('socket:onConnect:Error on find user',err);
+          if (!user) return sails.log.error('socket:onConnect:User not found',userId);
+
+          user.messengerStatus = 'online';
+
+          // change user id to be same as provider id
+          user.id = user.idInProvider;
+
+          // save a the new socket connected on links users
+          sails.onlineusers[userId] = {
+            user: user.toJSON(),
+            sockets: []
+          };
+
+          sails.onlineusers[userId].sockets.push(socket.id);
+
+          // TODO change to send to friends
+          sails.io.sockets.in('global').emit('contact:connect', {
+            status: 'connected',
+            item: user
+          });
+
+        });
+
+      } else {
+        sails.onlineusers[userId].sockets.push(socket.id);
+      }
+
+      // join user exclusive room to allow others users send
+      // mesages to this user
+      // User.subscribe(socket , [userId] );
+      socket.join('user_' + userId);
+
+    }
+    // TODO change to userId friends room
+    socket.join('global');
+
+    // Public room
+    // TODO make this dynamic and per user configurable
+    socket.join('public');
   },
 
   // This custom onDisconnect function will be run each time a socket disconnects
@@ -32,34 +89,33 @@ module.exports.sockets = {
       });
     };
 
-    if(session.passport)
-      userId = session.passport.user;
+    // we-oauth2 user id
+    userId = session.userId;
 
-    if(userId){
-
-      if(sails.onlineusers[userId]){
-
-        if(sails.onlineusers[userId].sockets.length){
-
-          sails.onlineusers[userId].sockets = _.without(sails.onlineusers[userId].sockets, socket.id);
-          if(!sails.onlineusers[userId].sockets.length){
-            disconnect(userId);
-          }
-
-        }else {
-          disconnect(userId);
-        }
-      }else{
-        sails.log.warn('Socket:onDisconnect - User id fount but dont are in onlineUsers');
-      }
-
-    }else{
-      sails.log.warn('Socket disconnect withouth user id in onDisconnect');
+    // if dont have user user id from we-oauth2 try to get it from passport user id
+    if(!userId) {
+      // get session for passport
+      if(session.passport)
+        userId = session.passport.user;
     }
 
+    if(!userId){
+      return sails.log.warn('Socket disconnect withouth user id in onDisconnect');
+    }
+
+    if(!sails.onlineusers[userId]){
+      return sails.log.warn('Socket:onDisconnect - User id fount but dont are in onlineUsers');
+    }
+
+    if(sails.onlineusers[userId].sockets.length){
+      sails.onlineusers[userId].sockets = _.without(sails.onlineusers[userId].sockets, socket.id);
+      if(!sails.onlineusers[userId].sockets.length){
+        disconnect(userId);
+      }
+    }else {
+      disconnect(userId);
+    }
   },
-
-
 
   // `transports`
   //
