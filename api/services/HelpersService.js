@@ -44,15 +44,21 @@ exports.getJsScriptTag = function(){
   if(sails.config.clientside.forceBrowserCacheRefresh) {
     refreshString = Math.floor(Math.random() * 1000);
     sails.log.info('config:clientside.forceBrowserCacheRefresh enabled '+
-      refreshString + 'will be added in all .js assets files.');
+      refreshString + ' will be added in all .js assets files.');
   } else {
     // by default get refresh string from package version
     refreshString = require('../../package.json').version;
   }
 
   if(sails.config.environment === 'production'){
-    return '<script src="/min/production.js?v='+refreshString+'"></script>' +
-      '<script src="/api/v1/translations.js?v='+refreshString+'"></script>';
+    // client side production global variable
+    tags = '<script>window.PRODUCTION_ENV = true;</script>';
+    // production concatened and minified js files
+    tags += '<script src="/min/production.js?v='+refreshString+'"></script>';
+    // user translations file
+    tags += '<script src="/api/v1/translations.js?v='+refreshString+'"></script>';
+
+    return tags;
   }
 
   var urls = themeEngine.getProjectJsAssetsFiles();
