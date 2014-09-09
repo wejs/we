@@ -102,15 +102,15 @@ exports.getlinkCssTags = function() {
   }
 
   if(sails.config.environment == 'production'){
-    tags += '<link rel="stylesheet" href="/min/production.css'+refreshString+'">';
+    tags += '<link rel="stylesheet" href="/min/production.css?v='+refreshString+'">';
   } else {
     sails.config.assets.css.forEach(function(src) {
-      tags += '<link rel="stylesheet" href="/'+src+refreshString+'">';
+      tags += '<link rel="stylesheet" href="/'+src+ '?v=' + refreshString+'">';
     });
   }
 
   if (themeEngine.stylesheet) {
-    tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+refreshString+'">';
+    tags += '<link rel="stylesheet" href="/theme/'+themeEngine.stylesheet+'?v='+refreshString+'">';
   }
 
   return tags;
