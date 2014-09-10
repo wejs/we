@@ -26,7 +26,6 @@
   "Login Form": "Formulário de login",
   "View account": "Ver perfil",
   "Edit account": "Editar Perfil",
-  "Change Avatar": "Mudar avatar",
   "Send": "Enviar",
   "Enter email": "Digitar email",
   "Register": "Registrar",
@@ -52,14 +51,54 @@
   "Group image": "Imagem do grupo",
   "Create group": "Criar comunidade",
   "Sair": "Sair",
+  "Exit": "Sair",
+  "Ok": "Ok",
   "Follow": "Seguir",
+  "follow": "seguir",
+
+
+  "login.block.button.text": "Entrar",
   "Change password": "Mudar a senha",
+  "login.block.form.recovery.password": "Recuperar senha",
+  "login.block.form.new.account.link": "Criar nova conta",
+
   "Change avatar": "Mudar foto",
   "View / edit profile": "Ver / editar perfil",
+
+  "users.title": "Pessoas",
+  "users.subtitle": "Aqui você encontra as pessoas",
+
+  "user.activity.title": "Atividades",
+  "user.activity.subtitle": "Veja suas atividades",
+  "user.sidebar.title": "Atividades",
+  "user.sidebar.username": "Olá, {{username}}",
+
+  "user.menu.activity.link": "Atividade",
+  "user.menu.contacts.link": "Contatos",
+  "user.menu.imagens.link": "Imagens",
+
+  "mainmenu.link.users": "Pessoas",
+  "mainmenu.link.groups": "Comunidades",
+  "mainmenu.link.courses": "Cursos",
+  "mainmenu.link.messages": "Mensagens",
+  "mainmenu.link.notifications": "Notificações",
   "posts.search.string.label": "Buscar:",
   "posts.search.string.placeholder": "Contendo o texto ...",
   "posts.search.submit": "Enviar",
   "posts.search.reset": "Resetar",
+
+  "notifications.title": "Notificações",
+  "notifications.subtitle": "Visualize suas notificações",
+  "notifications.empty.unread": "Nenhuma notificação nova",
+  "notifications.empty.read": "Nenhuma notificação lida.",
+
+  "notifications.menu.unread.link": "Novas",
+  "notifications.menu.read.link": "Lidas",
+
+  "groups.title": "Comunidades",
+  "groups.subtitle": "Participa das comunidades",
+  "groups.empty": "Não existe nenhuma comunidade no momento.",
+
   "sort.label.createdAt": "Data de criação",
   "sort.label.updatedAt": "Data de atualização",
   "sort.label.desc": "Maior",
