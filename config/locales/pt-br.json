@@ -87,6 +87,8 @@
   "posts.search.submit": "Enviar",
   "posts.search.reset": "Resetar",
 
+  "posts.loading": "Aguarde, carregando mais conteúdos",
+
   "notifications.title": "Notificações",
   "notifications.subtitle": "Visualize suas notificações",
   "notifications.empty.unread": "Nenhuma notificação nova",
