@@ -67,12 +67,12 @@ we.getIncludeAll = function(){
  * @return {[type]} [description]
  */
 we.start = function(){
-	Sails.log.debug('Starting sails.js with We.js configs.');
+  Sails.log.debug('Starting sails.js with We.js configs.');
 
   buildDictionary.aggregate({
     dirname   :  subProjectPath + '/config',
-    filter    : /local\.(js|json)$/,
-    identity  : false
+    filter    : /(.+)\.(js|json)$/,
+    identity  : true
   }, function(err, localConfig){
     // merge the configs
     var mergedConfig = Sails.util.merge(
@@ -83,7 +83,6 @@ we.start = function(){
     // Start server
     Sails.lift(rc('sails',mergedConfig));
   });
-
 };
 
 we.stop = function stop(){
