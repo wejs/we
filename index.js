@@ -93,11 +93,13 @@ we.stop = function stop(){
 };
 
 // --- GRUNT PART
+// TODO move to one npm module
 we.grunt = {};
 
 /**
  * Load we.js core tasks
  *
+ * TODO move to one npm module
  */
 we.grunt.loadTasks = function loadTasks(relPath, grunt) {
 
@@ -123,6 +125,11 @@ we.grunt.loadTasks = function loadTasks(relPath, grunt) {
   }
 };
 
+/**
+ * Sub project task loader
+ *
+ * TODO move to one npm module
+ */
 we.grunt.loadSubProjectTasks = function loadSubProjectTasks(relPath, grunt) {
 
   var dir = require('path').resolve(process.cwd(), relPath);

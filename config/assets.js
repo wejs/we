@@ -53,6 +53,14 @@ module.exports.assets = {
     'bower_components/*/ember/*/views/**/*.js',
     'bower_components/*/ember/*/components/**/*.js',
     'bower_components/*/ember/afterEmberFilesLoaded.js'
+  ],
+
+  bowerComponentsFoldersToCopy: [
+    'bower_components/font-awesome/fonts/**',
+    'bower_components/bootstrap/dist/fonts/**/*',
+    'bower_components/select2/*.png',
+    'bower_components/select2/*.gif',
+    'bower_components/lightbox/img/**/*'
   ]
 
 };

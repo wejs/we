@@ -28,11 +28,7 @@ module.exports = function(grunt) {
 	devfiles = devfiles.concat(themeEngine.getProjectAssetsFiles());
 	devfiles = devfiles.concat(pipelineConfig.jsFilesToInjectOriginal);
 
-  // @todo move this logic to one npm module
- //  var themeConfigs = require('../../config/theme.js');
- //  var currentTheme = require(themeConfigs.themes.enabled);
- //  var emberTemplatesPath = currentTheme.configs.emberTemplates;
- //  var themeFolders = 'node_modules/';
+	devfiles
 
 	grunt.config.set('copy', {
 		dev: {
@@ -51,13 +47,7 @@ module.exports = function(grunt) {
 			{
 				expand: true,
 				cwd: '.',
-				src: 	[
-				  'bower_components/font-awesome/fonts/**',
-				  'bower_components/bootstrap/dist/fonts/**/*',
-					'bower_components/select2/*.png',
-					'bower_components/select2/*.gif',
-					'bower_components/lightbox/img/**/*'
-				],
+				src: 	themeEngine.getBowerAssetsFolderToCopy(),
 				dest: '.tmp/public'
 			},{
 				expand: true,
