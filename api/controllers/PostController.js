@@ -11,6 +11,33 @@ var _ = require('lodash');
 
 module.exports = {
 
+  findOneRecord: function findOneRecord (req, res) {
+
+    var Model = actionUtil.parseModel(req);
+    var pk = actionUtil.requirePk(req);
+    var modelName = req.options.model || req.options.controller;
+
+    var query = Model.findOne(pk);
+    //query = actionUtil.populateEach(query, req.options);
+    query.exec(function found(err, matchingRecord) {
+      if (err) return res.serverError(err);
+      if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
+      /*
+      if (sails.hooks.pubsub && req.isSocket) {
+        Model.subscribe(req, matchingRecord);
+        actionUtil.subscribeDeep(req, matchingRecord);
+      }
+      */
+
+      var resultObject = {};
+
+      resultObject[modelName] = matchingRecord;
+      res.send(resultObject);
+    });
+
+  },
+
+
   list: function list(req,res) {
 
     Post.find()

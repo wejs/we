@@ -235,6 +235,12 @@ module.exports.routes = {
     controller    : 'post',
     action        : 'list'
   },
+
+  'get /api/v1/post/:id': {
+      controller    : 'post',
+      action        : 'findOneRecord'
+  },
+
   // @todo check ir this route set is need
   'post /api/v1/post': {
     controller    : 'post',

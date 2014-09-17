@@ -26,7 +26,6 @@ module.exports = function findOneRecord (req, res) {
   var pk = actionUtil.requirePk(req);
   var modelName = req.options.model || req.options.controller;
 
-
   var query = Model.findOne(pk);
   //query = actionUtil.populateEach(query, req.options);
   query.exec(function found(err, matchingRecord) {
