@@ -26,7 +26,7 @@
     "we-helpers": "0.0.2",
     "we-oauth2": "0.0.7",
     "we-send-email": "0.0.3",
-    "we-theme-engine": "0.0.6",
+    "we-theme-engine": "0.0.10",
     "wejs-theme-default": "0.0.7"
   },
   "devDependencies": {
