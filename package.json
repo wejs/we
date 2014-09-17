@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.88",
+  "version": "0.0.89",
   "description": "A system for make real time social networks written with javascript - Sails.js PowereD!",
   "keywords": [],
   "dependencies": {
