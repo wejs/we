@@ -28,6 +28,9 @@ module.exports.blueprints = {
 
   actions: false,
 
+  // try this
+  authWatch: true,
+
   rest: true,
 
   shortcuts: false,
