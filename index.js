@@ -5,6 +5,8 @@ var rc = require('rc');
 // sails.js :)
 var Sails = require('sails');
 
+var fs = require('fs');
+
 var buildDictionary = require('./node_modules/sails/node_modules/sails-build-dictionary');
 
 var includeAll = require('include-all');
@@ -93,21 +95,61 @@ we.stop = function stop(){
 // --- GRUNT PART
 we.grunt = {};
 
+/**
+ * Load we.js core tasks
+ *
+ */
 we.grunt.loadTasks = function loadTasks(relPath, grunt) {
-  // in prod env only load config copy task
-  if(relPath === './tasks/config' && grunt.cli.tasks[0] === 'prod'){
+
+  var dir = require('path').resolve(__dirname, relPath);
+
+  if( fs.existsSync(dir) ) {
+    // in prod env only load config copy task
+    if(relPath === './tasks/config' && grunt.cli.tasks[0] === 'prod'){
+      return includeAll({
+        dirname: dir,
+        filter: 'copy.js'
+      }) || {};
+    }
+
+    //console.warn(grunt);
     return includeAll({
-      dirname: require('path').resolve(__dirname, relPath),
-      filter: 'copy.js'
+      dirname: dir,
+      filter: /(.+)\.js$/
     }) || {};
+
+  } else {
+    return null;
+  }
+};
+
+we.grunt.loadSubProjectTasks = function loadSubProjectTasks(relPath, grunt) {
+
+  var dir = require('path').resolve(process.cwd(), relPath);
+
+  if( fs.existsSync(dir) ) {
+
+    // in prod env only load config copy task
+    if(relPath === './tasks/config' && grunt.cli.tasks[0] === 'prod'){
+
+      return includeAll({
+        dirname: dir,
+        filter: 'copy.js'
+      }) || {};
+    }
+
+    //console.warn(grunt);
+    return includeAll({
+      dirname: dir,
+      filter: /(.+)\.js$/
+    }) || {};
+
+  } else {
+    return null;
   }
 
-  //console.warn(grunt);
-  return includeAll({
-    dirname: require('path').resolve(__dirname, relPath),
-    filter: /(.+)\.js$/
-  }) || {};
 };
+
 
 // exports IT!
 module.exports = we;
