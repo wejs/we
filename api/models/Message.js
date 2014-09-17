@@ -14,12 +14,14 @@ module.exports = {
       required: true
     },
 
-    // send to users and|or room
+    // send to user id
     toId: {
-      type: 'array'
+      type: 'string'
     },
+
+    // room id used to send to multiples users
     roomId: {
-      type: 'array'
+      type: 'string'
     },
 
     content: {
@@ -40,6 +42,12 @@ module.exports = {
   beforeCreate: function(record, next) {
     // sanitize
     record = SanitizeHtmlService.sanitizeAllAttr(record);
+
+    // set record status do salved
+    if(record.status === 'sending') {
+      record.status = 'salved';
+    }
+
     next();
   },
 

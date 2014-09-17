@@ -12,6 +12,7 @@ var includeAll = require('include-all');
 var themeEngine = require('we-theme-engine');
 
 var we = {};
+
 // current process path
 var subProjectPath = process.cwd();
 

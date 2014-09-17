@@ -9,8 +9,10 @@
 module.exports = {
   schema: true,
   attributes: {
+    // user how will be notified
     user: {
-      type: 'string'
+      type: 'string',
+      required: true
     },
 
     post: {
@@ -49,5 +51,4 @@ module.exports = {
       defaultsTo: false
     }
   }
-
 };

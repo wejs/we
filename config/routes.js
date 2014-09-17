@@ -151,41 +151,42 @@ module.exports.routes = {
   //  -- MESSENGER
 
   'get /messenger/start': {
-      controller    : 'messages',
+      controller    : 'message',
       action        : 'start'
   },
 
-  'get /messenger/contact-list': {
-      controller    : 'messages',
-      action        : 'getContactList'
+  'get /api/v1/contact': {
+      controller    : 'ContactController',
+      action        : 'getAllAuthenticatedUserContacts'
   },
 
 
   // TODO use sails.js blueprint for set routes
-  'get /messages/:id?': {
-      controller    : 'messages',
+  'get /api/v1/message/:id?': {
+      controller    : 'message',
       action        : 'list'
   },
-  'post /messages': {
-      controller    : 'messages',
+
+  'post /api/v1/message': {
+      controller    : 'message',
       action        : 'createRecord'
   },
 
   // Return a list of messages between authenticated user and :uid user
   'get /messenger/messages/with-user/:uid?': {
-      controller    : 'messages',
+      controller    : 'message',
       action        : 'messagesWithUser'
   },
 
   // Return messages without toIds and roomIds
   'get /messenger/messages/public': {
-      controller    : 'messages',
+      controller    : 'message',
       action        : 'getPublicMessages'
   },
 
   // Send a message to show writing status
   'post /messenger/user/writing': {
-      controller    : 'messages',
+      controller    : 'message',
       action        : 'emitIamWriting'
   },
 

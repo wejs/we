@@ -9,6 +9,8 @@
 module.exports = {
 
   list: function (req,res) {
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
+
     var uid = req.param('uid');
 
     var query ;
@@ -27,7 +29,7 @@ module.exports = {
           ]
         }
       };
-    }else{
+    } else {
       query = {
         where: {
           or: [
@@ -38,17 +40,19 @@ module.exports = {
       };
     }
 
-    Messages.find(query)
-    .limit(10)
+    Message.find(query)
+    .limit(15)
     .sort('createdAt DESC')
     .exec(function(err, messages) {
-
       // Error handling
       if (err) {
-        return console.log(err);
+        sails.log.error('messenger:list:Error on get messages from db', err);
+        return res.negotiate(err);
       }
 
-      res.send(messages);
+      return res.send({
+        message: messages
+      });
 
     });
   },
@@ -57,13 +61,14 @@ module.exports = {
    * Return last messages between logged in user and :uid user
    */
   messagesWithUser: function (req,res){
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
     var uid = req.param('uid');
 
     // return forbiden
     if(!uid) return res.notFound('No messages found');
 
-    Messages.find({
+    Message.find({
       where: {
         or: [
           { fromId: uid,
@@ -98,7 +103,7 @@ module.exports = {
    * Return last messages between logged in user and :uid user
    */
   getPublicMessages: function (req,res){
-    Messages.find({
+    Message.find({
       where: {
         or: [
           { fromId: null },
@@ -126,16 +131,16 @@ module.exports = {
   // add message
   // create: function (req, res, next) {
   //   var message = {};
-  //   message.content = req.param("content");
-  //   message.fromId = req.param("fromId");
-  //   message.toId = req.param("toId");
+  //   message.content = req.param('content');
+  //   message.fromId = req.param('fromId');
+  //   message.toId = req.param('toId');
 
   //   console.warn('create messsage');
 
-  //   Messages.create(message).exec(function (error, newMessage){
+  //   Message.create(message).exec(function (error, newMessage){
   //     if (error) {
   //       console.log(error);
-  //       res.send(500, {error: res.i18n("DB Error") });
+  //       res.send(500, {error: res.i18n('DB Error') });
   //     } else {
   //       // TODO add suport to rooms
   //       if(message.toId){
@@ -212,7 +217,6 @@ module.exports = {
     // User.subscribe(socket , [userId] );
     socket.join('user_' + userId);
 
-
     // TODO change to userId friends room
     socket.join('global');
 
@@ -229,9 +233,7 @@ module.exports = {
    * TODO add suport to friends and roons
    */
   getContactList: function (req, res, next){
-    if(!req.isAuthenticated()){
-      return res.forbidden('forbidden');
-    }
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
     var contactList = [];
 
@@ -251,40 +253,73 @@ module.exports = {
 
   /**
    * Create one message
-   * @requires  User Logged in
+   *
+   * @requires User authenticated
    */
-  createRecord: function (req, res, next) {
-    var message = {};
-    message.content = req.param("content");
-    message.fromId = req.user.id;
-    message.toId = req.param("toId");
+  createRecord: function (req, res) {
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
-    Messages.create(message).exec(function (error, newMessage){
-      if (error) {
-        console.log(error);
-        res.send(500, {error: res.i18n("DB Error") });
-      } else {
-        // TODO add suport to rooms
-        if(message.toId){
-          // if has toId send toId
-          sails.io.sockets.in('user_' + newMessage.toId[0]).emit(
-            'receive:message',
-            {
-              message: newMessage
-            }
-          );
-        } else {
-          // send to public room
-          sails.io.sockets.in('public').emit(
-            'receive:public:message',
-            {
-              message: newMessage
-            }
-          );
+    var message = {};
+    message.content = req.param('content');
+    message.fromId = req.user.id;
+    message.toId = req.param('toId');
+
+    // public message
+    if (!message.toId) {
+      return Message.create(message).exec(function (error, newMessage){
+        if (error) {
+          console.log(error);
+          return res.send(500, {error: res.i18n('DB Error') });
         }
-        res.send(newMessage);
+        // send to public room
+        sails.io.sockets.in('public').emit(
+          'receive:public:message',
+          {
+            message: newMessage
+          }
+        );
+        return res.send(newMessage);
+      });
+    }
+
+    // to contact message
+    return Contact.getUsersRelationship(message.fromId, message.toId, function(err, contact) {
+      if (err) {
+        sails.log.error('CreateMessage:Contact.getUsersRelationship:', err);
+        return res.serverError();
       }
+
+      // user dont are one contact
+      if (!contact || ( contact.status !== 'accepted' ) ) {
+        return res.forbidden();
+      }
+
+      Message.create(message)
+      .exec(function createMessageToContact(error, newMessage) {
+        if (error) {
+          sails.log.error('createMessageToContact:', error);
+          return res.serverError();
+        }
+
+        // set contact id in new message to help update or open
+        // contact box on client side
+        newMessage.contactId = contact.id;
+
+        var socketRoomName = 'user_' + newMessage.toId;
+        // if has toId send the message in sails.js default responde format
+        sails.io.sockets.in(socketRoomName).emit(
+          'message',
+          {
+            id: newMessage.id,
+            verb: 'created',
+            data: newMessage
+          }
+        );
+
+        return res.ok({message: newMessage});
+      });
     });
+
   },
 
 
@@ -332,3 +367,36 @@ module.exports = {
   }
 
 };
+
+function createContactMessage (message){
+  Message.create(message).exec(function (error, newMessage){
+    if (error) {
+      console.log(error);
+      return res.send(500, {error: res.i18n('DB Error') });
+    }
+    // TODO add suport to rooms
+    if(message.toId){
+
+      var socketRoomName = 'user_' + newMessage.toId;
+      // if has toId send the message in sails.js default responde format
+      sails.io.sockets.in(socketRoomName).emit(
+        'message',
+        {
+          id: newMessage.id,
+          verb: 'created',
+          data: newMessage
+        }
+      );
+    } else {
+      // send to public room
+      sails.io.sockets.in('public').emit(
+        'receive:public:message',
+        {
+          message: newMessage
+        }
+      );
+    }
+    return res.send(newMessage);
+
+  });
+}

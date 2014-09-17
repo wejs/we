@@ -69,7 +69,8 @@
     "Comment",
     "AccessToken",
     "_",
-    "Activity"
+    "Activity",
+    "Message"
   ],
   "quotmark": "single",
   "maxcomplexity": 10,

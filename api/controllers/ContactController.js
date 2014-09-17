@@ -10,7 +10,29 @@ module.exports = {
     rest: false
   },
 
-  findOneUserContact: function(req, res){
+  getAllAuthenticatedUserContacts: function(req, res) {
+    if(!req.isAuthenticated()) return res.forbidden();
+
+    Contact.find()
+    .where({
+      or: [
+        {
+          from: req.user.id
+        },
+        {
+          to: req.user.id
+        }
+      ],
+      status: 'accepted'
+    })
+    .exec(function(err, contacts){
+      if (err) return res.negotiate(err);
+
+      return res.send({contact: contacts});
+    });
+  },
+
+  findOneUserContact: function(req, res) {
     if(!req.isAuthenticated()) return res.forbidden();
 
     var uid = req.user.id;

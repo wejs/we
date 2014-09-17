@@ -13,8 +13,6 @@ var path = require('path');
 var mime = require('mime');
 
 module.exports = {
-
-//  adapter: 'sails-local-fs'
   schema: true,
   attributes: {
 
