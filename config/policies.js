@@ -52,8 +52,14 @@ module.exports.policies = {
       'AuthTokenPolicy',
       'isLoggedInPolicy'
     ]
-  }
+  },
 
+  FollowController: {
+    '*': [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ]
+  }
 
   /*
 	// Here's an example of adding some policies to a controller

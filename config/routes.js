@@ -103,7 +103,30 @@ module.exports.routes = {
     action        : 'deleteContact'
   },
 
-  // USERS
+  // -- FOLLOW FLAG
+
+  // get
+  'get /api/v1/follow/:model/:modelId?/:userId?': {
+    controller    : 'FollowFlagController',
+    action        : 'isFollowIng'
+  },
+
+  'post /api/v1/isfollowing/:model/:modelId': {
+    controller    : 'FollowFlagController',
+    action        : 'isFollowIngMultiple'
+  },
+
+  'post /api/v1/follow/:model/:modelId': {
+    controller    : 'FollowFlagController',
+    action        : 'follow'
+  },
+
+  'delete /api/v1/follow/:model/:modelId': {
+    controller    : 'FollowFlagController',
+    action        : 'unFollow'
+  },
+
+  // -- USERS
 
   // User Auth
 

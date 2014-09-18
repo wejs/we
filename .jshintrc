@@ -70,7 +70,8 @@
     "AccessToken",
     "_",
     "Activity",
-    "Message"
+    "Message",
+    "FollowFlag"
   ],
   "quotmark": "single",
   "maxcomplexity": 10,
