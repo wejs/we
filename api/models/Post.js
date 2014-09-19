@@ -127,15 +127,15 @@ module.exports = {
       next();
     });
 
-    // auto subscribe creator in its post after create
-    FollowFlag.create({
+    // follow and auto subscribe creator in its post after create
+    Follow.create({
       userId: post.creator,
       model: 'post',
       modelId: post.id
     })
     .exec(function(err) {
       if (err) {
-        sails.log.error('follow:FollowFlag.create:Error on check if user is followIng', post, err);
+        sails.log.error('Error on create flag for post', post, err);
       }
     })
 

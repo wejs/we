@@ -1,5 +1,5 @@
 /**
- * FollowFlag
+ * Follow
  *
  * @module      :: Model
  * @description :: Flag how store things how users are following
@@ -8,9 +8,8 @@
 module.exports = {
   schema: true,
   attributes: {
-
     /**
-     * Follower user id
+     * creator user id
      */
     userId: {
       type: 'string',
@@ -18,7 +17,7 @@ module.exports = {
     },
 
     /**
-     * Followed mode id ex.: post
+     * model name ex.: post
      */
     model: {
       type: 'string',
@@ -26,7 +25,7 @@ module.exports = {
     },
 
     /**
-     * Followed mode id ex.: post.id
+     * mode id ex.: post.id
      */
     modelId: {
       type: 'string',
@@ -39,8 +38,8 @@ module.exports = {
    *
    * @return {object} waterline findOne query object
    */
-  isFollowIng: function checkIfisFollowIngInDB(userId, modelName, modelId){
-    return FollowFlag.findOne()
+  isFollowing: function (userId, modelName, modelId){
+    return Follow.findOne()
     .where({
       userId: userId,
       model: modelName,
@@ -51,12 +50,13 @@ module.exports = {
   /**
    * Check if one record or model type exists and returns it on callback
    */
-  recordExists: function checkIfRecordExists(modelName, modelId, cb){
+  recordExists: function (modelName, modelId, cb){
     var sailsModel = sails.models[modelName];
     if(!sailsModel) {
       return cb('Model type dont exist.');
     }
 
+    // TODO add suport to check if user exists in we oauth2
     if(modelName === 'user') {
       // user has one external id diferent from db id
       return sailsModel.findOne({

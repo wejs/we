@@ -71,7 +71,8 @@
     "_",
     "Activity",
     "Message",
-    "FollowFlag"
+    "Flag",
+    "Follow"
   ],
   "quotmark": "single",
   "maxcomplexity": 10,

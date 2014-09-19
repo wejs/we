@@ -103,27 +103,49 @@ module.exports.routes = {
     action        : 'deleteContact'
   },
 
-  // -- FOLLOW FLAG
-
+  // -- FOLLOW
   // get
-  'get /api/v1/follow/:model/:modelId?/:userId?': {
-    controller    : 'FollowFlagController',
-    action        : 'isFollowIng'
+  // example: /api/v1/follow/post/1/2?flagType=follow
+  'get /api/v1/follow/:model/:modelId?': {
+    controller    : 'FollowController',
+    action        : 'isFollowing'
   },
 
-  'post /api/v1/isfollowing/:model/:modelId': {
-    controller    : 'FollowFlagController',
-    action        : 'isFollowIngMultiple'
-  },
-
+  // create
+  // example: /api/v1/flag/post/1/2?flagType=follow
   'post /api/v1/follow/:model/:modelId': {
-    controller    : 'FollowFlagController',
+    controller    : 'FollowController',
     action        : 'follow'
   },
 
+  // delete
+  // example: /api/v1/flag/post/1/2?flagType=follow
   'delete /api/v1/follow/:model/:modelId': {
-    controller    : 'FollowFlagController',
+    controller    : 'FollowController',
     action        : 'unFollow'
+  },
+
+  // -- FLAG
+
+  // get
+  // example: /api/v1/flag/post/1/2?flagType=follow
+  'get /api/v1/flag/:model/:modelId?/:userId?': {
+    controller    : 'FlagController',
+    action        : 'getModelFlags'
+  },
+
+  // create
+  // example: /api/v1/flag/post/1/2?flagType=follow
+  'post /api/v1/flag/:model/:modelId': {
+    controller    : 'FlagController',
+    action        : 'flag'
+  },
+
+  // delete
+  // example: /api/v1/flag/post/1/2?flagType=follow
+  'delete /api/v1/flag/:model/:modelId': {
+    controller    : 'FlagController',
+    action        : 'unFlag'
   },
 
   // -- USERS
