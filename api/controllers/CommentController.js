@@ -41,7 +41,7 @@ module.exports = {
     if(!req.isAuthenticated()) return req.forbidden();
 
     var comment = {};
-    comment.body = req.param("body");
+    comment.body = req.param('body');
     comment.creator = req.user.id;
     comment.post = req.param('post');
 

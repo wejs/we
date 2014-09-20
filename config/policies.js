@@ -54,6 +54,72 @@ module.exports.policies = {
     ]
   },
 
+  CommentController: {
+    '*': [
+      'AuthTokenPolicy',
+    ],
+
+    create: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ],
+
+    destroy: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ],
+    update: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ]
+  },
+
+  PostController: {
+    '*': [
+      'AuthTokenPolicy',
+    ],
+
+    create: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ],
+
+    destroy: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ],
+    update: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ]
+  },
+
+  WembedController: {
+    '*': [
+      'AuthTokenPolicy',
+    ],
+
+    create: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy'
+    ],
+
+    destroy: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ],
+    update: [
+      'AuthTokenPolicy',
+      'isLoggedInPolicy',
+      'isCreatorPolicy'
+    ]
+  },
+
   FollowController: {
     '*': [
       'AuthTokenPolicy',
