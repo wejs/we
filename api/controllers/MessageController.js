@@ -5,6 +5,9 @@
  * @module		:: Controller
  * @description	:: Contains logic for handling requests.
  */
+var actionUtil = require('../../node_modules/sails/lib/hooks/blueprints/actionUtil');
+var util = require('util');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -127,55 +130,6 @@ module.exports = {
       }
     });
   },
-
-  // add message
-  // create: function (req, res, next) {
-  //   var message = {};
-  //   message.content = req.param('content');
-  //   message.fromId = req.param('fromId');
-  //   message.toId = req.param('toId');
-
-  //   console.warn('create messsage');
-
-  //   Message.create(message).exec(function (error, newMessage){
-  //     if (error) {
-  //       console.log(error);
-  //       res.send(500, {error: res.i18n('DB Error') });
-  //     } else {
-  //       // TODO add suport to rooms
-  //       if(message.toId){
-  //         // if has toId send toId
-  //         sails.io.sockets.in('user_' + newMessage.toId[0]).emit(
-  //           'receive:message',
-  //           {
-  //             message: newMessage
-  //           }
-  //         );
-  //       } else {
-  //         console.log('sendo to public');
-  //         // send to public room
-  //         sails.io.sockets.in('public').emit(
-  //           'receive:public:message',
-  //           {
-  //             message: newMessage
-  //           }
-  //         );
-  //       }
-
-
-  //       if(req.isSocket){
-  //         res.send({
-  //           message: newMessage
-  //         });
-  //       } else {
-  //         res.send({
-  //           message: newMessage
-  //         });
-  //       }
-
-  //     }
-  //   });
-  // },
 
   /**
    * Start messenger / loggin in messenger
@@ -329,6 +283,83 @@ module.exports = {
 
   },
 
+  update: function (req, res) {
+
+    // Look up the model
+    var Model = Message;
+
+    // Locate and validate the required `id` parameter.
+    var pk = actionUtil.requirePk(req);
+
+    // Create `values` object (monolithic combination of all parameters)
+    // But omit the blacklisted params (like JSONP callback param, etc.)
+    var values = actionUtil.parseValues(req);
+
+    // Omit the path parameter `id` from values, unless it was explicitly defined
+    // elsewhere (body/query):
+    var idParamExplicitlyIncluded = ((req.body && req.body.id) || req.query.id);
+    if (!idParamExplicitlyIncluded) delete values.id;
+
+    delete values.createdAt;
+    delete values.updatedAt;
+
+    // Find and update the targeted record.
+    //
+    // (Note: this could be achieved in a single query, but a separate `findOne`
+    //  is used first to provide a better experience for front-end developers
+    //  integrating with the blueprint API.)
+    Model.findOne(pk).populateAll().exec(function found(err, matchingRecord) {
+
+      if (err) return res.serverError(err);
+      if (!matchingRecord) return res.notFound();
+
+      Model.update(pk, values).exec(function updated(err, records) {
+
+        // Differentiate between waterline-originated validation errors
+        // and serious underlying issues. Respond with badRequest if a
+        // validation error is encountered, w/ validation info.
+        if (err) return res.negotiate(err);
+
+
+        // Because this should only update a single record and update
+        // returns an array, just use the first item.  If more than one
+        // record was returned, something is amiss.
+        if (!records || !records.length || records.length > 1) {
+          req._sails.log.warn(
+          util.format('Unexpected output from `%s.update`.', Model.globalId)
+          );
+        }
+
+        var updatedRecord = records[0];
+
+        if ( updatedRecord.toId && req.isSocket) {
+          // to contact message
+          var socketRoomName = 'user_' + updatedRecord.fromId;
+          // if has toId send the message in sails.js default responde format
+          sails.io.sockets.in(socketRoomName).emit(
+            'message',
+            {
+              id: updatedRecord.id,
+              verb: 'updated',
+              data: updatedRecord
+            }
+          );
+
+        } else {
+          // public room
+          res.ok({message: updatedRecord});
+        }
+
+      });// </updated>
+    }); // </found>
+  },
+
+  /**
+   * Messages dont have a delete feature
+   */
+  destroy: function (req, res) {
+    return res.badRequest();
+  },
 
   /**
    * I am writing!
