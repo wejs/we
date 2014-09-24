@@ -34,26 +34,6 @@ module.exports.policies = {
     'RolesPolicy'
   ],
 
-  UserController: {
-    '*': [
-      'AuthTokenPolicy',
-    ],
-
-    create: [
-      'AuthTokenPolicy',
-      'isLoggedInPolicy'
-    ],
-
-    destroy: [
-      'AuthTokenPolicy',
-      'isLoggedInPolicy'
-    ],
-    update: [
-      'AuthTokenPolicy',
-      'isLoggedInPolicy'
-    ]
-  },
-
   CommentController: {
     '*': [
       'AuthTokenPolicy',
