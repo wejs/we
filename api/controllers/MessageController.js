@@ -180,8 +180,13 @@ module.exports = {
   /**
    * Start messenger / loggin in messenger
    */
-  start: function(req, res){
+  start: function startMessenger(req, res){
     if(!req.isAuthenticated()) return res.forbidden('forbidden');
+
+    if (!req.isSocket) {
+      sails.log.warn('Start messenger without socket.io not is implemented',req.user.id);
+      return res.badRequest();
+    }
 
     var userId = req.user.id;
     var user = req.user;
@@ -212,6 +217,7 @@ module.exports = {
       sails.onlineusers[userId].sockets.push(socket.id);
     }
 
+
     // join user exclusive room to allow others users send
     // mesages to this user
     // User.subscribe(socket , [userId] );
@@ -223,6 +229,7 @@ module.exports = {
     // Public room
     // TODO make this dynamic and per user configurable
     socket.join('public');
+
 
 
     res.send(200, req.user);

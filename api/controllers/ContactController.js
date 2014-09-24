@@ -13,20 +13,39 @@ module.exports = {
   getAllAuthenticatedUserContacts: function(req, res) {
     if(!req.isAuthenticated()) return res.forbidden();
 
+    var userId = req.user.id;
+
     Contact.find()
     .where({
       or: [
         {
-          from: req.user.id
+          from: userId
         },
         {
-          to: req.user.id
+          to: userId
         }
       ],
       status: 'accepted'
     })
     .exec(function(err, contacts){
       if (err) return res.negotiate(err);
+
+      // if has online users check how are online in current user contact list
+      if ( sails.onlineusers ) {
+        for (var i = contacts.length - 1; i >= 0; i--) {
+
+          if ( contacts[i].from == userId ) {
+            if( sails.onlineusers[contacts[i].to] ) {
+              contacts[i].onlineStatus = 'online';
+            }
+          } else {
+            if( sails.onlineusers[contacts[i].from] ) {
+              contacts[i].onlineStatus = 'online';
+            }
+          }
+
+        }
+      }
 
       return res.send({contact: contacts});
     });
