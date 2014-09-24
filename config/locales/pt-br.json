@@ -106,5 +106,7 @@
   "sort.label.desc": "Maior",
   "sort.label.asc": "Menor",
 
-  "wembed.remove": "Remover link"
+  "wembed.remove": "Remover link",
+
+  "messenger.contact.writing": "digitando ..."
 }
