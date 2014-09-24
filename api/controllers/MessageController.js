@@ -284,6 +284,7 @@ module.exports = {
   },
 
   update: function (req, res) {
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
     // Look up the model
     var Model = Message;
@@ -366,13 +367,14 @@ module.exports = {
    * Socket.io
    * Send 'user:writing' event
    */
-  emitIamWriting: function (req, res, next){
+  emitIamWriting: function (req, res){
+    if(!req.isAuthenticated()) return res.forbidden('forbidden');
 
     var toUserId = req.param('toUserId');
     var toRoom = req.param('toRoom');
-    var toGlobal = req.param('global');
+    // var toGlobal = req.param('global');
 
-    if(!toUserId && !toRoom && !toGlobal){
+    if(!toUserId && !toRoom){
       return res.badRequest('Bad Request');
     }
 
@@ -383,7 +385,7 @@ module.exports = {
         'user:writing',
         {
           user: {
-            id: req.session.passport.user
+            id: req.user.id
           }
         }
       );
@@ -393,13 +395,13 @@ module.exports = {
       // TODO
     }
 
-    if(toGlobal){
-      //res.send(200,'');
-      // TODO change to send to friends
-      sails.io.sockets.in('global').emit('user:writing', {
-        user: req.user
-      });
-    }
+    // if(toGlobal){
+    //   //res.send(200,'');
+    //   // TODO change to send to friends
+    //   sails.io.sockets.in('global').emit('user:writing', {
+    //     user: req.user
+    //   });
+    // }
 
     res.send(200,'');
   }
