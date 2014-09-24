@@ -104,5 +104,7 @@
   "sort.label.createdAt": "Data de criação",
   "sort.label.updatedAt": "Data de atualização",
   "sort.label.desc": "Maior",
-  "sort.label.asc": "Menor"
+  "sort.label.asc": "Menor",
+
+  "wembed.remove": "Remover link"
 }
