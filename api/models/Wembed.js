@@ -51,6 +51,11 @@ module.exports = {
       type: 'string'
     },
 
+    imageIndex: {
+      type: 'integer',
+      defaultsTo: 0
+    },
+
     thumbnail: {
       type: 'string'
     },
@@ -62,15 +67,7 @@ module.exports = {
     creator: {
       type: 'string',
       required: true
-    },
-
-    // // Override toJSON instance method
-    // // to remove password value
-    // toJSON: function() {
-    //   var obj = this.toObject();
-    //   obj.type = 'wembed';
-    //   return obj;
-    // }
+    }
 
   }
 };
