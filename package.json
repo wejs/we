@@ -23,7 +23,7 @@
     "sails-disk": "^0.10.3",
     "sanitize-html": "~1.2.1",
     "we-helpers": "0.0.2",
-    "we-oauth2": "0.0.7",
+    "we-oauth2": "0.0.8",
     "we-send-email": "0.0.3",
     "we-theme-engine": "0.0.10",
     "wejs-theme-default": "0.0.7"
