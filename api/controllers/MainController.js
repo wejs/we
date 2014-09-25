@@ -33,7 +33,7 @@ module.exports = {
    */
   getConfigsJS: function (req, res) {
     var configs = {};
-sails.log.info('r>', req.session);
+
     // set header to never cache this response
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
