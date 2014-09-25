@@ -17,84 +17,64 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   // (`true` allows public access)
   //'*':[true],
-  '*':['AuthTokenPolicy'],
+  '*': true,
   'messenger': [
-    'AuthTokenPolicy',
     'AllRoutesPolicy',
     'isLoggedInPolicy'
   ],
   //'main': 'MainPolicy',
   'activity': [
-    'AuthTokenPolicy',
     'AllRoutesPolicy'
   ],
   'roles': [
-    'AuthTokenPolicy',
     'AllRoutesPolicy',
     'RolesPolicy'
   ],
 
   CommentController: {
-    '*': [
-      'AuthTokenPolicy',
-    ],
+    '*': true,
 
     create: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy'
     ],
 
     destroy: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ],
     update: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ]
   },
 
   PostController: {
-    '*': [
-      'AuthTokenPolicy',
-    ],
-
+    '*': true,
     create: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy'
     ],
 
     destroy: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ],
     update: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ]
   },
 
   WembedController: {
-    '*': [
-      'AuthTokenPolicy',
-    ],
-
+    '*': true,
     create: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy'
     ],
 
     destroy: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ],
     update: [
-      'AuthTokenPolicy',
       'isLoggedInPolicy',
       'isCreatorPolicy'
     ]
@@ -102,7 +82,6 @@ module.exports.policies = {
 
   FollowController: {
     '*': [
-      'AuthTokenPolicy',
       'isLoggedInPolicy'
     ]
   }

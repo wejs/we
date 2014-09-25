@@ -8,30 +8,39 @@
 var weOauth2 = require('we-oauth2');
 
 module.exports = {
-  oauth2Callback: function(req, res){
-    sails.log.warn('req.accessToken',req.accessToken);
 
-    if(!req.accessToken){
-      // TODO add a better forbiden redirect to invalid tokens
-      return res.redirect('/');
-    }
+  /**
+   * Receive one oauth token from provider and logIn related user
+   *
+   * @param  {object} req express request
+   * @param  {object} res express response
+   */
+  oauth2Callback: function(req, res) {
+    weOauth2.consumer.receiveToken(req, res, function() {
+      if(!req.accessToken) {
+        // TODO add a better forbiden redirect to invalid tokens
+        return res.redirect('/');
+      }
 
-    // logIn user
-    weOauth2.logIn(req.accessToken, req, res);
+      // logIn user
+      weOauth2.logIn(req.accessToken, req, res);
 
-    var redirectSubUrl = req.param('redirectTo');
-    if(redirectSubUrl){
-      res.redirect('/' + redirectSubUrl);
-    }
+      var redirectSubUrl = req.param('redirectTo');
+      if(redirectSubUrl){
+        res.redirect('/' + redirectSubUrl);
+      }
 
-    res.redirect('/');
+      res.redirect('/');
+    })
   },
 
   /**
    * Log out user and redirect to home
    */
   logOut: function(req, res){
-    weOauth2.logOut(req, res);
-    res.redirect('/');
+    weOauth2.logOut(req, res, function() {
+      sails.log.warn(req.session);
+      res.redirect('/');
+    });
   }
 };

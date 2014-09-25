@@ -43,7 +43,6 @@ module.exports = {
               contacts[i].onlineStatus = 'online';
             }
           }
-
         }
       }
 

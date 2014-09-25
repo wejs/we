@@ -33,6 +33,11 @@ module.exports = {
    */
   getConfigsJS: function (req, res) {
     var configs = {};
+sails.log.info('r>', req.session);
+    // set header to never cache this response
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
 
     configs.version = '1';
     configs.server = {};
@@ -58,18 +63,26 @@ module.exports = {
     configs.client.log = sails.config.clientside.log;
 
     // get public vars
-    if(sails.config.clientside.publicVars) configs.client.publicVars = sails.config.clientside.publicVars;
+    if(sails.config.clientside.publicVars) {
+      // clone it to dont change global variable
+      configs.client.publicVars = _.clone(sails.config.clientside.publicVars);
+    }
 
     configs.client.language = sails.config.i18n.defaultLocale;
-
 
     if(!req.isAuthenticated()){
       // send not logged in configs
       return res.send(configs);
     }
-    // get user configs
-    configs.authenticatedUser = req.user;
+
+    // set current session user auth token and userId
+    if( req.session.authToken ) {
+      configs.client.publicVars.authToken = req.session.authToken;
+      configs.client.publicVars.userId = req.session.userId;
+    }
+
     // get user logged in contacts
+    // TODO DEPRECATED remove this Contact.getUserContacts getter
     Contact.getUserContacts(req.user.id, function(err, contacts){
       if (err) return res.negotiate(err);
       configs.authenticatedUser.contacts = contacts;
