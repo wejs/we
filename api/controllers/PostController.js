@@ -19,7 +19,8 @@ module.exports = {
 
     var query = Model.findOne(pk);
     //query = actionUtil.populateEach(query, req.options);
-    query.exec(function found(err, matchingRecord) {
+    query.populate('comments')
+    .exec(function found(err, matchingRecord) {
       if (err) return res.serverError(err);
       if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
       /*

@@ -269,7 +269,7 @@ module.exports.sockets = {
   // Does Socket.IO need to GZIP the static files?
   // This process is only done once and the computed output is stored in memory.
   // So we don't have to spawn a gzip process for each request.
-  'browser client gzip': false,
+  'browser client gzip': true,
 
   // Optional override function to serve all static files,
   // including socket.io.js et al.

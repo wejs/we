@@ -12,7 +12,7 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true
     },
-
+    // user how did the activity
     actor: {
       type: 'string'
     },
@@ -22,6 +22,13 @@ module.exports = {
       type: 'string'
     },
 
+    // Ex.: created, updated, deleted, accepted, requested
+    // extend activitystrea.ms pattern
+    action: {
+      type: 'string'
+    },
+
+    // sails.js associations
     post: {
       model: 'post',
       via: 'activities'
@@ -49,7 +56,6 @@ module.exports = {
     }
 
 	},
-
 
   //-- Lifecycle Callbacks
 

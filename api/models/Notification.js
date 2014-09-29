@@ -15,24 +15,29 @@ module.exports = {
       required: true
     },
 
-    post: {
-      model: 'post'
+    // id of the user how did the activity
+    actor: {
+      type: 'string'
     },
 
-    comment: {
-      model: 'comment'
-    },
-
-    // new_post | new_comment | friend_request ...
-    type: {
+    model: {
       type: 'string',
       required: true
     },
 
-    // none | instant | daily | weekly
-    emailNotificationType: {
+    modelId: {
       type: 'string',
-      defaultsTo: 'none'
+      required: true
+    },
+
+    action: {
+      type: 'string',
+      required: true
+    },
+
+    emailSend: {
+      type: 'boolean',
+      defaultsTo: false
     },
 
     // TODO implement group feature
@@ -50,5 +55,11 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false
     }
+  },
+  // After create end one event
+  afterCreate: function(record, next) {
+    // emit one event to plug others we.js features
+    sails.emit('we:model:notification:afterCreate', record);
+    next();
   }
 };

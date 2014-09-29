@@ -272,7 +272,13 @@ module.exports.routes = {
       action        : 'userRemove'
   },
 
+  // - NOTIFICATION
 
+  // get current user notification count
+  'get /api/v1/current-user/notification-count': {
+    controller    : 'notification',
+    action        : 'getUnreadNotificationCount'
+  },
 
   // -- POSTS
   // @todo check ir this route set is need

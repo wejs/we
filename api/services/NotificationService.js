@@ -1,5 +1,23 @@
 
-exports.notify = function notify(type, user, data, callback) {
+sails.on('we:model:post:afterCreate', function(post) {
+  notificator.setPostNotifications('post', 'created', post, post.creator);
+});
+
+sails.on('we:model:notification:afterCreate', function(record) {
+  sails.log.warn('>>>>', record);
+  sails.io.sockets.in('user_' + record.user).emit(
+    'notification',
+    {
+      id: record.id,
+      verb: 'created',
+      data: record
+    }
+  );
+});
+
+var notificator = {};
+
+notificator.notify = function notify(type, user, data, callback) {
   // make callback optional
   if(!callback) callback = function(){};
 
@@ -43,14 +61,38 @@ deleteContact
  * @param {string} type notification type: post_created , comment_created ...
  * @param {function} callback callback to return the result with callback( error, result)
  */
-exports.setNotifications = function(type, callback){
+notificator.setNotifications = function(type, callback){
   sails.log.warn('TODO setNotifications');
 
   callback();
 };
 
-exports.setPostNotifications = function(type, post){
-  sails.log.warn('post', post);
+notificator.setPostNotifications = function(model, action, post, actorId){
+  sails.log.warn('setPostNotifications', model, action, post, actorId);
+
+  notificator.getUsersToNotify('post', action, post, actorId, function result(err, users) {
+    if (err) {
+      return sails.log.error('Error on notificator.getUsersToNotify',err);
+    }
+
+    // if has users to notify ...
+    if (users) {
+      users.forEach( function(user) {
+        Notification.create({
+          user: user.userId,
+          model: model,
+          modelId: post.id,
+          action: action,
+          actor: actorId
+        })
+        .exec(function(error) {
+          if (error) {
+            return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
+          }
+        });
+      });
+    }
+  });
 
   /* post example:
   { body: '<p>teste</p>',
@@ -62,56 +104,86 @@ exports.setPostNotifications = function(type, post){
   id: '53a7d082403f1340049fe09a' }
    */
 
-  // shared with you notification
-  NotificationService.getUsersFromSharedWithField(post, function(error, users){
-    if(error){
-      sails.log.error('Error on setPostNotifications getUsersFromSharedWithField', error);
-    }else if(users){
-      users.forEach(function(user){
-        // create one notification for every user
-        NotificationService.getUserEmailNotificationType(user, function(error, emailNotificationType){
-          if(error){
-            return sails.log.error('Error on setPostNotifications getUserEmailNotificationType', error);
-          }
+  // // shared with you notification
+  // NotificationService.getUsersFromSharedWithField(post, function(error, users) {
+  //   if (error) {
+  //     sails.log.error('Error on setPostNotifications getUsersFromSharedWithField', error);
+  //   } else if(users) {
+  //     users.forEach( function(user) {
+  //       // create one notification for every user
+  //       NotificationService.getUserEmailNotificationType(user, function(error, emailNotificationType) {
+  //         if (error) {
+  //           return sails.log.error('Error on setPostNotifications getUserEmailNotificationType', error);
+  //         }
 
-          var notification = {};
-          notification.user = user.id;
-          notification.post = post.id;
-          notification.type = 'postCreatedSharedWithMe';
-          notification.emailNotificationType = emailNotificationType;
+  //         var notification = {};
+  //         notification.user = user.id;
+  //         notification.post = post.id;
+  //         notification.type = 'postCreatedSharedWithMe';
+  //         notification.emailNotificationType = emailNotificationType;
 
-          Notification.create( notification ).exec(function(error, notification) {
-            if(error){
-              return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
-            }
-          });
+  //         Notification.create( notification ).exec(function(error, notification) {
+  //           if (error) {
+  //             return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
+  //           }
+  //         });
+  //       });
+  //     });
+  //   }
+  // });
 
-        });
-
-      });
-
-    }
-  });
-
-  sails.log.warn('TODO setPostNotifications');
 };
 
-exports.post = {
-  getUsersToNotify: function(post, callback){
+notificator.getUsersToNotify = function(modelName, action, model, actorId, callback){
+  var usersToNotify = [];
 
-    NotificationService.getUsersFromSharedWithField(post, function(err, sharedWith){
-      NotificationService.getUsersFollowingPost(post,function(err, users){
+  var queryGetters = [];
 
-        callback(null, users);
-
+  // on create dont get model followers
+  if ( action !== 'created') {
+    // users following the content
+    queryGetters.push(function(cb) {
+      Follow.getUsersFollowing(modelName, model.id)
+      .exec(function(err, users){
+        if(err) return cb(err);
+        return cb(null, users);
       });
     });
-
   }
+
+  // users following the content creator
+  queryGetters.push(function(cb) {
+    // TODO skip creator
+    // users following the creator
+    Follow.getUsersFollowing('user', model.creator)
+    .exec(function(err, users){
+      if(err) return cb(err);
+      return cb(null, users);
+    });
+  });
+
+  // run query with assync
+  async.parallel(queryGetters,
+  // optional callback
+  function(err, results){
+    if (err) {
+      return callback(err, null);
+    }
+
+    // for each result
+    for (var i = results.length - 1; i >= 0; i--) {
+      // for each user
+      for (var j = results[i].length - 1; j >= 0; j--) {
+        usersToNotify.push(results[i][j]);
+      }
+    }
+
+    callback(null, usersToNotify);
+  });
+
 };
 
-exports.getUsersFromSharedWithField = function(post, callback){
-
+notificator.getUsersFromSharedWithField = function(post, callback){
   if(post.sharedWith && post.sharedWith.length > 0){
     User.find()
     .where({
@@ -129,10 +201,9 @@ exports.getUsersFromSharedWithField = function(post, callback){
   }else{
     callback(null, []);
   }
-
 };
 
-exports.getUserEmailNotificationType = function(user, callback){
+notificator.getUserEmailNotificationType = function(user, callback){
   // if has user config prepopulated
   if(user.configs){
     if(user.configs.emailNotificationType){
@@ -160,20 +231,19 @@ exports.getUserEmailNotificationType = function(user, callback){
   });
 };
 
-exports.setCommentNotifications = function(type, comment, callback){
+notificator.setCommentNotifications = function(type, comment, callback){
   sails.log.warn('TODO setCommentNotifications');
-
 
   callback();
 };
 
-exports.saveNotificationOnDb = function(notification, callback){
+notificator.saveNotificationOnDb = function(notification, callback){
   sails.log.warn('TODO saveNotificationOnDb');
 
   callback();
 };
 
-exports.getUsersFollowingPost = function(post, callback){
+notificator.getUsersFollowingPost = function(post, callback){
 
   sails.log.warn('TODO getUsersFollowingContent');
 
@@ -184,7 +254,7 @@ exports.getUsersFollowingPost = function(post, callback){
  * Email notification object
  * @type {Object}
  */
-exports.email = {
+notificator.email = {
   getNotSendNotifications: function( callback){
     sails.log.warn('TODO getNotSendNotifications');
 
@@ -195,6 +265,7 @@ exports.email = {
     sails.log.warn('TODO setNotificationAsSend');
 
     callback();
-  },
-
+  }
 };
+
+module.exports = notificator;

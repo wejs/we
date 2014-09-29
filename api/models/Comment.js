@@ -60,6 +60,13 @@ module.exports = {
       // ember data type
       obj.type = 'comment';
 
+      // set postId for help with ember data async load
+      if(  _.isObject(obj.post) && obj.post.id ) {
+        obj.postId = obj.post.id;
+      } else if( obj.post ) {
+        obj.postId = obj.post;
+      }
+
       // set creator_id
       if(  _.isString(obj.creator) ){
         obj.creator_id = obj.creator;

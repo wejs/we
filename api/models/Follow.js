@@ -50,7 +50,7 @@ module.exports = {
   /**
    * Check if one record or model type exists and returns it on callback
    */
-  recordExists: function (modelName, modelId, cb){
+  recordExists: function (modelName, modelId, cb) {
     var sailsModel = sails.models[modelName];
     if(!sailsModel) {
       return cb('Model type dont exist.');
@@ -69,5 +69,13 @@ module.exports = {
       id: modelId
     })
     .exec(cb);
+  },
+
+  getUsersFollowing: function(modelName, modelId) {
+    return Follow.find()
+    .where({
+      model: modelName,
+      modelId: modelId
+    });
   }
 }

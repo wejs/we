@@ -115,31 +115,9 @@ module.exports = {
 
   // After register one create activity
   afterCreate: function(post, next) {
-    Activity.create({
-      actor: post.creator,
-      verb: 'post',
-      post: post.id
-    }).exec(function(error, activity) {
-      // if has one error in activity creation, log it
-      if (error) {
-        sails.log.error('PostModel:create: error on create Activity: ',error,activity);
-      }
-      next();
-    });
-
-    // follow and auto subscribe creator in its post after create
-    Follow.create({
-      userId: post.creator,
-      model: 'post',
-      modelId: post.id
-    })
-    .exec(function(err) {
-      if (err) {
-        sails.log.error('Error on create flag for post', post, err);
-      }
-    })
-
-    NotificationService.setPostNotifications('post_created', post);
+    // emit one event to plug others we.js features
+    sails.emit('we:model:post:afterCreate', post);
+    next();
   },
 
   loadPostImageAndComments: function (post, callback){
