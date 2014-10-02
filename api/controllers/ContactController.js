@@ -74,16 +74,30 @@ module.exports = {
     if(!req.user.id) return res.forbiden();
 
     var uid = req.user.id;
-    var contact_id = req.param('contactId');
+    var contactId = req.param('contactId');
 
     Contact.create({
       from: uid,
-      to: contact_id
+      to: contactId
     })
     .exec(function(err, contact){
       if(err) return res.negotiate(err);
+
+      // emit to user
+      sails.io.sockets.in('user_' + contact.to).emit('contact', {
+        id: contact.id,
+        verb: 'created',
+        data: contact
+      });
+      // emit to other logged in user for sync status
+      sails.io.sockets.in('user_' + contact.from).emit('contact', {
+        id: contact.id,
+        verb: 'created',
+        data: contact
+      });
+
       // notify
-      NotificationService.notify('contact_requested',req.user, contact);
+      NotificationService.notifyContactRequest(contact, req.user);
       // send result
       res.send(201,{contact: contact});
     });
@@ -93,10 +107,10 @@ module.exports = {
     if(!req.user.id) return res.forbiden();
 
     var uid = req.user.id;
-    var contact_id = req.param('contactId');
+    var contactId = req.param('contactId');
 
     // first get and check if has one relationship
-    Contact.getUsersRelationship(uid, contact_id, function(err, contact){
+    Contact.getUsersRelationship(uid, contactId, function(err, contact){
       if (err) return res.negotiate(err);
 
       if(!contact) return res.notFound();
@@ -107,8 +121,23 @@ module.exports = {
       contact.status = 'accepted';
       contact.save(function(err){
         if (err) return res.negotiate(err);
+
+        // emit to user
+        sails.io.sockets.in('user_' + contact.to).emit('contact', {
+          id: contact.id,
+          verb: 'updated',
+          data: contact
+        });
+
+        // emit to other logged in user for sync status
+        sails.io.sockets.in('user_' + contact.from).emit('contact', {
+          id: contact.id,
+          verb: 'updated',
+          data: contact
+        });
+
         // notify
-        NotificationService.notify('contact_accepted',req.user, contact);
+        NotificationService.notifyContactAccept(contact, req.user);
         // send the response
         return res.send({contact: contact});
       });
@@ -119,10 +148,10 @@ module.exports = {
     if(!req.user.id) return res.forbiden();
 
     var uid = req.user.id;
-    var contact_id = req.param('contactId');
+    var contactId = req.param('contactId');
 
     // first get and check if has one relationship
-    Contact.getUsersRelationship(uid, contact_id, function(err, contact){
+    Contact.getUsersRelationship(uid, contactId, function(err, contact){
       if (err) return res.negotiate(err);
 
       if(!contact) return res.notFound();
@@ -132,8 +161,14 @@ module.exports = {
       contact.status = 'ignored';
       contact.save(function(err){
         if (err) return res.negotiate(err);
-        // notify
-        NotificationService.notify('contact_ignored',req.user, contact);
+
+        // emit to user
+        sails.io.sockets.in('user_' + contact.to).emit('contact', {
+          id: contact.id,
+          verb: 'updated',
+          data: contact
+        });
+
         // send the response
         return res.send({contact: contact});
       });
@@ -144,10 +179,10 @@ module.exports = {
     if(!req.user.id) return res.forbiden();
 
     var uid = req.user.id;
-    var contact_id = req.param('contactId');
+    var contactId = req.param('contactId');
 
     // first get and check if has one relationship
-    Contact.getUsersRelationship(uid, contact_id, function(err, contact){
+    Contact.getUsersRelationship(uid, contactId, function(err, contact){
       if (err) return res.negotiate(err);
       if(!contact) return res.notFound();
       // if user is ignored return not found
@@ -157,6 +192,21 @@ module.exports = {
       Contact.destroy({id: contact.id})
       .exec(function(err){
         if (err) return res.negotiate(err);
+
+        // emit to user
+        sails.io.sockets.in('user_' + contact.to).emit('contact', {
+          id: contact.id,
+          verb: 'deleted',
+          data: contact
+        });
+
+        // emit to other logged in user for sync status
+        sails.io.sockets.in('user_' + contact.from).emit('contact', {
+          id: contact.id,
+          verb: 'deleted',
+          data: contact
+        });
+
         // notify
         NotificationService.notify('contact_deleted',req.user, contact);
         // send 200 response

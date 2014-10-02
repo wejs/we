@@ -22,10 +22,12 @@ module.exports = {
     Comment.create(comment).exec(function(err, newInstance) {
       if (err) return res.negotiate(err);
 
-      if (req.isSocket) {
+      if ( req.isSocket ) {
         // If we have the pubsub hook, use the model class's publish method
         // to notify all subscribers about the created item
         Comment.publishCreate(newInstance);
+
+        NotificationService.setCommentNotifications('comment', 'created', newInstance, req.user);
       }
 
       res.send({

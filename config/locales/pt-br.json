@@ -97,6 +97,16 @@
   "notifications.menu.unread.link": "Novas",
   "notifications.menu.read.link": "Lidas",
 
+  "notification.text.post.created": "{{displayName}} criou {{contentTypeText}} <strong>{{relatedContentTeaser }}</strong> {{group}}",
+  "notification.text.contact.request": "Existe um pedido de contato de <strong>{{displayName}}</strong>",
+  "notification.text.contact.accept": "<strong>{{displayName}}</strong> aceitou a sua solicitação de amizade",
+  "notification.text.comment.created": "{{displayName}} comentou <strong>{{targetContentTeaser}}</strong> no conteúdo <strong>{{relatedContentTeaser}}</strong> {{group}}",
+
+  "post.contentType.image": "a imagem",
+  "post.contentType.text": "o texto",
+  "post.contentType.wembed": "o conteúdo",
+  "post.in.group": "no grupo",
+
   "groups.title": "Comunidades",
   "groups.subtitle": "Participa das comunidades",
   "groups.empty": "Não existe nenhuma comunidade no momento.",

@@ -5,6 +5,8 @@
  * @description :: Model comentary
  *
  */
+
+var S = require('string');
 var defaultCommentLimit = 4;
 
 module.exports = {
@@ -21,6 +23,11 @@ module.exports = {
     body: {
       type: 'string',
       required: true
+    },
+
+    // comment text without tags
+    bodyClean: {
+      type: 'string'
     },
 
     // comment creator
@@ -84,8 +91,11 @@ module.exports = {
   //-- Lifecycle Callbacks
 
   beforeCreate: function(record, next) {
+    var originalBody = record.body;
     // sanitize
     record = SanitizeHtmlService.sanitizeAllAttr(record);
+    // save a boy version without all tags
+    record.bodyClean = S(originalBody).stripTags().s;
     next();
   },
 

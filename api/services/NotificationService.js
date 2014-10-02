@@ -1,18 +1,36 @@
 
-sails.on('we:model:post:afterCreate', function(post) {
-  notificator.setPostNotifications('post', 'created', post, post.creator);
-});
-
 sails.on('we:model:notification:afterCreate', function(record) {
-  sails.log.warn('>>>>', record);
-  sails.io.sockets.in('user_' + record.user).emit(
-    'notification',
-    {
-      id: record.id,
-      verb: 'created',
-      data: record
+
+  var recordsRelated = {};
+
+  record = Notification.customToJSON(record);
+
+  User.findOne({
+    idInProvider: record.user
+  })
+  .exec(function(err, user){
+    if ( err ) {
+      return sails.log.error('Error on send push notification to user', err, record);
     }
-  );
+
+    var locale = user.language;
+    if (!locale) {
+      locale = sails.config.i18n.defaultLocale;
+    }
+
+    Notification.fetchNotificationData(locale, record, recordsRelated, function() {
+      recordsRelated['notification'] = record;
+      sails.io.sockets.in('user_' + record.user).emit(
+        'notification',
+        {
+          id: record.id,
+          verb: 'created',
+          data: record
+        }
+      );
+    });
+  })
+
 });
 
 var notificator = {};
@@ -20,32 +38,6 @@ var notificator = {};
 notificator.notify = function notify(type, user, data, callback) {
   // make callback optional
   if(!callback) callback = function(){};
-
-  switch(type){
-    case 'contact_requested':
-      // send one socket.io notification
-      sails.io.sockets.in('user_'+data.to).emit('contact:requested', data);
-      sails.log.debug('TODO! send contact_requested notification!',type,data);
-      break;
-    case 'contact_accepted':
-      // send one socket.io notification
-      sails.io.sockets.in('user_'+data.from).emit('contact:accepted', data);
-      sails.log.debug('TODO! send contact_accepted notification!',type,data);
-      break;
-    case 'contact_ignored':
-      // send one socket.io notification
-      sails.io.sockets.in('user_'+data.from).emit('contact:ignored', data);
-      sails.log.debug('TODO! send contact_ignored notification!',type,data);
-      break;
-    case 'contact_deleted':
-      // send one socket.io notification
-      sails.io.sockets.in('user_'+data.to).emit('contact:deleted', data);
-      sails.io.sockets.in('user_'+data.from).emit('contact:deleted', data);
-      sails.log.debug('TODO! send contact_deleted notification!',type,data);
-      break;
-    default:
-      sails.log.warn('notification type not found:',type);
-  }
 
   sails.log.info('TODO! notify', type, data);
 
@@ -67,30 +59,155 @@ notificator.setNotifications = function(type, callback){
   callback();
 };
 
-notificator.setPostNotifications = function(model, action, post, actorId){
-  sails.log.warn('setPostNotifications', model, action, post, actorId);
 
-  notificator.getUsersToNotify('post', action, post, actorId, function result(err, users) {
+notificator.notifyContactRequest = function(contactModel, from) {
+  // load from user
+  User.findOne({
+    idInProvider: contactModel.to
+  })
+  .exec(function(err, to){
+    if (err) {
+      return sails.log.error('notifyContactRequest:Error on get from user',err, contactModel);
+    }
+
+    if (!from || !to) {
+      return;
+    }
+
+    var locale = to.language;
+    if (!locale) {
+      locale = sails.config.i18n.defaultLocale;
+    }
+
+    var newNotification = {
+      user: contactModel.to,
+      model: 'contact',
+      modelId: contactModel.id,
+      action: 'requested',
+      actor: from.id,
+
+      locale: locale,
+
+      targetModelType: 'user',
+      targetModelId: from.id,
+      displayName: from.displayName
+    }
+
+    Notification.create(newNotification)
+    .exec(function(error) {
+      if (error) {
+        return sails.log.error('Error on notifyContactRequest Notification.create', error);
+      }
+    });
+  })
+}
+
+notificator.notifyContactAccept = function(contactModel, to) {
+  // load from user
+  User.findOne({
+    idInProvider: contactModel.from
+  })
+  .exec(function (err, from) {
+    if (err) {
+      return sails.log.error('notifyContactRequest:Error on get from user',err, contactModel);
+    }
+
+    if (!to || !from) {
+      return;
+    }
+
+    var locale = from.language;
+    if (!locale) {
+      locale = sails.config.i18n.defaultLocale;
+    }
+
+    var newNotification = {
+      user: contactModel.from,
+      model: 'contact',
+      modelId: contactModel.id,
+      action: 'accepted',
+      actor: to.id,
+
+      locale: locale,
+
+      targetModelType: 'user',
+      targetModelId: to.id,
+      displayName: to.displayName,
+      groupName: null,
+      groupId: null,
+      contentType: null,
+      relatedContentTeaser: null
+    }
+
+    Notification.create(newNotification)
+    .exec(function(error) {
+      if (error) {
+        return sails.log.error('Error on notifyContactRequest Notification.create', error);
+      }
+    });
+  })
+}
+
+notificator.setPostNotifications = function(model, action, post, actor){
+
+  notificator.getUsersToNotify('post', action, post, actor.id , function result(err, users) {
     if (err) {
       return sails.log.error('Error on notificator.getUsersToNotify',err);
     }
-
     // if has users to notify ...
     if (users) {
-      users.forEach( function(user) {
-        Notification.create({
-          user: user.userId,
-          model: model,
-          modelId: post.id,
-          action: action,
-          actor: actorId
-        })
-        .exec(function(error) {
-          if (error) {
-            return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
+      // populate post assoc data
+      Post.findOne({id: post.id})
+      .populate('sharedIn')
+      .populate('wembed')
+      .exec(function (err , postRecord) {
+        if( err ) {
+          return sails.log.error('Error on get populated post from DB ',err);
+        }
+        // set default post data
+        postRecord = postRecord.toJSON();
+        // for each user to notify ...
+        users.forEach( function (user) {
+          // dont notify user creator
+          if ( user.userId === actor.idInProvider) {
+            return;
           }
+
+          var locale = user.language;
+          if (!locale) {
+            locale = sails.config.i18n.defaultLocale;
+          }
+
+          var newNotification = {
+            user: user.userId,
+            model: model,
+            modelId: post.id,
+            action: action,
+            actor: actor.id,
+
+            locale: locale,
+
+            targetModelType: 'post',
+            targetModelId: post.id,
+            displayName: actor.displayName,
+            contentType: postRecord.contentType,
+            relatedContentTeaser: postRecord.bodyTeaser
+          }
+
+          if ( postRecord.sharedIn && postRecord.sharedIn[0] ) {
+            newNotification.groupId = postRecord.sharedIn[0].id;
+            newNotification.groupName = postRecord.sharedIn[0].name;
+          }
+
+          Notification.create(newNotification)
+          .exec(function (error) {
+            if (error) {
+              return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
+            }
+          });
         });
-      });
+
+      })
     }
   });
 
@@ -132,6 +249,82 @@ notificator.setPostNotifications = function(model, action, post, actorId){
   //   }
   // });
 
+};
+
+
+notificator.setCommentNotifications = function(model, action, comment, actor) {
+  // get related post
+  Post.findOne({id: comment.post })
+    .populate('sharedIn')
+    .populate('wembed')
+  .exec(function (err, commentedModel) {
+    if (err) {
+      return sails.log.error('Error on get post related to comment',err);
+    }
+    // do nothing if no post found
+    if (!commentedModel) {
+      sails.log.warn('Post related to comment not found', comment);
+      return;
+    }
+
+    // set default data
+    commentedModel = commentedModel.toJSON();
+
+    // get users how are following the commented resource
+    Follow.getUsersFollowing('post', commentedModel.id)
+    .exec(function (err, users) {
+      if (err) {
+        return sails.log.error('Error on get Follow.getUsersFollowing for post related to comment',err);
+      }
+
+      if (!users) return;
+
+      // for each user to notify ...
+      users.forEach( function(user) {
+        // dont notify user creator
+        if ( user.userId === actor.idInProvider) {
+          return;
+        }
+
+        var locale = user.language;
+        if (!locale) {
+          locale = sails.config.i18n.defaultLocale;
+        }
+
+        // small teaser text
+        comment.bodyTeaser = comment.bodyClean.substr(0, 30);
+
+        var newNotification = {
+          user: user.userId,
+          model: model,
+          modelId: comment.id,
+          action: action,
+          actor: actor.id,
+
+          locale: locale,
+
+          targetModelType: 'post',
+          targetModelId: commentedModel.id,
+          displayName: actor.displayName,
+          contentType: commentedModel.contentType,
+          relatedContentTeaser: commentedModel.bodyTeaser,
+          targetContentTeaser: comment.bodyTeaser
+        }
+
+        if ( commentedModel.sharedIn && commentedModel.sharedIn[0] ) {
+          newNotification.groupId = commentedModel.sharedIn[0].id;
+          newNotification.groupName = commentedModel.sharedIn[0].name;
+        }
+
+        Notification.create(newNotification)
+        .exec(function(error) {
+          if (error) {
+            return sails.log.error('Error on getUsersFromSharedWithField Notification.create', error);
+          }
+        });
+      });
+    });
+  })
 };
 
 notificator.getUsersToNotify = function(modelName, action, model, actorId, callback){
@@ -229,12 +422,6 @@ notificator.getUserEmailNotificationType = function(user, callback){
       callback(null, 'none');
     }
   });
-};
-
-notificator.setCommentNotifications = function(type, comment, callback){
-  sails.log.warn('TODO setCommentNotifications');
-
-  callback();
 };
 
 notificator.saveNotificationOnDb = function(notification, callback){

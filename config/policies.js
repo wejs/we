@@ -93,6 +93,21 @@ module.exports.policies = {
     ],
     getUnreadNotificationCount: [
       'isLoggedInPolicy'
+    ],
+
+    markAllModelNotificationAsRead: [
+      'isLoggedInPolicy'
+    ],
+
+    markAllNotificationAsRead: [
+      'isLoggedInPolicy'
+    ],
+
+    create: [
+      'forbidenRoutePolicy'
+    ],
+    destroy: [
+      'forbidenRoutePolicy'
     ]
   }
 };

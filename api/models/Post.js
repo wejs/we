@@ -6,6 +6,8 @@
  *
  */
 
+var S = require('string');
+
 module.exports = {
   schema: true,
   attributes: {
@@ -18,6 +20,14 @@ module.exports = {
     body: {
       type: 'text',
       required: true
+    },
+    // body without tags
+    bodyClean: {
+      type: 'text'
+    },
+    // body small body text version or description
+    bodyTeaser: {
+      type: 'text'
     },
 
     creator: {
@@ -90,6 +100,15 @@ module.exports = {
         delete obj._comments;
       }
 
+      // set content type
+      if( obj.wembed ) {
+        obj.contentType = 'wembed';
+      } else if(obj.images){
+        obj.contentType = 'image';
+      } else {
+        obj.contentType = 'text';
+      }
+
       // set url for this content
       obj.url = '/post/' + obj.id;
 
@@ -100,8 +119,13 @@ module.exports = {
   //-- Lifecycle Callbacks
 
   beforeCreate: function(post, next) {
+    var originalBody = post.body;
     // sanitize
     post = SanitizeHtmlService.sanitizeAllAttr(post);
+    // create one tag clean text version
+    post.bodyClean = S(originalBody).stripTags().s;
+    // small teaser text
+    post.bodyTeaser = post.bodyClean.substr(0, 30);
     next();
   },
 

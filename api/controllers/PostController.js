@@ -128,6 +128,9 @@ module.exports = {
           Model.publishCreate(newInstance, !req.options.mirror && req);
         }
 
+
+        NotificationService.setPostNotifications('post', 'created', newInstance, req.user);
+
         // Send JSONP-friendly response if it's supported
         // (HTTP 201: Created)
 
@@ -191,10 +194,18 @@ module.exports = {
         // to notify all subscribers about the update.
 
         if (req._sails.hooks.pubsub) {
-          if (req.isSocket) { Model.subscribe(req, records); }
-          Model.publishUpdate(pk, _.cloneDeep(values), !req.options.mirror && req, {
-            previous: matchingRecord.toJSON()
-          });
+          if (req.isSocket) {
+            Model.subscribe(req, records);
+          }
+
+          Model.publishUpdate(
+            pk,
+            _.cloneDeep(updatedRecord),
+            !req.options.mirror && req,
+            {
+              previous: matchingRecord.toJSON()
+            }
+          );
         }
 
 

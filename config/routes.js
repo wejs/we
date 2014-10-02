@@ -280,6 +280,16 @@ module.exports.routes = {
     action        : 'getUnreadNotificationCount'
   },
 
+  'post /api/v1/notify/mark-all-as-read': {
+    controller    : 'notification',
+    action        : 'markAllNotificationAsRead'
+  },
+
+  'post /api/v1/notify/:model/:modelId/mark-all-as-read': {
+    controller    : 'notification',
+    action        : 'markAllModelNotificationAsRead'
+  },
+
   // -- POSTS
   // @todo check ir this route set is need
   'get /api/v1/post': {

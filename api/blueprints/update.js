@@ -70,11 +70,21 @@ module.exports = function updateOneRecord (req, res) {
       // If we have the pubsub hook, use the Model's publish method
       // to notify all subscribers about the update.
 
+      sails.log.warn('updated>', updatedRecord);
+
       if (req._sails.hooks.pubsub) {
-        if (req.isSocket) { Model.subscribe(req, records); }
-        Model.publishUpdate(pk, _.cloneDeep(values), !req.options.mirror && req, {
-          previous: matchingRecord.toJSON()
-        });
+        if (req.isSocket) {
+          Model.subscribe(req, records);
+        }
+
+        Model.publishUpdate(
+          pk,
+          _.cloneDeep(updatedRecord),
+          !req.options.mirror && req,
+          {
+            previous: matchingRecord.toJSON()
+          }
+        );
       }
 
 
