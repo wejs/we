@@ -207,8 +207,6 @@ module.exports = {
           data: contact
         });
 
-        // notify
-        NotificationService.notify('contact_deleted',req.user, contact);
         // send 200 response
         return res.send();
       });
