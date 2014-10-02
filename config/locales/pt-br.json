@@ -98,8 +98,8 @@
   "notifications.menu.read.link": "Lidas",
 
   "notification.text.post.created": "{{displayName}} criou {{contentTypeText}} <strong>{{relatedContentTeaser }}</strong> {{group}}",
-  "notification.text.contact.request": "Existe um pedido de contato de <strong>{{displayName}}</strong>",
-  "notification.text.contact.accept": "<strong>{{displayName}}</strong> aceitou a sua solicitação de amizade",
+  "notification.text.contact.requested": "Existe um pedido de contato de <strong>{{displayName}}</strong>",
+  "notification.text.contact.accepted": "<strong>{{displayName}}</strong> aceitou a sua solicitação de amizade",
   "notification.text.comment.created": "{{displayName}} comentou <strong>{{targetContentTeaser}}</strong> no conteúdo <strong>{{relatedContentTeaser}}</strong> {{group}}",
 
   "post.contentType.image": "a imagem",
