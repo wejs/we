@@ -20,15 +20,14 @@ module.exports = function(grunt) {
 	var devfiles = [
 		'fonts/**',
 		'imgs/**',
-		'langs/**'
+		'langs/**',
+		'core/**'
 	];
 
 	var pipelineConfig = require('../pipeline');
 
 	devfiles = devfiles.concat(themeEngine.getProjectAssetsFiles());
 	devfiles = devfiles.concat(pipelineConfig.jsFilesToInjectOriginal);
-
-	devfiles
 
 	grunt.config.set('copy', {
 		dev: {
