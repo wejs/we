@@ -87,6 +87,25 @@ we.start = function(){
   });
 };
 
+we.load = function(){
+  Sails.log.debug('Loading sails.js with We.js configs.');
+
+  buildDictionary.aggregate({
+    dirname   :  subProjectPath + '/config',
+    filter    : /(.+)\.(js|json)$/,
+    identity  : true
+  }, function(err, localConfig){
+    // merge the configs
+    var mergedConfig = Sails.util.merge(
+      localConfig,
+      configs
+    );
+
+    // Start server
+    Sails.load(rc('sails',mergedConfig));
+  });
+};
+
 we.stop = function stop(){
 	// Start server
 	return Sails.lower();
