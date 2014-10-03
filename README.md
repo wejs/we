@@ -51,11 +51,12 @@
 ## Installation
 
 Before install and start:
-* MongoDB http://www.mongodb.org/ ( optional, we.js has sails-mongo, sails-mysql and a default sails-disk database options )
+* Redis http://redis.io/ ( for session storage )
+* Mysql http://www.mysql.com/ ( for data storage )
 * Node.js http://nodejs.org/
 * npm https://npmjs.org/
 * Bower http://bower.io/
-* graphicsmagick http://www.graphicsmagick.org/ ( used for image resize )
+* graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
 
 Then in terminal tip:
 
@@ -82,21 +83,7 @@ TODO add others configs here ...
 ## How to Test
 
 #### With 'npm test':
-Inside project folder tip:
-```sh
-$ npm test
-```
-
-#### With cake / coffescript in terminal:
-Run all tests:
-```sh
-$ cake 'NotificationService' test
-```
-
-Grep tests to run ( mocha grep ):
-```sh
-$ cake --grep 'NotificationService' test
-```
+TODO!
 
 ## Build with:
 * Sails.js - http://sailsjs.org
