@@ -22,7 +22,7 @@
     "sails-mysql": "^0.10.6",
     "sanitize-html": "~1.2.1",
     "string": "^2.1.0",
-    "we-helpers": "0.0.3",
+    "we-helpers": "0.0.4",
     "we-oauth2": "0.0.10",
     "we-send-email": "0.0.3",
     "we-theme-engine": "0.0.10",
