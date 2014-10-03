@@ -23,12 +23,6 @@ module.exports = {
     .exec(function found(err, matchingRecord) {
       if (err) return res.serverError(err);
       if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
-      /*
-      if (sails.hooks.pubsub && req.isSocket) {
-        Model.subscribe(req, matchingRecord);
-        actionUtil.subscribeDeep(req, matchingRecord);
-      }
-      */
 
       var resultObject = {};
 
@@ -70,21 +64,15 @@ module.exports = {
           });
 
         },function(){
-
-            // Only `.watch()` for new instances of the model if
-            // `autoWatch` is enabled.
+            // if are in a socket.io request
             if (req._sails.hooks.pubsub && req.isSocket) {
+              // subscribe for updates
               Post.subscribe(req, posts);
-              // if (req.options.autoWatch) {
-                Post.watch(req);
-                Comment.watch(req);
-              // }
               // Also subscribe to instances of all associated models
               _.each(posts, function (record) {
                 actionUtil.subscribeDeep(req, record);
               });
             }
-
 
             res.send({
               post: posts,
@@ -125,9 +113,18 @@ module.exports = {
             Model.subscribe(req, newInstance);
             Model.introduce(newInstance);
           }
-          Model.publishCreate(newInstance, !req.options.mirror && req);
-        }
 
+          if ( newRecord.creator ) {
+            // send the change to others user connected devices
+            sails.io.sockets.in('user_' + newRecord.creator).emit(
+              'post', {
+                id: newInstance.id,
+                verb: 'created',
+                data: newInstance
+              }
+            );
+          }
+        }
 
         NotificationService.setPostNotifications('post', 'created', newInstance, req.user);
 
@@ -192,30 +189,20 @@ module.exports = {
 
         // If we have the pubsub hook, use the Model's publish method
         // to notify all subscribers about the update.
-
         if (req._sails.hooks.pubsub) {
-          if (req.isSocket) {
-            Model.subscribe(req, records);
+          if ( updatedRecord.creator ) {
+            // send the change to others user connected devices
+            sails.io.sockets.in('follow_user_' + updatedRecord.creator).emit(
+              'post', {
+                id: updatedRecord.id,
+                verb: 'created',
+                data: updatedRecord
+              }
+            );
           }
-
-          Model.publishUpdate(
-            pk,
-            _.cloneDeep(updatedRecord),
-            !req.options.mirror && req,
-            {
-              previous: matchingRecord.toJSON()
-            }
-          );
         }
-
-
         // Do a final query to populate the associations of the record.
         //
-        // (Note: again, this extra query could be eliminated, but it is
-        //  included by default to provide a better interface for integrating
-        //  front-end developers.)
-
-
         Model.findOne(updatedRecord[Model.primaryKey])
           .populate('images')
           .populate('sharedIn')

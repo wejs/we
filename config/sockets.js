@@ -26,13 +26,19 @@ module.exports.sockets = {
         userId = session.passport.user;
     }
 
+    if (!userId) return;
+
+
+    // follow won sockets
+    socket.join('user_' + userId);
+    socket.join('follow_user_' + userId);
     // get user logged in user contacts
-    return Contact.getUserContacts(userId, function(err, contacts){
+    return Contact.getUserContacts(userId, function(err, contacts) {
       if (err) return sails.log.error('Error on Contact.getUserContacts:',err);
 
       if (!contacts) return;
       // join follow contact room
-      return contacts.forEach(function(contact) {
+      return contacts.forEach(function (contact) {
         if (contact.to === userId) {
           socket.join('follow_user_' + contact.from);
         } else if (contact.from === userId) {

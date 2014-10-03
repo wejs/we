@@ -328,10 +328,17 @@ module.exports.routes = {
 
   // -- COMMENT
 
-  'post /comment': {
+  'post /api/v1/comment': {
     controller    : 'comment',
-    action        : 'create'
+    action        : 'createOneRecord'
   },
+
+  'get /api/v1/comment/:id': {
+    controller    : 'comment',
+    action        : 'findOneRecord'
+  },
+
+
 
   // -- ADMIN
   'get /admin/widgets': {
@@ -365,6 +372,19 @@ module.exports.routes = {
   'get /api/v1/group': {
       controller    : 'group',
       action        : 'list'
+  },
+
+  // -- Pub Sub
+  //
+  // subscribe from socket.io updates
+  'post /api/v1/subscribe': {
+      controller    : 'PubsubController',
+      action        : 'subscribe'
+  },
+  // unsubscribe from socket.io updates
+  'post /api/v1/unsubscribe': {
+      controller    : 'PubsubController',
+      action        : 'unsubscribe'
   }
 };
 
