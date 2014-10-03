@@ -26,53 +26,21 @@ module.exports.sockets = {
         userId = session.passport.user;
     }
 
-    if(typeof sails.onlineusers === 'undefined' )
-      sails.onlineusers = {};
-    if(userId){
-      // save user data in online users cache
-      if(typeof sails.onlineusers[userId] === 'undefined' ){
+    // get user logged in user contacts
+    return Contact.getUserContacts(userId, function(err, contacts){
+      if (err) return sails.log.error('Error on Contact.getUserContacts:',err);
 
-        User.findOneByIdInProvider(userId).exec(function(err, user){
-          if (err) return sails.log.error('socket:onConnect:Error on find user',err);
-          if (!user) return sails.log.error('socket:onConnect:User not found',userId);
+      if (!contacts) return;
+      // join follow contact room
+      return contacts.forEach(function(contact) {
+        if (contact.to === userId) {
+          socket.join('follow_user_' + contact.from);
+        } else if (contact.from === userId) {
+          socket.join('follow_user_' + contact.to);
+        }
+      })
 
-          user.messengerStatus = 'online';
-
-          // change user id to be same as provider id
-          user.id = user.idInProvider;
-
-          // save a the new socket connected on links users
-          sails.onlineusers[userId] = {
-            user: user.toJSON(),
-            sockets: []
-          };
-
-          sails.onlineusers[userId].sockets.push(socket.id);
-
-          // TODO change to send to friends
-          sails.io.sockets.in('global').emit('contact:connect', {
-            status: 'connected',
-            item: user
-          });
-
-        });
-
-      } else {
-        sails.onlineusers[userId].sockets.push(socket.id);
-      }
-
-      // join user exclusive room to allow others users send
-      // mesages to this user
-      // User.subscribe(socket , [userId] );
-      socket.join('user_' + userId);
-
-    }
-    // TODO change to userId friends room
-    socket.join('global');
-
-    // Public room
-    // TODO make this dynamic and per user configurable
-    socket.join('public');
+    });
   },
 
   // This custom onDisconnect function will be run each time a socket disconnects
@@ -101,6 +69,10 @@ module.exports.sockets = {
 
     if(!userId){
       return sails.log.warn('Socket disconnect withouth user id in onDisconnect');
+    }
+
+    if ( !sails.onlineusers ) {
+      sails.onlineusers = {};
     }
 
     if(!sails.onlineusers[userId]){
