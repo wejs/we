@@ -1,0 +1,66 @@
+{
+  "name": "we",
+  "version": "0.0.2",
+  "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
+  "main": "bin/we",
+  "scripts": {
+    "test": "mocha -b",
+    "prepublish": "npm prune"
+  },
+  "bin": {
+    "we": "./bin/we.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wejs/we"
+  },
+  "keywords": [
+    "we",
+    "we-cli",
+    "ember",
+    "ember.js",
+    "sails",
+    "sails.js",
+    "full-stack",
+    "fullstack",
+    "javascript",
+    "cli",
+    "CMS",
+    "CMF",
+    "API"
+  ],
+  "author": {
+    "name": "Alberto Souza",
+    "email": "alberto@wejs.org"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wejs/we/issues"
+  },
+  "homepage": "http://wejs.org",
+  "dependencies": {
+    "chai": "^2.0.0",
+    "child-process-promise": "^1.0.1",
+    "commander": "~2.6.0",
+    "generator-wejs": "^0.2.5",
+    "insight": "^0.5.2",
+    "is-root": "^1.0.0",
+    "lodash": "^0.5.1",
+    "nopt": "^3.0.1",
+    "string-length": "^1.0.0",
+    "sudo-block": "^1.1.0",
+    "update-notifier": "^0.3.0",
+    "yeoman-environment": "^1.2.4",
+    "yeoman-generator": "^0.18.9",
+    "yo": "^1.3.3",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "should": "~2.1.1",
+    "mocha": "~1.17.1"
+  },
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.4.0"
+  }
+}
