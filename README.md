@@ -1,46 +1,57 @@
-# We.js
+# We.js ;)
 
-### in development!
+> A framework based in **plugins** for fast development, use it for create node.js projects like real time social networks, sites or blogs written with javascript.
 
-> A framework based in **plugins** for fast development, use it for create node.js projects like real time social networks, sites or blogs written with javascript - [Sails.js](http://sailsjs.org) Powered!.
+##ROADMAP for 0.2.x
 
-#ROADMAP for 0.2.x
-
-- Change it to be a [CMF](http://en.wikipedia.org/wiki/List_of_content_management_frameworks) with admin and dynamic feature creation
-- Widget feature
-- Layout and regions feature
-- Dynamic client side app generation based in configs
-- Client side automatic model generation based in sails models
+- Create one site for the project with we.js site generator
+- Client side automatic model generation based in sails models - DONE - :white_check_mark:
 - Finish yeoman generator for blog - DONE - :white_check_mark:
 - Finish yeoman generator for sites 
 - Finish yeoman generator for social network systems
-- Change this project to be a cli 
+- Change this project to be a cli - DONE - :white_check_mark:
 - Split we-cs-core to related server side modules - DONE - :white_check_mark:
 
-#About
+##About
 
-We.js framework has the features:
+We.js features:
 
  - [plugins](https://github.com/wejs?query=plugin)
  - [themes](https://github.com/wejs?query=theme)
  - Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
  - Administration interface
- - Build in grunt tasks ( but is extendable )
+ - Build in and extendable grunt tasks
  - Model, permissions and public config sync between cliend and server 
    - Define one model in sails and it auto generate the Ember.js model 
    - Make variables avaible in client with sails.config.clientside.publicVars
    - Configs set in /admin#/permissions is valid to client with can helper and server with sails.acl.can function
 
-========
+#How to install?
 
-#Wants to test?
+1 - install dependencies: 
 
-Check we.js generator: https://github.com/wejs/generator-wejs
+* Redis http://redis.io/ ( for session storage )
+* Mysql http://www.mysql.com/ ( for data storage )
+* Node.js http://nodejs.org/
+* npm https://npmjs.org/
+* Bower http://bower.io/ ( some we.js projects dont need bower )
+* graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
 
+2 - Install it globaly:
+
+```shell
+npm install we -g
+```
+
+3 - Generate one project
+
+```shell
+we generate blog
+```
 
 ---------------
 
-#Structure
+#File structure
 
 ## App file structure
 ```
@@ -135,27 +146,6 @@ package.json
 ## Avaible plugins
 
 Check: https://github.com/wejs?query=plugin
-
-## Installation
-
-Before install and start:
-* Redis http://redis.io/ ( for session storage )
-* Mysql http://www.mysql.com/ ( for data storage )
-* Node.js http://nodejs.org/
-* npm https://npmjs.org/
-* Bower http://bower.io/
-* graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
-
-Then in terminal tip:
-
-```sh
-// clone the skeleton
-$ git clone https://github.com/wejs/we-example.git we-project
-// enter in folder
-$ cd we-project
-// install depencencies
-$ npm install && bower install
-```
 
 ## How to configure
 
