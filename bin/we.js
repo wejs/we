@@ -15,16 +15,16 @@ program
 //
 // Normalize version argument, i.e.
 //
-// $ sails -v
-// $ sails -V
-// $ sails --version
-// $ sails version
+// $ we -v
+// $ we -V
+// $ we --version
+// $ we version
 //
 // make `-v` option case-insensitive
 process.argv = _.map(process.argv, function(arg) {
   return (arg === '-V') ? '-v' : arg;
 });
-// $ sails version (--version synonym)
+// $ we version (--version synonym)
 program
   .command('version')
   .description('')
@@ -41,7 +41,7 @@ program
 
 // Don't balk at unknown options
 program.unknownOption = NOOP;
-// $ sails
+// $ we
 //
 program.parse(process.argv);
 var NO_COMMAND_SPECIFIED = program.args.length === 0;
