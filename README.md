@@ -190,6 +190,7 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 > * Team: https://github.com/orgs/wejs/people
 > * Contributors: https://github.com/wejs/we/graphs/contributors
+> * Sails.js  http://sailsjs.org - some code is get from sails.js CLI
 
 ## Copyright and license
 
