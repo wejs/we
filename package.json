@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
   "main": "bin/we",
   "scripts": {
@@ -42,7 +42,7 @@
     "chai": "^2.0.0",
     "child-process-promise": "^1.0.1",
     "commander": "~2.6.0",
-    "generator-wejs": "^0.2.5",
+    "generator-wejs": "^0.2.6",
     "insight": "^0.5.2",
     "is-root": "^1.0.0",
     "lodash": "^0.5.1",
