@@ -20,6 +20,7 @@ var yosay = require('yosay');
 var stringLength = require('string-length');
 
 module.exports = function loadTheGenerator(loadDone) {
+  var weFolder = path.resolve(__dirname, '../..');
   var opts = nopt({
     help: Boolean,
     version: Boolean
@@ -74,11 +75,6 @@ module.exports = function loadTheGenerator(loadDone) {
   function init() {
     var env = require('yeoman-environment').createEnv();
 
-    // alias any single namespace to `*:all` and `webapp` namespace specifically
-    // to webapp:app.
-    env.alias(/^([^:]+)$/, '$1:all');
-    env.alias(/^([^:]+)$/, '$1:app');
-
     env.on('end', function () {
       console.log('Done running sir');
     });
@@ -91,75 +87,20 @@ module.exports = function loadTheGenerator(loadDone) {
 
     // lookup for every namespaces, within the environments.paths and lookups
     env.lookup(function () {
-      // list generators
-      if (opts.generators) {
-        return console.log(_.uniq(Object.keys(env.getGeneratorsMeta()).map(function (el) {
-          return el.split(':')[0];
-        })).join('\n'));
-      }
+      if (!env.store._generators['wejs:blog']) {
+        console.log('\
+\n\
+===================================================================\n\
+We.js yeoman generator not found, install with:\n\
+$ npm install generator-wejs -g\n\
+===================================================================\n\
+        ');
 
-      // Register the `yo yo` generator.
-      if (!cmd) {
-        if (opts.help) {
-          console.log(env.help('yo'));
-          return;
-        }
-
-        env.register(path.resolve(__dirname, './yoyo'), 'yo');
-        args = ['yo'];
-        // make the insight instance available in `yoyo`
-        opts = { insight: insight };
+        return;
       }
 
       loadDone(null, env, opts);
     });
-  }
-
-  rootCheck();
-
-  var insightMsg = chalk.gray('\
-  ==========================================================================') + chalk.yellow('\n\
-  We\'re constantly looking for ways to make ') + chalk.bold.red(pkg.name) + chalk.yellow(' better! \n\
-  May we anonymously report usage statistics to improve the tool over time? \n\
-  More info: https://github.com/yeoman/insight & http://yeoman.io') + chalk.gray('\n\
-  ==========================================================================');
-
-  var insight = new Insight({
-    trackingCode: 'UA-31537568-1',
-    packageName: pkg.name,
-    packageVersion: pkg.version
-  });
-
-  if (opts.insight === false) {
-    insight.config.set('optOut', true);
-  } else if (opts.insight) {
-    insight.config.set('optOut', false);
-  }
-
-  if (!process.env.yeoman_test && opts.insight !== false) {
-    if (insight.optOut === undefined) {
-      insight.optOut = insight.config.get('optOut');
-      insight.track('downloaded');
-      insight.askPermission(insightMsg, pre);
-      return;
-    }
-    // only track the two first subcommands
-    insight.track.apply(insight, args.slice(0, 2));
-  }
-
-  if (!process.env.yeoman_test && opts['update-notifier'] !== false) {
-    var notifier = updateNotifier({
-      packageName: pkg.name,
-      packageVersion: pkg.version
-    });
-
-    var message = [];
-
-    if (notifier.update) {
-      message.push('Update available: ' + chalk.green.bold(notifier.update.latest) + chalk.gray(' (current: ' + notifier.update.current + ')'));
-      message.push('Run ' + chalk.magenta('npm install -g ' + pkg.name) + ' to update.');
-      console.log(yosay(message.join(' '), { maxLength: stringLength(message[0]) }));
-    }
   }
 
   pre();

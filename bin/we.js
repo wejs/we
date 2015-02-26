@@ -32,6 +32,7 @@ program
 
 program
   .command('generate [type]')
+  .description('')
   .action(require('./we-generator'));
 
 
