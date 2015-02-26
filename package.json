@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
   "main": "bin/we",
   "scripts": {
