@@ -17,7 +17,6 @@ module.exports = function runTheGenerator() {
     } else {
       console.error('ERROR: Invalid generator option');
     }
-
   })
 }
 

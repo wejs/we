@@ -1,11 +1,11 @@
 {
   "name": "we",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
   "main": "bin/we",
   "scripts": {
-    "test": "mocha -b",
-    "prepublish": "npm prune"
+    "prepublish": "npm prune",
+    "test": "./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js"
   },
   "bin": {
     "we": "./bin/we.js"

@@ -36,10 +36,6 @@ program
   .action(require('./we-generator'));
 
 
-
-
-
-
 // Don't balk at unknown options
 program.unknownOption = NOOP;
 // $ we
