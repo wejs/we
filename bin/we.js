@@ -8,7 +8,10 @@
 var _ = require('lodash');
 var program = require('./_commander');
 var package = require('../package.json');
-var NOOP = function() {};
+var NOOP = function() {
+  console.error('Command not found: ', program.args[0]);
+  console.error('Use "we" command to show all avaible commands');
+};
 
 program
   .version(package.version, '-v, --version');
@@ -35,6 +38,31 @@ program
   .description('')
   .action(require('./we-generator'));
 
+program
+  .command('stubData')
+  .description('')
+  .action(require('./stub-data'));
+
+program
+  .command('createUser [new?]')
+  .description('')
+  .action(require('./create-user'));
+
+program
+  .command('setUserAsAdmin [id]')
+  .description('')
+  .action(require('./set-user-as-admin'));
+
+program
+  .command('resetDB')
+  .description('Delete and recreate all tables')
+  .action(require('./reset-database.js'));
+
+program
+  .command('uli [id]')
+  .description('Get one time login url')
+  .action(require('./uli.js'));
+
 
 // Don't balk at unknown options
 program.unknownOption = NOOP;
@@ -45,3 +73,4 @@ var NO_COMMAND_SPECIFIED = program.args.length === 0;
 if (NO_COMMAND_SPECIFIED) {
   program.usageMinusWildcard();
 }
+
