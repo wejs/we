@@ -39,9 +39,12 @@ program
   .action(require('./we-generator'));
 
 program
-  .command('stubData')
-  .description('')
-  .action(require('./stub-data'));
+  .command('install')
+  .option('-r, --resetdatabase', 'Reset database and reload all data?')
+  .option('-u, --setUserData', 'Set first user data?')
+  .description('Run install project scripts')
+  .parse(process.argv)
+  .action(require('./install.js'));
 
 program
   .command('createUser [new?]')
@@ -62,6 +65,8 @@ program
   .command('uli [id]')
   .description('Get one time login url')
   .action(require('./uli.js'));
+
+
 
 
 // Don't balk at unknown options
