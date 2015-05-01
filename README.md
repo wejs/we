@@ -7,7 +7,7 @@
 - Create one site for the project with we.js site generator
 - Client side automatic model generation based in sails models - DONE - :white_check_mark:
 - Finish yeoman generator for blog - DONE - :white_check_mark:
-- Finish yeoman generator for sites 
+- Finish yeoman generator for sites
 - Finish yeoman generator for social network systems
 - Change this project to be a cli - DONE - :white_check_mark:
 - Split we-cs-core to related server side modules - DONE - :white_check_mark:
@@ -21,63 +21,53 @@ We.js features:
  - Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
  - Administration interface
  - Build in and extendable grunt tasks
- - Model, permissions and public config sync between cliend and server 
-   - Define one model in sails and it auto generate the Ember.js model 
+ - Model, permissions and public config sync between cliend and server
+   - Define one model in sails and it auto generate the Ember.js model
    - Make variables avaible in client with sails.config.clientside.publicVars
    - Configs set in /admin#/permissions is valid to client with can helper and server with sails.acl.can function
 
 #How to install?
 
-1 - install dependencies: 
+1 - install dependencies:
 
-* Redis http://redis.io/ ( for session storage )
 * Mysql http://www.mysql.com/ ( for data storage )
 * Node.js http://nodejs.org/
 * npm https://npmjs.org/
-* Bower http://bower.io/ ( some we.js projects dont need bower )
 * graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
+* Bower http://bower.io/ ( Opcional )
 
-2 - Install it globaly:
+2 - Install and get started:
 
-```shell
-npm install we -g
-```
+> Check we.js site: http://wejs.org/
 
-3 - Generate one project
-
-```shell
-we generate blog
-```
 
 ---------------
 
-#File structure
+#File structure  v0.3.x
 
 ## App file structure
 ```
-api/ #( sails.js project api folder )
+server/ #( sails.js project api folder )
 - controllers/
 - models/
 - responses/
 - services/
-assets/
-- core/ # ( files here will be avaible in [host]/core/...  )
 bin/
-- loadSails.js #( sails loader script )
 - [project script files for run in terminal]
 client/
 - app/
 - - emberApp.js ( run before load project resouces and set window.App object )
 - - afterEmberFilesLoaded.js ( run after load project resouces use to configure something )
 - appAdmin
-- - TODO
-config/ #( sails.js project config folder )
+- - emberApp.js
+- - afterEmberFilesLoaded.js
+config/ #( we.js project config folder )
 - local.js ( local config file )
-- [others sails.js config files]
-- - locales/ #( sails.js locales files used in client and server )
+- [others we.js config files]
+- - locales/ #( node i18n locales files used in client and server )
 - - - [locale].json
 files/
-- assets/ #( public default production assets folder )
+- public/ #( public default production assets folder )
 tasks/ #( grunt tasks )
 - config
 - - [project custom tasks or core config change]
@@ -89,7 +79,7 @@ test/ #( tests folder with mocha )
 - - - [mocha test files]
 - bootstrap.js
 - mocha.opts
-bower.json
+bower.json ( opcional )
 package.json
 app.js
 ```
@@ -113,24 +103,20 @@ client/ ( ember.js files )
 - - - [feature]/
 - - - [template].hbs
 - appAdmin/ ( [host]/públic/plugin/[plugin-name]/appAdmin/.. )
-- assets/ ( plugin assets file, will be avaible at [host]/públic/plugin/[plugin-name]/assets/... )
+- shared/ ( same structure as app but is load in app and appAdmin clientside projects )
 config/
 - routes.js ( plugin route config, see sails.js route docs )
 lib/ ( npm module folder )
-- hook.js ( sails.js plugin hook )
 - index.js ( initial file how load in with require )
-- mdoelsAlter.js ( use to alter a sails.js model from other plugin )
-server/ ( sails.js files )
+server/ ( we.js server files )
 - controllers
-- - [controllers].js
+- - [controller].js
 - models/
-- - [models].js
-- services/
-- - ...
+- - [model].js
 README.md
 package.json
+plugin.js ( you plugin file )
 ```
-
 
 **Have a question, found an error or wants to help?**
 
@@ -147,22 +133,12 @@ package.json
 
 Check: https://github.com/wejs?query=plugin
 
-## How to configure
-
-We.js is a sails.js project then see [sails site](http://sailsjs.org/) for file configs
-
 ## How to Run
 
 In terminal tip:
 
 ```sh
 node .
-```
-
-Or with auto restart and watch:
-
-```sh
-npm start
 ```
 
 ## How to Test
@@ -180,7 +156,6 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 ```
 
 ## Build with:
-* Sails.js - http://sailsjs.org
 * Node.js - http://nodejs.org/
 * Mysql
 * Ember.js - http://emberjs.com/
@@ -190,7 +165,7 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 > * Team: https://github.com/orgs/wejs/people
 > * Contributors: https://github.com/wejs/we/graphs/contributors
-> * Sails.js  http://sailsjs.org - some code is get from sails.js CLI
+> * Sails.js  http://sailsjs.org - some code logic get from sails.js
 
 ## Copyright and license
 
