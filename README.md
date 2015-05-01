@@ -47,7 +47,7 @@ We.js features:
 
 ## App file structure
 ```
-server/ #( sails.js project api folder )
+server/ #( project api folder )
 - controllers/
 - models/
 - responses/
@@ -63,7 +63,7 @@ client/
 - - afterEmberFilesLoaded.js
 config/ #( we.js project config folder )
 - local.js ( local config file )
-- [others we.js config files]
+- [others config files]
 - - locales/ #( node i18n locales files used in client and server )
 - - - [locale].json
 files/
@@ -104,8 +104,6 @@ client/ ( ember.js files )
 - - - [template].hbs
 - appAdmin/ ( [host]/públic/plugin/[plugin-name]/appAdmin/.. )
 - shared/ ( same structure as app but is load in app and appAdmin clientside projects )
-config/
-- routes.js ( plugin route config, see sails.js route docs )
 lib/ ( npm module folder )
 - index.js ( initial file how load in with require )
 server/ ( we.js server files )
