@@ -1,4 +1,4 @@
-# We.js ;)
+# We.js ;) beta
 
 > A framework based in **plugins** for fast development, use it for create node.js projects like real time social networks, sites or blogs written with javascript.
 
