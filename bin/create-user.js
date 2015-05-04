@@ -12,11 +12,11 @@ module.exports = function run() {
   var sget = require('sget');
 
   var userStub = {
-    username: 'afrosamuray',
-    biography: 'Afro Samuray is a hero how helps people!',
+    username: 'administrator',
+    biography: 'Administrator is the first user!',
     email: 'contato@albertosouza.net',
     password: '123',
-    displayName: 'Afro Samuray',
+    displayName: 'Administrator',
     language: 'pt-br',
     active: true
   };
