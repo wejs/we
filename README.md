@@ -14,9 +14,9 @@ Status:  **in development**
 
 ##About
 
-We.js features:
+##We.js features:
 
-## API
+### API
 
 - Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
 - [Plugins](https://github.com/wejs?query=plugin)
@@ -27,7 +27,7 @@ We.js features:
 - Build in and extendable grunt tasks
 - ORM ( with sequelize )
 
-## Features
+### Resources
 
 - Administrative Interface
 - Build in grunt tasks
