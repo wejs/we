@@ -16,15 +16,25 @@ Status:  **in development**
 
 We.js features:
 
- - [plugins](https://github.com/wejs?query=plugin)
- - [themes](https://github.com/wejs?query=theme)
- - Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
- - Administrative interface
- - Build in and extendable grunt tasks
- - Model, permissions and public config sync between cliend and server
-   - Define one model in sails and it auto generate the Ember.js model
-   - Make variables avaible in client with sails.config.clientside.publicVars
-   - Configs set in /admin#/permissions is valid to client with can helper and server with we.acl.can function
+## API
+
+- Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
+- [Plugins](https://github.com/wejs?query=plugin)
+- [Themes](https://github.com/wejs?query=theme)
+- Hooks 
+- Events
+- ACL
+- Build in and extendable grunt tasks
+- ORM ( with sequelize )
+
+## Features
+
+- Administrative Interface
+- Build in grunt tasks
+- Pages
+- Comments
+- Groups
+- Messenger
 
 #How to install?
 
