@@ -3,6 +3,8 @@ site_description: We.js is a node.js framework for real time applications sites 
 pages:
   - [index.md, Home]
   - [features.md, Features]
+  - [file_structure.md, File Structure]
+  - [testing.md, Testing]
 theme: ""
 theme_dir: docs/readthedocs_theme
 site_url: wejs.org
