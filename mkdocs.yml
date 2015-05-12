@@ -1,0 +1,8 @@
+site_name: We.js Docs
+site_description: We.js is a node.js framework for real time applications sites or blogs
+pages:
+  - [index.md, Home]
+  - [features.md, Features]
+theme: ""
+theme_dir: docs/readthedocs_theme
+site_url: wejs.org
