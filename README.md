@@ -4,15 +4,9 @@
 
 Status:  **in development**
 
-##ROADMAP for 0.2.x
-
-- Create one site for the project with we.js site generator DONE - :white_check_mark: http://wejs.org
-- Client side automatic model generation based in sails models - DONE - :white_check_mark:
-- Yeoman generator for blog - DONE - :white_check_mark:
-- Yeoman generator for social network
-- Change this project to be a cli - DONE - :white_check_mark:
-
 ##About
+
+> We.js is a node.js framework for real time applications, sites or blogs!
 
 ##We.js features:
 
