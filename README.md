@@ -1,4 +1,4 @@
-# We.js ;) *beta* 
+# We.js ;) *beta*
 
 > For about and infos see: http://wejs.org/
 
