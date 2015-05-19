@@ -6,7 +6,7 @@ Status:  **in development**
 
 ##About
 
-> We.js is a node.js framework for real time applications, sites or blogs!
+> We.js is a node.js framework for create real time applications, sites or blogs!
 
 ##We.js features:
 
