@@ -1,6 +1,6 @@
 # We.js ;) *beta*
 
-> For about and infos see: http://wejs.org/
+> For about and examples see: http://wejs.org/
 
 Status:  **in development**
 
