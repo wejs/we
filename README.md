@@ -1,30 +1,34 @@
 # We.js ;) *beta*
 
-> For about and infos see: http://wejs.org/
+> For about and examples see: http://wejs.org/
 
 Status:  **in development**
 
-##ROADMAP for 0.2.x
-
-- Create one site for the project with we.js site generator DONE - :white_check_mark: http://wejs.org
-- Client side automatic model generation based in sails models - DONE - :white_check_mark:
-- Yeoman generator for blog - DONE - :white_check_mark:
-- Yeoman generator for social network
-- Change this project to be a cli - DONE - :white_check_mark:
-
 ##About
 
-We.js features:
+> We.js is a node.js framework for create real time applications, sites or blogs!
 
- - [plugins](https://github.com/wejs?query=plugin)
- - [themes](https://github.com/wejs?query=theme)
- - Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
- - Administrative interface
- - Build in and extendable grunt tasks
- - Model, permissions and public config sync between cliend and server
-   - Define one model in sails and it auto generate the Ember.js model
-   - Make variables avaible in client with sails.config.clientside.publicVars
-   - Configs set in /admin#/permissions is valid to client with can helper and server with we.acl.can function
+##We.js features:
+
+### API
+
+- Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
+- [Plugins](https://github.com/wejs?query=plugin)
+- [Themes](https://github.com/wejs?query=theme)
+- Hooks 
+- Events
+- ACL
+- Build in and extendable grunt tasks
+- ORM ( with sequelize )
+
+### Resources
+
+- Administrative Interface
+- Build in grunt tasks
+- Pages
+- Comments
+- Groups
+- Messenger
 
 #How to install?
 
