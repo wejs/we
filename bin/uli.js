@@ -13,27 +13,18 @@ module.exports = function run() {
     var uid = process.argv[3];
     if (! Number(uid) ) return doneAll('Invalid Uid');
 
-    we.db.models.user.find(uid)
-    .done( function (err, user) {
-      if(err) return doneAll(err);
-
+    we.db.models.user.findById(uid)
+    .then( function (user) {
       we.db.models.authtoken.create({
         'userId': user.id,
         tokenType: 'resetPassword'
-      }).done(function (error, token) {
-        if(error){
-          we.log.error(error);
-          return res.serverError(error);
-        }
-
+      }).then(function (token) {
         if (!token) {
           return doneAll('unknow error on create auth token');
         }
 
         we.log.info('resetUrl>>', token.getResetUrl());
-
         open(token.getResetUrl());
-
         return doneAll();
       });
     });

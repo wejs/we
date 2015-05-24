@@ -11,22 +11,15 @@ module.exports = function run() {
     var uid = process.argv[3];
     if (! Number(uid) ) return doneAll('Invalid Uid');
 
-    we.db.models.user.find(uid)
-    .done( function (err, user) {
-      if(err) return doneAll(err);
-
+    we.db.models.user.findById(uid)
+    .then( function (user) {
       // check if the role exists
       we.db.models.role.find({ where:
         { name: 'administrator' }
-      }).done(function (err, role) {
-        if (err) return doneAll(err);
+      }).then(function (role) {
         if (!role) return doneAll('administrator role not found');
-
-        user.addRole(role).done(function(err) {
-          if (err) return doneAll(err);
-
+        user.addRole(role).then(function() {
           we.log.info('DONE role ' +role.name+ ' set to user ' +user.username);
-
           return doneAll();
         });
       });
