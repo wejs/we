@@ -1,0 +1,52 @@
+{
+  "title": "we-core",
+  "rootFolder": "docs",
+  "pages": {
+    "getstarted": {
+      "title": "Getting started",
+      "file": "getstarted/README.md"
+    },
+    "filestructure": {
+      "title": "File Structure",
+      "file": "filestructure/README.md"
+    },
+    "features": {
+      "title": "Features",
+      "file": "features/README.md",
+      "pages": {
+        "configuration": {
+          "title": "Configuration",
+          "file": "features/configuration.md"
+        },
+        "routes": {
+          "title": "Routes",
+          "file": "features/routes.md"
+        },
+        "controllers": {
+          "title": "Controllers",
+          "file": "features/controlers.md"
+        },
+        "customresponse": {
+          "title": "Custom responses",
+          "file": "features/customresponse.md"
+        },
+        "fileuploads": {
+          "title": "File uploads",
+          "file": "features/fileuploads.md"
+        },
+        "internationalization": {
+          "title": "Internationalization",
+          "file": "features/internationalization.md"
+        },
+        "logging": {
+          "title": "Logging",
+          "file": "features/logging.md"
+        },
+        "acl": {
+          "title": "Access Control Lists (ACLs)",
+          "file": "features/acl.md"
+        }
+      }
+    }
+  }
+}
