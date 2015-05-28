@@ -8,7 +8,6 @@
 - ACL
 - Build in and extendable grunt tasks
 - ORM ( with sequelize )
-
 - Administrative Interface
 - Build in grunt tasks
 - Pages
