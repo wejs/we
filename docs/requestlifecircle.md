@@ -1,0 +1,23 @@
+#Request life
+
+- Set default vars
+- Set custom responses
+- Set theme engine configs
+- Load morgan debuger ( dev or test env )
+- Body parser
+- Cookie parser
+- Session store ( todo remove from token requests )
+- Set flash messages ( todo remove from token requests )
+- Run CORS Middleware
+- if are a public file request the file from public folders
+- Run passport middlewares
+- if are admin, return with admin page
+- Set i18n configs
+- Run the we.url middleware
+- Run context loader middleware
+- Run ACL middleware
+- Run Group ACL middleware
+- Run upload middleware ( if in current route config )
+- Run controller
+- Run responder middleware
+  - send response in JSON or HTML
