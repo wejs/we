@@ -1,8 +1,9 @@
 #Request life
 
 - Set default vars
-- Set custom responses
-- Set theme engine configs
+- Set custom response functions
+- Set express engine configs
+- Set response layout
 - Load morgan debuger ( dev or test env )
 - Body parser
 - Cookie parser
@@ -19,5 +20,5 @@
 - Run Group ACL middleware
 - Run upload middleware ( if in current route config )
 - Run controller
-- Run responder middleware
+- Run send response middleware
   - send response in JSON or HTML
