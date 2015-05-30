@@ -5,9 +5,9 @@
 - Set express engine configs
 - Set response layout
 - Load morgan debuger ( dev or test env )
-- Body parser
-- Cookie parser
-- Session store ( todo remove from token requests )
+- Body parser middleware
+- Cookie parser middleware
+- Session store middleware ( todo remove from token requests )
 - Set flash messages ( todo remove from token requests )
 - Run CORS Middleware
 - if are a public file request the file from public folders
@@ -22,3 +22,5 @@
 - Run controller
 - Run send response middleware
   - send response in JSON or HTML
+  - if are a HTML response
+    - Render the html page widh project index.hbs file
