@@ -23,4 +23,4 @@
 - Run send response middleware
   - send response in JSON or HTML
   - if are a HTML response
-    - Render the html page widh project index.hbs file
+    - Render the html page with project index.hbs file
