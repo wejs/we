@@ -10,42 +10,11 @@ Status:  **in development**
 
 ##We.js features:
 
-### API
-
-- Generators ( with Yeoman ) | https://github.com/wejs/generator-wejs
-- [Plugins](https://github.com/wejs?query=plugin)
-- [Themes](https://github.com/wejs?query=theme)
-- Hooks 
-- Events
-- ACL
-- Build in and extendable grunt tasks
-- ORM ( with sequelize )
-
-### Resources
-
-- Administrative Interface
-- Build in grunt tasks
-- Pages
-- Comments
-- Groups
-- Messenger
+Link: http://wejs.org/docs/we/features
 
 #How to install?
 
-1 - install dependencies:
-
-* Mysql http://www.mysql.com/ ( for data storage )
-* Node.js http://nodejs.org/
-* npm https://npmjs.org/
-* graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
-* Bower http://bower.io/ ( Opcional )
-
-2 - Install and get started:
-
-> Check we.js site: http://wejs.org/
-
-
----------------
+Link: http://wejs.org/docs/we/getstarted
 
 
 **Have a question, found an error or wants to help?**
@@ -87,16 +56,15 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 ## Build with:
 * Node.js - http://nodejs.org/
-* Mysql
-* Ember.js - http://emberjs.com/
+* Mysql ( by default )
 * [Love](http://www.lovecalculator.com/)
 
 ## Links
 
 > * Team: https://github.com/orgs/wejs/people
 > * Contributors: https://github.com/wejs/we/graphs/contributors
-> * Sails.js  http://sailsjs.org - some code logic get from sails.js
+> * Sails.js  http://sailsjs.org - some logic get from sails.js
 
 ## Copyright and license
 
-Copyright 2013-2014 Alberto Souza <alberto.souza.dev@gmail.com> and [contributors](https://github.com/wejs/we/graphs/contributors) , under [the MIT license](LICENSE).
+Copyright 2013-2015 Alberto Souza <alberto.souza.dev@gmail.com> and contributors, under [the MIT license](LICENSE).
