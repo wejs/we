@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
   "scripts": {
     "prepublish": "npm prune",
