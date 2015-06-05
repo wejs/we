@@ -34,16 +34,10 @@ program
   .action(program.versionInformation);
 
 program
-  .command('generate [type]')
-  .description('')
-  .action(require('./we-generator'));
-
-program
   .command('install')
   .option('-r, --resetdatabase', 'Reset database and reload all data?')
   .option('-u, --setUserData', 'Set first user data?')
   .description('Run install project scripts')
-  .parse(process.argv)
   .action(require('./install.js'));
 
 program
@@ -66,16 +60,12 @@ program
   .description('Get one time login url')
   .action(require('./uli.js'));
 
-
-
-
 // Don't balk at unknown options
 program.unknownOption = NOOP;
-// $ we
-//
+
 program.parse(process.argv);
+
 var NO_COMMAND_SPECIFIED = program.args.length === 0;
 if (NO_COMMAND_SPECIFIED) {
   program.usageMinusWildcard();
 }
-

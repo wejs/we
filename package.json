@@ -1,14 +1,14 @@
 {
   "name": "we",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs - Sails.js PowereD",
-  "main": "bin/we",
   "scripts": {
     "prepublish": "npm prune",
     "test": "./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js"
   },
+  "main": "bin/we",
   "bin": {
-    "we": "./bin/we.js"
+    "we": "./bin/we"
   },
   "repository": {
     "type": "git",
@@ -17,21 +17,15 @@
   "keywords": [
     "we",
     "we-cli",
-    "ember",
-    "ember.js",
-    "sails",
-    "sails.js",
-    "full-stack",
-    "fullstack",
+    "generator",
     "javascript",
     "cli",
-    "CMS",
-    "CMF",
-    "API"
+    "cmf",
+    "api"
   ],
   "author": {
     "name": "Alberto Souza",
-    "email": "alberto@wejs.org"
+    "email": "alberto.souza.dev@gmail.com"
   },
   "license": "MIT",
   "bugs": {
@@ -39,17 +33,12 @@
   },
   "homepage": "http://wejs.org",
   "dependencies": {
-    "async": "^0.9.0",
-    "chance": "^0.7.3",
-    "commander": "~2.6.0",
     "lodash": "^3.3.1",
-    "minimist": "^1.1.1",
+    "async": "^0.9.0",
+    "commander": "~2.6.0",
+    "mkdirp": "0.5.0",
     "nopt": "^3.0.1",
-    "open": "0.0.5",
-    "require-all": "^1.0.0",
-    "sequelize-cli": "^1.6.0",
-    "sget": "^0.1.5",
-    "yeoman-environment": "^1.2.4"
+    "open": "0.0.5"
   },
   "devDependencies": {
     "should": "~5.0.1",
@@ -57,7 +46,7 @@
     "chai": "^2.1.0"
   },
   "engines": {
-    "node": ">= 0.10.0",
-    "npm": ">= 1.4.0"
-  }
+    "node": ">= 0.10"
+  },
+  "preferGlobal": true
 }
