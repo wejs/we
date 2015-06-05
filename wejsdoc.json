@@ -10,6 +10,10 @@
       "title": "File Structure",
       "file": "filestructure/README.md"
     },
+    "requestlifecircle": {
+      "title": "Request life circle",
+      "file": "requestlifecircle.md"
+    },
     "features": {
       "title": "Features",
       "file": "features/README.md",
