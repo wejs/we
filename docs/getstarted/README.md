@@ -22,10 +22,11 @@ yo wejs:app
 
 4 - Enter in your project folder
 
+
 5 - Run install script:
 
 ```
-we install -u
+npm run install
 ```
 
 6 - Start project with:
