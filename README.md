@@ -67,4 +67,4 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 ## Copyright and license
 
-Copyright 2013-2015 Alberto Souza <alberto.souza.dev@gmail.com> and contributors, under [the MIT license](LICENSE).
+Copyright 2013-2015 Alberto Souza <alberto.souza.99@gmail.com> and contributors, under [the MIT license](LICENSE).
