@@ -1,36 +1,46 @@
 #Installation
 
-1 - install dependencies:
+###Install dependencies:
 
-* Mysql http://www.mysql.com/
-* Node.js http://nodejs.org/
-* npm https://npmjs.org/
-* graphicsmagick http://www.graphicsmagick.org/ ( for image resize )
-* Bower http://bower.io/
+  * Mysql http://www.mysql.com/ (default database)
+  * Node.js http://nodejs.org/
+  * npm https://npmjs.org/
+  * graphicsmagick http://www.graphicsmagick.org/ (check in your package manager)
+  * Bower http://bower.io/ (optional)
 
-2 - Install we.js CLI:
+###Install we.js CLI and yeoman generator:
 
-```
-npm install we yo generator-wejs -g
-```
+  ```
+  npm install we yo generator-wejs -g
+  ```
 
-3 - Generate one project with yeoman:
+###Generate one project with yeoman:
 
-```
-yo wejs:app
-```
+  ```sh
+  yo wejs:app
+  ```
 
-4 - Enter in your project folder
+###Enter in your project folder
 
-5 - Run install script:
 
-```
-we install -ru
-```
+###Install npm dependencies:
 
-6 - Start project with:
+  ```sh
+  npm install
+  ```
 
-```
-npm run dev
-```
+###Run install script:
 
+  ```sh
+  we install -ru
+  ```
+
+###Configure your database:
+
+  Edit ```config/local.js``` file and change database configs to your database.
+
+###Start the project with:
+
+  ```sh
+  npm run dev
+  ```
