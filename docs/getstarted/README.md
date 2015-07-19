@@ -25,7 +25,7 @@ yo wejs:app
 5 - Run install script:
 
 ```
-we install -u
+we install -ru
 ```
 
 6 - Start project with:
