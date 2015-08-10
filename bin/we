@@ -60,6 +60,11 @@ program
   .description('Get one time login url')
   .action(require('./uli.js'));
 
+program
+  .command('update')
+  .description('Run plugin update functions in current project')
+  .action(require('./update.js'));
+
 // Don't balk at unknown options
 program.unknownOption = NOOP;
 

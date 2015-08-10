@@ -1,5 +1,5 @@
 /**
- * Script to generate one user
+ * Script to install project stub data
  */
 var path = require('path');
 var requireAll = require('require-all');
