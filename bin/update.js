@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Script to update project plugins
  */
@@ -7,7 +9,6 @@ var sget = require('sget');
 var we;
 
 module.exports = function run(program) {
-
   var projectFolder = process.cwd();
   we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
 

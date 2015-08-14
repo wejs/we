@@ -65,6 +65,11 @@ program
   .description('Run plugin update functions in current project')
   .action(require('./update.js'));
 
+program
+  .command('routes')
+  .description('List all routes in current project')
+  .action(require('./routes.js'));
+
 // Don't balk at unknown options
 program.unknownOption = NOOP;
 
