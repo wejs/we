@@ -2,22 +2,16 @@
 
 ## Project ( app ) file structure
 ```
-server/ #( project api folder )
+server/ #( project server sider folder )
 - controllers/
 - models/
-- responses/
-- services/
+- emails/
+- forms/
+- helpers/
+- templates/
+- widgets/
 bin/
 - [project script files for run in terminal]
-client/
-- app/
-- - emberApp.js ( run before load project resouces and set window.App object )
-- - afterEmberFilesLoaded.js ( run after load project resouces use to configure something )
-- appAdmin
-- - emberApp.js
-- - afterEmberFilesLoaded.js
-- shared ( client side files shareb between app and admin )
-- - ... client side files ...
 config/ #( we.js project config folder )
 - local.js ( local config file )
 - [others config files]
@@ -25,49 +19,32 @@ config/ #( we.js project config folder )
 - - - [locale].json
 files/
 - public/ #( public default production assets folder )
-tasks/ #( grunt tasks )
-- config
-- - [project custom tasks or core config change]
-- register
-- - [project custom tasks or core tasks change]
 test/ #( tests folder with mocha )
 - integration/
 - - api/ #( serverside api tests )
 - - - [mocha test files]
 - bootstrap.js
 - mocha.opts
-bower.json ( opcional )
+bower.json (optional)
 package.json
 app.js
+plugin.js (optional)
 ```
 
 ## Plugin file structure
 ```
-client/ ( ember.js files )
-- app/ ( [host]/públic/plugin/[plugin-name]/app/.. )
-- - beforeAll/ (libs how run before all .js files )
-- - - [file].js
-- - libs/
-- - mixins/
-- - helpers/
-- - adapters/
-- - components/
-- - controllers/
-- - models/
-- - routes/
-- - templates/
-- - - components/
-- - - [feature]/
-- - - [template].hbs
-- appAdmin/ ( [host]/públic/plugin/[plugin-name]/appAdmin/.. )
-- shared/ ( same structure as app but is load in app and appAdmin clientside projects )
 lib/ ( npm module folder )
 - index.js ( initial file how load in with require )
 server/ ( we.js server files )
-- controllers
-- - [controller].js
+- controllers/
 - models/
-- - [model].js
+- emails/
+- forms/
+- helpers/
+- templates/
+- widgets/
+files/
+- public/ #( public default production assets folder )
 README.md
 package.json
 plugin.js ( you plugin file )
