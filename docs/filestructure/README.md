@@ -15,8 +15,8 @@ bin/
 config/ #( we.js project config folder )
 - local.js ( local config file )
 - [others config files]
-- - locales/ #( node i18n locales files used in client and server )
-- - - [locale].json
+- locales/ #( node i18n locales files used in client and server )
+- - [locale].json
 files/
 - public/ #( public default production assets folder )
 test/ #( tests folder with mocha )
@@ -35,6 +35,7 @@ plugin.js (optional)
 ```
 lib/ ( npm module folder )
 - index.js ( initial file how load in with require )
+locales/ ( json default locales )
 server/ ( we.js server files )
 - controllers/
 - models/
