@@ -4,22 +4,19 @@
  * List all routes in current project
  */
 
-var path = require('path');
-var requireAll = require('require-all');
 var Table = require('cli-table');
+var helpers = require('../lib/helpers');
 var we;
 
-module.exports = function run(program) {
-  var projectFolder = process.cwd();
-  we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
+module.exports = function run() {
+  we = helpers.getWe();
 
   we.bootstrap(function(err, we) {
     if (err) return doneAll(err);
 
-    we.pluginManager.getPluginsToUpdate(function (err, plugins) {
-      // we.log.info(plugins.length +' plugins to update.');
+    we.pluginManager.getPluginsToUpdate(function (err) {
+      if (err) return doneAll(err);
 
-      // instantiate
       var table = new Table({
         head: ['Method', 'Path'],
         colWidths: [10, 60]

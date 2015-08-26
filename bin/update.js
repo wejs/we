@@ -3,14 +3,11 @@
 /**
  * Script to update project plugins
  */
-var path = require('path');
-var requireAll = require('require-all');
-var sget = require('sget');
+var helpers = require('../lib/helpers');
 var we;
 
-module.exports = function run(program) {
-  var projectFolder = process.cwd();
-  we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
+module.exports = function run() {
+  we = helpers.getWe();
 
   we.bootstrap(function(err, we) {
     if (err) return doneAll(err);

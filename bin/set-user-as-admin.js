@@ -1,9 +1,15 @@
-var path = require('path');
+#!/usr/bin/env node
+
+/**
+ * Set user as admin with user id
+ *
+ */
+
+var helpers = require('../lib/helpers');
+var we;
 
 module.exports = function run() {
-
-  var projectFolder = process.cwd();
-  var we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
+  we = helpers.getWe();
 
   we.bootstrap(function(err, we) {
     if (err) return doneAll(err);

@@ -1,13 +1,10 @@
 /**
  * Script to generate one user
  */
-var path = require('path');
+var helpers = require('../lib/helpers');
 
 module.exports = function run() {
-
-  var projectFolder = process.cwd();
-  var we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
-
+  var we = helpers.getWe();
 
   var sget = require('sget');
 
@@ -31,7 +28,7 @@ module.exports = function run() {
     we.log.info('-');
 
     // alows user set new user data
-    whantsSendUserData = sget('Do you what set user data?. \n y or n?');
+    var whantsSendUserData = sget('Do you what set user data?. \n y or n?');
     // remove \n
     whantsSendUserData = whantsSendUserData.replace('\n','');
 

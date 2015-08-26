@@ -1,23 +1,23 @@
+#!/usr/bin/env node
+
 /**
  * Load locales from plugins, merge in project and sort locale strings
  */
 
 var path = require('path');
-var requireAll = require('require-all');
+var helpers = require('../lib/helpers');
 var async = require('async');
 var jsonfile = require('jsonfile');
-var sget = require('sget');
-var fs = require('fs');
 var we;
 
-module.exports = function run(program) {
+module.exports = function run() {
   var pluginLocales = {};
   var projectLocales = {};
 
   var projectFolder = process.cwd();
   var projectLocalesFolder = path.resolve( projectFolder, 'config', 'locales');
 
-  we = require( path.resolve( projectFolder, 'node_modules', 'we-core' ));
+  we = helpers.getWe();
 
   we.bootstrap(function (err) {
     if (err) return doneAll(err);

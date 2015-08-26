@@ -1,16 +1,18 @@
+#!/usr/bin/env node
+
 /**
  * Script to install project stub data
  */
-var path = require('path');
+
 var requireAll = require('require-all');
+var helpers = require('../lib/helpers');
 var async = require('async');
 var sget = require('sget');
 var we;
 
 module.exports = function run(program) {
-
+  we = helpers.getWe();
   var projectFolder = process.cwd();
-  we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
 
   var configs = {};
   if (program.resetdatabase) {

@@ -1,9 +1,16 @@
-var path = require('path');
+#!/usr/bin/env node
+
+/**
+ * Reset project database
+ *
+ */
+
+var helpers = require('../lib/helpers');
+var we;
 
 module.exports = function run() {
-
+  we = helpers.getWe();
   var projectFolder = process.cwd();
-  var we = require( path.resolve( projectFolder, 'node_modules/we-core' ));
 
   we.bootstrap({database: { resetAllData: true }} , function(err, we) {
     if (err) return doneAll(err);
