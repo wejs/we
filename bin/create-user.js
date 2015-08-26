@@ -75,4 +75,4 @@ module.exports = function run() {
       process.exit();
     });
   }
-}
+};

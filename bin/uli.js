@@ -34,7 +34,6 @@ module.exports = function run() {
     if ( err ) {
       we.log.error('Error on set user as admin', err);
     }
-    //sails.load();
     // end / exit
     process.exit();
   }

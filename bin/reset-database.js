@@ -24,7 +24,6 @@ module.exports = function run() {
     } else {
       we.log.info('Database reset done', err);
     }
-    //sails.load();
     // end / exit
     process.exit();
   }
