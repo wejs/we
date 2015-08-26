@@ -33,16 +33,21 @@ program
   .action(program.versionInformation);
 
 program
-  .command('install')
-  .option('-r, --resetdatabase', 'Reset database and reload all data?')
-  .option('-u, --setUserData', 'Set first user data?')
-  .description('Run install project scripts')
-  .action(require('./install.js'));
+  .command('status')
+  .description('Get project status')
+  .action(require('./status'));
 
 program
   .command('console')
   .description('Bootstra we.js and start node.js console. see: https://nodejs.org/api/repl.html')
   .action(require('./console'));
+
+program
+  .command('install')
+  .option('-r, --resetdatabase', 'Reset database and reload all data?')
+  .option('-u, --setUserData', 'Set first user data?')
+  .description('Run install project scripts')
+  .action(require('./install.js'));
 
 program
   .command('createUser [new?]')
