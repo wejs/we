@@ -37,6 +37,6 @@ module.exports = function run() {
       we.log.error('Error on set user as admin', err);
     }
     // end / exit
-    process.exit();
+    we.exit(function () { process.exit(); });
   }
 };

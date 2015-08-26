@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Load all we.js features and start node.js console.
  * see: https://nodejs.org/api/repl.html
