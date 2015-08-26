@@ -73,6 +73,8 @@ module.exports = function run() {
         async.each(localeNames, function (name, next) {
           var file = path.resolve(projectLocalesFolder, name+'.json');
 
+          projectLocales[name] = sortLocale(projectLocales[name]);
+
           jsonfile.writeFile(file , projectLocales[name], {spaces: 2}, next);
         }, doneAll);
       }
