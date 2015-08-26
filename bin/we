@@ -41,6 +41,11 @@ program
   .action(require('./install.js'));
 
 program
+  .command('console')
+  .description('Bootstra we.js and start node.js console. see: https://nodejs.org/api/repl.html')
+  .action(require('./console'));
+
+program
   .command('createUser [new?]')
   .description('')
   .action(require('./create-user'));
