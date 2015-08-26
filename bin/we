@@ -70,6 +70,11 @@ program
   .description('List all routes in current project')
   .action(require('./routes.js'));
 
+program
+  .command('loadLocales')
+  .description('Load locales from plugins, merge in project and sort locale strings')
+  .action(require('./loadLocales.js'));
+
 // Don't balk at unknown options
 program.unknownOption = NOOP;
 
