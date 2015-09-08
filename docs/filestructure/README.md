@@ -1,5 +1,3 @@
-#File structure
-
 ## Project ( app ) file structure
 ```
 server/ #( project server sider folder )

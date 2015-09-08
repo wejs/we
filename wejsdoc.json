@@ -22,6 +22,10 @@
           "title": "Configuration",
           "file": "features/configuration.md"
         },
+        "hooks-events": {
+          "title": "Hooks and events",
+          "file": "features/hooks-and-events-order.md"
+        },
         "routes": {
           "title": "Routes",
           "file": "features/routes.md"
