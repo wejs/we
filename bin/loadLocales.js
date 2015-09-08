@@ -54,7 +54,7 @@ module.exports = function run() {
               projectLocalesFolder
             );
             // create the folder if not exists
-            mkdirp(projectLocalesFolder, function (err) {
+            we.utils.mkdirp(projectLocalesFolder, function (err) {
               if (err) return next(err);
 
               next();
@@ -76,7 +76,7 @@ module.exports = function run() {
           projectLocales[name] = sortLocale(projectLocales[name]);
 
           jsonfile.writeFile(file , projectLocales[name], {spaces: 2}, next);
-        }, doneAll);
+        }, done);
       }
     ], doneAll);
   });
