@@ -27,7 +27,6 @@ module.exports = function run() {
         }
 
         we.log.info('resetUrl>>', token.getResetUrl());
-        open(token.getResetUrl());
         return doneAll();
       });
     });
