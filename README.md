@@ -32,13 +32,6 @@ Link: http://wejs.org/docs/we/getstarted
 
 Check: https://github.com/wejs?query=plugin
 
-## How to Run
-
-In terminal tip:
-
-```sh
-node .
-```
 
 ## How to Test
 
@@ -56,6 +49,8 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 ## Build with:
 * Node.js - http://nodejs.org/
+* Expres.js
+* Sequelize 
 * Mysql ( by default )
 * [Love](http://www.lovecalculator.com/)
 
@@ -63,7 +58,11 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 > * Team: https://github.com/orgs/wejs/people
 > * Contributors: https://github.com/wejs/we/graphs/contributors
-> * Sails.js  http://sailsjs.org - some logic get from sails.js
+> * Sails.js  http://sailsjs.org - some logic get from sails.js 
+
+## Thanks
+
+And thanks to colaborators, sails.js and node.js community by creating open modules where you can read, learn and reuse
 
 ## Copyright and license
 
