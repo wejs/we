@@ -79,6 +79,11 @@ program
   .description('Load locales from plugins, merge in project and sort locale strings')
   .action(require('./loadLocales.js'));
 
+program
+  .command('cron')
+  .description('Run project and plugin cron tasks')
+  .action(require('./cron.js'));
+
 // Don't balk at unknown options
 program.unknownOption = NOOP;
 
