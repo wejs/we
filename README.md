@@ -27,7 +27,7 @@ Link: http://wejs.org/docs/we/getstarted
 > * **Hack it!** and give feedback, we fix and then we.js becomes more secure ;)
 > * Or spread to the world!
 
-***If want see or test a We.js live example access: http://wejs.org/*** :eyes:
+***If want see or test a We.js live example access: http://wejs.org/ *** :eyes:
 
 
 ## Avaible plugins
@@ -66,6 +66,6 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 And thanks to colaborators, sails.js and node.js community by creating open modules where you can read, learn and reuse
 
-## Copyright and license
+## License
 
-Copyright 2013-2015 Alberto Souza <alberto.souza.99@gmail.com> and contributors, under [the MIT license](LICENSE).
+[the MIT license](LICENSE).
