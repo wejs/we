@@ -22,14 +22,16 @@ module.exports = function run() {
   });
 
   function sync() {
-    we.db.defaultConnection.sync({force: true}).then(doneAll);
+    we.db.defaultConnection.sync({force: true}).then(function(){
+      doneAll();
+    }).catch(doneAll);
   }
 
   function doneAll(err) {
     if ( err ) {
       we.log.error('Error on reset database', err);
     } else {
-      we.log.info('Database reset done', err);
+      we.log.info('Database reset done');
     }
     // end / exit
     process.exit();
