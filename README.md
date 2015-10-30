@@ -35,7 +35,7 @@ Link: http://wejs.org/docs/we/getstarted
 
 ***If want see or test a We.js live example access: http://wejs.org/ *** :eyes:
 
-## Community
+## Suport
 
 - Google groups and email newsletter: https://groups.google.com/forum/#!forum/we-js
 - We.js twitter: https://twitter.com/we_js
