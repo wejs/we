@@ -1,4 +1,4 @@
-# We.js ;) *beta*
+# We.js ;)
 
 [![Join the chat at https://gitter.im/wejs/we](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wejs/we?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -35,7 +35,7 @@ Link: http://wejs.org/docs/we/getstarted
 
 ***If want see or test a We.js live example access: http://wejs.org/ *** :eyes:
 
-## Community
+## Suport
 
 - Google groups and email newsletter: https://groups.google.com/forum/#!forum/we-js
 - We.js twitter: https://twitter.com/we_js
@@ -72,12 +72,14 @@ mocha test/bootstrap.js test/**/*.test.js -g '/auth/1/change-password'
 
 > * Team: https://github.com/orgs/wejs/people
 > * Contributors: https://github.com/wejs/we/graphs/contributors
+> * We.js site: http://wejs.org
 > * Sails.js http://sailsjs.org - thanks for sails.js team and contributors how make a lot of open source code how help to learn and build the old we.js v0.2.x (v0.3.x dont use sails.js but have some related logic)
 
 ## Thanks
 
-And thanks to colaborators, sails.js and node.js community by creating open modules where you can read, learn and reuse
+And thanks to colaborators and node.js community by creating open source modules where everyone can read, learn and reuse.
 
 ## License
 
-[the MIT license](LICENSE).
+[the MIT license](LICENSE.md).
+
