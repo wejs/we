@@ -25,7 +25,7 @@ process.argv = _.map(process.argv, function(arg) {
 // $ we version (--version synonym)
 program
   .command('version')
-  .description('')
+  .description('Show we.js cli version')
   .action(program.versionInformation);
 
 // check project status
@@ -42,12 +42,12 @@ program
 
 program
   .command('createUser [new?]')
-  .description('')
+  .description('Create a new user in current project')
   .action(require('./create-user'));
 
 program
   .command('setUserAsAdmin [id]')
-  .description('')
+  .description('Set one user as admin with user id')
   .action(require('./set-user-as-admin'));
 
 program
