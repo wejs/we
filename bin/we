@@ -7,10 +7,6 @@
 var _ = require('lodash');
 var program = require('./_commander');
 var package = require('../package.json');
-var NOOP = function() {
-  console.error('Command not found: ', program.args[0]);
-  console.error('Use "we" command to show all avaible commands');
-};
 
 program
   .version(package.version, '-v, --version');
@@ -85,7 +81,15 @@ program
   .action(require('./cron.js'));
 
 // Don't balk at unknown options
-program.unknownOption = NOOP;
+program.unknownOption = function() {
+  console.error('Command not found: ', program.args[0]);
+  console.error('Use "we" command to show all avaible commands');
+};
+
+// 404
+program
+  .command('*')
+  .action(program.unknownOption);
 
 program.parse(process.argv);
 
