@@ -12,11 +12,12 @@ module.exports = function run() {
   we = helpers.getWe();
   var projectFolder = process.cwd();
 
-  we.bootstrap({database: { resetAllData: true }} , function(err, we) {
+  we.bootstrap({
+    skipInstall: true
+  }, function(err, we) {
     if (err) return doneAll(err);
-
     var dbC = we.db.loadDatabaseConfig( projectFolder );
-    var configs = dbC[we.env];
+    // var configs = dbC[we.env];
 
     sync();
   });
