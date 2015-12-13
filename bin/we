@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies
+ * Main we cli commands file
  */
 
+// Module dependencies
 var _ = require('lodash');
 var program = require('./_commander');
 var package = require('../package.json');
@@ -46,14 +47,38 @@ program
   .action(require('./create-user'));
 
 program
-  .command('setUserAsAdmin [id]')
-  .description('Set one user as admin with user id')
-  .action(require('./set-user-as-admin'));
+  .command('cron')
+  .description('Run project and plugin cron tasks')
+  .action(require('./cron.js'));
+
+program
+  .command('loadLocales')
+  .description('Load locales from plugins, merge in project and sort locale strings')
+  .action(require('./loadLocales.js'));
 
 program
   .command('resetDB')
   .description('Delete and recreate all tables')
   .action(require('./reset-database.js'));
+
+program
+  .command('routes')
+  .option('-m, --method [name]', 'Filter by method name: get, put, post, delete, options ...')
+  .option('-c, --controller [name]', 'Filter by controller name')
+  .option('-M, --model [name]', 'Filter by model name')
+  .option('-f, --find [path]', 'Find route starting with [path]')
+  .description('List all routes in current project')
+  .action(require('./routes.js'));
+
+program
+  .command('run')
+  .description('Run the we.js project in current folder')
+  .action(require('./run.js'));
+
+program
+  .command('setUserAsAdmin [id]')
+  .description('Set one user as admin with user id')
+  .action(require('./set-user-as-admin'));
 
 program
   .command('uli [id]')
@@ -65,31 +90,15 @@ program
   .description('Run plugin update functions in current project')
   .action(require('./update.js'));
 
-program
-  .command('routes')
-  .description('List all routes in current project')
-  .action(require('./routes.js'));
-
-program
-  .command('loadLocales')
-  .description('Load locales from plugins, merge in project and sort locale strings')
-  .action(require('./loadLocales.js'));
-
-program
-  .command('cron')
-  .description('Run project and plugin cron tasks')
-  .action(require('./cron.js'));
-
-// Don't balk at unknown options
-program.unknownOption = function() {
-  console.error('Command not found: ', program.args[0]);
-  console.error('Use "we" command to show all avaible commands');
-};
-
 // 404
 program
   .command('*')
-  .action(program.unknownOption);
+  .description(' ')
+  .action(function unknownOption() {
+    console.error('Command not found: ', program.args[0]);
+    console.error('Use "we" command to show all avaible commands');
+  }
+);
 
 program.parse(process.argv);
 
