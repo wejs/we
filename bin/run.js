@@ -5,14 +5,15 @@
  */
 
 var helpers = require('../lib/helpers');
-var exec = require('child_process').exec;
-var we;
 
 module.exports = function run() {
-
-}
-
-function doneAll(err) {
-  if ( err ) we.log.error('Error:', err);
-  we.exit(function(){ process.exit(); });
+  if (helpers.checkIfAreInProject()) {
+    require(process.cwd());
+  } else {
+    console.error(
+      'we-core not found, possible problems: \n\n'+
+      '1- run "npm install" for install we-core and others dependencies in your project\n'+
+      '2- "we run" we.js cli command only works in project folder\n'
+    );
+  }
 }

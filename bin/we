@@ -72,6 +72,8 @@ program
 
 program
   .command('run')
+  .option('-d, --dev', 'Run project in development enviroment mode *default')
+  .option('-p, --prod', 'Run project in production enviroment mode')
   .description('Run the we.js project in current folder')
   .action(require('./run.js'));
 
