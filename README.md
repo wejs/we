@@ -7,7 +7,7 @@
 
 > this repository (wejs/we) have the We.js CLI code
 
-Status:  **maintained and in active development**
+Status:  **maintained**
 
 ## About
 
