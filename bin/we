@@ -78,6 +78,13 @@ program
   .action(require('./run.js'));
 
 program
+  .command('go')
+  .option('-d, --dev', 'Run project in development enviroment mode *default')
+  .option('-p, --prod', 'Run project in production enviroment mode')
+  .description('Alias for "we run" command')
+  .action(require('./run.js'));
+
+program
   .command('setUserAsAdmin [id]')
   .description('Set one user as admin with user id')
   .action(require('./set-user-as-admin'));
