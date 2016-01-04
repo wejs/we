@@ -3,6 +3,7 @@
 [![Join the chat at https://gitter.im/wejs/we](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wejs/we?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > For information and documentation see: http://wejs.org
+
 > Examples are avaible in https://github.com/wejs-examples github organization
 
 > this repository (wejs/we) have the We.js CLI code
