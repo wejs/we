@@ -3,8 +3,7 @@
   "version": "0.3.14",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs",
   "scripts": {
-    "prepublish": "npm prune",
-    "test": "./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js"
+    "prepublish": "npm prune"
   },
   "main": "bin/we",
   "bin": {
