@@ -16,7 +16,7 @@ Status:  **maintained**
 
 ## We.js features:
 
-Link: http://wejs.org/docs/we/features
+Link: http://wejs.org/#features
 
 ## How to install?
 
