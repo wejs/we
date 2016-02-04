@@ -78,6 +78,12 @@ program
   .action(require('./run.js'));
 
 program
+  .command('test')
+  .option('-g, --grep [string]', 'Only run tests with this string in name or description')
+  .description('Run tests in current folder')
+  .action(require('./test.js'));
+
+program
   .command('go')
   .option('-d, --dev', 'Run project in development enviroment mode *default')
   .option('-p, --prod', 'Run project in production enviroment mode')
