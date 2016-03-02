@@ -10,6 +10,8 @@
 
 Status:  **maintained**
 
+[**Changelog**](https://github.com/wejs/we-core/blob/master/CHANGELOG.md)
+
 ## About
 
 > We.js is a node.js framework for create real time applications, sites or blogs!
