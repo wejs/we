@@ -10,15 +10,11 @@ var we;
 
 module.exports = function run() {
   we = helpers.getWe();
-  var projectFolder = process.cwd();
 
   we.bootstrap({
     skipInstall: true
-  }, function(err, we) {
+  }, function(err) {
     if (err) return doneAll(err);
-    var dbC = we.db.loadDatabaseConfig( projectFolder );
-    // var configs = dbC[we.env];
-
     sync();
   });
 
