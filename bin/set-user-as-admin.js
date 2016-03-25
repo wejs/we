@@ -19,16 +19,11 @@ module.exports = function run() {
 
     we.db.models.user.findById(uid)
     .then( function (user) {
-      // check if the role exists
-      we.db.models.role.find({ where:
-        { name: 'administrator' }
-      }).then(function (role) {
-        if (!role) return doneAll('administrator role not found');
-        user.addRole(role).then(function() {
-          we.log.info('DONE role ' +role.name+ ' set to user ' +user.username);
-          return doneAll();
-        });
-      });
+      user.addRole('administrator')
+      .then(function() {
+        we.log.info('DONE role administrator set to user ' +user.username);
+        return doneAll();
+      }).catch(doneAll);
     });
   });
 
