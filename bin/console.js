@@ -33,7 +33,7 @@ module.exports = function run() {
 
   function doneAll(err) {
     if ( err ) {
-      we.log.error('Error we.js console:', err);
+      we.log.error('Error in we.js CLI:', err);
     }
 
     we.exit(function () {

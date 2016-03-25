@@ -71,6 +71,12 @@ program
   .action(require('./routes.js'));
 
 program
+  .command('export-roles')
+  .option('-c, --console', 'Print roles in console and dont save in file')
+  .description('Export all project roles to file')
+  .action(require('./export-roles.js'));
+
+program
   .command('run')
   .option('-d, --dev', 'Run project in development enviroment mode *default')
   .option('-p, --prod', 'Run project in production enviroment mode')
