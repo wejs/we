@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Reset project database
+ * Sync database
  *
  */
 
@@ -26,9 +26,9 @@ module.exports = function run() {
 
   function doneAll(err) {
     if ( err ) {
-      we.log.error('Error on reset database', err);
+      we.log.error('Error on sync database', err);
     } else {
-      we.log.info('Database reset done');
+      we.log.info('Database sync done');
     }
     // end / exit
     process.exit();

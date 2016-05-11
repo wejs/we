@@ -57,9 +57,14 @@ program
   .action(require('./loadLocales.js'));
 
 program
-  .command('resetDB')
-  .description('Delete and recreate all tables')
-  .action(require('./reset-database.js'));
+  .command('syncDB')
+  .description('Delete all models data and resync model tables')
+  .action(require('./syncDB.js'));
+
+program
+  .command('dropDB')
+  .description('Drop and recreate the database')
+  .action(require('./dropDB.js'));
 
 program
   .command('routes')
