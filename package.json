@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs",
   "scripts": {
-    "prepublish": "npm prune"
+    "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b "
   },
   "main": "bin/we",
   "bin": {
