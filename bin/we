@@ -82,6 +82,16 @@ program
   .action(require('./export-roles.js'));
 
 program
+  .command('send-email')
+  .option('-t, --to <email>', 'Email how will receive the text. Ex: contact.wejs.org')
+  .option('-H, --html [html]', 'Email content in html format')
+  .option('-s, --text [text]', 'Email content in text format')
+  .option('-T, --template [template]', 'Template name. keep empty to send without template')
+  .option('-V, --variables [variables]', 'Template variables, locals. Set it as string with JSON.stringify()')
+  .description('Send one email with current project configuration')
+  .action(require('./send-email.js'));
+
+program
   .command('run')
   .option('-d, --dev', 'Run project in development enviroment mode *default')
   .option('-p, --prod', 'Run project in production enviroment mode')

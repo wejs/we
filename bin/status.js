@@ -58,6 +58,14 @@ module.exports = function run() {
     var rootAttrNames = Object.keys(we);
     str += 'Attrs: \nwe.' + rootAttrNames.join(' we.');
 
+    str += '\n\n';
+
+    var emails = Object.keys(we.email.templates);
+    str += emails.length + ' Emails: \nwe.email.templates.' +
+                              emails.join(' we.email.templates.');
+
+    str += '\n\n';
+
     console.log(str);
 
     doneAll();
