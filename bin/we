@@ -9,8 +9,7 @@ var _ = require('lodash');
 var program = require('./_commander');
 var package = require('../package.json');
 
-program
-  .version(package.version, '-v, --version');
+program.version(package.version, '-v, --version');
 //
 // Normalize version argument, i.e.
 //

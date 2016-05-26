@@ -43,13 +43,9 @@
     "require-all": "^1.1.0",
     "sget": "^0.1.5"
   },
-  "devDependencies": {
-    "should": "~5.0.1",
-    "mocha": "~2.1.0",
-    "chai": "^2.1.0"
-  },
+  "devDependencies": {},
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 4.0"
   },
   "files": [
     "lib",
