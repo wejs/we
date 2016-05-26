@@ -22,10 +22,13 @@ module.exports = function run() {
 
     str += '\n\n';
 
-    var themesLoaded = Object.keys(we.view.themes);
-    str += themesLoaded.length + ' themes:\n' + themesLoaded.join(', ');
+    if (we.view && we.view.themes) {
+      // only show themes list if we-plugin-view is installed
+      var themesLoaded = Object.keys(we.view.themes);
+      str += themesLoaded.length + ' themes:\n' + themesLoaded.join(', ');
 
-    str += '\n\n';
+      str += '\n\n';
+    }
 
     var modelNames = Object.keys(we.db.models);
     str += modelNames.length + ' models:\n' + modelNames.join(', ');
