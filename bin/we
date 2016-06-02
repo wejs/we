@@ -8,6 +8,7 @@
 var _ = require('lodash');
 var program = require('./_commander');
 var package = require('../package.json');
+var helpers = require('../lib/helpers.js');
 
 program.version(package.version, '-v, --version');
 //
@@ -28,103 +29,6 @@ program
   .description('Show we.js cli version')
   .action(program.versionInformation);
 
-// check project status
-program
-  .command('status')
-  .description('Get project status')
-  .action(require('./status'));
-
-// run REPL console
-program
-  .command('console')
-  .description('Bootstrap we.js and start node.js console. see: https://nodejs.org/api/repl.html')
-  .action(require('./console'));
-
-program
-  .command('createUser [new?]')
-  .description('Create a new user in current project')
-  .action(require('./create-user'));
-
-program
-  .command('cron')
-  .description('Run project and plugin cron tasks')
-  .action(require('./cron.js'));
-
-program
-  .command('loadLocales')
-  .description('Load locales from plugins, merge in project and sort locale strings')
-  .action(require('./loadLocales.js'));
-
-program
-  .command('syncDB')
-  .description('Delete all models data and resync model tables')
-  .action(require('./syncDB.js'));
-
-program
-  .command('dropDB')
-  .description('Drop and recreate the database')
-  .action(require('./dropDB.js'));
-
-program
-  .command('routes')
-  .option('-m, --method [name]', 'Filter by method name: get, put, post, delete, options ...')
-  .option('-c, --controller [name]', 'Filter by controller name')
-  .option('-M, --model [name]', 'Filter by model name')
-  .option('-f, --find [path]', 'Find route starting with [path]')
-  .description('List all routes in current project')
-  .action(require('./routes.js'));
-
-program
-  .command('export-roles')
-  .option('-c, --console', 'Print roles in console and dont save in file')
-  .description('Export all project roles to file')
-  .action(require('./export-roles.js'));
-
-program
-  .command('send-email')
-  .option('-t, --to <email>', 'Email how will receive the text. Ex: contact.wejs.org')
-  .option('-H, --html [html]', 'Email content in html format')
-  .option('-s, --text [text]', 'Email content in text format')
-  .option('-T, --template [template]', 'Template name. keep empty to send without template')
-  .option('-V, --variables [variables]', 'Template variables, locals. Set it as string with JSON.stringify()')
-  .description('Send one email with current project configuration')
-  .action(require('./send-email.js'));
-
-program
-  .command('run')
-  .option('-d, --dev', 'Run project in development enviroment mode *default')
-  .option('-p, --prod', 'Run project in production enviroment mode')
-  .description('Run the we.js project in current folder')
-  .action(require('./run.js'));
-
-program
-  .command('test')
-  .option('-g, --grep [string]', 'Only run tests with this string in name or description')
-  .description('Run tests in current folder')
-  .action(require('./test.js'));
-
-program
-  .command('go')
-  .option('-d, --dev', 'Run project in development enviroment mode *default')
-  .option('-p, --prod', 'Run project in production enviroment mode')
-  .description('Alias for "we run" command')
-  .action(require('./run.js'));
-
-program
-  .command('setUserAsAdmin [id]')
-  .description('Set one user as admin with user id')
-  .action(require('./set-user-as-admin'));
-
-program
-  .command('uli [id]')
-  .description('Get one time login url')
-  .action(require('./uli.js'));
-
-program
-  .command('update')
-  .description('Run plugin update functions in current project')
-  .action(require('./update.js'));
-
 // 404
 program
   .command('*')
@@ -134,6 +38,14 @@ program
     console.error('Use "we" command to show all avaible commands');
   }
 );
+
+var commands = {
+  cli: helpers.loadCLICommands(),
+  project: helpers.loadProjectCommands(),
+  plugins: helpers.loadProjectPluginsCommands()
+};
+
+helpers.runCommandFNs(commands, program);
 
 program.parse(process.argv);
 
