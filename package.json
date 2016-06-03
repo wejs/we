@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Framework for create node.js projects like real time social networks, sites or blogs",
   "scripts": {
     "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b "
