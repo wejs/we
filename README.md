@@ -24,6 +24,10 @@ Link: http://wejs.org/#features
 
 Link: http://wejs.org/docs/we/getstarted
 
+## Test one simple blog project with heroku deploy:
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/wejs-examples/blog-heroku/tree/master)
+
 ## Contributing
 
 **Have a question, found an error or wants to help?**
