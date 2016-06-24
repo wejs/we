@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Extensible node.js MVC framework",
   "scripts": {},
   "main": "bin/we",
