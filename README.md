@@ -56,18 +56,16 @@ Link: https://wejs.org/docs/we/getstarted.installation
 
 ***If want see or test a We.js live example access: http://wejs.org/ *** :eyes:
 
-## Suport
+## Get suport and help
 
 - Google groups and email newsletter: https://groups.google.com/forum/#!forum/we-js
 - We.js twitter: https://twitter.com/we_js
 - Gitter chat: https://gitter.im/wejs/we
-- Github repo: https://github.com/wejs/we 
+- Github repo: https://github.com/wejs/we
 
-## Avaible plugins
+## Donate and help
 
-```sh
-npm search we-plugin-
-```
+Link: https://wejs.org/suport
 
 ## How to Test
 
