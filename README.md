@@ -2,9 +2,9 @@
 
 [![Join the chat at https://gitter.im/wejs/we](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wejs/we?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-For information and documentation see: http://wejs.org
+We.js is a extensible node.js MVC framework
 
-Examples are avaible in https://github.com/wejs-examples github organization
+For information and documentation see: http://wejs.org
 
 **This repository (wejs/we) have the We.js CLI code**
 
@@ -12,37 +12,35 @@ Status:  **maintained**
 
 [**Changelog**](https://github.com/wejs/we-core/blob/master/CHANGELOG.md)
 
-## About
+## Examples: 
 
-We.js is a extensible node.js MVC framework
-
-## We.js features:
-
-Link: http://wejs.org/#features
+- We.js + Vue.js: https://github.com/albertosouza/twitter-prizewinner
+- We.js with views and heroku configuration example: https://github.com/wejs-examples/blog-heroku
+- Events portal example: https://github.com/wejs-examples/events.wejs.org
 
 ## How to install?
 
-Link: http://wejs.org/docs/we/getstarted
+Link: https://wejs.org/docs/we/getstarted.installation
 
 ## Test one simple blog project with heroku deploy:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/wejs-examples/blog-heroku/tree/master)
 
 ##Roadmap:
-    Push we-core, we and generator-wejs to 100% code coverage
-    Create new examples for:
-        Angular.js + We.js
-        Ember.js + We.js
-        React + We.js
-        Vue.js + We.js (improve)
-    Improve the documentation
-    Improve plugins:
-        we-plugin-file
-        we-plugin-passport-jwt
-    Research and develop the We.js CMF with one client side framework. ref https://github.com/wejs/we/issues/158
-    Create new examples of deploy in many hosting providers
-    Improve we-core, we and generator-wejs
-    Build one online course about We.js with text, images and gifs.
+- Push we-core, we and generator-wejs to 100% code coverage
+- Create new examples for:
+  - Angular.js + We.js
+  - Ember.js + We.js
+  - React + We.js
+  - Vue.js + We.js (improve)
+- Improve the documentation
+- Improve plugins:
+  - we-plugin-file
+  - we-plugin-passport-jwt
+- Research and develop the We.js CMF with one client side framework. ref https://github.com/wejs/we/issues/158
+- Create new examples of deploy in many hosting providers
+- Improve we-core, we and generator-wejs
+- Build one online course about We.js with text, images and gifs.
 
 ## Contributing
 
