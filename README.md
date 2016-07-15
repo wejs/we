@@ -75,6 +75,10 @@ mocha test/bootstrap.js test/\*\*/\*.test.js -g '/auth/1/change-password'
 * Sequelize 
 * [Love](http://www.lovecalculator.com/)
 
+## Security Vulnerabilities
+
+If you discover a security vulnerability within We.js, please send an e-mail to Alberto Souza at contact@wejs.org. All security vulnerabilities will be promptly addressed.
+
 ## Links
 
 > * Team: https://github.com/orgs/wejs/people
