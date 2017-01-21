@@ -1,7 +1,7 @@
 {
   "name": "we",
   "version": "1.5.3",
-  "description": "Extensible node.js MVC framework",
+  "description": "Powerfull We.js CLI",
   "scripts": {},
   "main": "bin/we",
   "bin": {
@@ -14,10 +14,7 @@
     "cli",
     "api"
   ],
-  "author": {
-    "name": "Alberto Souza",
-    "email": "contato@albertosouza.ner"
-  },
+  "author": "Alberto Souza <contato@albertosouza.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wejs/we/issues"
@@ -42,5 +39,7 @@
     "lib",
     "bin"
   ],
-  "preferGlobal": true
+  "engines": {
+    "node": ">=6.0.0"
+  }
 }
