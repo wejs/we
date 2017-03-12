@@ -20,7 +20,7 @@
   },
   "homepage": "http://wejs.org",
   "dependencies": {
-    "async": "^2.1.4",
+    "async": "^2.1.5",
     "cli-table": "^0.3.1",
     "commander": "~2.9.0",
     "jsonfile": "^2.4.0",
@@ -28,7 +28,7 @@
     "mkdirp": "0.5.1",
     "nopt": "^4.0.1",
     "open": "0.0.5",
-    "require-all": "^2.1.0",
+    "require-all": "^2.2.0",
     "sget": "^0.1.5"
   },
   "engines": {
