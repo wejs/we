@@ -1,8 +1,7 @@
 {
   "name": "we",
   "version": "1.5.3",
-  "description": "Powerfull We.js CLI",
-  "scripts": {},
+  "description": "We.js CLI",
   "main": "bin/we",
   "bin": {
     "we": "./bin/we"
