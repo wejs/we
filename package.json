@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "We.js CLI",
   "main": "bin/we",
   "bin": {
@@ -32,13 +32,10 @@
     "sget": "^0.1.5"
   },
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=6.0.0"
   },
   "files": [
     "lib",
     "bin"
-  ],
-  "engines": {
-    "node": ">=6.0.0"
-  }
+  ]
 }
