@@ -2,8 +2,8 @@
  * Module dependencies
  */
 
-var _ = require('lodash');
-var program = require('commander');
+const _ = require('lodash'),
+  program = require('commander');
 
 
 //
@@ -14,7 +14,7 @@ var program = require('commander');
 
 // Allow us to display help(), but omit the wildcard (*) command.
 program.Command.prototype.usageMinusWildcard =
-  program.usageMinusWildcard = function() {
+  program.usageMinusWildcard = function usageMinusWildcard() {
     program.commands = _.reject(program.commands, {
       _name: '*'
     });
@@ -24,7 +24,7 @@ program.Command.prototype.usageMinusWildcard =
 // Force commander to display version information.
 program.Command.prototype.versionInformation =
   program.versionInformation =
-  function() {
+  function versionInformation() {
     program.emit('version');
 };
 
