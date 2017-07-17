@@ -12,7 +12,7 @@ Status:  **maintained**
 
 [**Changelog**](https://github.com/wejs/we-core/blob/master/CHANGELOG.md)
 
-## Examples: 
+## Examples:
 
 - We.js + Vue.js: https://github.com/albertosouza/twitter-prizewinner
 - We.js with views and heroku configuration example: https://github.com/wejs-examples/blog-heroku
@@ -26,7 +26,7 @@ Link: https://wejs.org/docs/we/getstarted.installation
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/wejs-examples/blog-heroku/tree/master)
 
-##Roadmap:
+## Roadmap:
 - Push we-core, we and generator-wejs to 100% code coverage
 - Create new examples for:
   - Angular.js + We.js
@@ -52,7 +52,7 @@ Link: https://wejs.org/docs/we/getstarted.installation
 > * **Hack it!** and give feedback, we fix and then we.js becomes more secure ;)
 > * Or spread to the world!
 
-> And see the [CONTRIBUTING.md](CONTRIBUTING.md) file 
+> And see the [CONTRIBUTING.md](CONTRIBUTING.md) file
 
 ***If want see or test a We.js live example access: http://wejs.org/ *** :eyes:
 
@@ -81,10 +81,18 @@ npm test
 mocha test/bootstrap.js test/\*\*/\*.test.js -g '/auth/1/change-password'
 ```
 
+## How to test we.js cli?
+
+Example:
+```sh
+DATABASE_NAME='we_test' DATABASE_USERNAME='root' DATABASE_PASSWORD='project' npm test
+```
+
+
 ## Build with:
 * Node.js - http://nodejs.org/
 * Express.js
-* Sequelize 
+* Sequelize
 * [Love](http://www.lovecalculator.com/)
 
 ## Links
