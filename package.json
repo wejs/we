@@ -6,6 +6,10 @@
   "bin": {
     "we": "./bin/we"
   },
+  "scripts": {
+    "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b ",
+    "postinstall": "node test/install_example_project_after_install.js"
+  },
   "repository": "wejs/we",
   "keywords": [
     "wejs",
@@ -37,5 +41,9 @@
   "files": [
     "lib",
     "bin"
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "we-project-blog-demo": "wejs-examples/blog-heroku"
+  }
 }
