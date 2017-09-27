@@ -1,11 +1,14 @@
 {
   "name": "we",
-  "version": "1.5.3",
-  "description": "Extensible node.js MVC framework",
-  "scripts": {},
+  "version": "1.5.6",
+  "description": "We.js CLI",
   "main": "bin/we",
   "bin": {
     "we": "./bin/we"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b ",
+    "postinstall": "node test/install_example_project_after_install.js"
   },
   "repository": "wejs/we",
   "keywords": [
@@ -14,33 +17,33 @@
     "cli",
     "api"
   ],
-  "author": {
-    "name": "Alberto Souza",
-    "email": "contato@albertosouza.ner"
-  },
+  "author": "Alberto Souza <contato@albertosouza.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wejs/we/issues"
   },
   "homepage": "http://wejs.org",
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^2.5.0",
     "cli-table": "^0.3.1",
-    "commander": "~2.6.0",
-    "jsonfile": "^2.2.1",
-    "lodash": "^3.3.1",
-    "mkdirp": "0.5.0",
-    "nopt": "^3.0.1",
+    "commander": "~2.11.0",
+    "jsonfile": "^3.0.1",
+    "lodash": "^4.17.4",
+    "mkdirp": "0.5.1",
+    "nopt": "^4.0.1",
     "open": "0.0.5",
-    "require-all": "^1.1.0",
+    "require-all": "^2.2.0",
     "sget": "^0.1.5"
   },
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=6.0.0"
   },
   "files": [
     "lib",
     "bin"
   ],
-  "preferGlobal": true
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "we-project-blog-demo": "wejs-examples/blog-heroku"
+  }
 }

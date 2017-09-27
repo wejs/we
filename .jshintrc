@@ -1,13 +1,12 @@
-{ "asi": true
+{ "asi": false
 , "boss": true
 , "browser": true
 , "camelcase": false
 , "curly": false
-, "devel": false
 , "devel": true
 , "eqeqeq": false
 , "eqnull": true
-, "es5": false
+, "esversion": 6
 , "evil": false
 , "immed": false
 , "indent": 2
