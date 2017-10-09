@@ -1,6 +1,6 @@
 {
   "name": "we",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "We.js CLI",
   "main": "bin/we",
   "bin": {
