@@ -7,8 +7,7 @@
     "we": "./bin/we"
   },
   "scripts": {
-    "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b ",
-    "postinstall": "node test/install_example_project_after_install.js"
+    "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js -b "
   },
   "repository": "wejs/we",
   "keywords": [
