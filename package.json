@@ -23,11 +23,11 @@
   },
   "homepage": "http://wejs.org",
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^2.6.1",
     "cli-table": "^0.3.1",
-    "commander": "~2.11.0",
+    "commander": "~2.15.1",
     "jsonfile": "^4.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "mkdirp": "0.5.1",
     "nopt": "^4.0.1",
     "open": "0.0.5",
@@ -41,7 +41,7 @@
     "bin"
   ],
   "devDependencies": {
-    "mocha": "^4.0.1",
+    "mocha": "^5.2.0",
     "we-project-blog-demo": "wejs-examples/blog-heroku"
   }
 }
