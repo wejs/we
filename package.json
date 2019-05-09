@@ -23,15 +23,15 @@
   },
   "homepage": "http://wejs.org",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.2",
     "cli-table": "^0.3.1",
-    "commander": "~2.15.1",
-    "jsonfile": "^4.0.0",
-    "lodash": "^4.17.10",
+    "commander": "~2.20.0",
+    "jsonfile": "^5.0.0",
+    "lodash": "^4.17.11",
     "mkdirp": "0.5.1",
     "nopt": "^4.0.1",
-    "open": "0.0.5",
-    "require-all": "^2.2.0"
+    "open": "6.2.0",
+    "require-all": "^3.0.0"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -41,7 +41,7 @@
     "bin"
   ],
   "devDependencies": {
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.4",
     "we-project-blog-demo": "wejs-examples/blog-heroku"
   }
 }
