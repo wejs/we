@@ -41,7 +41,7 @@
     "bin"
   ],
   "devDependencies": {
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "we-project-blog-demo": "wejs-examples/blog-heroku"
   }
 }
